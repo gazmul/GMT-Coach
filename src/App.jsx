@@ -359,13 +359,15 @@ const WORKOUT_LIBRARY = [
 ];
 
 const STEPS=[
-  {id:"trainingAge",title:"Training Age",sub:"How long have you trained consistently?",type:"select",opts:["1-2 years","2-4 years","4-7 years","7+ years"]},
+  {id:"trainingAge",title:"Training Age",sub:"How long have you trained consistently?",type:"select",opts:["Less than 1 year","1-2 years","2-4 years","4-7 years","7+ years"]},
+  {id:"age",title:"Your Age",sub:"Age significantly shapes how we programme recovery, intensity and volume.",type:"select",opts:["16-20","21-29","30-39","40-49","50+"]},
   {id:"gender",title:"One More Thing",sub:"This shapes how we structure your programme.",type:"select",opts:["Male","Female","Prefer not to say"]},
   {id:"frequency",title:"Weekly Frequency",sub:"How many days per week can you commit?",type:"select",opts:["3 days","4 days","5 days","6 days"]},
-  {id:"goals",title:"Primary Goal",sub:"What is your main training objective?",type:"select",opts:["Hypertrophy (muscle size & density)","Strength (max force output)","Aesthetics (lean, proportional physique)","Body Recomposition (lose fat, build muscle)","Athletic Performance","Glute & Lower Body Focus"]},
-  {id:"benchmarks",title:"Strength Benchmarks",sub:"Approximate 5-rep max. Honest estimates.",type:"inputs",fields:[{key:"squat",label:"Back Squat",unit:"kg"},{key:"bench",label:"Bench Press",unit:"kg"},{key:"deadlift",label:"Deadlift",unit:"kg"},{key:"ohp",label:"OHP",unit:"kg"}]},
-  {id:"limitations",title:"Pain / Limitations",sub:"Select any current concerns. None is fine.",type:"multi",opts:["Lower back","Knees","Shoulders","Hips","Neck","None"]},
-  {id:"recovery",title:"Recovery Baseline",sub:"Honest answers change the programme.",type:"inputs",fields:[{key:"sleep",label:"Avg sleep (hrs/night)",unit:"hrs"},{key:"stress",label:"Daily stress level",unit:"/10"}]},
+  {id:"goals",title:"Your Goals",sub:"Select all that apply. We build your programme around every one.",type:"multi",opts:["Hypertrophy (muscle size & density)","Strength (max force output)","Aesthetics (lean, proportional physique)","Body Recomposition (lose fat, build muscle)","Athletic Performance","Glute & Lower Body Focus"]},
+  {id:"unit",title:"Weight Units",sub:"Choose your preferred unit. You can change this anytime.",type:"select",opts:["kg","lbs"]},
+  {id:"benchmarks",title:"Strength Benchmarks",sub:"Approximate 5-rep max. Honest estimates are fine.",type:"inputs",fields:[{key:"squat",label:"Back Squat"},{key:"bench",label:"Bench Press"},{key:"deadlift",label:"Deadlift"},{key:"ohp",label:"OHP"}]},
+  {id:"limitations",title:"Pain / Limitations",sub:"Select any current concerns. None is perfectly fine.",type:"multi",opts:["Lower back","Knees","Shoulders","Hips","Neck","None"]},
+  {id:"recovery",title:"Recovery Baseline",sub:"Honest answers change the programme.",type:"inputs",fields:[{key:"sleep",label:"Avg sleep per night",unit:"hrs"},{key:"stress",label:"Daily stress level",unit:"/10"}]},
 ];
 const Onboarding=({onComplete})=>{
   const[step,setStep]=useState(0);
@@ -413,7 +415,7 @@ const Onboarding=({onComplete})=>{
               <label style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",display:"block",marginBottom:8}}>{f.label.toUpperCase()}</label>
               <div style={{display:"flex",alignItems:"center",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,overflow:"hidden"}}>
                 <input type="number" placeholder="0" value={fv[f.key]||""} onChange={e=>setFv(v=>({...v,[f.key]:e.target.value}))} style={{flex:1,background:"transparent",border:"none",outline:"none",padding:"16px 20px",color:C.txt,fontSize:20,fontFamily:"'Space Mono',monospace"}}/>
-                <span style={{padding:"0 20px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>{f.unit}</span>
+                <span style={{padding:"0 20px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>{f.unit||ans.unit||"kg"}</span>
               </div>
             </div>
           ))}
@@ -432,7 +434,7 @@ const ALL_DAYS=["MON","TUE","WED","THU","FRI","SAT","SUN"];
 const SESSION_LABELS=["Chest, Shoulders & Triceps","Back, Biceps & Rear Delts","Legs - Quad Dominant","Shoulders & Arms","Chest & Back","Legs - Hamstrings & Glutes","Legs - Glute & Posterior"];
 const DayPicker=({frequency,onConfirm,profile})=>{
   const max=parseInt(frequency)||4;
-  const isFemale=profile?.gender==="Female";
+  const isFemale=profile?.gender==="Female"||(Array.isArray(profile?.goals)&&profile.goals.some(g=>g.includes("Glute")));
   // For female clients, swap quad-dominant leg day for glute-focused
   const sessionLabels=SESSION_LABELS.map(l=>isFemale&&l==="Legs - Quad Dominant"?"Legs - Glute & Posterior":l);
   const[sel,setSel]=useState([]);
@@ -474,6 +476,7 @@ const getLevel=(trainingAge)=>{
   if(trainingAge==="7+ years")return"advanced";
   if(trainingAge==="4-7 years")return"advanced";
   if(trainingAge==="2-4 years")return"intermediate";
+  if(trainingAge==="1-2 years")return"beginner";
   return"beginner";
 };
 
@@ -513,6 +516,7 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
   const rec=profile?.recovery||{};
   const gender=sanitise(profile?.gender||"not specified");
   const isFemale=gender==="Female";
+  const hasGluteGoal=Array.isArray(profile?.goals)&&profile.goals.some(g=>g.includes("Glute"));
   const level=getLevel(profile?.trainingAge);
   const age=sanitise(profile?.trainingAge||"unknown");
   const freq=sanitise(profile?.frequency||"4 days");
@@ -540,13 +544,14 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
     "COMMUNICATION STYLE:",
     "- Direct. Dense. No filler.",
     "- Use we for the programme.",
-    "- Format responses as clean plain paragraphs. No asterisks. No dashes as bullet points. Just sentences.",
+    "- Use proper punctuation always. Use commas, dashes, and full stops correctly. Never leave double spaces instead of a dash.",
+    "- Format responses as clean plain paragraphs. No asterisks. No markdown. Just sentences and paragraphs.",
     "",
     "CLIENT PROFILE:",
     "- Gender: "+gender,
-    "- Training age: "+age+" / Level: "+level.toUpperCase(),
+    "- Age range: "+sanitise(profile?.age||"not specified"),"- Training age: "+age+" / Level: "+level.toUpperCase(),
     "- Frequency: "+freq,
-    "- Goal: "+goal,
+    "- Goals: "+(Array.isArray(profile?.goals)?profile.goals.join(", "):goal),
     "- 5RMs: Squat "+sanitise(b.squat||"?")+"kg, Bench "+sanitise(b.bench||"?")+"kg, Deadlift "+sanitise(b.deadlift||"?")+"kg, OHP "+sanitise(b.ohp||"?")+"kg",
     "- Limitations: "+(lims.length?lims.join(", "):"None"),
     "- Sleep: "+sanitise(rec.sleep||"?")+"hrs, Stress: "+sanitise(rec.stress||"?")+"/10",
@@ -593,6 +598,23 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
     "One question per message. Keep it conversational. Build confidence.",
     "IMPORTANT: When a client says they are ready or confirms equipment, accept it and move forward. Do not interrogate or repeat questions.",
   ];
+  const age_range=sanitise(profile?.age||"");
+  const ageBlock=age_range==="40-49"||age_range==="50+"?[
+    "",
+    "AGE-AWARE PROGRAMMING ("+age_range+"):",
+    "This athlete is in the "+age_range+" range. Key adjustments:",
+    "- Recovery takes longer. Never programme two consecutive high-intensity days.",
+    "- Joint health is paramount. Prioritise tempo, form, and range of motion over load.",
+    "- Hormonal context means progressive overload still works but adaptation is slower.",
+    "- Sleep and stress management are amplified in importance.",
+    "- Warm-up and mobility work are non-negotiable, not optional.",
+  ]:age_range==="16-20"?[
+    "",
+    "AGE-AWARE PROGRAMMING (16-20):",
+    "Young athlete. Prioritise movement quality and habit formation above all else.",
+    "Progressive overload works extremely well at this age. Do not rush to failure training.",
+    "Technique errors at this age become lifelong patterns. Correct them early.",
+  ]:[];
   const ongoingBlock=[
     "",
     "ONGOING MODE: Active programme. Daily coach. Reactive, precise, context-aware.",
@@ -610,7 +632,8 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
   const lines=[
     ...base,
     ...(level==="advanced"?advanced:level==="intermediate"?intermediate:beginner),
-    ...(isFemale?femaleBlock:[]),
+    ...((isFemale||hasGluteGoal)?femaleBlock:[]),
+    ...ageBlock,
     ...workoutBlock,
     ...(introMode?introBlock:ongoingBlock),
   ];
@@ -878,8 +901,8 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
                               <span style={{fontSize:10,color:mc,fontFamily:"'Space Mono',monospace",width:20}}>S{s+1}</span>
                               <input type="number" placeholder={ex.reps?.split("-")[0]||"reps"} value={entry.reps||""} onChange={e=>{e.stopPropagation();updateLog(i,s,"reps",e.target.value);}} style={{width:56,background:C.bdr,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"5px 8px",color:C.txt,fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
                               <span style={{fontSize:10,color:C.dim}}>reps</span>
-                              <input type="number" placeholder="kg" value={entry.weight||""} onChange={e=>{e.stopPropagation();updateLog(i,s,"weight",e.target.value);}} style={{width:56,background:C.bdr,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"5px 8px",color:C.txt,fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
-                              <span style={{fontSize:10,color:C.dim}}>kg</span>
+                              <input type="number" placeholder={profile?.unit||"kg"} value={entry.weight||""} onChange={e=>{e.stopPropagation();updateLog(i,s,"weight",e.target.value);}} style={{width:56,background:C.bdr,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"5px 8px",color:C.txt,fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
+                              <span style={{fontSize:10,color:C.dim}}>{profile?.unit||"kg"}</span>
                             </div>
                           );
                         })}
@@ -1285,7 +1308,7 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0})=>{
   const sched=Object.keys(weekSchedule);
   const today=sched[0]||"MON";
   const todayLabel=weekSchedule[today]||"Push A";
-  const todayData=weekProgram[todayLabel]||weekProgram["Push A"];
+  const todayData=weekProgram[todayLabel]||Object.values(weekProgram)[0]||null;
   const[recoveryVals,setRecoveryVals]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_recovery")||"{}");}catch{return{};}});
   const saveRecovery=(k,v)=>{const n={...recoveryVals,[k]:v};setRecoveryVals(n);try{localStorage.setItem("gmt_recovery",JSON.stringify(n));}catch{}};
   const recoveryData=[{key:"sleep",label:"Sleep",val:parseFloat(recoveryVals.sleep)||null,max:9,unit:"hrs",color:C.hyper},{key:"hrv",label:"HRV",val:parseFloat(recoveryVals.hrv)||null,max:100,unit:"ms",color:C.mid},{key:"readiness",label:"Readiness",val:parseFloat(recoveryVals.readiness)||null,max:100,unit:"%",color:C.ora}];
@@ -1538,7 +1561,7 @@ export default function App(){
           {tab==="coach"&&<CoachView profile={profile}/>}
           <BottomNav active={tab} setActive={setTab}/>
         </>}
-        {screen==="main"&&activeWorkout&&<WorkoutView day={activeWorkout.day} session={activeWorkout.session} onBack={()=>{setSessionCount(c=>c+1);setActiveWorkout(null);}} profile={profile} onWarmup={()=>{const wu=WORKOUT_LIBRARY.find(w=>w.id==="warmup");if(wu)setActiveWorkout({day:"WARM-UP",session:wu,isWarmup:true});}}/>}
+        {screen==="main"&&activeWorkout&&activeWorkout.session?.exercises&&<WorkoutView day={activeWorkout.day} session={activeWorkout.session} onBack={()=>{setSessionCount(c=>c+1);setActiveWorkout(null);}} profile={profile} onWarmup={()=>{const wu=WORKOUT_LIBRARY.find(w=>w.id==="warmup");if(wu)setActiveWorkout({day:"WARM-UP",session:wu,isWarmup:true});}}/>}
       </div>
     </>
   );
