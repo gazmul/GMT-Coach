@@ -1,4 +1,3 @@
-import { useState, useEffect, useRef } from 'react'
 // GMT Coach v3.0
 import { useState, useEffect, useRef, useCallback } from "react";
 
@@ -647,106 +646,8 @@ const RestTimer=({seconds,onDone,onSkip})=>{
 };
 
 // --- WORKOUT VIEW ------------------------------------------------
-const modeColor=(type)=>{
-  if(type==="strength")return C.strength;
-  if(type==="recovery")return C.recovery;
-  return C.hyper;
-};
-const modeGlow=(type)=>{
-  if(type==="strength")return C.strengthG;
-  if(type==="recovery")return C.recoveryG;
-  return C.hyperG;
-};
-
-// --- WORKOUT VIEW ------------------------------------------------
 const modeColor=(type)=>{if(type==="strength")return C.strength;if(type==="recovery")return C.recovery;return C.hyper;};
 const modeGlow=(type)=>{if(type==="strength")return C.strengthG;if(type==="recovery")return C.recoveryG;return C.hyperG;};
-
-// Tempo explainer: "3-1-1-0" => eccentric-pause-concentric-pause
-const TempoPopup=({tempo,onClose})=>{
-  const parts=tempo.split("-");
-  const labels=["Eccentric (lowering)","Pause at bottom","Concentric (lifting)","Pause at top"];
-  const desc=["Control the weight down. This is where muscle is built.","Hold position. Increases time under tension.","Drive with intent. Power through the sticking point.","Squeeze at lockout. Own the contraction."];
-  return(
-    <div style={{position:"fixed",inset:0,background:"rgba(10,10,11,0.88)",backdropFilter:"blur(12px)",zIndex:300,display:"flex",alignItems:"flex-end",justifyContent:"center",padding:"0 0 20px"}} onClick={onClose}>
-      <div style={{background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:16,padding:20,width:"calc(100% - 40px)",maxWidth:440}} onClick={e=>e.stopPropagation()}>
-        <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:14}}>TEMPO BREAKDOWN</div>
-        <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:32,letterSpacing:"0.1em",marginBottom:16,color:C.hyper}}>{tempo}</div>
-        {parts.map((p,i)=>(
-          <div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",marginBottom:12}}>
-            <div style={{width:36,height:36,borderRadius:8,background:C.hyperG,border:`1px solid ${C.hyper}30`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-              <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:20,color:C.hyper}}>{p}</span>
-            </div>
-            <div>
-              <div style={{fontSize:13,fontWeight:600,color:C.txt,marginBottom:2}}>{labels[i]||"Phase "+(i+1)}</div>
-              <div style={{fontSize:12,color:C.mid,lineHeight:1.5}}>{p==="0"?"Transition immediately - no pause.":(p+"s -- "+desc[i])}</div>
-            </div>
-          </div>
-        ))}
-        <button onClick={onClose} style={{width:"100%",marginTop:8,background:C.hyper,border:"none",borderRadius:8,padding:"12px",color:"#fff",fontSize:14,fontWeight:600,fontFamily:"'DM Sans',sans-serif",cursor:"pointer"}}>Got it</button>
-      </div>
-    </div>
-  );
-};
-
-// Exercise detail modal
-const ExerciseDetailModal=({ex,onClose})=>{
-  const mc=modeColor(ex.type||"hyper");
-  const cues=ex.cue?ex.cue.split(". "):[];
-  return(
-    <div style={{position:"fixed",inset:0,background:"rgba(10,10,11,0.92)",backdropFilter:"blur(16px)",zIndex:300,display:"flex",alignItems:"flex-end",padding:"0 0 20px",justifyContent:"center",overflowY:"auto"}} onClick={onClose}>
-      <div style={{background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:16,padding:20,width:"calc(100% - 40px)",maxWidth:440,maxHeight:"80vh",overflowY:"auto"}} onClick={e=>e.stopPropagation()}>
-        <div style={{height:3,background:mc,borderRadius:99,marginBottom:16}}/>
-        <div style={{fontSize:11,color:mc,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:6}}>{(ex.type||"HYPER").toUpperCase()} MOVEMENT</div>
-        <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:26,letterSpacing:"0.06em",marginBottom:4}}>{ex.name}</div>
-        {ex.rpe&&<div style={{marginBottom:14}}><RPEBadge rpe={ex.rpe}/></div>}
-        
-        {ex.note&&<div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"12px 14px",marginBottom:14}}>
-          <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:6,letterSpacing:"0.1em"}}>COACHING NOTE</div>
-          <p style={{fontSize:13,color:C.txt,lineHeight:1.65}}>{ex.note}</p>
-        </div>}
-        
-        {ex.tempo&&<div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"12px 14px",marginBottom:14}}>
-          <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:8,letterSpacing:"0.1em"}}>TEMPO: {ex.tempo}</div>
-          {ex.tempo.split("-").map((p,i)=>{
-            const ls=["Eccentric","Pause","Concentric","Peak"];
-            return <div key={i} style={{display:"flex",gap:8,alignItems:"center",marginBottom:6}}>
-              <span style={{fontFamily:"'Space Mono',monospace",fontSize:14,color:mc,fontWeight:700,width:24}}>{p}s</span>
-              <span style={{fontSize:12,color:C.mid}}>{ls[i]||""} {p==="0"?"-- no pause":""}</span>
-            </div>;
-          })}
-        </div>}
-        
-        <div style={{display:"flex",gap:8,marginBottom:14,flexWrap:"wrap"}}>
-          <div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 14px",flex:1,minWidth:80,textAlign:"center"}}>
-            <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:4}}>SETS</div>
-            <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,color:mc}}>{ex.setsLabel||ex.sets}</div>
-          </div>
-          <div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 14px",flex:1,minWidth:80,textAlign:"center"}}>
-            <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:4}}>REPS</div>
-            <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,color:mc}}>{ex.reps}</div>
-          </div>
-          {ex.rest>0&&<div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 14px",flex:1,minWidth:80,textAlign:"center"}}>
-            <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:4}}>REST</div>
-            <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,color:mc}}>{ex.rest}s</div>
-          </div>}
-        </div>
-        
-        <button onClick={onClose} style={{width:"100%",background:mc,border:"none",borderRadius:8,padding:"12px",color:"#fff",fontSize:14,fontWeight:600,fontFamily:"'DM Sans',sans-serif",cursor:"pointer"}}>Close</button>
-      </div>
-    </div>
-  );
-};
-
-// Time-based exercise timer (for cardio/holds)
-const isTimeBased=(reps)=>/min|sec|s\s|:\d{2}|each side|hold/i.test(String(reps||""));
-const parseSeconds=(reps)=>{
-  const s=String(reps||"");
-  const m=s.match(/(\d+)\s*min/);if(m)return parseInt(m[1])*60;
-  const sec=s.match(/(\d+)\s*sec/);if(sec)return parseInt(sec[1]);
-  const bare=s.match(/^(\d+)s/);if(bare)return parseInt(bare[1]);
-  return 60;
-};
 
 const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
   const isWarmup=session.id==="warmup";
