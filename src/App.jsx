@@ -1,5 +1,23 @@
 // GMT Coach v3.0
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, Component } from "react";
+
+class ErrorBoundary extends Component {
+  constructor(p){super(p);this.state={err:null};}
+  static getDerivedStateFromError(e){return{err:e};}
+  componentDidCatch(e,i){console.error("GMT Coach error:",e,i);}
+  render(){
+    if(this.state.err)return(
+      <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:32,background:"#0A0A0B",color:"#F2F2F0",fontFamily:"'DM Sans',sans-serif",textAlign:"center",gap:20}}>
+        <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:32,letterSpacing:"0.1em",color:"#FF0066"}}>GMT COACH</div>
+        <div style={{fontSize:14,color:"#9090A0",lineHeight:1.6,maxWidth:280}}>Something went wrong. This is usually fixed by refreshing the app.</div>
+        <button onClick={()=>{try{localStorage.clear();}catch(e){}window.location.reload();}} style={{background:"#FF0066",border:"none",borderRadius:10,padding:"14px 28px",color:"#fff",fontSize:15,fontFamily:"'DM Sans',sans-serif",fontWeight:600,cursor:"pointer"}}>
+          Refresh App
+        </button>
+      </div>
+    );
+    return this.props.children;
+  }
+}
 
 // --- DESIGN TOKENS -----------------------------------------------
 const C = {
@@ -71,7 +89,7 @@ const EXERCISES = [
    alt:{name:"DB Bench Press",desc:"Same mechanics. Each dumbbell moves independently, which increases stability demand and forces even pressing strength. Slightly greater ROM at the bottom.",noAlt:false},
    coachNote:"If you can't feel your chest working, your shoulder blades aren't set. Retract them hard before every set. The squeeze happens when you think about pushing your hands together, not just pushing up."},
   {id:"incline-db-press",name:"Incline DB Press",muscle:"Chest",secondary:"Anterior Deltoid, Triceps",equipment:"Dumbbells",category:"compound",difficulty:"intermediate",
-   cue:"Set incline at 3045. Higher than 45 shifts to shoulders. Shoulder blades retracted throughout. At the bottom, elbows should be at roughly 4575 to your torso  not flared to 90. Drive through the inner chest.",
+   cue:"Set incline at 30-45. Higher than 45 shifts to shoulders. Shoulder blades retracted throughout. At the bottom, elbows should be at roughly 45-75  to your torso  not flared to 90. Drive through the inner chest.",
    tempo:"3-0-1-1",sets:"3",reps:"8-10",rest:120,rpe:8,
    grip:"Neutral grip (palms facing each other): less shoulder stress. Pronated (traditional): slightly more upper chest activation. Start neutral if shoulders are sensitive.",
    alt:{name:"Incline Barbell Press",desc:"More loading potential. Same angle principles apply.",noAlt:false},
@@ -94,7 +112,7 @@ const EXERCISES = [
    cue:"Dead hang to start  full scapular depression before initiating. Pull from your elbows, not your hands. Think about driving your elbows to your hips. Chest to bar is the goal.",
    tempo:"3-1-1-0",sets:"4",reps:"46",rest:180,rpe:8,
    grip:"Overhand (pronated): more lat width. Neutral (parallel handles): more comfortable for shoulders, slightly more bicep. Underhand (chin-up): strong bicep involvement, easier for beginners.",
-   alt:{name:"Lat Pulldown",desc:"Excellent alternative  same movement pattern. Use a wide overhand grip. Lean back 1015 and pull to upper chest.",noAlt:false},
+   alt:{name:"Lat Pulldown",desc:"Excellent alternative  same movement pattern. Use a wide overhand grip. Lean back 10-15  and pull to upper chest.",noAlt:false},
    coachNote:"Initiate by pulling your shoulder blades down before your arms bend. That first movement activates your lats. Without it, you're mostly biceps."},
   {id:"pendlay-row",name:"Pendlay Row",muscle:"Back",secondary:"Biceps, Rear Deltoid",equipment:"Barbell",category:"compound",difficulty:"advanced",
    cue:"Horizontal torso  parallel to floor. Bar starts on the floor each rep (this is what separates Pendlay from bent-over row). Explosive pull to lower chest. Bar returns to floor, full dead stop. No hip drive.",
@@ -216,7 +234,7 @@ const EXERCISES = [
 // Rep schemes adapt via Gary's AI based on training age
 const WORKOUT_LIBRARY = [
   {
-    id:"warmup",cat:"Warm-Up",name:"Full Body Warm-Up Protocol",tag:"Pre-Session",duration:"1520 min",
+    id:"warmup",cat:"Warm-Up",name:"Full Body Warm-Up Protocol",tag:"Pre-Session",duration:"15-20 min",
     gary:"Every session, no exceptions. This isn't optional filler  it's your injury insurance policy. Nervous system activation, joint mobilisation, blood flow. Your first working set should feel like the fifth.",
     exercises:[
       {name:"Light Cardio (bike/row/skip)",sets:1,reps:"5 min",note:"Zone 2. Not a sprint. Elevate core temp.",rest:0},
@@ -230,7 +248,7 @@ const WORKOUT_LIBRARY = [
     ]
   },
   {
-    id:"sprint",cat:"Athletic",name:"Sprint Protocol",tag:"Power + Conditioning",duration:"3040 min",
+    id:"sprint",cat:"Athletic",name:"Sprint Protocol",tag:"Power + Conditioning",duration:"30-40 min",
     gary:"Sprinting is the most athletic thing most people never do. It builds muscle, shreds fat, and forces you to move the way your body was designed. This is not jogging  it's maximal effort with full recovery between every rep. Quality is everything.",
     exercises:[
       {name:"Dynamic Warm-Up",sets:1,reps:"10 min",note:"High knees, butt kicks, leg swings, A-skips, B-skips. Mandatory  sprinting on cold muscles tears hamstrings.",rest:0},
@@ -242,7 +260,7 @@ const WORKOUT_LIBRARY = [
     ]
   },
   {
-    id:"jump",cat:"Athletic",name:"Plyometric Jump Protocol",tag:"Power + Explosiveness",duration:"2535 min",
+    id:"jump",cat:"Athletic",name:"Plyometric Jump Protocol",tag:"Power + Explosiveness",duration:"25-35 min",
     gary:"Jump training is the fastest route to athletic power. The stretch-shortening cycle you build here transfers to every compound lift. Do this before strength work  never after.",
     exercises:[
       {name:"Ankle Hops",sets:3,reps:"20",note:"Minimal ground contact. Stiff ankle.",rest:60},
@@ -271,7 +289,7 @@ const WORKOUT_LIBRARY = [
     id:"ppl-pull",cat:"Bodybuilding",name:"Back, Biceps & Rear Delts",sessionCode:"BBR",version:"1.1",tag:"Strength",duration:"45-60 min",
     gary:"Pull from the elbow, not the hand. Your back does the work. Biceps are passengers until the direct work. Advanced clients: one true set on each compound to absolute failure is more than enough.",
     exercises:[
-      {name:"Weighted Pull-Up",sets:3,setsLabel:"1-3",reps:"6-8",note:"ADVANCED: 1-2 sets to absolute failure. Dead hang start. Chest to bar.",rest:180,rpe:9,tempo:"3-1-1-0",type:"strength"},
+      {name:"Lat Pulldown",sets:3,setsLabel:"1-3",reps:"6-8",note:"ADVANCED: 1-2 sets to absolute failure. Full stretch at top. Drive elbows to hips. Weighted pull-ups are the advanced progression when you are ready.",rest:180,rpe:9,tempo:"3-1-1-0",type:"strength"},
       {name:"Pendlay Row",sets:3,setsLabel:"1-3",reps:"6-8",note:"ADVANCED: 1 true working set. Bar from floor each rep. Horizontal torso.",rest:180,rpe:9,tempo:"1-0-1-2",type:"strength"},
       {name:"Seated Cable Row",sets:3,setsLabel:"2-3",reps:"10-12",note:"Full stretch forward. Drive elbows back. No rocking.",rest:90,rpe:8,tempo:"3-1-1-1",type:"hyper"},
       {name:"Face Pull",sets:3,setsLabel:"3",reps:"15-20",note:"Corrective work: always this volume. External rotation at end. Non-negotiable for shoulder health.",rest:60,rpe:7,tempo:"2-1-1-1",type:"recovery"},
@@ -310,7 +328,7 @@ const WORKOUT_LIBRARY = [
     exercises:[
       {name:"Face Pull",sets:3,setsLabel:"3",reps:"15-20",note:"Activation before pressing. External rotation. Shoulders warm and healthy before any bench work.",rest:30,rpe:6,tempo:"2-1-1-1",type:"recovery"},
       {name:"A1: Barbell Bench Press",sets:3,setsLabel:"1-3",reps:"6-8",note:"SUPERSET with A2. ADVANCED: 1 set to failure. 3s eccentric. Full pec stretch at bottom.",rest:0,rpe:9,tempo:"3-1-1-0",type:"strength"},
-      {name:"A2: Weighted Pull-Up",sets:3,setsLabel:"1-3",reps:"6-8",note:"SUPERSET with A1. Dead hang start. Chest to bar. Rest 120s then repeat A1.",rest:120,rpe:9,tempo:"3-1-1-0",type:"strength"},
+      {name:"A2: Lat Pulldown",sets:3,setsLabel:"1-3",reps:"6-8",note:"SUPERSET with A1. Full stretch at top, drive elbows down. Chest to bar. Rest 120s then repeat A1. Weighted pull-ups are the advanced progression.",rest:120,rpe:9,tempo:"3-1-1-0",type:"strength"},
       {name:"B1: Incline DB Press",sets:3,setsLabel:"2-3",reps:"8-10",note:"SUPERSET with B2. 30-45 degree incline. Upper chest stretch at bottom.",rest:0,rpe:8,tempo:"3-0-1-1",type:"hyper"},
       {name:"B2: Seated Cable Row",sets:3,setsLabel:"2-3",reps:"10-12",note:"SUPERSET with B1. Full stretch forward. Drive elbows back. Rest 90s then repeat B1.",rest:90,rpe:8,tempo:"3-1-1-1",type:"hyper"},
       {name:"C1: Cable Fly",sets:2,setsLabel:"2",reps:"12-15",note:"SUPERSET with C2. Chest isolation. Squeeze hard at peak contraction.",rest:0,rpe:8,tempo:"3-1-1-1",type:"hyper"},
@@ -559,11 +577,13 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
 
   const advanced=[
     "",
-    "PROGRAMMING - ADVANCED CLIENT:",
+    "PROGRAMMING - ADVANCED CLIENT (7+ years of real training):",
+    "This is an athlete. Treat them accordingly.",
     "1-2 true working sets per compound. To absolute failure. 6-8 reps on compounds.",
     "2 sets on accessories, 8-10 reps, to failure or one rep shy.",
     "Corrective work: science-based volume always (15-20 reps, 3 sets).",
     "Intensity is everything. Volume is the enemy of intensity at this level.",
+    "When referencing their experience, say 7+ years or more - never just 7.",
   ];
   const intermediate=[
     "",
@@ -970,8 +990,8 @@ const ExerciseLibrary=({favourites,onToggleFav})=>{
               <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:18,letterSpacing:"0.06em"}}>{ex.name}</div>
               <div style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace"}}>{ex.muscle}  {ex.equipment}</div>
             </div>
-            <button onClick={()=>onToggleFav(ex.id)} style={{background:favourites.includes(ex.id)?C.accG:"transparent",border:`1px solid ${favourites.includes(ex.id)?C.acc:C.bdr}`,borderRadius:8,padding:"8px 14px",cursor:"pointer",fontSize:12,color:favourites.includes(ex.id)?C.acc:C.mid,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>
-              {favourites.includes(ex.id)?" Saved":" Save"}
+            <button onClick={()=>onToggleFav(ex.id)} style={{background:favourites.includes(ex.id)?C.strengthG:"transparent",border:`1px solid ${favourites.includes(ex.id)?C.strength:C.bdr}`,borderRadius:8,padding:"8px 14px",cursor:"pointer",fontSize:12,color:favourites.includes(ex.id)?C.strength:C.mid,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>
+              {favourites.includes(ex.id)?"Favourited":"+ Favourite"}
             </button>
           </div>
           <div style={{padding:"20px 20px 0"}}>
@@ -1040,16 +1060,7 @@ const ExerciseLibrary=({favourites,onToggleFav})=>{
               {muscles.map(m=><Pill key={m} active={filter===m} onClick={()=>setFilter(m)}>{m}</Pill>)}
             </div>
           </div>
-          {favourites.length>0&&filter==="All"&&!search&&(
-            <div style={{padding:"0 20px 16px"}}>
-              <div style={{fontSize:10,color:C.recovery,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:10}}> FAVOURITES</div>
-              <div style={{display:"flex",flexDirection:"column",gap:8}}>
-                {EXERCISES.filter(e=>favourites.includes(e.id)).map(e=>(
-                  <ExRow key={e.id} ex={e} onSelect={()=>setSelected(e.id)} fav/>
-                ))}
-              </div>
-            </div>
-          )}
+
           <div style={{padding:"0 20px",display:"flex",flexDirection:"column",gap:8}}>
             {filtered.map(e=><ExRow key={e.id} ex={e} onSelect={()=>setSelected(e.id)} fav={favourites.includes(e.id)}/>)}
           </div>
@@ -1072,11 +1083,15 @@ const ExRow=({ex,onSelect,fav})=>(
 );
 
 // --- WORKOUT LIBRARY ---------------------------------------------
-const WorkoutLibraryView=({onStartWorkout})=>{
+const WorkoutLibraryView=({onStartWorkout,weekSchedule={},favourites=[],onToggleFav=()=>{}})=>{
   const[filter,setFilter]=useState("All");
   const[selected,setSelected]=useState(null);
+  const[view,setView]=useState("mine");
   const cats=["All","Warm-Up","Athletic","Bodybuilding"];
-  const filtered=WORKOUT_LIBRARY.filter(w=>filter==="All"||w.cat===filter);
+  const mySessionNames=Object.values(weekSchedule);
+  const myWorkouts=WORKOUT_LIBRARY.filter(w=>mySessionNames.includes(w.name)||w.id==="warmup");
+  const exploreWorkouts=WORKOUT_LIBRARY.filter(w=>!mySessionNames.includes(w.name)&&w.id!=="warmup");
+  const listToShow=view==="mine"?myWorkouts:(filter==="All"?exploreWorkouts:exploreWorkouts.filter(w=>w.cat===filter));
   const wk=selected?WORKOUT_LIBRARY.find(w=>w.id===selected):null;
   return(
     <div style={{paddingBottom:100}}>
@@ -1097,7 +1112,7 @@ const WorkoutLibraryView=({onStartWorkout})=>{
             </div>
             {/* Intensity level note */}
             <div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 14px",marginBottom:20,fontSize:12,color:C.mid,lineHeight:1.6}}>
-              <span style={{color:C.hyper,fontWeight:600}}>Sets/reps shown are for intermediate athletes.</span> Advanced (4+ yrs): 12 sets per compound to absolute failure, 68 reps. Beginners: 3 sets, 810 reps, RPE 78. Corrective movements (face pulls, laterals, tibialis) always use science-based volume regardless of level.
+              <span style={{color:C.hyper,fontWeight:600}}>Sets/reps shown are for intermediate athletes.</span> Advanced (7+ yrs): 1-2 sets per compound to absolute failure, 6-8 reps. Beginners: 3 sets, 8-10 reps, RPE 7-8. Corrective movements always use science-based volume regardless of level.
             </div>
             {/* Exercise list */}
             <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:24}}>
@@ -1118,20 +1133,36 @@ const WorkoutLibraryView=({onStartWorkout})=>{
                 </div>
               ))}
             </div>
-            <Btn onClick={()=>onStartWorkout("LIB",wk)} style={{width:"100%"}}>Start This Workout </Btn>
+            <div style={{display:"flex",gap:8}}>
+              <Btn onClick={()=>onStartWorkout("LIB",wk)} style={{flex:1}}>Start Workout</Btn>
+              <button onClick={e=>{e.stopPropagation();}} style={{width:44,height:44,background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,cursor:"pointer",fontSize:16,color:C.mid,display:"flex",alignItems:"center",justifyContent:"center"}}>
+              </button>
+            </div>
           </div>
         </>
       ):(
         <>
           <div style={{padding:"48px 20px 16px"}}>
             <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:8}}>WORKOUT LIBRARY</div>
-            <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:38,letterSpacing:"0.04em",marginBottom:16}}>SESSIONS</h1>
-            <div style={{display:"flex",gap:8,overflowX:"auto",scrollbarWidth:"none",paddingBottom:4}}>
-              {cats.map(c=><Pill key={c} active={filter===c} onClick={()=>setFilter(c)}>{c}</Pill>)}
+            <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:38,letterSpacing:"0.04em",marginBottom:12}}>SESSIONS</h1>
+            <div style={{display:"flex",gap:8,marginBottom:12}}>
+              <button onClick={()=>setView("mine")} style={{flex:1,background:view==="mine"?C.hyperG:C.sur,border:`1px solid ${view==="mine"?C.hyper:C.bdr}`,borderRadius:8,padding:"10px",cursor:"pointer",color:view==="mine"?C.hyper:C.mid,fontSize:12,fontFamily:"'DM Sans',sans-serif",fontWeight:view==="mine"?600:400}}>Your Programme</button>
+              <button onClick={()=>setView("explore")} style={{flex:1,background:view==="explore"?C.recoveryG:C.sur,border:`1px solid ${view==="explore"?C.recovery:C.bdr}`,borderRadius:8,padding:"10px",cursor:"pointer",color:view==="explore"?C.recovery:C.mid,fontSize:12,fontFamily:"'DM Sans',sans-serif",fontWeight:view==="explore"?600:400}}>Explore</button>
+              <button onClick={()=>setView("exercises")} style={{flex:1,background:view==="exercises"?C.strengthG:C.sur,border:`1px solid ${view==="exercises"?C.strength:C.bdr}`,borderRadius:8,padding:"10px",cursor:"pointer",color:view==="exercises"?C.strength:C.mid,fontSize:12,fontFamily:"'DM Sans',sans-serif",fontWeight:view==="exercises"?600:400}}>Exercises</button>
             </div>
+            {view==="explore"&&<>
+              <div style={{background:C.sur,border:`1px solid ${C.recovery}30`,borderRadius:8,padding:"10px 14px",marginBottom:12}}>
+                <p style={{fontSize:12,color:C.mid,lineHeight:1.6}}>Exploring outside your programme? We are about intuitive training as much as science. We will flag when we stray from the prescription - but learning what resonates with you is the process.</p>
+              </div>
+              <div style={{display:"flex",gap:8,overflowX:"auto",scrollbarWidth:"none",paddingBottom:4,marginBottom:4}}>
+                {cats.map(c=><Pill key={c} active={filter===c} onClick={()=>setFilter(c)}>{c}</Pill>)}
+              </div>
+            </>}
           </div>
           <div style={{padding:"0 20px",display:"flex",flexDirection:"column",gap:12}}>
-            {filtered.map(w=>(
+            {view==="exercises"&&null /* exercises rendered below */}
+            {view!=="exercises"&&listToShow.length===0&&<div style={{textAlign:"center",padding:"40px 20px",color:C.dim,fontSize:14}}>No sessions yet. Complete setup to see your programme.</div>}
+            {view!=="exercises"&&listToShow.map(w=>(
               <div key={w.id} onClick={()=>setSelected(w.id)} style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"18px 20px",cursor:"pointer",transition:"all 0.15s"}} >
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}}>
                   <div>
@@ -1198,7 +1229,14 @@ const buildOpener=(profile)=>{
 const isReady=(t)=>/\b(yes|yeah|yep|ready|let.s go|let.s do|absolutely|sure|i.m ready|go|ok|okay|start|begin)\b/.test(t.toLowerCase());
 
 const CoachView=({profile,introMode=false,onReady})=>{
-  const[msgs,setMsgs]=useState([{from:"coach",text:buildOpener(profile)}]);
+  const[msgs,setMsgs]=useState(()=>{
+    if(introMode)return[{from:"coach",text:buildOpener(profile)}];
+    try{
+      const saved=localStorage.getItem("gmt_coach_msgs");
+      if(saved){const parsed=JSON.parse(saved);if(parsed.length>0)return parsed;}
+    }catch(e){}
+    return[{from:"coach",text:"What are we working on?"}];
+  });
   const[input,setInput]=useState("");
   const[loading,setLoading]=useState(false);
   const[error,setError]=useState(null);
@@ -1247,6 +1285,9 @@ const CoachView=({profile,introMode=false,onReady})=>{
     }catch(e){setError(e.message||"Connection issue.");}
     finally{setLoading(false);inputRef.current?.focus();}
   };
+  useEffect(()=>{
+    if(!introMode){try{localStorage.setItem("gmt_coach_msgs",JSON.stringify(msgs));}catch(e){}}
+  },[msgs,introMode]);
   const introSugs=["Yes, I'm ready","It's an old injury","I go by feel mostly","Consistency has been my issue","It's chronic stress"];
   const ongoingSugs=["Sleep has been rough this week","Shoulder feels tight after pressing","Should I add cardio now?","How close am I to deload?","Missed a session  how do I adjust?"];
   const sugs=introMode?introSugs:ongoingSugs;
@@ -1303,7 +1344,7 @@ const CoachView=({profile,introMode=false,onReady})=>{
 // --- DASHBOARD ----------------------------------------------------
 const weekProgram={};
 WORKOUT_LIBRARY.forEach(w=>{if(w.name)weekProgram[w.name]={name:w.name,label:w.name,sessionCode:w.sessionCode,version:w.version,tag:w.tag,exercises:w.exercises};});
-const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0})=>{
+const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrition})=>{
   const days=["MON","TUE","WED","THU","FRI","SAT","SUN"];
   const sched=Object.keys(weekSchedule);
   const today=sched[0]||"MON";
@@ -1505,13 +1546,224 @@ const ProgramView=({onStartWorkout,weekSchedule={}})=>{
   );
 };
 
+// --- NUTRITION VIEW -----------------------------------------------
+const NutritionView=({profile})=>{
+  const unit=profile?.unit||"kg";
+  const[meals,setMeals]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_meals")||"[]");}catch{return[];}});
+  const[analyzing,setAnalyzing]=useState(false);
+  const[showAdd,setShowAdd]=useState(false);
+  const[manualEntry,setManualEntry]=useState({name:"",cal:"",protein:"",carbs:"",fat:""});
+  const today=new Date().toDateString();
+  const todayMeals=meals.filter(m=>m.date===today);
+  const totals=todayMeals.reduce((a,m)=>({cal:a.cal+(m.cal||0),protein:a.protein+(m.protein||0),carbs:a.carbs+(m.carbs||0),fat:a.fat+(m.fat||0)}),{cal:0,protein:0,carbs:0,fat:0});
+  const saveMeal=(meal)=>{
+    const newMeals=[meal,...meals].slice(0,100);
+    setMeals(newMeals);
+    try{localStorage.setItem("gmt_meals",JSON.stringify(newMeals));}catch(e){}
+  };
+  const analyzePhoto=async(file)=>{
+    setAnalyzing(true);
+    try{
+      const reader=new FileReader();
+      reader.onload=async(e)=>{
+        const b64=e.target.result.split(",")[1];
+        const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+          model:"claude-sonnet-4-20250514",max_tokens:300,
+          system:"You are a nutrition expert. Analyse the food photo and return ONLY a JSON object with keys: name (string), cal (number), protein (number in grams), carbs (number in grams), fat (number in grams), notes (brief string about the food). Be conservative with estimates. No markdown, just raw JSON.",
+          messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:b64}},{type:"text",text:"Analyse this meal and give me the nutritional breakdown as JSON."}]}]
+        })});
+        const d=await res.json();
+        const txt=(d.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("").trim();
+        try{
+          const clean=txt.replace(/```json|```/g,"").trim();
+          const meal={...JSON.parse(clean),date:today,id:Date.now(),fromPhoto:true};
+          saveMeal(meal);
+        }catch(pe){console.error("Parse error:",pe,txt);}
+        setAnalyzing(false);
+      };
+      reader.readAsDataURL(file);
+    }catch(e){setAnalyzing(false);}
+  };
+  const targets={cal:2200,protein:180,carbs:220,fat:70};
+  const MacroBar=({label,val,target,color})=>(
+    <div style={{flex:1}}>
+      <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
+        <span style={{fontSize:10,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.06em"}}>{label}</span>
+        <span style={{fontSize:11,color,fontFamily:"'Space Mono',monospace"}}>{Math.round(val)}<span style={{color:C.dim,fontSize:9}}>/{target}g</span></span>
+      </div>
+      <PBar value={val} max={target} color={color} h={5}/>
+    </div>
+  );
+  return(
+    <div style={{paddingBottom:120}}>
+      <div style={{padding:"48px 20px 20px"}}>
+        <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:8}}>NUTRITION</div>
+        <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:38,letterSpacing:"0.04em",marginBottom:4}}>FUEL.</h1>
+        <p style={{fontSize:13,color:C.mid,lineHeight:1.6,marginBottom:20}}>Huberman-inspired tracking. Protein first, everything else follows.</p>
+        {/* Daily totals */}
+        <div style={{background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:14,padding:20,marginBottom:20}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:16}}>
+            <div>
+              <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:44,lineHeight:1,color:C.txt}}>{Math.round(totals.cal)}</div>
+              <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>KCAL TODAY</div>
+            </div>
+            <div style={{textAlign:"right"}}>
+              <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,color:C.strength}}>{Math.round(totals.protein)}g</div>
+              <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace"}}>PROTEIN</div>
+            </div>
+          </div>
+          <div style={{display:"flex",gap:10}}>
+            <MacroBar label="PROTEIN" val={totals.protein} target={targets.protein} color={C.strength}/>
+            <MacroBar label="CARBS" val={totals.carbs} target={targets.carbs} color={C.hyper}/>
+            <MacroBar label="FAT" val={totals.fat} target={targets.fat} color={C.ora}/>
+          </div>
+        </div>
+        {/* Action buttons */}
+        <div style={{display:"flex",gap:10,marginBottom:20}}>
+          <label style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8,background:C.hyperG,border:`1px solid ${C.hyper}`,borderRadius:10,padding:"14px",cursor:"pointer",fontSize:13,color:C.hyper,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>
+            {analyzing?<span style={{animation:"pulse 1s infinite"}}>Analysing...</span>:<><span style={{fontSize:18}}>Scan</span> Photo Analysis</>}
+            {!analyzing&&<input type="file" accept="image/*" capture="environment" onChange={e=>e.target.files[0]&&analyzePhoto(e.target.files[0])} style={{display:"none"}}/>}
+          </label>
+          <button onClick={()=>setShowAdd(s=>!s)} style={{flex:1,background:showAdd?C.sur:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"14px",cursor:"pointer",fontSize:13,color:C.mid,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>+ Manual Entry</button>
+        </div>
+        {/* Manual entry */}
+        {showAdd&&<div className="fu" style={{background:C.sur,border:`1px solid ${C.bdrL}`,borderRadius:12,padding:16,marginBottom:16}}>
+          {[{key:"name",label:"Food Name",type:"text"},{key:"cal",label:"Calories",type:"number"},{key:"protein",label:"Protein (g)",type:"number"},{key:"carbs",label:"Carbs (g)",type:"number"},{key:"fat",label:"Fat (g)",type:"number"}].map(f=>(
+            <div key={f.key} style={{marginBottom:10}}>
+              <label style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",display:"block",marginBottom:4}}>{f.label.toUpperCase()}</label>
+              <input type={f.type} value={manualEntry[f.key]} onChange={e=>setManualEntry(m=>({...m,[f.key]:e.target.value}))} style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 14px",color:C.txt,fontSize:16,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
+            </div>
+          ))}
+          <Btn onClick={()=>{if(!manualEntry.name)return;saveMeal({...manualEntry,cal:parseInt(manualEntry.cal)||0,protein:parseInt(manualEntry.protein)||0,carbs:parseInt(manualEntry.carbs)||0,fat:parseInt(manualEntry.fat)||0,date:today,id:Date.now()});setManualEntry({name:"",cal:"",protein:"",carbs:"",fat:""});setShowAdd(false);}} style={{width:"100%",marginTop:4}} small>Add Meal</Btn>
+        </div>}
+        {/* Today's log */}
+        {todayMeals.length>0&&<>
+          <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:10}}>TODAY</div>
+          <div style={{display:"flex",flexDirection:"column",gap:8}}>
+            {todayMeals.map(m=>(
+              <div key={m.id} style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                <div>
+                  <div style={{fontSize:14,fontWeight:600,color:C.txt,marginBottom:2}}>{m.name}{m.fromPhoto&&<span style={{fontSize:10,color:C.hyper,marginLeft:6,fontFamily:"'Space Mono',monospace"}}>AI</span>}</div>
+                  {m.notes&&<div style={{fontSize:11,color:C.dim}}>{m.notes}</div>}
+                </div>
+                <div style={{textAlign:"right",flexShrink:0}}>
+                  <div style={{fontFamily:"'Space Mono',monospace",fontSize:13,color:C.txt}}>{m.cal} kcal</div>
+                  <div style={{fontSize:10,color:C.mid}}>{m.protein}g P / {m.carbs}g C / {m.fat}g F</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>}
+        {todayMeals.length===0&&<div style={{textAlign:"center",padding:"32px 20px",color:C.dim,fontSize:14,lineHeight:1.7}}>No meals logged yet. Take a photo or add manually. Protein hits the target first - everything else adjusts around it.</div>}
+      </div>
+    </div>
+  );
+};
+
+
+// --- FAVOURITES VIEW ----------------------------------------------
+const FavouritesView=({favourites,onToggleFav,profile})=>{
+  const favExercises=EXERCISES.filter(e=>favourites.includes(e.id));
+  const[chatInput,setChatInput]=useState("");
+  const[chatHistory,setChatHistory]=useState([]);
+  const[loading,setLoading]=useState(false);
+  const[showChat,setShowChat]=useState(false);
+  const chatRef=useRef(null);
+
+  const sendChat=async(override)=>{
+    const text=override||chatInput.trim();
+    if(!text||loading)return;
+    const userMsg={from:"user",text};
+    const hist=[...chatHistory,userMsg];
+    setChatHistory(hist);setChatInput("");setLoading(true);setShowChat(true);
+    const favNames=favExercises.map(e=>e.name).join(", ");
+    try{
+      const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",max_tokens:400,
+        system:buildPrompt(profile,false)+"\n\nFAVOURITE EXERCISES CONTEXT:\nThe athlete has favourited these exercises: "+favNames+". They may want to discuss programming, technique, or how to incorporate these into their training. Be specific and reference the actual exercises they have saved.",
+        messages:hist.map(m=>({role:m.from==="user"?"user":"assistant",content:m.text}))
+      })});
+      const d=await res.json();
+      const txt=(d.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("").trim();
+      if(txt){setChatHistory(h=>[...h,{from:"coach",text:stripMd(txt)}]);setShowChat(true);}
+    }catch(e){setChatHistory(h=>[...h,{from:"coach",text:"Connection issue. Try again."}]);}
+    finally{setLoading(false);setTimeout(()=>chatRef.current?.scrollTo(0,99999),100);}
+  };
+
+  const quickPrompts=["How should I programme these movements together?","Which of my favourites need the most attention?","Build me a session around my favourites","What am I missing based on these choices?","How do I progress on these over 8 weeks?"];
+
+  return(
+    <div style={{paddingBottom:180}}>
+      <div style={{padding:"48px 20px 20px"}}>
+        <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:8}}>YOUR PICKS</div>
+        <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:38,letterSpacing:"0.04em",marginBottom:4}}>FAVOURITES</h1>
+        <p style={{fontSize:13,color:C.mid,marginBottom:0}}>Exercises you have saved. Discuss them with Gary below.</p>
+      </div>
+
+      {favExercises.length===0?(
+        <div style={{padding:"40px 20px",textAlign:"center"}}>
+          <div style={{fontSize:40,marginBottom:16,opacity:0.2}}>*</div>
+          <div style={{fontSize:14,color:C.mid,lineHeight:1.7,maxWidth:280,margin:"0 auto"}}>No favourites yet. Browse the Exercise Library and tap the star on any movement to save it here.</div>
+        </div>
+      ):(
+        <>
+          <div style={{padding:"0 20px",display:"flex",flexDirection:"column",gap:8,marginBottom:16}}>
+            {favExercises.map(e=>(
+              <div key={e.id} style={{background:C.sur,border:`1px solid ${C.strength}20`,borderRadius:10,padding:"14px 16px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                <div>
+                  <div style={{fontSize:14,fontWeight:600,color:C.txt,marginBottom:3}}>{e.name}</div>
+                  <div style={{display:"flex",gap:8}}>
+                    <Tag color={C.mid}>{e.muscle}</Tag>
+                    <Tag color={C.dim}>{e.equipment}</Tag>
+                  </div>
+                </div>
+                <button onClick={()=>onToggleFav(e.id)} style={{background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:8,padding:"6px 10px",cursor:"pointer",fontSize:11,color:C.dim,fontFamily:"'DM Sans',sans-serif"}}>Remove</button>
+              </div>
+            ))}
+          </div>
+
+          <div style={{padding:"0 20px",marginBottom:12}}>
+            <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:10}}>ASK GARY ABOUT YOUR FAVOURITES</div>
+            <div style={{display:"flex",gap:8,overflowX:"auto",scrollbarWidth:"none",paddingBottom:8}}>
+              {quickPrompts.map((q,i)=>(
+                <button key={i} onClick={()=>sendChat(q)} style={{flexShrink:0,background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:20,padding:"8px 14px",cursor:"pointer",fontSize:12,color:C.mid,fontFamily:"'DM Sans',sans-serif",whiteSpace:"nowrap"}}>
+                  {q}
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Gary chat */}
+      <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 40px)",maxWidth:440,zIndex:50,paddingBottom:80}}>
+        {showChat&&<div ref={chatRef} className="fu" style={{background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:12,padding:14,marginBottom:8,maxHeight:260,overflowY:"auto"}}>
+          {chatHistory.map((m,i)=>(
+            <div key={i} style={{display:"flex",justifyContent:m.from==="user"?"flex-end":"flex-start",marginBottom:10}}>
+              {m.from==="coach"&&<div style={{width:22,height:22,borderRadius:6,background:C.hyperG,border:`1px solid ${C.hyper}40`,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Bebas Neue',sans-serif",fontSize:10,color:C.hyper,marginRight:8,flexShrink:0,marginTop:2}}>G</div>}
+              <div style={{maxWidth:"80%",padding:"10px 14px",borderRadius:10,background:m.from==="user"?C.hyperG:C.sur,border:`1px solid ${m.from==="user"?C.hyper+"40":C.bdr}`,fontSize:13,lineHeight:1.65,color:C.txt}}>{m.text}</div>
+            </div>
+          ))}
+          {loading&&<div style={{display:"flex",gap:4,padding:"4px 0 4px 30px"}}>{[0,1,2].map(i=><div key={i} style={{width:6,height:6,borderRadius:"50%",background:C.hyper,animation:`pulse 1.2s ${i*0.2}s infinite`}}/>)}</div>}
+        </div>}
+        <div style={{display:"flex",gap:8,background:C.bg,paddingTop:4}}>
+          <input value={chatInput} onChange={e=>setChatInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&sendChat()} onFocus={()=>favExercises.length>0&&setShowChat(true)} placeholder={favExercises.length>0?"Ask Gary about your favourites...":"Add favourites from the exercise library first"} style={{flex:1,background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:10,padding:"12px 14px",color:C.txt,fontSize:16,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
+          <button onClick={()=>sendChat()} disabled={!chatInput.trim()||loading} style={{width:44,height:44,background:chatInput.trim()?C.strength:C.sur,border:`1px solid ${chatInput.trim()?C.strength:C.bdr}`,borderRadius:10,cursor:"pointer",fontSize:16,color:chatInput.trim()?"#fff":C.dim,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+            {String.fromCharCode(8593)}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- BOTTOM NAV ---------------------------------------------------
 const BottomNav=({active,setActive})=>{
   const tabs=[
     {id:"home",icon:"",label:"Home"},
     {id:"program",icon:"",label:"Programme"},
-    {id:"library",icon:"",label:"Library"},
     {id:"workouts",icon:"",label:"Workouts"},
+    {id:"favourites",icon:"",label:"Favourites"},
     {id:"coach",icon:"",label:"Coach"},
   ];
   return(
@@ -1533,31 +1785,84 @@ const CoachIntro=({profile,onReady})=>(
   </div>
 );
 
+
+// --- TERMS & CONDITIONS ------------------------------------------
+const TermsScreen=({onAccept})=>{
+  const[checked,setChecked]=useState(false);
+  const[dataChecked,setDataChecked]=useState(false);
+  return(
+    <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",padding:"48px 24px 40px",maxWidth:480,margin:"0 auto"}}>
+      <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,letterSpacing:"0.15em",marginBottom:8}}>GMT COACH</div>
+      <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:32}}>BEFORE WE BEGIN</div>
+      <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:36,lineHeight:1,letterSpacing:"0.04em",marginBottom:8}}>TERMS & CONDITIONS</h2>
+      <p style={{color:C.mid,fontSize:14,lineHeight:1.7,marginBottom:24}}>Please read and agree to the following before using GMT Coach.</p>
+      <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:14,marginBottom:24}}>
+        {[
+          {title:"Health Disclaimer",body:"GMT Coach provides general fitness programming and educational content. It is not a substitute for medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional before starting any new exercise programme, particularly if you have pre-existing medical conditions, injuries, or health concerns. Exercise carries inherent risk. You accept full responsibility for your physical wellbeing."},
+          {title:"Not a Medical Device",body:"This app and its AI coaching features are for informational and educational purposes only. GMT Coach does not diagnose, treat, cure, or prevent any condition. Programming suggestions are based on information you provide and general fitness principles."},
+          {title:"Programme Improvement",body:"GMT Coach improves its programming every month. With your consent, anonymised usage patterns such as which exercises are favourited, session completion rates, and coaching interaction trends may be used to improve programming quality for all users. No personally identifiable information is shared. You can withdraw consent at any time in Settings."},
+          {title:"Data & Privacy",body:"Your profile, workout logs, and coaching conversations are stored locally on your device. AI coaching is processed via Anthropic's Claude API. Please refer to anthropic.com for details on how conversational data is handled."},
+          {title:"Intensity Warning",body:"GMT Coach uses high-intensity principles for advanced athletes. Select your training age honestly during setup. Training to failure carries risk if form breaks down. Always prioritise technique over load."},
+        ].map((s,i)=>(
+          <div key={i} style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"16px 18px"}}>
+            <div style={{fontSize:12,fontWeight:700,color:C.txt,marginBottom:8}}>{s.title}</div>
+            <p style={{fontSize:13,color:C.mid,lineHeight:1.7}}>{s.body}</p>
+          </div>
+        ))}
+      </div>
+      <div style={{display:"flex",flexDirection:"column",gap:14,marginBottom:24}}>
+        <button onClick={()=>setChecked(c=>!c)} style={{background:"transparent",border:"none",cursor:"pointer",display:"flex",alignItems:"flex-start",gap:12,textAlign:"left",padding:0}}>
+          <div style={{width:24,height:24,borderRadius:6,border:`2px solid ${checked?C.hyper:C.bdr}`,background:checked?C.hyperG:"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1,transition:"all 0.15s"}}>
+            {checked&&<div style={{width:10,height:10,borderRadius:2,background:C.hyper}}/>}
+          </div>
+          <span style={{fontSize:14,color:C.txt,lineHeight:1.65}}>I have read and agree to the Terms and Health Disclaimer. I understand GMT Coach is not a medical device and I train at my own risk.</span>
+        </button>
+        <button onClick={()=>setDataChecked(c=>!c)} style={{background:"transparent",border:"none",cursor:"pointer",display:"flex",alignItems:"flex-start",gap:12,textAlign:"left",padding:0}}>
+          <div style={{width:24,height:24,borderRadius:6,border:`2px solid ${dataChecked?C.recovery:C.bdr}`,background:dataChecked?C.recoveryG:"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1,transition:"all 0.15s"}}>
+            {dataChecked&&<div style={{width:10,height:10,borderRadius:2,background:C.recovery}}/>}
+          </div>
+          <span style={{fontSize:14,color:C.mid,lineHeight:1.65}}>I consent to anonymised usage data being used to improve GMT Coach programming for all users. (Optional)</span>
+        </button>
+      </div>
+      <Btn onClick={onAccept} disabled={!checked} style={{width:"100%"}}>
+        {checked?"I Agree -- Build My Programme":"Accept Terms to Continue"}
+      </Btn>
+    </div>
+  );
+};
+
 // --- APP ROOT -----------------------------------------------------
-export default function App(){
-  const[screen,setScreen]=useState("onboarding");
+function AppInner(){
+  const[screen,setScreen]=useState("terms");
   const[tab,setTab]=useState("home");
   const[activeWorkout,setActiveWorkout]=useState(null);
   const[profile,setProfile]=useState(null);
   const[weekSchedule,setWeekSchedule]=useState({});
   const[sessionCount,setSessionCount]=useState(0);
-  const[favourites,setFavourites]=useState([]);
+  const[favourites,setFavourites]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_favs")||"[]");}catch{return[];}});
 
-  const toggleFav=id=>setFavourites(f=>f.includes(id)?f.filter(x=>x!==id):[...f,id]);
+  const toggleFav=id=>setFavourites(f=>{
+    const n=f.includes(id)?f.filter(x=>x!==id):[...f,id];
+    try{localStorage.setItem("gmt_favs",JSON.stringify(n));}catch(e){}
+    return n;
+  });
 
   return(
     <>
       <style>{fonts}</style>
       <style>{gStyles}</style>
       <div style={{maxWidth:480,margin:"0 auto",minHeight:"100vh",position:"relative",background:C.bg}}>
+        {screen==="terms"&&<TermsScreen onAccept={()=>setScreen("onboarding")}/>}
         {screen==="onboarding"&&<Onboarding onComplete={d=>{setProfile(d);setScreen("coachIntro");}}/>}
         {screen==="coachIntro"&&<CoachIntro profile={profile} onReady={()=>setScreen("dayPicker")}/>}
         {screen==="dayPicker"&&<DayPicker frequency={profile?.frequency} profile={profile} onConfirm={s=>{setWeekSchedule(s);setScreen("main");}}/>}
         {screen==="main"&&!activeWorkout&&<>
-          {tab==="home"&&<Dashboard onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} profile={profile} weekSchedule={weekSchedule} sessionCount={sessionCount}/>}
+          {tab==="home"&&<Dashboard onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} profile={profile} weekSchedule={weekSchedule} sessionCount={sessionCount} onNutrition={()=>setTab("nutrition")}/>}
           {tab==="program"&&<ProgramView onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} weekSchedule={weekSchedule}/>}
           {tab==="library"&&<ExerciseLibrary favourites={favourites} onToggleFav={toggleFav}/>}
-          {tab==="workouts"&&<WorkoutLibraryView onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})}/>}
+          {tab==="workouts"&&<WorkoutLibraryView onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} weekSchedule={weekSchedule} favourites={favourites} onToggleFav={toggleFav}/>}
+          {tab==="favourites"&&<FavouritesView favourites={favourites} onToggleFav={toggleFav} profile={profile}/>}
+          {tab==="nutrition"&&<NutritionView profile={profile}/>}
           {tab==="coach"&&<CoachView profile={profile}/>}
           <BottomNav active={tab} setActive={setTab}/>
         </>}
@@ -1566,3 +1871,4 @@ export default function App(){
     </>
   );
 }
+export default function App(){return(<ErrorBoundary><AppInner/></ErrorBoundary>);}
