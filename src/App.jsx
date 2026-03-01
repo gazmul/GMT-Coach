@@ -1,7 +1,7 @@
 // GMT Coach v3.0
-import { useState, useEffect, useRef, useCallback, Component } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
-class ErrorBoundary extends Component {
+class ErrorBoundary extends React.Component {
   constructor(p){super(p);this.state={err:null};}
   static getDerivedStateFromError(e){return{err:e};}
   componentDidCatch(e,i){console.error("GMT Coach error:",e,i);}
@@ -10,7 +10,7 @@ class ErrorBoundary extends Component {
       <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:32,background:"#0A0A0B",color:"#F2F2F0",fontFamily:"'DM Sans',sans-serif",textAlign:"center",gap:20}}>
         <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:32,letterSpacing:"0.1em",color:"#FF0066"}}>GMT COACH</div>
         <div style={{fontSize:14,color:"#9090A0",lineHeight:1.6,maxWidth:280}}>Something went wrong. This is usually fixed by refreshing the app.</div>
-        <button onClick={()=>{try{localStorage.clear();}catch(e){}window.location.reload();}} style={{background:"#FF0066",border:"none",borderRadius:10,padding:"14px 28px",color:"#fff",fontSize:15,fontFamily:"'DM Sans',sans-serif",fontWeight:600,cursor:"pointer"}}>
+        <button onClick={()=>window.location.reload()} style={{background:"#FF0066",border:"none",borderRadius:10,padding:"14px 28px",color:"#fff",fontSize:15,fontFamily:"'DM Sans',sans-serif",fontWeight:600,cursor:"pointer"}}>
           Refresh App
         </button>
       </div>
@@ -213,6 +213,68 @@ const EXERCISES = [
    alt:{name:"DB Skull Crusher or Overhead DB Extension",desc:"DB works well. Skull crusher: elbows bend, lower DB behind head. Overhead DB: hold one DB with both hands overhead.",noAlt:false},
    coachNote:"Two-thirds of the tricep is the long head. It only fully contracts when your arm is overhead. If all you do is pushdowns, you're leaving a third of your tricep development on the table."},
 
+
+  // RUNNING - STRENGTH & PREHAB
+  {id:"atg-split-squat",name:"ATG Split Squat",muscle:"Legs",secondary:"Knee, Ankle, Hip Flexor",equipment:"Bodyweight / Dumbbells",category:"compound",difficulty:"intermediate",
+   cue:"Front foot flat. Rear toes on elevated surface. Drive front knee as far over toes as possible - the further the better, as long as heel stays down. This is the opposite of what most coaches teach. Full depth: rear knee grazes the floor. Lean torso forward slightly for hip flexor stretch at the bottom.",
+   tempo:"3-1-1-0",sets:"3",reps:"8-10 each",rest:90,rpe:7,
+   grip:"Bodyweight first. Add DBs at sides when full depth is comfortable. Never rush load.",
+   alt:{name:"Assisted ATG Split Squat (holding a pole)",desc:"Hold a vertical pole or TRX strap for balance. Focus on knee travel distance and heel contact, not load. This is the progression tool.",noAlt:false},
+   coachNote:"Ben Patrick's foundation movement. Every runner has tight hip flexors and weak tibialis. This addresses both simultaneously. The knee over toe principle is not dangerous - it is the exact range your knee was designed for. Start with zero load and earn it."},
+  {id:"patrick-step",name:"Patrick Step",muscle:"Legs",secondary:"Tibialis, Knee",equipment:"Step / Elevation",category:"isolation",difficulty:"beginner",
+   cue:"Stand on edge of a step, one foot. Lower the heel of the working leg below step level. Drive toes up, then slowly lower. This loads the tibialis anterior in a stretched position - the most important runner muscle most runners ignore.",
+   tempo:"1-1-2-0",sets:"3",reps:"15-20 each",rest:60,rpe:6,
+   grip:"Hold something for balance. Focus is entirely on the tibialis, not balance.",
+   alt:{name:"Tibialis Raise (floor)",desc:"Stand heels on a small elevation, back against wall. Lift toes as high as possible. Easier version, same muscle. Progress to Patrick Step.",noAlt:false},
+   coachNote:"Named after Ben Patrick. This single movement - done consistently for 8 weeks - eliminates shin splints in most runners. The tibialis anterior controls toe clearance during your gait cycle. Strengthen it and your stride efficiency improves. Skip it and shin splints keep returning."},
+  {id:"copenhagen-plank",name:"Copenhagen Plank",muscle:"Legs",secondary:"Adductors, Core, Hip",equipment:"Bench / Box",category:"isolation",difficulty:"intermediate",
+   cue:"Side plank position. Top foot rests on a bench at knee or ankle height (higher = easier). Bottom leg hangs free or can lightly touch floor. Hold position - do not let hips sag. Progress by lifting bottom leg off the floor.",
+   tempo:"hold",sets:"3",reps:"20-30s each side",rest:60,rpe:7,
+   grip:"N/A. Forearm on floor, body in straight line.",
+   alt:{name:"Side-lying Hip Adduction",desc:"Lie on side. Lift bottom leg up. Much easier, good starting point. Progress to Copenhagen.",noAlt:false},
+   coachNote:"Adductor weakness is one of the most common causes of groin strains and IT band issues in runners. This loads the adductors in a long position - where they're weakest - making it highly specific injury prevention. The research on this for runners is strong."},
+  {id:"single-leg-calf-raise",name:"Single Leg Calf Raise (Full ROM)",muscle:"Legs",secondary:"Achilles, Ankle",equipment:"Step",category:"isolation",difficulty:"beginner",
+   cue:"Stand on one foot on the edge of a step. Heel drops below step level for the stretch. Drive up as high as possible on toes. Full ROM - the full stretch at the bottom is the entire point. Both gastroc and soleus must work through complete range.",
+   tempo:"2-1-3-1",sets:"3",reps:"15-20 each",rest:60,rpe:7,
+   grip:"Light fingertip balance support only.",
+   alt:{name:"Bilateral Calf Raise on step",desc:"Both feet. Easier. Less Achilles-specific. Progress to single leg as soon as possible.",noAlt:false},
+   coachNote:"Achilles tendinopathy is the most common overuse injury in distance runners. A 2015 Alfredson study showed heavy eccentric loading here reduced pain in 90% of chronic sufferers. The 3-second eccentric lower is non-negotiable. This is treatment and prevention in one movement."},
+  {id:"reverse-nordic",name:"Reverse Nordic Curl",muscle:"Legs",secondary:"Quad, Hip Flexor, Knee",equipment:"Soft surface",category:"isolation",difficulty:"intermediate",
+   cue:"Kneel upright, knees on a pad. Keep your body in a straight line from knees to crown - no hip bend. Lean back slowly, as far as you can while maintaining that straight line. Drive back up with quads. This is quad and hip flexor work in one.",
+   tempo:"3-0-1-0",sets:"3",reps:"8-12",rest:90,rpe:8,
+   grip:"N/A. Arms across chest or extended for counterbalance.",
+   alt:{name:"Assisted Reverse Nordic (holding a pole)",desc:"Hold a pole in front for assistance returning upright. Reduces the load but preserves the movement pattern. Start here.",noAlt:false},
+   coachNote:"Runners are quad-dominant and hip-flexor tight simultaneously. This addresses both. The ATG protocol uses this as a quad finisher. It also builds the terminal knee extension strength that runners need for push-off efficiency. Harder than it looks."},
+  {id:"glute-med-walk",name:"Banded Lateral Walk",muscle:"Legs",secondary:"Glute Medius, Hip Abductors",equipment:"Resistance Band",category:"isolation",difficulty:"beginner",
+   cue:"Band around ankles or just above knees. Quarter squat position - stay low throughout. Step laterally, maintaining tension on the band at all times. Do not let feet come fully together. Keep torso upright, knees tracking toes.",
+   tempo:"controlled",sets:"3",reps:"15 steps each direction",rest:60,rpe:5,
+   grip:"N/A. Hands on hips or out front for balance.",
+   alt:{name:"Clamshell (band)",desc:"Lie on side, band above knees. Open top knee like a clamshell. Easier. Targets glute med from a different angle. Good warm-up movement.",noAlt:false},
+   coachNote:"Glute medius weakness causes lateral pelvic drop during single-leg stance - which happens on every single stride. That drop is the mechanism behind IT band syndrome, runner's knee, and hip pain. This is not optional prehab. This is the reason half your athletes are injured."},
+  {id:"single-leg-rdl",name:"Single Leg RDL",muscle:"Legs",secondary:"Hamstrings, Glutes, Balance",equipment:"Dumbbells / Barbell",category:"compound",difficulty:"intermediate",
+   cue:"Stand on one leg, slight bend in the knee. Hinge forward from the hip - let the free leg extend behind you as a counterbalance. Maintain a neutral spine throughout. Reach dumbbell toward the floor. Drive through heel to return. Control every inch.",
+   tempo:"3-1-1-0",sets:"3",reps:"8-10 each",rest:90,rpe:7,
+   grip:"One or two DBs. Start light - balance is the limiting factor before load.",
+   alt:{name:"B-Stance RDL (staggered feet)",desc:"Both feet on the floor, one slightly behind. More stable. Good entry point. Progress to full single leg.",noAlt:false},
+   coachNote:"Runners live on one leg at a time. Every stride is a single-leg landing. Bilateral strength does not transfer as directly as unilateral work. The single-leg RDL also develops proprioception and ankle stability - two things that determine how well you handle varied terrain."},
+  {id:"hip-flexor-stretch-active",name:"Active Hip Flexor Stretch (90/90)",muscle:"Hips",secondary:"Hip Flexor, Piriformis, Glute",equipment:"Bodyweight",category:"mobility",difficulty:"beginner",
+   cue:"Sit on floor. One leg at 90 degrees in front, one at 90 degrees to the side. Sit upright - do not hunch. Lean forward over the front shin to feel the front hip stretch. Then rotate to lean over the rear leg. Active breathing throughout.",
+   tempo:"hold 30-60s each position",sets:"2",reps:"2 positions each side",rest:30,rpe:3,
+   grip:"N/A. Hands on floor for support.",
+   alt:{name:"Half-Kneeling Hip Flexor Stretch",desc:"Kneeling lunge position. Posterior pelvic tilt (squeeze glute of rear leg). Hold 30-60s. Classic hip flexor opener.",noAlt:false},
+   coachNote:"Every runner is hip-flexor tight. It is almost universal. Tight hip flexors reduce stride length, increase anterior pelvic tilt, and cause lower back pain on long runs. Ten minutes of active hip flexor work per day changes your gait over 4-6 weeks. Not a nice-to-have."},
+  {id:"dead-bug",name:"Dead Bug",muscle:"Legs",secondary:"Core, Hip Flexors, Lumbar",equipment:"Bodyweight",category:"isolation",difficulty:"beginner",
+   cue:"Lie on back, arms vertical, knees at 90 degrees above hips. Press lower back flat to the floor - this stays the entire time. Simultaneously lower one arm overhead and opposite leg to just above floor. Return. Keep breathing. Never let lower back arch.",
+   tempo:"2-0-2-0",sets:"3",reps:"8-10 each side",rest:60,rpe:5,
+   grip:"N/A.",
+   alt:{name:"Modified Dead Bug (one limb only)",desc:"Only move one limb at a time instead of opposite pairs. Easier. Build to the full movement.",noAlt:false},
+   coachNote:"Running is an anti-rotation sport. Every stride requires your core to resist rotation and keep the pelvis stable. The dead bug builds that specific anti-extension and anti-rotation core stability. Stuart McGill rates this above crunches and sit-ups for spinal health. It is also safe for athletes with existing lower back issues."},
+  {id:"box-jump",name:"Box Jump",muscle:"Legs",secondary:"Glutes, Calves, Core",equipment:"Box / Plyo Box",category:"compound",difficulty:"intermediate",
+   cue:"Stand arm's length from box. Quarter squat and swing arms. Explode upward and land softly on the box with full foot contact - not just toes. Land in a quarter squat. Step down - do not jump down. Focus is on the explosive drive, not landing height.",
+   tempo:"explosive",sets:"4",reps:"5",rest:90,rpe:8,
+   grip:"N/A. Arms drive the momentum.",
+   alt:{name:"Squat Jump (no box)",desc:"Jump vertically, land softly. Same explosive intent. Focus on triple extension at hips, knees, and ankles. Land with control.",noAlt:false},
+   coachNote:"Plyometric training improves running economy directly - multiple studies show 3-6% improvement in economy after 6-8 weeks of plyos. That translates to faster times for the same effort. This is not just a gym movement. This is specific speed work."},
   // WARM-UP / MOBILITY
   {id:"hip-circle",name:"Hip Circle (Active Mobility)",muscle:"Hips",secondary:"Glutes, Hip Flexors",equipment:"Bodyweight",category:"mobility",difficulty:"beginner",
    cue:"Standing, hands on hips. Draw large circles with your hips  both directions. Increase range progressively. This is nervous system priming, not stretching.",
@@ -233,6 +295,65 @@ const EXERCISES = [
 // setsLabel = display string shown in programme view
 // Rep schemes adapt via Gary's AI based on training age
 const WORKOUT_LIBRARY = [
+  {
+    id:"runner-strength",cat:"Running",name:"Runner Strength Foundation",sessionCode:"RSF",version:"1.1",tag:"Strength",duration:"45-55 min",
+    gary:"Runners who skip strength work get injured. It's not a question of if - it's when. This session is the foundation. We're building the structural capacity your body needs to absorb the forces of running. Every rep here is injury prevention.",
+    exercises:[
+      {name:"Patrick Step",sets:3,setsLabel:"3",reps:"20 each",note:"Non-negotiable opener. Tibialis anterior is the most neglected muscle in running. This is your shin splint prevention.",rest:60,rpe:6,tempo:"1-1-2-0",type:"recovery"},
+      {name:"ATG Split Squat",sets:3,setsLabel:"3",reps:"8-10 each",note:"Knee over toe. Full depth. Hip flexor stretch at bottom. This is your knee health movement. Start bodyweight.",rest:90,rpe:7,tempo:"3-1-1-0",type:"strength"},
+      {name:"Single Leg RDL",sets:3,setsLabel:"3",reps:"8-10 each",note:"Every stride is a single-leg movement. Train unilateral. Control the hinge.",rest:90,rpe:7,tempo:"3-1-1-0",type:"hyper"},
+      {name:"Single Leg Calf Raise (Full ROM)",sets:3,setsLabel:"3",reps:"15-20 each",note:"Full drop below step. 3s eccentric. Achilles protection. Non-negotiable for any runner.",rest:60,rpe:7,tempo:"2-1-3-1",type:"recovery"},
+      {name:"Banded Lateral Walk",sets:3,setsLabel:"3",reps:"15 steps each way",note:"Glute medius. Prevents IT band, runner's knee, hip pain. Stay low throughout.",rest:60,rpe:5,tempo:"controlled",type:"recovery"},
+      {name:"Dead Bug",sets:3,setsLabel:"3",reps:"8-10 each side",note:"Anti-rotation core stability. Running is a single-leg anti-rotation sport. Build it here.",rest:60,rpe:5,tempo:"2-0-2-0",type:"recovery"},
+    ]
+  },
+  {
+    id:"runner-prehab",cat:"Running",name:"Runner Prehab & Mobility",sessionCode:"RPM",version:"1.1",tag:"Recovery",duration:"30-40 min",
+    gary:"This is not stretching. This is targeted loading of the tissues most runners destroy over time. Ben Patrick's knees-over-toes work, active hip work, and achilles loading. Do this session the day before a hard run or after an easy run.",
+    exercises:[
+      {name:"Active Hip Flexor Stretch (90/90)",sets:2,setsLabel:"2",reps:"60s each side",note:"Runners have chronically tight hip flexors. Tight hip flexors reduce stride length and cause back pain.",rest:30,rpe:3,tempo:"hold",type:"recovery"},
+      {name:"Patrick Step",sets:3,setsLabel:"3",reps:"20-25 each",note:"Weighted if comfortable. This is your shin splint and knee health daily practice.",rest:45,rpe:5,tempo:"1-1-2-0",type:"recovery"},
+      {name:"Copenhagen Plank",sets:3,setsLabel:"3",reps:"25-30s each side",note:"Adductor and groin protection. IT band prevention. Hold steady, no hip sag.",rest:60,rpe:6,tempo:"hold",type:"recovery"},
+      {name:"Single Leg Calf Raise (Full ROM)",sets:3,setsLabel:"3",reps:"20-25 each",note:"High rep. Focus on the full stretch at bottom. Achilles tendon loading at long length.",rest:45,rpe:6,tempo:"2-1-3-1",type:"recovery"},
+      {name:"ATG Split Squat",sets:2,setsLabel:"2",reps:"10-15 each",note:"Lighter than strength day. Focus on range of motion. Hip flexor stretch and knee health.",rest:60,rpe:6,tempo:"3-1-1-0",type:"recovery"},
+      {name:"Reverse Nordic Curl",sets:2,setsLabel:"2",reps:"10-12",note:"Quad and hip flexor in one. Controls the knee through full range. Important for push-off strength.",rest:60,rpe:7,tempo:"3-0-1-0",type:"recovery"},
+    ]
+  },
+  {
+    id:"runner-upper",cat:"Running",name:"Runner Upper Body & Core",sessionCode:"RUC",version:"1.1",tag:"Hypertrophy",duration:"40-50 min",
+    gary:"Upper body and core work for runners is about posture, arm drive efficiency, and the anti-rotation strength that keeps your form together at mile 20. Not about size. Every movement here has a direct running application.",
+    exercises:[
+      {name:"Dead Bug",sets:3,setsLabel:"3",reps:"10 each side",note:"Anti-extension core stability. Your foundation for the session.",rest:60,rpe:5,tempo:"2-0-2-0",type:"recovery"},
+      {name:"Barbell Overhead Press",sets:3,setsLabel:"3",reps:"8-10",note:"Shoulder strength and postural endurance. Runners who slump at mile 15 lose efficiency. Build the shoulders to stay upright.",rest:90,rpe:7,tempo:"2-0-1-0",type:"hyper"},
+      {name:"Seated Cable Row",sets:3,setsLabel:"3",reps:"10-12",note:"Posture. Runners who have forward rounded shoulders compress their breathing. Row to pull it back.",rest:90,rpe:7,tempo:"3-1-1-1",type:"hyper"},
+      {name:"Face Pull",sets:3,setsLabel:"3",reps:"15-20",note:"Rotator cuff and rear delt. Shoulder health for the long haul.",rest:60,rpe:6,tempo:"2-1-1-1",type:"recovery"},
+      {name:"Band Pull-Apart",sets:3,setsLabel:"3",reps:"20",note:"Upper back activation. Postural endurance. Do these throughout warm-up too.",rest:30,rpe:4,tempo:"2-1-2-0",type:"recovery"},
+      {name:"Dead Bug",sets:3,setsLabel:"3",reps:"10 each side",note:"Finisher. Anti-rotation core. Think about running form and hip stability.",rest:60,rpe:5,tempo:"2-0-2-0",type:"recovery"},
+    ]
+  },
+  {
+    id:"runner-power",cat:"Running",name:"Runner Plyometrics & Power",sessionCode:"RPW",version:"1.1",tag:"Strength",duration:"35-45 min",
+    gary:"Running economy. That's what this session is about. Six weeks of plyometric training gives most runners a 3-6% improvement in economy - meaning faster times for the same effort. This is the work most runners skip. Don't skip it.",
+    exercises:[
+      {name:"Patrick Step",sets:2,setsLabel:"2",reps:"15 each",note:"Activation. Tibialis prep before impact work.",rest:45,rpe:5,tempo:"1-1-2-0",type:"recovery"},
+      {name:"Box Jump",sets:4,setsLabel:"4",reps:"5",note:"Max intent. Full triple extension. Land soft. Quality over quantity. Rest fully between sets.",rest:90,rpe:8,tempo:"explosive",type:"strength"},
+      {name:"Single Leg Calf Raise (Full ROM)",sets:3,setsLabel:"3",reps:"12-15 each",note:"Loaded achilles and calf complex. Eccentric control. Plyometrics need this foundation.",rest:60,rpe:7,tempo:"2-1-3-1",type:"recovery"},
+      {name:"ATG Split Squat",sets:3,setsLabel:"3",reps:"8 each",note:"Loaded. This develops the deep knee flexion and hip flexor range that allows a more powerful stride.",rest:90,rpe:8,tempo:"3-1-1-0",type:"strength"},
+      {name:"Banded Lateral Walk",sets:2,setsLabel:"2",reps:"20 steps each way",note:"Glute med activation post-plyo. Keep it honest.",rest:60,rpe:5,tempo:"controlled",type:"recovery"},
+    ]
+  },
+  {
+    id:"runner-marathon-strength",cat:"Running",name:"Marathon Strength Block",sessionCode:"MSB",version:"1.1",tag:"Hypertrophy",duration:"50-60 min",
+    gary:"You're training for distance. That means the strength work needs to be higher rep, lower impact, and focused on the specific muscles that fail late in a marathon - glutes, hip flexors, calves. This is the session that gets you to the finish line strong, not shuffling.",
+    exercises:[
+      {name:"Patrick Step",sets:3,setsLabel:"3",reps:"25 each",note:"High rep tibialis work. Marathon runners get shin splints from tibialis fatigue at mile 20+. Build the endurance.",rest:45,rpe:5,tempo:"1-1-2-0",type:"recovery"},
+      {name:"ATG Split Squat",sets:3,setsLabel:"3",reps:"12-15 each",note:"Higher rep. Muscular endurance in the hip flexors and quads. This is miles 18-26 territory.",rest:90,rpe:7,tempo:"2-1-1-0",type:"hyper"},
+      {name:"Single Leg RDL",sets:3,setsLabel:"3",reps:"12-15 each",note:"Hamstring and glute endurance. The glutes fatigue significantly in the second half of a marathon.",rest:90,rpe:7,tempo:"3-1-1-0",type:"hyper"},
+      {name:"Single Leg Calf Raise (Full ROM)",sets:4,setsLabel:"4",reps:"20-25 each",note:"High volume. Marathon calves work for 3-6 hours. Build the endurance specifically here.",rest:60,rpe:7,tempo:"2-1-3-0",type:"recovery"},
+      {name:"Copenhagen Plank",sets:3,setsLabel:"3",reps:"30-40s each side",note:"Adductor strength for the long haul. Groin protection over 26.2 miles.",rest:60,rpe:6,tempo:"hold",type:"recovery"},
+      {name:"Dead Bug",sets:3,setsLabel:"3",reps:"12 each side",note:"Core endurance. Running posture at mile 24 depends on this.",rest:60,rpe:5,tempo:"2-0-2-0",type:"recovery"},
+    ]
+  },
   {
     id:"warmup",cat:"Warm-Up",name:"Full Body Warm-Up Protocol",tag:"Pre-Session",duration:"15-20 min",
     gary:"Every session, no exceptions. This isn't optional filler  it's your injury insurance policy. Nervous system activation, joint mobilisation, blood flow. Your first working set should feel like the fifth.",
@@ -376,15 +497,18 @@ const WORKOUT_LIBRARY = [
   },
 ];
 
+const isRunner=(goals)=>Array.isArray(goals)&&goals.some(g=>g.toLowerCase().includes("run")||g.toLowerCase().includes("marathon")||g.toLowerCase().includes("endurance"));
 const STEPS=[
-  {id:"trainingAge",title:"Training Age",sub:"How long have you trained consistently?",type:"select",opts:["Less than 1 year","1-2 years","2-4 years","4-7 years","7+ years"]},
+  {id:"trainingAge",title:"Training Experience",sub:"How long have you trained consistently?",type:"select",opts:["Less than 1 year","1-2 years","2-4 years","4-7 years","7+ years"]},
   {id:"age",title:"Your Age",sub:"Age significantly shapes how we programme recovery, intensity and volume.",type:"select",opts:["16-20","21-29","30-39","40-49","50+"]},
   {id:"gender",title:"One More Thing",sub:"This shapes how we structure your programme.",type:"select",opts:["Male","Female","Prefer not to say"]},
   {id:"frequency",title:"Weekly Frequency",sub:"How many days per week can you commit?",type:"select",opts:["3 days","4 days","5 days","6 days"]},
-  {id:"goals",title:"Your Goals",sub:"Select all that apply. We build your programme around every one.",type:"multi",opts:["Hypertrophy (muscle size & density)","Strength (max force output)","Aesthetics (lean, proportional physique)","Body Recomposition (lose fat, build muscle)","Athletic Performance","Glute & Lower Body Focus"]},
+  {id:"goals",title:"Your Goals",sub:"Select all that apply. We build your programme around every one.",type:"multi",opts:["Hypertrophy (muscle size & density)","Strength (max force output)","Aesthetics (lean, proportional physique)","Body Recomposition (lose fat, build muscle)","Athletic Performance","Glute & Lower Body Focus","Marathon / Ultra Running","Long Distance Running","Recreational / 5K-10K Running"]},
+  {id:"runningContext",title:"Your Running",sub:"Tell us about your running. Skip if running is not a goal.",type:"inputs",fields:[{key:"weeklyMiles",label:"Weekly mileage",unit:"km/miles"},{key:"longestRun",label:"Longest recent run",unit:"km/miles"},{key:"raceGoal",label:"Next race distance (e.g. 10K, half, marathon)",unit:""}],optional:true},
   {id:"unit",title:"Weight Units",sub:"Choose your preferred unit. You can change this anytime.",type:"select",opts:["kg","lbs"]},
-  {id:"benchmarks",title:"Strength Benchmarks",sub:"Approximate 5-rep max. Honest estimates are fine.",type:"inputs",fields:[{key:"squat",label:"Back Squat"},{key:"bench",label:"Bench Press"},{key:"deadlift",label:"Deadlift"},{key:"ohp",label:"OHP"}]},
-  {id:"limitations",title:"Pain / Limitations",sub:"Select any current concerns. None is perfectly fine.",type:"multi",opts:["Lower back","Knees","Shoulders","Hips","Neck","None"]},
+  {id:"bodyStats",title:"Height & Weight",sub:"This helps us contextualise your strength numbers and build an appropriate programme for your body.",type:"inputs",fields:[{key:"height",label:"Height",unit:"cm"},{key:"weight",label:"Bodyweight",unit:"kg / lbs"}]},
+  {id:"benchmarks",title:"Strength Benchmarks",sub:"Approximate 5-rep max. Honest estimates are fine. Skip if you are a runner new to lifting.",type:"inputs",fields:[{key:"squat",label:"Back Squat"},{key:"bench",label:"Bench Press"},{key:"deadlift",label:"Deadlift"},{key:"ohp",label:"OHP"}]},
+  {id:"limitations",title:"Pain / Limitations",sub:"Select any current concerns. Include any running-related injuries.",type:"multi",opts:["Lower back","Knees","Shoulders","Hips","Neck","Shin Splints","IT Band","Achilles / Calf","Plantar Fasciitis","None"]},
   {id:"recovery",title:"Recovery Baseline",sub:"Honest answers change the programme.",type:"inputs",fields:[{key:"sleep",label:"Avg sleep per night",unit:"hrs"},{key:"stress",label:"Daily stress level",unit:"/10"}]},
 ];
 const Onboarding=({onComplete})=>{
@@ -403,7 +527,7 @@ const Onboarding=({onComplete})=>{
     if(step<STEPS.length-1){setStep(s=>s+1);setFv({});setMs([]);}
     else onComplete(m);
   };
-  const canNext=cur.type==="select"?!!ans[cur.id]:cur.type==="multi"?ms.length>0:true;
+  const canNext=cur.optional?true:cur.type==="select"?!!ans[cur.id]:cur.type==="multi"?ms.length>0:true;
   return(
     <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",padding:"40px 24px 32px",maxWidth:480,margin:"0 auto"}}>
       <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,letterSpacing:"0.15em",color:C.txt,marginBottom:32}}>GMT COACH</div>
@@ -441,7 +565,8 @@ const Onboarding=({onComplete})=>{
       </div>
       <div style={{marginTop:32}}>
         <Btn onClick={next} disabled={!canNext} style={{width:"100%"}}>{step<STEPS.length-1?"Continue ":"Build My Programme"}</Btn>
-        {step>0&&<button onClick={()=>setStep(s=>s-1)} style={{width:"100%",background:"transparent",border:"none",color:C.dim,cursor:"pointer",padding:"14px",fontSize:14,marginTop:8}}> Back</button>}
+        {cur.optional&&<button onClick={()=>{setStep(s=>s+1);setFv({});}} style={{width:"100%",background:"transparent",border:"none",color:C.dim,cursor:"pointer",padding:"12px",fontSize:13,marginTop:4}}>Skip (not a runner)</button>}
+        {step>0&&<button onClick={()=>setStep(s=>s-1)} style={{width:"100%",background:"transparent",border:"none",color:C.dim,cursor:"pointer",padding:"14px",fontSize:14,marginTop:4}}> Back</button>}
       </div>
     </div>
   );
@@ -449,12 +574,56 @@ const Onboarding=({onComplete})=>{
 
 // --- DAY PICKER ---------------------------------------------------
 const ALL_DAYS=["MON","TUE","WED","THU","FRI","SAT","SUN"];
-const SESSION_LABELS=["Chest, Shoulders & Triceps","Back, Biceps & Rear Delts","Legs - Quad Dominant","Shoulders & Arms","Chest & Back","Legs - Hamstrings & Glutes","Legs - Glute & Posterior"];
+const SESSION_LABELS=["Chest, Shoulders & Triceps","Back, Biceps & Rear Delts","Legs - Quad Dominant","Shoulders & Arms","Chest & Back","Legs - Hamstrings & Glutes","Legs - Glute & Posterior","Runner Strength Foundation","Runner Prehab & Mobility","Runner Upper Body & Core","Runner Plyometrics & Power","Marathon Strength Block"];
 const DayPicker=({frequency,onConfirm,profile})=>{
   const max=parseInt(frequency)||4;
   const isFemale=profile?.gender==="Female"||(Array.isArray(profile?.goals)&&profile.goals.some(g=>g.includes("Glute")));
   // For female clients, swap quad-dominant leg day for glute-focused
-  const sessionLabels=SESSION_LABELS.map(l=>isFemale&&l==="Legs - Quad Dominant"?"Legs - Glute & Posterior":l);
+  const isRunnerSchedule=Array.isArray(profile?.goals)&&profile.goals.some(g=>g.toLowerCase().includes("run")||g.toLowerCase().includes("marathon")||g.toLowerCase().includes("endurance"));
+  const goals=Array.isArray(profile?.goals)?profile.goals:[];
+  const hasGlute=goals.some(g=>g.includes("Glute")||g.includes("Lower Body"));
+  const hasHypertrophy=goals.some(g=>g.includes("Hypertrophy"));
+  const hasStrength=goals.some(g=>g.includes("Strength"));
+  const hasRecomp=goals.some(g=>g.includes("Recomposition"));
+
+  // Build a smart modular schedule based on goals + frequency
+  const getSmartSchedule=(freq,isFemale,hasGlute,hasHypertrophy,hasStrength)=>{
+    // Female or glute-focused: more leg days, less upper isolation
+    if(isFemale||hasGlute){
+      const gluteSchedules={
+        3:["Legs - Glute & Posterior","Chest, Shoulders & Triceps","Legs - Hamstrings & Glutes"],
+        4:["Legs - Glute & Posterior","Back, Biceps & Rear Delts","Legs - Hamstrings & Glutes","Chest, Shoulders & Triceps"],
+        5:["Legs - Glute & Posterior","Back, Biceps & Rear Delts","Legs - Hamstrings & Glutes","Chest, Shoulders & Triceps","Legs - Glute & Posterior"],
+        6:["Legs - Glute & Posterior","Back, Biceps & Rear Delts","Legs - Hamstrings & Glutes","Chest, Shoulders & Triceps","Legs - Glute & Posterior","Shoulders & Arms"],
+      };
+      return gluteSchedules[freq]||gluteSchedules[4];
+    }
+    // Strength-focused: more compound days
+    if(hasStrength&&!hasHypertrophy){
+      const strengthSchedules={
+        3:["Chest, Shoulders & Triceps","Legs - Quad Dominant","Back, Biceps & Rear Delts"],
+        4:["Chest, Shoulders & Triceps","Legs - Quad Dominant","Back, Biceps & Rear Delts","Legs - Hamstrings & Glutes"],
+        5:["Chest, Shoulders & Triceps","Legs - Quad Dominant","Back, Biceps & Rear Delts","Chest & Back","Legs - Hamstrings & Glutes"],
+        6:["Chest, Shoulders & Triceps","Legs - Quad Dominant","Back, Biceps & Rear Delts","Chest & Back","Legs - Hamstrings & Glutes","Shoulders & Arms"],
+      };
+      return strengthSchedules[freq]||strengthSchedules[4];
+    }
+    // Default balanced hypertrophy
+    const defaultSchedules={
+      3:["Chest, Shoulders & Triceps","Back, Biceps & Rear Delts","Legs - Quad Dominant"],
+      4:["Chest, Shoulders & Triceps","Back, Biceps & Rear Delts","Legs - Quad Dominant","Shoulders & Arms"],
+      5:["Chest, Shoulders & Triceps","Back, Biceps & Rear Delts","Legs - Quad Dominant","Chest & Back","Legs - Hamstrings & Glutes"],
+      6:["Chest, Shoulders & Triceps","Back, Biceps & Rear Delts","Legs - Quad Dominant","Chest & Back","Legs - Hamstrings & Glutes","Shoulders & Arms"],
+    };
+    return defaultSchedules[freq]||defaultSchedules[4];
+  };
+
+  const runnerSchedule=["Runner Strength Foundation","Runner Prehab & Mobility","Runner Upper Body & Core","Runner Plyometrics & Power","Marathon Strength Block","Runner Strength Foundation","Runner Prehab & Mobility"];
+  const smartSchedule=getSmartSchedule(max,isFemale,hasGlute,hasHypertrophy,hasStrength);
+  const baseLabels=isRunnerSchedule?runnerSchedule:smartSchedule;
+  // Extend if user selects more days than schedule has
+  const extendedLabels=[...baseLabels,...baseLabels,...baseLabels].slice(0,7);
+  const sessionLabels=extendedLabels;
   const[sel,setSel]=useState([]);
   const toggle=d=>{if(sel.includes(d))setSel(s=>s.filter(x=>x!==d));else if(sel.length<max)setSel(s=>[...s,d]);};
   return(
@@ -464,7 +633,10 @@ const DayPicker=({frequency,onConfirm,profile})=>{
         <Tag>SCHEDULE</Tag>
         <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:42,lineHeight:1,letterSpacing:"0.04em",margin:"12px 0 8px"}}>PICK YOUR DAYS</h2>
         <p style={{color:C.mid,fontSize:15,marginBottom:4,lineHeight:1.6}}>Choose {max} training days. Sessions assign in order.</p>
-        <p style={{color:C.dim,fontSize:12,marginBottom:32}}>You can adjust this every week.</p>
+        <p style={{color:C.dim,fontSize:12,marginBottom:12}}>You can adjust this every week.</p>
+        {isRunnerSchedule&&<div style={{background:"rgba(0,230,181,0.06)",border:"1px solid rgba(0,230,181,0.2)",borderRadius:8,padding:"10px 14px",marginBottom:20}}>
+          <p style={{fontSize:12,color:C.recovery,lineHeight:1.6}}>Runner schedule detected. We recommend alternating strength and prehab sessions, with rest or easy run days between. Avoid heavy strength the day before long runs.</p>
+        </div>}
         <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:6,marginBottom:24}}>
           {ALL_DAYS.map(d=>{const s=sel.includes(d);const idx=sel.indexOf(d);return(
             <div key={d} onClick={()=>toggle(d)} style={{cursor:"pointer",borderRadius:10,padding:"14px 4px 12px",background:s?"rgba(0,102,255,0.12)":C.sur,border:`1px solid ${s?"#0066FF":C.bdr}`,textAlign:"center",transition:"all 0.15s",userSelect:"none"}}>
@@ -473,18 +645,28 @@ const DayPicker=({frequency,onConfirm,profile})=>{
             </div>
           );})}
         </div>
-        {sel.length>0&&<div className="fu" style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"16px",marginBottom:24}}>
-          <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:12}}>SESSION MAP</div>
-          {sel.map((d,i)=>(
+        {sel.length>0&&<div className="fu" style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"16px",marginBottom:16}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+            <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}}>SESSION MAP</div>
+            {(isFemale||hasGlute)&&<div style={{fontSize:10,color:C.recovery,fontFamily:"'Space Mono',monospace"}}>GLUTE PROTOCOL</div>}
+            {isRunnerSchedule&&<div style={{fontSize:10,color:C.recovery,fontFamily:"'Space Mono',monospace"}}>RUNNER SCHEDULE</div>}
+          </div>
+          {sel.map((d,i)=>{
+            const label=sessionLabels[i]||`Session ${i+1}`;
+            const isLeg=label.toLowerCase().includes("leg")||label.toLowerCase().includes("glute")||label.toLowerCase().includes("posterior")||label.toLowerCase().includes("hamstring");
+            return(
             <div key={d} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"8px 0",borderBottom:i<sel.length-1?`1px solid ${C.bdr}`:"none"}}>
               <span style={{fontFamily:"'Space Mono',monospace",fontSize:12,color:C.mid}}>{d}</span>
-              <span style={{fontSize:13,fontWeight:600}}>{sessionLabels[i]||`Session ${i+1}`}</span>
+              <span style={{fontSize:13,fontWeight:600,color:isLeg&&(isFemale||hasGlute)?C.strength:C.txt}}>{label}</span>
             </div>
-          ))}
+          );})}
+        </div>}
+        {(isFemale||hasGlute)&&sel.length>0&&<div style={{background:C.strengthG,border:`1px solid ${C.strength}30`,borderRadius:8,padding:"10px 14px",marginBottom:16}}>
+          <p style={{fontSize:12,color:C.mid,lineHeight:1.6}}>Programme customised around your glute and lower body goals. More leg days, less upper isolation. You can adjust individual days after setup.</p>
         </div>}
         <div style={{color:C.dim,fontSize:11,fontFamily:"'Space Mono',monospace",marginBottom:24,textAlign:"center"}}>{sel.length}/{max} days selected</div>
       </div>
-      <Btn disabled={sel.length!==max} onClick={()=>{const sch=sel.reduce((a,d,i)=>{a[d]=sessionLabels[i]||`Session ${i+1}`;return a;},{});onConfirm(sch);}} style={{width:"100%",marginTop:"auto"}}>Confirm Week </Btn>
+      <Btn disabled={sel.length!==max} onClick={()=>{const sch=sel.reduce((a,d,i)=>{a[d]=sessionLabels[i%sessionLabels.length]||`Session ${i+1}`;return a;},{});onConfirm(sch);}} style={{width:"100%",marginTop:"auto"}}>Confirm Week </Btn>
     </div>
   );
 };
@@ -535,6 +717,8 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
   const gender=sanitise(profile?.gender||"not specified");
   const isFemale=gender==="Female";
   const hasGluteGoal=Array.isArray(profile?.goals)&&profile.goals.some(g=>g.includes("Glute"));
+  const isRunnerProfile=Array.isArray(profile?.goals)&&profile.goals.some(g=>g.toLowerCase().includes("run")||g.toLowerCase().includes("marathon")||g.toLowerCase().includes("endurance"));
+  const runCtx=profile?.runningContext||{};
   const level=getLevel(profile?.trainingAge);
   const age=sanitise(profile?.trainingAge||"unknown");
   const freq=sanitise(profile?.frequency||"4 days");
@@ -567,12 +751,20 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
     "",
     "CLIENT PROFILE:",
     "- Gender: "+gender,
-    "- Age range: "+sanitise(profile?.age||"not specified"),"- Training age: "+age+" / Level: "+level.toUpperCase(),
+    "- Age range: "+sanitise(profile?.age||"not specified"),"- Training experience: "+age+" / Level: "+level.toUpperCase(),
     "- Frequency: "+freq,
     "- Goals: "+(Array.isArray(profile?.goals)?profile.goals.join(", "):goal),
     "- 5RMs: Squat "+sanitise(b.squat||"?")+"kg, Bench "+sanitise(b.bench||"?")+"kg, Deadlift "+sanitise(b.deadlift||"?")+"kg, OHP "+sanitise(b.ohp||"?")+"kg",
+    "- Height: "+sanitise(profile?.bodyStats?.height||"?")+"cm, Bodyweight: "+sanitise(profile?.bodyStats?.weight||"?"),
+    "- Body context: Use height and weight to contextualise strength numbers (e.g. relative strength = lift / bodyweight). A 70kg athlete squatting 120kg is different from a 100kg athlete squatting 120kg.",
     "- Limitations: "+(lims.length?lims.join(", "):"None"),
     "- Sleep: "+sanitise(rec.sleep||"?")+"hrs, Stress: "+sanitise(rec.stress||"?")+"/10",
+    ...(isRunnerProfile?[
+      "- Runner profile: YES",
+      "- Weekly mileage: "+sanitise(runCtx.weeklyMiles||"not provided"),
+      "- Longest recent run: "+sanitise(runCtx.longestRun||"not provided"),
+      "- Race goal: "+sanitise(runCtx.raceGoal||"not specified"),
+    ]:[]),
   ];
 
   const advanced=[
@@ -600,6 +792,39 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
     "Accessories: 3 sets, 10-12 reps, technique over load.",
     "Do not push to failure yet.",
   ];
+  const runnerBlock=isRunnerProfile?[
+    "",
+    "RUNNER CLIENT - PROGRAMMING PRIORITIES:",
+    "This athlete is a runner. Strength and prehab work must complement their running, not compete with it.",
+    "",
+    "STRENGTH TRAINING PHILOSOPHY FOR RUNNERS:",
+    "1. Injury prevention first. Tibialis, achilles, adductors, glute medius are the most commonly neglected and most commonly injured.",
+    "2. Ben Patrick / ATG principles: knee-over-toe training is not dangerous - it is exactly what the knee needs. ATG split squat, Patrick Step, full ROM calf raises are non-negotiable.",
+    "3. Unilateral work is priority over bilateral. Every running stride is a single-leg event. Single-leg RDL, single-leg calf raise, ATG split squat.",
+    "4. Plyometric work improves running economy by 3-6%. Box jumps, bounding, and reactive work should be included 1x per week.",
+    "5. Heavy lifting is appropriate. Strong glutes, hamstrings and calves reduce ground contact time and improve efficiency.",
+    "6. Core work is anti-rotation, not flexion. Dead bug, Copenhagen plank, pallof press. Crunches are not the goal.",
+    "",
+    "SCHEDULING FOR RUNNERS:",
+    "- Strength sessions ideally done AFTER easy runs, not before hard runs.",
+    "- Prehab/mobility sessions work well as active recovery the day after hard running.",
+    "- Never prescribe heavy leg strength the day before a long run or race.",
+    "- Recovery weeks every 3-4 weeks are more important for runners than for lifters.",
+    "",
+    "RUNNING-SPECIFIC INJURIES TO ADDRESS:",
+    "Shin splints = tibialis anterior weakness and overload. Patrick Step and tibialis raises are the fix.",
+    "Runner's knee (PFPS) = weak VMO and glute medius. ATG split squat and banded lateral walks.",
+    "IT band syndrome = weak glute medius and hip abductors. Copenhagen plank and lateral work.",
+    "Achilles tendinopathy = eccentric calf work. Single-leg calf raises with slow eccentric.",
+    "Plantar fasciitis = calf tightness and foot weakness. Full ROM calf work and intrinsic foot strengthening.",
+    "Hamstring strain = Nordic curl eccentric work. Single-leg RDL.",
+    "",
+    "KEY COACHES AND REFERENCES:",
+    "Ben Patrick (ATG Training): knees-over-toes protocol, tibialis work, full range lower body health.",
+    "Stuart McGill: spine hygiene, anti-rotation core, dead bug over crunches.",
+    "Alfredson protocol: eccentric heel drop for achilles tendinopathy.",
+    "Jack Daniels: running phases - base, build, quality, taper. Strength work complements each phase.",
+  ]:[];
   const femaleBlock=[
     "",
     "FEMALE CLIENT - GLUTE-FOCUSED PROTOCOL:",
@@ -653,6 +878,7 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
     ...base,
     ...(level==="advanced"?advanced:level==="intermediate"?intermediate:beginner),
     ...((isFemale||hasGluteGoal)?femaleBlock:[]),
+    ...runnerBlock,
     ...ageBlock,
     ...workoutBlock,
     ...(introMode?introBlock:ongoingBlock),
@@ -1087,7 +1313,7 @@ const WorkoutLibraryView=({onStartWorkout,weekSchedule={},favourites=[],onToggle
   const[filter,setFilter]=useState("All");
   const[selected,setSelected]=useState(null);
   const[view,setView]=useState("mine");
-  const cats=["All","Warm-Up","Athletic","Bodybuilding"];
+  const cats=["All","Warm-Up","Athletic","Bodybuilding","Running"];
   const mySessionNames=Object.values(weekSchedule);
   const myWorkouts=WORKOUT_LIBRARY.filter(w=>mySessionNames.includes(w.name)||w.id==="warmup");
   const exploreWorkouts=WORKOUT_LIBRARY.filter(w=>!mySessionNames.includes(w.name)&&w.id!=="warmup");
@@ -1166,7 +1392,7 @@ const WorkoutLibraryView=({onStartWorkout,weekSchedule={},favourites=[],onToggle
               <div key={w.id} onClick={()=>setSelected(w.id)} style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"18px 20px",cursor:"pointer",transition:"all 0.15s"}} >
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}}>
                   <div>
-                    <div style={{marginBottom:6}}><Tag color={w.cat==="Warm-Up"?C.blu:w.cat==="Athletic"?C.ora:C.hyper}>{w.cat}</Tag></div>
+                    <div style={{marginBottom:6}}><Tag color={w.cat==="Warm-Up"?C.blu:w.cat==="Athletic"?C.ora:w.cat==="Running"?C.recovery:C.hyper}>{w.cat}</Tag></div>
                     <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,letterSpacing:"0.04em"}}>{w.name}</div>
                     <div style={{fontSize:12,color:C.mid,marginTop:2}}>{w.tag}</div>
                   </div>
@@ -1206,22 +1432,34 @@ const buildOpener=(profile)=>{
   const level=getLevel(profile?.trainingAge);
   const isFemale=profile?.gender==="Female";
   const isAdvanced=level==="advanced";
+  const isRunnerProfile=Array.isArray(profile?.goals)&&profile.goals.some(g=>g.toLowerCase().includes("run")||g.toLowerCase().includes("marathon")||g.toLowerCase().includes("endurance"));
+  const runCtx=profile?.runningContext||{};
+  const hasRaceGoal=runCtx.raceGoal&&runCtx.raceGoal.trim().length>0;
+
+  // Runner-specific openers
+  if(isRunnerProfile){
+    const runnerLims=lims.filter(l=>["Shin Splints","IT Band","Achilles / Calf","Plantar Fasciitis","Knees"].includes(l));
+    if(runnerLims.length>0)return`Profile in. ${runnerLims.join(" and ")} flagged - that tells me exactly where the structural weak points are. Most of these are predictable and fixable with the right targeted work. How long has the ${runnerLims[0].toLowerCase()} been a problem?`;
+    if(hasRaceGoal)return`Profile received. ${runCtx.raceGoal} is the target - that changes how we periodise your strength work around your run schedule. The biggest thing I see hold runners back is ignoring strength until they're already injured. We're getting ahead of that. What does your current strength training look like?`;
+    if(runCtx.weeklyMiles)return`Profile in. ${runCtx.weeklyMiles} per week of running means your lower legs and posterior chain are taking a significant load. Most runners under-invest in the specific strength work that keeps that sustainable. Have you done any dedicated strength or prehab work before, or are you starting fresh?`;
+    return`Profile received. Running combined with structured strength training changes the picture completely. The Ben Patrick protocol, unilateral work, and achilles loading are going to be priorities. What's your history with strength training been like alongside the running?`;
+  }
 
   // Gender-specific opener for female clients
   if(isFemale){
-    if(lims.length>0)return`Got your profile. ${lims.join(" and ")} flagged  we'll programme around that. For your leg sessions, we're anchoring around hip thrusts and glute-focused work following the research. Is the ${lims[0].toLowerCase()} issue something currently active, or managed?`;
-    if(profile?.goals?.includes("Glute"))return`Profile locked. Glute and lower body focus  we're building this around the hip thrust protocol as the anchor, with intelligent isolation layered in. What does your current training look like  any experience with hip thrusts specifically?`;
-    return`Profile in. For your leg sessions, we're using a glute-focused protocol  hip thrust anchored, with posterior chain and isolation work built around it. What's your current glute training experience like?`;
+    if(lims.length>0)return`Got your profile. ${lims.join(" and ")} flagged - we will programme around that. For your leg sessions, we're anchoring around hip thrusts and glute-focused work following the research. Is the ${lims[0].toLowerCase()} issue something currently active, or managed?`;
+    if(Array.isArray(profile?.goals)&&profile.goals.some(g=>g.includes("Glute")))return`Profile locked. Glute and lower body focus - we're building this around the hip thrust protocol as the anchor, with intelligent isolation layered in. What does your current training look like - any experience with hip thrusts specifically?`;
+    return`Profile in. For your leg sessions, we're using a glute-focused protocol - hip thrust anchored, with posterior chain and isolation work built around it. What's your current glute training experience like?`;
   }
 
   // Advanced clients get HIT-informed opener
   if(isAdvanced){
-    if(lims.length>0)return`Got your profile. ${lims.join(" and ")} flagged  changes some exercise selection immediately. With ${profile?.trainingAge} of training, your intensity demands are high. Is the ${lims[0].toLowerCase()} something currently limiting your training?`;
-    return`Profile received. ${profile?.trainingAge} of training  we're working at intensity levels most people never reach. One question: are you genuinely training to failure on your compound lifts currently, or leaving reps in the tank?`;
+    if(lims.length>0)return`Got your profile. ${lims.join(" and ")} flagged - changes some exercise selection immediately. With ${profile?.trainingAge} of training, your intensity demands are high. Is the ${lims[0].toLowerCase()} something currently limiting your training?`;
+    return`Profile received. ${profile?.trainingAge} of training - we're working at intensity levels most people never reach. One question: are you genuinely training to failure on your compound lifts currently, or leaving reps in the tank?`;
   }
 
   // Standard openers
-  if(lims.length>0)return`Got your profile. ${lims.join(" and ")} flagged  that changes some exercise selection from the start. Is this something currently active, or an old issue you manage?`;
+  if(lims.length>0)return`Got your profile. ${lims.join(" and ")} flagged - that changes some exercise selection from the start. Is this something currently active, or an old issue you manage?`;
   if(sleep<6.5)return`Profile received. First thing: ${sleep} hours of sleep is below the adaptation threshold. Is that consistent, or just this week?`;
   if(stress>=7)return`Profile in. Stress at ${stress}/10 will blunt recovery. Is this chronic or situational?`;
   return`Assessment complete. One question before we go: what's the biggest thing that's held back your progress until now?`;
@@ -1289,7 +1527,10 @@ const CoachView=({profile,introMode=false,onReady})=>{
     if(!introMode){try{localStorage.setItem("gmt_coach_msgs",JSON.stringify(msgs));}catch(e){}}
   },[msgs,introMode]);
   const introSugs=["Yes, I'm ready","It's an old injury","I go by feel mostly","Consistency has been my issue","It's chronic stress"];
-  const ongoingSugs=["Sleep has been rough this week","Shoulder feels tight after pressing","Should I add cardio now?","How close am I to deload?","Missed a session  how do I adjust?"];
+  const isRunnerConversation=Array.isArray(profile?.goals)&&profile?.goals?.some(g=>g.toLowerCase().includes("run")||g.toLowerCase().includes("marathon")||g.toLowerCase().includes("endurance"));
+  const ongoingSugs=isRunnerConversation?
+    ["My knee has been bothering me after long runs","When should I do strength vs running?","Build me a pre-run activation routine","How do I train through marathon taper?","Shin splints coming back - what do I adjust?"]:
+    ["Sleep has been rough this week","Shoulder feels tight after pressing","Should I add cardio now?","How close am I to deload?","Missed a session - how do I adjust?"];
   const sugs=introMode?introSugs:ongoingSugs;
   const statusText=loading?"Thinking...":introMode?"Intro session":"Active  Direct mode";
   return(
@@ -1307,7 +1548,10 @@ const CoachView=({profile,introMode=false,onReady})=>{
               </div>
             </div>
           </div>
-          <div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"6px 12px",fontSize:10,fontFamily:"'Space Mono',monospace",color:C.dim}}>{msgs.length-1} exchanges</div>
+          <div style={{display:"flex",gap:8,alignItems:"center"}}>
+            <div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"6px 12px",fontSize:10,fontFamily:"'Space Mono',monospace",color:C.dim}}>{msgs.length-1} exchanges</div>
+            {!introMode&&<button onClick={()=>{if(window.confirm("Clear chat history?")){try{localStorage.removeItem("gmt_coach_msgs");}catch(e){}window.location.reload();}}} style={{background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:8,padding:"6px 10px",cursor:"pointer",fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace"}}>CLEAR</button>}
+          </div>
         </div>
       </div>
       <div style={{flex:1,overflowY:"auto",padding:"20px 20px 8px"}}>
@@ -1833,12 +2077,20 @@ const TermsScreen=({onAccept})=>{
 
 // --- APP ROOT -----------------------------------------------------
 function AppInner(){
-  const[screen,setScreen]=useState("terms");
+  const[screen,setScreen]=useState(()=>{
+    try{return localStorage.getItem("gmt_screen")||"terms";}catch{return"terms";}
+  });
   const[tab,setTab]=useState("home");
   const[activeWorkout,setActiveWorkout]=useState(null);
-  const[profile,setProfile]=useState(null);
-  const[weekSchedule,setWeekSchedule]=useState({});
-  const[sessionCount,setSessionCount]=useState(0);
+  const[profile,setProfile]=useState(()=>{
+    try{const p=localStorage.getItem("gmt_profile");return p?JSON.parse(p):null;}catch{return null;}
+  });
+  const[weekSchedule,setWeekSchedule]=useState(()=>{
+    try{const s=localStorage.getItem("gmt_schedule");return s?JSON.parse(s):{};}catch{return{};}
+  });
+  const[sessionCount,setSessionCount]=useState(()=>{
+    try{return parseInt(localStorage.getItem("gmt_sessions")||"0");}catch{return 0;}
+  });
   const[favourites,setFavourites]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_favs")||"[]");}catch{return[];}});
 
   const toggleFav=id=>setFavourites(f=>{
@@ -1852,10 +2104,10 @@ function AppInner(){
       <style>{fonts}</style>
       <style>{gStyles}</style>
       <div style={{maxWidth:480,margin:"0 auto",minHeight:"100vh",position:"relative",background:C.bg}}>
-        {screen==="terms"&&<TermsScreen onAccept={()=>setScreen("onboarding")}/>}
-        {screen==="onboarding"&&<Onboarding onComplete={d=>{setProfile(d);setScreen("coachIntro");}}/>}
-        {screen==="coachIntro"&&<CoachIntro profile={profile} onReady={()=>setScreen("dayPicker")}/>}
-        {screen==="dayPicker"&&<DayPicker frequency={profile?.frequency} profile={profile} onConfirm={s=>{setWeekSchedule(s);setScreen("main");}}/>}
+        {screen==="terms"&&<TermsScreen onAccept={()=>{setScreen("onboarding");try{localStorage.setItem("gmt_screen","onboarding");}catch(e){}}}/>}
+        {screen==="onboarding"&&<Onboarding onComplete={d=>{setProfile(d);setScreen("coachIntro");try{localStorage.setItem("gmt_profile",JSON.stringify(d));localStorage.setItem("gmt_screen","coachIntro");}catch(e){}}}/>}
+        {screen==="coachIntro"&&<CoachIntro profile={profile} onReady={()=>{setScreen("dayPicker");try{localStorage.setItem("gmt_screen","dayPicker");}catch(e){}}}/>}
+        {screen==="dayPicker"&&<DayPicker frequency={profile?.frequency} profile={profile} onConfirm={s=>{setWeekSchedule(s);setScreen("main");try{localStorage.setItem("gmt_schedule",JSON.stringify(s));localStorage.setItem("gmt_screen","main");}catch(e){}}}/>}
         {screen==="main"&&!activeWorkout&&<>
           {tab==="home"&&<Dashboard onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} profile={profile} weekSchedule={weekSchedule} sessionCount={sessionCount} onNutrition={()=>setTab("nutrition")}/>}
           {tab==="program"&&<ProgramView onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} weekSchedule={weekSchedule}/>}
@@ -1866,7 +2118,7 @@ function AppInner(){
           {tab==="coach"&&<CoachView profile={profile}/>}
           <BottomNav active={tab} setActive={setTab}/>
         </>}
-        {screen==="main"&&activeWorkout&&activeWorkout.session?.exercises&&<WorkoutView day={activeWorkout.day} session={activeWorkout.session} onBack={()=>{setSessionCount(c=>c+1);setActiveWorkout(null);}} profile={profile} onWarmup={()=>{const wu=WORKOUT_LIBRARY.find(w=>w.id==="warmup");if(wu)setActiveWorkout({day:"WARM-UP",session:wu,isWarmup:true});}}/>}
+        {screen==="main"&&activeWorkout&&activeWorkout.session?.exercises&&<WorkoutView day={activeWorkout.day} session={activeWorkout.session} onBack={()=>{const nc=sessionCount+1;setSessionCount(nc);setActiveWorkout(null);try{localStorage.setItem("gmt_sessions",nc);}catch(e){}}} profile={profile} onWarmup={()=>{const wu=WORKOUT_LIBRARY.find(w=>w.id==="warmup");if(wu)setActiveWorkout({day:"WARM-UP",session:wu,isWarmup:true});}}/>}
       </div>
     </>
   );
