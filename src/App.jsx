@@ -504,9 +504,9 @@ const STEPS=[
   {id:"gender",title:"One More Thing",sub:"This shapes how we structure your programme.",type:"select",opts:["Male","Female","Prefer not to say"]},
   {id:"frequency",title:"Weekly Frequency",sub:"How many days per week can you commit?",type:"select",opts:["3 days","4 days","5 days","6 days"]},
   {id:"goals",title:"Your Goals",sub:"Select all that apply. We build your programme around every one.",type:"multi",opts:["Hypertrophy (muscle size & density)","Strength (max force output)","Aesthetics (lean, proportional physique)","Body Recomposition (lose fat, build muscle)","Athletic Performance","Glute & Lower Body Focus","Marathon / Ultra Running","Long Distance Running","Recreational / 5K-10K Running"]},
-  {id:"runningContext",title:"Your Running",sub:"Tell us about your running. Skip if running is not a goal.",type:"inputs",fields:[{key:"weeklyMiles",label:"Weekly mileage",unit:"km/miles"},{key:"longestRun",label:"Longest recent run",unit:"km/miles"},{key:"raceGoal",label:"Next race distance (e.g. 10K, half, marathon)",unit:""}],optional:true},
-  {id:"unit",title:"Weight Units",sub:"Choose your preferred unit. You can change this anytime.",type:"select",opts:["kg","lbs"]},
-  {id:"bodyStats",title:"Height & Weight",sub:"This helps us contextualise your strength numbers and build an appropriate programme for your body.",type:"inputs",fields:[{key:"height",label:"Height",unit:"cm"},{key:"weight",label:"Bodyweight",unit:"kg / lbs"}]},
+  {id:"unit",title:"Units",sub:"Choose your preferred units. All measurements throughout the app will use these.",type:"select",opts:["Metric (kg / km / cm)","Imperial (lbs / miles / ft)"]},
+  {id:"bodyStats",title:"Height & Weight",sub:"This helps us contextualise your strength numbers and build the right programme for your body.",type:"inputs",fields:[{key:"height",label:"Height"},{key:"weight",label:"Bodyweight"}]},
+  {id:"runningContext",title:"Your Running",sub:"Tell us about your running. Skip if running is not a goal.",type:"inputs",fields:[{key:"weeklyMiles",label:"Weekly mileage"},{key:"longestRun",label:"Longest recent run"},{key:"raceGoal",label:"Next race distance (e.g. 10K, half, marathon)",unit:""}],optional:true},
   {id:"benchmarks",title:"Strength Benchmarks",sub:"Approximate 5-rep max. Honest estimates are fine. Skip if you are a runner new to lifting.",type:"inputs",fields:[{key:"squat",label:"Back Squat"},{key:"bench",label:"Bench Press"},{key:"deadlift",label:"Deadlift"},{key:"ohp",label:"OHP"}]},
   {id:"limitations",title:"Pain / Limitations",sub:"Select any current concerns. Include any running-related injuries.",type:"multi",opts:["Lower back","Knees","Shoulders","Hips","Neck","Shin Splints","IT Band","Achilles / Calf","Plantar Fasciitis","None"]},
   {id:"recovery",title:"Recovery Baseline",sub:"Honest answers change the programme.",type:"inputs",fields:[{key:"sleep",label:"Avg sleep per night",unit:"hrs"},{key:"stress",label:"Daily stress level",unit:"/10"}]},
@@ -557,7 +557,9 @@ const Onboarding=({onComplete})=>{
               <label style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",display:"block",marginBottom:8}}>{f.label.toUpperCase()}</label>
               <div style={{display:"flex",alignItems:"center",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,overflow:"hidden"}}>
                 <input type="number" placeholder="0" value={fv[f.key]||""} onChange={e=>setFv(v=>({...v,[f.key]:e.target.value}))} style={{flex:1,background:"transparent",border:"none",outline:"none",padding:"16px 20px",color:C.txt,fontSize:20,fontFamily:"'Space Mono',monospace"}}/>
-                <span style={{padding:"0 20px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>{f.unit||ans.unit||"kg"}</span>
+                <span style={{padding:"0 20px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>
+                  {(()=>{const isImp=String(ans.unit||"").includes("Imperial");if(f.unit!==undefined)return f.unit;const lbl=(f.label||"").toLowerCase();if(lbl.includes("height"))return isImp?"ft/in":"cm";if(lbl.includes("weight")||lbl.includes("bodyweight"))return isImp?"lbs":"kg";if(lbl.includes("mileage")||lbl.includes("run"))return isImp?"miles":"km";return isImp?"lbs":"kg";})()}
+                </span>
               </div>
             </div>
           ))}
@@ -712,6 +714,9 @@ const sanitise=(s)=>String(s||"").replace(/[\u0000-\u001F]/g," ");
 const stripMd=(s)=>String(s||"").replace(/\*\*(.*?)\*\*/g,"$1").replace(/\*(.*?)\*/g,"$1").replace(/^#+\s/gm,"").replace(/^-\s/gm,"").trim();
 const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
   const b=profile?.benchmarks||{};
+  const unitLabel=String(profile?.unit||"").includes("Imperial")?"lbs":"kg";
+  const distLabel=String(profile?.unit||"").includes("Imperial")?"miles":"km";
+  const heightLabel=String(profile?.unit||"").includes("Imperial")?"ft/in":"cm";
   const lims=(profile?.limitations||[]).filter(x=>x!=="None");
   const rec=profile?.recovery||{};
   const gender=sanitise(profile?.gender||"not specified");
@@ -754,8 +759,8 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
     "- Age range: "+sanitise(profile?.age||"not specified"),"- Training experience: "+age+" / Level: "+level.toUpperCase(),
     "- Frequency: "+freq,
     "- Goals: "+(Array.isArray(profile?.goals)?profile.goals.join(", "):goal),
-    "- 5RMs: Squat "+sanitise(b.squat||"?")+"kg, Bench "+sanitise(b.bench||"?")+"kg, Deadlift "+sanitise(b.deadlift||"?")+"kg, OHP "+sanitise(b.ohp||"?")+"kg",
-    "- Height: "+sanitise(profile?.bodyStats?.height||"?")+"cm, Bodyweight: "+sanitise(profile?.bodyStats?.weight||"?"),
+    "- 5RMs: Squat "+sanitise(b.squat||"?")+unitLabel+", Bench "+sanitise(b.bench||"?")+unitLabel+", Deadlift "+sanitise(b.deadlift||"?")+unitLabel+", OHP "+sanitise(b.ohp||"?")+unitLabel+"",
+    "- Height: "+sanitise(profile?.bodyStats?.height||"?")+heightLabel+", Bodyweight: "+sanitise(profile?.bodyStats?.weight||"?")+unitLabel+",",
     "- Body context: Use height and weight to contextualise strength numbers (e.g. relative strength = lift / bodyweight). A 70kg athlete squatting 120kg is different from a 100kg athlete squatting 120kg.",
     "- Limitations: "+(lims.length?lims.join(", "):"None"),
     "- Sleep: "+sanitise(rec.sleep||"?")+"hrs, Stress: "+sanitise(rec.stress||"?")+"/10",
@@ -917,6 +922,14 @@ const RestTimer=({seconds,onDone,onSkip})=>{
 // --- WORKOUT VIEW ------------------------------------------------
 const modeColor=(type)=>{if(type==="strength")return C.strength;if(type==="recovery")return C.recovery;return C.hyper;};
 const modeGlow=(type)=>{if(type==="strength")return C.strengthG;if(type==="recovery")return C.recoveryG;return C.hyperG;};
+const isTimeBased=(reps)=>{const s=String(reps||'');return (/hold/i).test(s)||/[0-9]+\s*min/i.test(s)||/[0-9]+s\b/i.test(s)||/[0-9]+:[0-9]{2}/.test(s);};
+const parseSeconds=(reps)=>{
+  const s=String(reps||"");
+  const minMatch=s.match(/(\d+)\s*min/i);if(minMatch)return parseInt(minMatch[1])*60;
+  const mmssMatch=s.match(/(\d+):(\d{2})/);if(mmssMatch)return parseInt(mmssMatch[1])*60+parseInt(mmssMatch[2]);
+  const secMatch=s.match(/(\d+)\s*s\b/i);if(secMatch)return parseInt(secMatch[1]);
+  return 30;
+};
 
 const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
   const isWarmup=session.id==="warmup";
@@ -1147,8 +1160,8 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
                               <span style={{fontSize:10,color:mc,fontFamily:"'Space Mono',monospace",width:20}}>S{s+1}</span>
                               <input type="number" placeholder={ex.reps?.split("-")[0]||"reps"} value={entry.reps||""} onChange={e=>{e.stopPropagation();updateLog(i,s,"reps",e.target.value);}} style={{width:56,background:C.bdr,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"5px 8px",color:C.txt,fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
                               <span style={{fontSize:10,color:C.dim}}>reps</span>
-                              <input type="number" placeholder={profile?.unit||"kg"} value={entry.weight||""} onChange={e=>{e.stopPropagation();updateLog(i,s,"weight",e.target.value);}} style={{width:56,background:C.bdr,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"5px 8px",color:C.txt,fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
-                              <span style={{fontSize:10,color:C.dim}}>{profile?.unit||"kg"}</span>
+                              <input type="number" placeholder={String(profile?.unit||"").includes("Imperial")?"lbs":"kg"} value={entry.weight||""} onChange={e=>{e.stopPropagation();updateLog(i,s,"weight",e.target.value);}} style={{width:56,background:C.bdr,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"5px 8px",color:C.txt,fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
+                              <span style={{fontSize:10,color:C.dim}}>{String(profile?.unit||"").includes("Imperial")?"lbs":"kg"}</span>
                             </div>
                           );
                         })}
