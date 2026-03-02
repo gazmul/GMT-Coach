@@ -497,6 +497,72 @@ const WORKOUT_LIBRARY = [
       {name:"SUPERSET D2: Cable Lateral Raise",sets:2,setsLabel:"2",reps:"15-20",note:"Rest 60s. Lead with elbow.",rest:60,rpe:8,tempo:"2-1-2-0",type:"hyper"},
     ]
   },
+  // BOXING BEGINNER 1
+  {id:"boxing-beg-1",cat:"Boxing",name:"Foundation Fight",sessionCode:"BFD",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"This is where fighters are made. Before you throw a single punch, understand: power comes from the ground up. Every combo starts with your feet, rotates through your hips, and finishes with your fist. We are building the language of boxing today. Three rounds at each station. 60 seconds work, 30 seconds rest. The timer is your trainer.",
+    exercises:[
+      {name:"Treadmill Warm-Up Run",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 6-8, flat. Comfortable pace. Build heart rate gradually. Between rounds: 30s walk.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Jab-Cross Floor Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Shadowbox only. Orthodox or southpaw stance. Jab extends the lead hand, cross rotates the rear hip. 30 reps per minute target. No arm-punching - rotate the torso.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Jab-Cross Basics",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Gloves on. Stand 1 arm length from the bag. Jab to measure distance, cross for power. Breathe out sharp on contact. Reset stance after every combo. Mayweather cue: Stay on your toes, never flat-footed.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Squat + Shoulder Tap",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Core and lower body. 10 squats then 10 shoulder taps in plank. Fighters need strong legs - your power generation starts here.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Body Shot Focus",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Dig hooks to the body. Bend your knees to get to body level - do not hunch over. Canelo principle: body shots drain the engine. Aim for liver (right hook) and ribs (left hook).",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Burpee + Shadow Combo",sets:1,setsLabel:"AMRAP",reps:"3 min",note:"3-minute AMRAP. 1 burpee, stand up, throw 1-2-1 combo. Keep moving. This is your conditioning finisher.",rest:0,type:"cardio",isTimeBased:true},
+    ]},
+  // BOXING BEGINNER 2
+  {id:"boxing-beg-2",cat:"Boxing",name:"Defense & Flow",sessionCode:"BDF",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"Mayweather said it best: hit and do not get hit. Today we add movement. A punch you slip is better than a punch you block. We are learning the pull, the roll, and how to angle off after every combination. Three rounds each station. Stay light on your feet.",
+    exercises:[
+      {name:"Treadmill: Interval Warm-Up",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. 40s at speed 7, 20s at speed 9. Incline 0. Simulates the explosive-recovery rhythm of a real round.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Shadow: Slip & Counter Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Slip outside - return a cross. Slip inside - return a left hook. Continuous rhythm. Mayweather whole defensive game lives in this drill.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Pull-Back Combo",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Throw jab-cross, then pull straight back on rear foot, throw jab again. The pull makes you a moving target. Never stand still after punching.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Lateral Band Walks + Press-Ups",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 15 lateral steps each direction then 10 press-ups. Lateral hip strength for footwork. Pressing strength for punch power.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Roll Under Hook",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Jab-cross, roll under imaginary hook, come up with left hook to body and right hand to head. This is the cornerstone Canelo combination.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Mountain Climbers + Combos",sets:1,setsLabel:"AMRAP",reps:"3 min",note:"10 mountain climbers, spring up, throw 5-punch combo. Keep your guard up between every burst.",rest:0,type:"cardio",isTimeBased:true},
+    ]},
+  // BOXING INTERMEDIATE 1
+  {id:"boxing-int-1",cat:"Boxing",name:"Power Combinations",sessionCode:"BPC",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"You know the basics. Now we build power. Tyson threw the hardest punches in heavyweight history because of hip rotation and timing. Every punch today should snap. Short, sharp, violent. Throw with intent and reset immediately. The bag should be moving.",
+    exercises:[
+      {name:"Treadmill: Speed Intervals",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. 30s at speed 10, 30s at speed 5. Incline 0. Explosive cardiovascular conditioning matching real round intensity.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Dumbbell Punch-Out + Squat",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Hold light dumbbells 2-4kg. Squat down, drive up, throw rapid alternating punches x10. The squat to punch motion trains power transfer from legs to fists.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 3-Punch Power Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Tyson combo: right hook to body, left hook to body, right uppercut. Dig the body shots deep. The uppercut follows as the guard drops. Reset stance and breathe every 3rd combo.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Core Power Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 15 Russian twists, 10 dead bugs, 10 bicycle crunches each side. Rotational core power transfers directly to punch force.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 5-Punch Explosive Combos",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Combo: 1-2-3-2-1. Throw in bursts of 3-5, reset. Full power each punch. Canelo signature: the 5-punch combination finisher.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Bag Sprint Rounds",sets:1,setsLabel:"ALL OUT",reps:"3 min",note:"3-minute non-stop freestyle bag work. Move, punch, move. Championship round. Leave nothing.",rest:0,type:"cardio",isTimeBased:true},
+    ]},
+  // BOXING INTERMEDIATE 2
+  {id:"boxing-int-2",cat:"Boxing",name:"Speed & Movement",sessionCode:"BSM",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"Mayweather speed came from relaxation, not tension. Tight muscles are slow muscles. Every punch today should be fast and loose until impact, then snap. We also work the feet: angles, pivots, circling. A moving fighter is a hard target.",
+    exercises:[
+      {name:"Treadmill: Footwork Ladder",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 7, alternate incline 0 and incline 4 every 20 seconds. Mimics the change of pace in ring movement.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Shadow: Speed Combination Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Jab-jab-cross at maximum hand speed. Pivot after every 3 combos to change angle. Mayweather output was 40-50 punches per round, mostly jabs.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Pivot & Counter",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Jab-cross, pivot 45 degrees off the bag, throw cross-hook. The pivot separates fighters from brawlers.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Explosive Power Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 5 broad jumps, 5 lateral bounds each side, 10 jump squats. Plyometric leg power for explosive ring movement.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Combination Speed Ladder",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. 1 punch, then 2, 3, 4, 5 - back down. Each crisp and fast. Rest 5 seconds between each set. Mayweather camp staple.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Tabata Shadow + Core",sets:1,setsLabel:"ALL OUT",reps:"4 min",note:"8 rounds of 20s all-out shadow boxing, 10s rest. Final 2: 20s hollow hold, 10s rest. Championship conditioning.",rest:0,type:"cardio",isTimeBased:true},
+    ]},
+  // BOXING ADVANCED 1
+  {id:"boxing-adv-1",cat:"Boxing",name:"Championship Rounds",sessionCode:"BCR",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"Mayweather finished 50-0. He did it through discipline, angles, and an elite jab. Today is built around his principles: the jab controls distance, the shoulder roll neutralises the right hand, movement makes you impossible to hit. You are building fight IQ.",
+    exercises:[
+      {name:"Treadmill: Fight-Pace Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 9-11, incline 0. Round 12 conditioning. You should be uncomfortably fast. Championship fights are decided by who performs when exhausted.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Mayweather Jab Clinic",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Jab only. Measuring jab, stinging jab, pawing jab, double jab. Vary height - head and body level. The jab is the most important punch in boxing.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Weighted Core Power",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Heavy Russian twists 8-12kg, woodchop band, oblique crunches. Every elite fighter has an elite core.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Shoulder Roll Counter",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Lead shoulder up to protect jaw from right hand. Roll, counter with right hand to body, left hook to head. Mayweather signature defensive counter. Drill to reflex.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Explosive Compound Lifts",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Dumbbell clean to press x5, jump squat x5, plank to push-up x10. Championship fighters are complete athletes.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Finish: 12-Punch Championship Combo",sets:1,setsLabel:"MAX",reps:"3 min",note:"Full combo: 1-2-3-2-1-2 body-3-2-1-2-3-2. Control breathing. Set feet after every 3rd combo. This is what Mayweather trains to.",rest:0,type:"cardio",isTimeBased:true},
+    ]},
+  // BOXING ADVANCED 2
+  {id:"boxing-adv-2",cat:"Boxing",name:"Iron Pressure",sessionCode:"BIP",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"Tyson secret was not just power. It was peek-a-boo style, constant pressure, and the angles he created before every punch. He used his size disadvantage - working underneath, body first, then head. Today we pressure. Relentless, calculated aggression.",
+    exercises:[
+      {name:"Treadmill: Maximum Incline Sprint",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 8, incline 10-12. Simulate cutting off the ring and constant pressure. Your legs must never fail in a fight.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Peek-A-Boo Defensive Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Hands high by temples, chin down. Bob and weave L-R-L continuously. Add left hook each time you come up on the right side. Tyson drilled this thousands of times daily.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Body Attack Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. 80% body shots. Double left hook to body, right to body, left hook up. Bend knees - never hunch. Body shots slow the legs, lower the guard, and open the head.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Power & Strength Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Rows x8, dips x10, landmine rotational press x8 each side. Tyson training included significant pulling and pressing for explosive snap in his hooks.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Pressure Combination Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Forward pressure: jab body, right body, left hook head, right uppercut. Step left, right hook body. Change angle every 3rd combo.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Rounds of 8",sets:1,setsLabel:"IRON WILL",reps:"3 min",note:"8 combos all-out, 8 seconds rest, repeat 3 minutes. Never stop moving feet during recovery. Championship is forged here.",rest:0,type:"cardio",isTimeBased:true},
+    ]},
 ];
 
 const isRunner=(goals)=>Array.isArray(goals)&&goals.some(g=>g.toLowerCase().includes("run")||g.toLowerCase().includes("marathon")||g.toLowerCase().includes("endurance"));
@@ -512,84 +578,7 @@ const STEPS=[
   {id:"benchmarks",title:"Strength Benchmarks",sub:"Approximate 5-rep max. Honest estimates are fine. Skip if you are a runner new to lifting.",type:"inputs",fields:[{key:"squat",label:"Back Squat"},{key:"bench",label:"Bench Press"},{key:"deadlift",label:"Deadlift"},{key:"ohp",label:"OHP"}]},
   {id:"limitations",title:"Pain / Limitations",sub:"Select any current concerns. Include any running-related injuries.",type:"multi",opts:["Lower back","Knees","Shoulders","Hips","Neck","Shin Splints","IT Band","Achilles / Calf","Plantar Fasciitis","None"]},
   {id:"recovery",title:"Recovery Baseline",sub:"Honest answers change the programme.",type:"inputs",fields:[{key:"sleep",label:"Avg sleep per night",unit:"hrs"},{key:"stress",label:"Daily stress level",unit:"/10"}]},
-  // -- BOXING BEGINNER 1 -------------------------------------
-  {
-    id:"boxing-beg-1",cat:"Boxing",name:"Foundation Fight",sessionCode:"BFD",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"This is where fighters are made. Before you throw a single punch, I need you to understand: power comes from the ground up. Every combo starts with your feet, rotates through your hips, and finishes with your fist. We are building the language of boxing today. Three rounds at each station. 60 seconds of work, 30 seconds rest. The timer is your trainer.",
-    exercises:[
-      {name:"Treadmill Warm-Up Run",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 6-8, flat. Comfortable pace. Build heart rate gradually. Between rounds: 30s walk.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Jab-Cross Floor Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Shadowbox only. Orthodox or southpaw stance. Jab extends the lead hand, cross rotates the rear hip. 30 reps per minute target. No arm-punching - rotate the torso.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Jab-Cross Basics",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Gloves on. Stand 1 arm's length from the bag. Jab to measure distance, cross for power. Breathe out sharp on contact. Reset stance after every combo. Mayweather cue: 'Stay on your toes, never flat-footed.'",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Squat + Shoulder Tap",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Core and lower body. 10 squats then 10 shoulder taps in plank. Fighters need strong legs - your power generation starts here.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Body Shot Focus",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Dig hooks to the body. Bend your knees to get to body level - do not hunch over. Canelo principle: body shots drain the engine. Aim for liver (right hook) and ribs (left hook).",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Burpee + Shadow Combo",sets:1,setsLabel:"AMRAP",reps:"3 min",note:"3-minute AMRAP challenge. 1 burpee, stand up, throw 1-2-1 combo (jab-cross-jab). Keep moving. This is your conditioning finisher.",rest:0,type:"cardio",isTimeBased:true},
-    ]
-  },
-  // -- BOXING BEGINNER 2 -------------------------------------
-  {
-    id:"boxing-beg-2",cat:"Boxing",name:"Defense & Flow",sessionCode:"BDF",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"Mayweather said it best: hit and don't get hit. Today we add movement. A punch you slip is better than a punch you block. We are learning the pull, the roll, and how to angle off after every combination. Three rounds each station. Stay light on your feet the whole session.",
-    exercises:[
-      {name:"Treadmill: Interval Warm-Up",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. 40s at speed 7, 20s at speed 9. Incline 0. Simulates the explosive-recovery rhythm of a real round.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Shadow: Slip & Counter Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Imagine a jab coming. Slip outside (move head off centreline), return a cross. Slip inside, return a left hook. Continuous rhythm. Mayweather's whole defensive game lives in this drill.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Pull-Back Combo",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Throw jab-cross, then pull straight back (lean back on rear foot), throw jab again. The pull makes you a moving target. Do not stand still after punching.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Lateral Band Walks + Press-Ups",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 15 lateral steps each direction (resistance band if available), then 10 press-ups. Lateral hip strength for footwork. Pressing strength for punch power.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Roll Under Hook",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Jab-cross, then roll under an imaginary hook (dip knees, U-shape with head), come up with left hook to body and right hand to head. This is the cornerstone Canelo combination.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Mountain Climbers + Combos",sets:1,setsLabel:"AMRAP",reps:"3 min",note:"10 mountain climbers, spring up, throw 5-punch combo (1-2-3-2-1). Keep your guard up between every burst. This separates conditioned fighters from tired ones.",rest:0,type:"cardio",isTimeBased:true},
-    ]
-  },
-  // -- BOXING INTERMEDIATE 1 ---------------------------------
-  {
-    id:"boxing-int-1",cat:"Boxing",name:"Power Combinations",sessionCode:"BPC",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"You know the basics. Now we build power. Tyson threw the hardest punches in heavyweight history because of hip rotation and timing, not because he was just big. Every punch in today's session should snap. Short, sharp, violent. Throw with bad intentions and reset immediately. The bag should be moving.",
-    exercises:[
-      {name:"Treadmill: Speed Intervals",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. 30s at speed 10 (sprint), 30s at speed 5 (recovery). Incline 0. Explosive cardiovascular conditioning matching real round intensity.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Dumbbell Punch-Out + Squat",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Hold light dumbbells (2-4kg). Squat down, drive up, throw rapid alternating punches x10 at eye level. The squat to punch motion trains the power transfer from legs to fists.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: 3-Punch Power Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Tyson combo: right hook to body, left hook to body, right uppercut to chin. Dig the body shots deep. The uppercut should follow the body shots naturally as guard drops. Every 3rd combo, reset stance and breathe.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Core Power Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 15 Russian twists (plate or bodyweight), 10 dead bugs, 10 bicycle crunches each side. Rotational core power transfers directly to punch force. Non-negotiable for any fighter.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: 5-Punch Explosive Combos",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Combo: 1-2-3-2-1 (jab-cross-lead hook-cross-jab). Throw in bursts of 3-5 combos, reset. Full power each punch. Breathe sharp out each time. Canelo's signature: the 5-punch combination finisher.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Bag Sprint Rounds",sets:1,setsLabel:"ALL OUT",reps:"3 min",note:"3-minute non-stop bag work. No combos - freestyle. Throw everything. Move, punch, move. This is your championship round. Leave nothing in the tank.",rest:0,type:"cardio",isTimeBased:true},
-    ]
-  },
-  // -- BOXING INTERMEDIATE 2 ---------------------------------
-  {
-    id:"boxing-int-2",cat:"Boxing",name:"Speed & Movement",sessionCode:"BSM",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"Mayweather's speed came from relaxation, not tension. Tight muscles are slow muscles. Every punch today should be fast and loose until the moment of impact, then snap. We are also working the feet: angles, pivots, circling. A moving fighter is a hard target. A fast fighter wins rounds.",
-    exercises:[
-      {name:"Treadmill: Footwork Ladder",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 7, alternate between incline 0 and incline 4 every 20 seconds. Mimics the change of pace and terrain demands of constant ring movement.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Shadow: Speed Combination Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Speed focus. Jab-jab-cross at maximum hand speed. Stay completely relaxed in shoulders. Pivot after every 3 combos - change your angle. Mayweather's output was 40-50 punches per round, mostly jabs.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Pivot & Counter",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Jab-cross, pivot 45 degrees off the bag, throw cross-hook. The pivot is what separates fighters from brawlers. You are never where your opponent expects you to be.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Explosive Power Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 5 broad jumps + 5 lateral bounds each side + 10 jump squats. Plyometric leg power for explosive ring movement. Your footwork speed comes from leg power.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Combination Speed Ladder",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Start with 1 punch, then 2, then 3, then 4, then 5 - then back down. Each punch crisp and fast. Rest 5 seconds between each set of the ladder. This drill was used extensively by Mayweather in camp.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Tabata Shadow + Core",sets:1,setsLabel:"ALL OUT",reps:"4 min",note:"8 rounds of 20s shadow boxing (all-out speed), 10s rest. Final 2 rounds on the floor: 20s hollow body hold, 10s rest. This is championship conditioning.",rest:0,type:"cardio",isTimeBased:true},
-    ]
-  },
-  // -- BOXING ADVANCED 1 -------------------------------------
-  {
-    id:"boxing-adv-1",cat:"Boxing",name:"Championship Rounds",sessionCode:"BCR",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"Mayweather finished his career undefeated at 50-0. He did it through discipline, angles, and an elite jab. Today's session is built around his principles: the jab controls distance, the shoulder roll neutralises the right hand, movement makes you impossible to hit. You are not just fit today. You are building fight IQ.",
-    exercises:[
-      {name:"Treadmill: Fight-Pace Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 9-11, incline 0. This is round 12 conditioning. You should be uncomfortably fast. Championship fights are decided by who can still perform when exhausted.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Mayweather Jab Clinic",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Jab only. But every jab has a job: measuring jab, stinging jab, pawing jab, double jab. Mix them. Vary the height - head level and body level. The jab is the most important punch in boxing. Never neglect it.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Weighted Core Power",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Heavy Russian twists (8-12kg), woodchop cable/band, oblique crunches. Every elite fighter has an elite core. This is where your real power generation lives.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Shoulder Roll Counter",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Practise the shoulder roll: lead shoulder comes up to protect the jaw from the right hand. Roll, then counter with right hand to body, left hook to head. This is Mayweather's signature defensive counter. Drill it until it is reflex.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Explosive Compound Lifts",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Dumbbell clean to press x5, jump squat x5, plank to push-up x10. Athletic total-body power. Championship fighters are complete athletes, not just punchers.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Finish: 12-Punch Championship Combo",sets:1,setsLabel:"MAX ROUNDS",reps:"3 min",note:"The full combo, as long as you can sustain it: 1-2-3-2-1-2 (body) -3-2-1-2-3-2. This is 12 punches. Control your breathing. Set your feet after every 3rd combo. This is what Mayweather trains to.",rest:0,type:"cardio",isTimeBased:true},
-    ]
-  },
-  // -- BOXING ADVANCED 2 -------------------------------------
-  {
-    id:"boxing-adv-2",cat:"Boxing",name:"Iron Pressure",sessionCode:"BIP",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"Tyson's secret was not just power. It was the peek-a-boo style, the constant pressure, and the angles he created before every punch. He was small for a heavyweight but used that to his advantage - always working underneath, attacking the body first, then the head. Today we pressure. We never let the opponent settle. Relentless, calculated aggression.",
-    exercises:[
-      {name:"Treadmill: Maximum Incline Sprint",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 8, incline 10-12. Simulate the physical demands of cutting off the ring and constant pressure. Your legs must never fail in a fight.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Peek-A-Boo Defensive Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Hands high by temples, chin down. Bob and weave L-R-L continuously. Add a left hook each time you come up on the right side. Tyson drilled this thousands of times daily. The defence creates the offence.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Body Attack Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. 80% body shots. Double left hook to body, right hand to body, left hook up to head. Bend your knees to get to body level - never hunch. Body shots are a long-term weapon: they slow the legs, lower the guard, and open the head.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Power & Strength Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Barbell or dumbbell rows x8, dips or close-grip press x10, landmine rotational press x8 each side. Tyson's training included significant pulling and pressing work for the explosive snap in his hooks.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Pressure Combination Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Move forward, throw: jab to body - right to body - left hook to head - right uppercut. Then step to your left, throw right hook to body. Every 3rd combo change your angle of attack. Pressure from multiple angles is what broke Tyson's opponents.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Rounds of 8",sets:1,setsLabel:"IRON WILL",reps:"3 min",note:"8 combos all-out, 8 seconds rest. Repeat for 3 full minutes. The 8-second recovery mimics the split-second breathers in real rounds. Do not stop moving your feet during recovery. Championship is forged here.",rest:0,type:"cardio",isTimeBased:true},
-    ]
-  },
+
 ];
 const Onboarding=({onComplete})=>{
   const[step,setStep]=useState(0);
@@ -1000,11 +989,11 @@ const RestTimer=({seconds,onDone,onSkip,logEx,logData,onUpdateLog,unitLabel})=>{
         <div style={{display:"flex",gap:10,alignItems:"center"}}>
           <div style={{flex:1}}>
             <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:4}}>REPS</div>
-            <input type="number" inputMode="numeric" placeholder="reps" defaultValue={logData?.sets?.[lastSetIdx]?.reps||""} onBlur={e=>onUpdateLog(lastSetIdx,"reps",e.target.value)} style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px",color:C.txt,fontSize:18,fontFamily:"'Space Mono',monospace",outline:"none",textAlign:"center"}}/>
+            <input type="number" inputMode="numeric" placeholder="reps" value={logData?.sets?.[lastSetIdx]?.reps||""} onChange={e=>onUpdateLog(lastSetIdx,"reps",e.target.value)} style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px",color:C.txt,fontSize:18,fontFamily:"'Space Mono',monospace",outline:"none",textAlign:"center"}}/>
           </div>
           <div style={{flex:1}}>
             <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:4}}>{(unitLabel||"kg").toUpperCase()}</div>
-            <input type="number" inputMode="decimal" placeholder={unitLabel||"kg"} defaultValue={logData?.sets?.[lastSetIdx]?.weight||""} onBlur={e=>onUpdateLog(lastSetIdx,"weight",e.target.value)} style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px",color:C.txt,fontSize:18,fontFamily:"'Space Mono',monospace",outline:"none",textAlign:"center"}}/>
+            <input type="number" inputMode="decimal" placeholder={unitLabel||"kg"} value={logData?.sets?.[lastSetIdx]?.weight||""} onChange={e=>onUpdateLog(lastSetIdx,"weight",e.target.value)} style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px",color:C.txt,fontSize:18,fontFamily:"'Space Mono',monospace",outline:"none",textAlign:"center"}}/>
           </div>
         </div>
         <div style={{fontSize:10,color:C.dim,textAlign:"center",marginTop:8,fontFamily:"'Space Mono',monospace"}}>Log now, lift again in {remaining}s</div>
@@ -1015,12 +1004,158 @@ const RestTimer=({seconds,onDone,onSkip,logEx,logData,onUpdateLog,unitLabel})=>{
 };
 
 
+// --- MUSCLE DIAGRAM -------------------------------------------------
+// Maps exercise muscle names to SVG body region highlights
+const MUSCLE_MAP = {
+  // Chest
+  "chest":           {front:["chest"],back:[]},
+  "pectorals":       {front:["chest"],back:[]},
+  // Back
+  "lats":            {front:[],back:["lats"]},
+  "upper back":      {front:[],back:["upper-back"]},
+  "lower back":      {front:[],back:["lower-back"]},
+  "rhomboids":       {front:[],back:["upper-back"]},
+  "traps":           {front:[],back:["traps"]},
+  // Shoulders
+  "shoulders":       {front:["front-delt"],back:["rear-delt"]},
+  "front delt":      {front:["front-delt"],back:[]},
+  "rear delt":       {front:[],back:["rear-delt"]},
+  "rotator cuff":    {front:["front-delt"],back:["rear-delt"]},
+  // Arms
+  "biceps":          {front:["biceps"],back:[]},
+  "triceps":         {front:[],back:["triceps"]},
+  "forearms":        {front:["forearms"],back:[]},
+  // Core
+  "core":            {front:["abs","obliques"],back:["lower-back"]},
+  "abs":             {front:["abs"],back:[]},
+  "obliques":        {front:["obliques"],back:[]},
+  // Legs
+  "quads":           {front:["quads"],back:[]},
+  "hamstrings":      {front:[],back:["hamstrings"]},
+  "glutes":          {front:[],back:["glutes"]},
+  "calves":          {front:[],back:["calves"]},
+  "hip flexors":     {front:["hip-flexors"],back:[]},
+  "adductors":       {front:["adductors"],back:[]},
+  "tibialis":        {front:["tibialis"],back:[]},
+};
+
+// SVG path data for each body region (simplified anatomical shapes)
+const BODY_PATHS = {
+  // FRONT view
+  head:       "M110,10 Q130,8 140,20 Q148,35 145,55 Q140,70 130,75 Q120,78 110,75 Q100,78 90,75 Q80,70 75,55 Q72,35 80,20 Q90,8 110,10 Z",
+  neck:       "M100,75 Q110,72 120,75 L118,95 Q110,92 102,95 Z",
+  chest:      "M72,95 Q110,88 148,95 L152,145 Q130,155 110,152 Q90,155 68,145 Z",
+  "front-delt":"M60,90 Q72,85 78,100 L75,130 Q62,135 55,120 Q50,105 60,90 Z M148,90 Q158,105 145,120 Q138,135 125,130 L122,100 Q128,85 140,90 Z",
+  biceps:     "M52,128 Q62,125 68,140 L65,175 Q55,178 48,165 Q44,150 52,128 Z M148,128 Q156,150 152,165 Q145,178 135,175 L132,140 Q138,125 148,128 Z",
+  forearms:   "M46,173 Q56,170 62,180 L58,215 Q50,218 44,208 Q40,195 46,173 Z M154,173 Q160,195 156,208 Q150,218 142,215 L138,180 Q144,170 154,173 Z",
+  abs:        "M85,152 Q110,148 135,152 L132,210 Q110,215 88,210 Z",
+  obliques:   "M68,148 Q85,152 88,210 L80,225 Q65,215 62,195 Q60,175 68,148 Z M132,210 Q135,152 152,148 Q158,175 158,195 Q155,215 140,225 Z",
+  "hip-flexors":"M85,208 Q110,215 135,208 L138,245 Q110,250 82,245 Z",
+  quads:      "M80,245 Q98,242 105,260 L100,320 Q88,325 78,315 Q70,300 80,245 Z M120,245 Q130,300 122,315 Q112,325 100,320 L115,260 Q122,242 120,245 Z",
+  adductors:  "M103,260 Q110,258 117,260 L115,320 Q110,322 105,320 Z",
+  tibialis:   "M82,320 Q90,318 92,330 L90,375 Q84,378 80,368 Q76,350 82,320 Z M108,320 Q114,350 110,368 Q106,378 100,375 L98,330 Q100,318 108,320 Z",
+  // BACK view
+  traps:      "M72,95 Q110,88 148,95 L145,120 Q110,112 75,120 Z",
+  "upper-back":"M72,120 Q110,112 148,120 L148,165 Q110,170 72,165 Z",
+  "lower-back":"M75,165 Q110,170 145,165 L142,210 Q110,215 78,210 Z",
+  lats:       "M60,115 Q75,120 72,165 L68,195 Q55,185 52,165 Q48,140 60,115 Z M160,115 Q172,140 168,165 Q165,185 152,195 L148,165 Q145,120 160,115 Z",
+  "rear-delt":"M55,90 Q68,85 75,100 L72,125 Q60,128 52,115 Q48,100 55,90 Z M145,90 Q152,100 148,115 Q140,128 128,125 L125,100 Q132,85 145,90 Z",
+  triceps:    "M50,128 Q58,125 65,140 L62,175 Q52,178 46,165 Q42,148 50,128 Z M150,128 Q158,148 154,165 Q148,178 138,175 L135,140 Q142,125 150,128 Z",
+  glutes:     "M75,210 Q110,215 145,210 L142,260 Q110,268 78,260 Z",
+  hamstrings: "M80,260 Q96,258 100,275 L96,335 Q84,340 76,328 Q70,310 80,260 Z M120,260 Q130,310 124,328 Q116,340 104,335 L100,275 Q104,258 120,260 Z",
+  calves:     "M80,335 Q90,332 95,348 L92,390 Q84,393 78,382 Q74,365 80,335 Z M105,335 Q112,365 108,382 Q102,393 94,390 L91,348 Q96,332 105,335 Z",
+};
+
+const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
+  const [view,setView]=React.useState("front");
+  if(!exercise)return null;
+  
+  // Determine which regions to highlight and with what colour
+  const primary = String(exercise.muscle||"").toLowerCase();
+  const secondary = String(exercise.secondary||"").toLowerCase();
+  const tag = String(exercise.tag||exercise.type||"").toLowerCase();
+  
+  // Primary colour based on context
+  const primaryCol = tag.includes("hyper")?"#0066FF":tag.includes("strength")?"#FF1744":tag.includes("recovery")||tag.includes("stretch")?"#00C9B1":"#FF1744";
+  const secondaryCol = "#FF8C00";
+  const stretchCol = "#00C9B1";
+  
+  const primaryRegions = MUSCLE_MAP[primary]?.[view]||[];
+  const secondaryRegions = MUSCLE_MAP[secondary]?.[view]||[];
+  
+  const allPaths = Object.keys(BODY_PATHS).filter(k => {
+    const inFront = ["head","neck","chest","front-delt","biceps","forearms","abs","obliques","hip-flexors","quads","adductors","tibialis"].includes(k);
+    return view==="front"?inFront:!inFront;
+  });
+  
+  const diagram = (
+    <svg viewBox="0 0 220 410" style={{width:"100%",maxWidth:180,display:"block",margin:"0 auto"}}>
+      {/* Dark background */}
+      <rect width="220" height="410" fill="#0A0A0A" rx="12"/>
+      {/* Body outline fill (base) */}
+      {allPaths.map(region=>{
+        const isPrimary = primaryRegions.includes(region);
+        const isSecondary = secondaryRegions.includes(region);
+        return(
+          <path key={region} d={BODY_PATHS[region]}
+            fill={isPrimary?primaryCol:isSecondary?secondaryCol:"#1E1E2E"}
+            stroke={isPrimary?primaryCol:isSecondary?secondaryCol:"#333350"}
+            strokeWidth={isPrimary||isSecondary?1.5:0.8}
+            opacity={isPrimary?0.85:isSecondary?0.6:0.5}
+          />
+        );
+      })}
+      {/* Legend */}
+      {primaryRegions.length>0&&(
+        <g transform="translate(8,388)">
+          <rect width="8" height="8" rx="2" fill={primaryCol}/>
+          <text x="12" y="8" fill="#aaa" fontSize="7" fontFamily="Space Mono,monospace">Primary</text>
+        </g>
+      )}
+      {secondaryRegions.length>0&&(
+        <g transform="translate(70,388)">
+          <rect width="8" height="8" rx="2" fill={secondaryCol}/>
+          <text x="12" y="8" fill="#aaa" fontSize="7" fontFamily="Space Mono,monospace">Secondary</text>
+        </g>
+      )}
+    </svg>
+  );
+  
+  return(
+    <div style={{background:"#0A0A0A",border:`1px solid ${C.bdr}`,borderRadius:12,padding:16,marginBottom:14}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+        <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}}>MUSCLES WORKED</div>
+        <div style={{display:"flex",gap:6}}>
+          {["front","back"].map(v=>(
+            <button key={v} onClick={()=>setView(v)} style={{background:view===v?C.hyperG:"transparent",border:`1px solid ${view===v?C.hyper:C.bdr}`,borderRadius:6,padding:"4px 10px",cursor:"pointer",fontSize:10,color:view===v?C.hyper:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.05em"}}>
+              {v.toUpperCase()}
+            </button>
+          ))}
+          <button onClick={onExpand} style={{background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:6,padding:"4px 10px",cursor:"pointer",fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace"}}>
+            {expanded?"-":"-"}
+          </button>
+        </div>
+      </div>
+      {diagram}
+      <div style={{display:"flex",gap:8,marginTop:10,flexWrap:"wrap"}}>
+        {[{col:"#FF1744",label:"Primary"},{col:"#FF8C00",label:"Secondary"},{col:"#00C9B1",label:"Stretch"},{col:"#0066FF",label:"Hypertrophy"}].map(l=>(
+          <div key={l.label} style={{display:"flex",alignItems:"center",gap:4}}>
+            <div style={{width:8,height:8,borderRadius:2,background:l.col}}/>
+            <span style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{l.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // --- EXERCISE DETAIL MODAL ----------------------------------------
 const ExerciseDetailModal=({ex,onClose,onAskGary})=>{
   if(!ex)return null;
   let libEx=null;
   try{libEx=EXERCISES.find(e=>e.name===ex.name||e.id===ex.id)||null;}catch(e){}
   const safeNote=(libEx?.coachNote||"");
+  const [diagramExpanded,setDiagramExpanded]=React.useState(false);
   return(
     <div onClick={e=>e.target===e.currentTarget&&onClose()} style={{position:"fixed",inset:0,background:"rgba(10,10,11,0.96)",backdropFilter:"blur(20px)",zIndex:300,overflowY:"auto"}}>
       <div style={{maxWidth:480,margin:"0 auto",padding:"0 0 40px"}}>
@@ -1447,6 +1582,16 @@ const ExerciseLibrary=({favourites,onToggleFav,onAskCoach})=>{
               <p style={{fontSize:14,color:C.txt,lineHeight:1.8}}>{ex.cue}</p>
             </div>
 
+            {/* Muscle Diagram */}
+            {!diagramExpanded&&<MuscleDiagram exercise={libEx||ex} expanded={false} onExpand={()=>setDiagramExpanded(true)}/>}
+            {diagramExpanded&&(
+              <div onClick={()=>setDiagramExpanded(false)} style={{position:"fixed",inset:0,zIndex:200,background:"rgba(0,0,0,0.95)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+                <div style={{width:"100%",maxWidth:340}} onClick={e=>e.stopPropagation()}>
+                  <MuscleDiagram exercise={libEx||ex} expanded={true} onExpand={()=>setDiagramExpanded(false)}/>
+                  <div style={{textAlign:"center",marginTop:8,fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>Tap anywhere to close</div>
+                </div>
+              </div>
+            )}
             {/* Coach note */}
             <div style={{background:C.surUp,border:`1px solid ${C.bdrL}`,borderLeft:`3px solid ${C.recovery}`,borderRadius:10,padding:"14px 16px",marginBottom:14}}>
               <div style={{fontSize:10,color:C.recovery,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:8}}>GARY'S NOTE</div>
