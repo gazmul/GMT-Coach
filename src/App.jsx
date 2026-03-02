@@ -1816,7 +1816,6 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
   const todayData=weekProgram[todayLabel]||Object.values(weekProgram)[0]||null;
   const[recoveryVals,setRecoveryVals]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_recovery")||"{}");}catch{return{};}});
   const saveRecovery=(k,v)=>{const n={...recoveryVals,[k]:v};setRecoveryVals(n);try{localStorage.setItem("gmt_recovery",JSON.stringify(n));}catch{}};
-  const 
   return(
     <div style={{paddingBottom:100}}>
       <div style={{padding:"48px 20px 24px"}}>
