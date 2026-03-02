@@ -359,6 +359,8 @@ const WORKOUT_LIBRARY = [
     gary:"Every session, no exceptions. This isn't optional filler  it's your injury insurance policy. Nervous system activation, joint mobilisation, blood flow. Your first working set should feel like the fifth.",
     exercises:[
       {name:"Light Cardio (bike/row/skip)",sets:1,reps:"5 min",note:"Zone 2. Not a sprint. Elevate core temp.",rest:0},
+      {name:"Dead Hang",sets:3,reps:"20-30s",note:"Decompress the spine. Retract scapula at top, let it go at bottom. Builds grip and shoulder health.",rest:30},
+      {name:"Scapular Retraction Pulls",sets:3,reps:"15",note:"Hang from bar, squeeze shoulder blades together without bending elbows. Activates lower traps and protects rotator cuff.",rest:30},
       {name:"Band Pull-Apart",sets:2,reps:"20",note:"Overhand and underhand. Wake the rear delts.",rest:30},
       {name:"Hip Circle",sets:2,reps:"10 each way",note:"Active mobility. Both directions.",rest:0},
       {name:"Bodyweight Squat",sets:2,reps:"15",note:"Full depth. Pause at bottom.",rest:30},
@@ -510,6 +512,84 @@ const STEPS=[
   {id:"benchmarks",title:"Strength Benchmarks",sub:"Approximate 5-rep max. Honest estimates are fine. Skip if you are a runner new to lifting.",type:"inputs",fields:[{key:"squat",label:"Back Squat"},{key:"bench",label:"Bench Press"},{key:"deadlift",label:"Deadlift"},{key:"ohp",label:"OHP"}]},
   {id:"limitations",title:"Pain / Limitations",sub:"Select any current concerns. Include any running-related injuries.",type:"multi",opts:["Lower back","Knees","Shoulders","Hips","Neck","Shin Splints","IT Band","Achilles / Calf","Plantar Fasciitis","None"]},
   {id:"recovery",title:"Recovery Baseline",sub:"Honest answers change the programme.",type:"inputs",fields:[{key:"sleep",label:"Avg sleep per night",unit:"hrs"},{key:"stress",label:"Daily stress level",unit:"/10"}]},
+  // -- BOXING BEGINNER 1 -------------------------------------
+  {
+    id:"boxing-beg-1",cat:"Boxing",name:"Foundation Fight",sessionCode:"BFD",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"This is where fighters are made. Before you throw a single punch, I need you to understand: power comes from the ground up. Every combo starts with your feet, rotates through your hips, and finishes with your fist. We are building the language of boxing today. Three rounds at each station. 60 seconds of work, 30 seconds rest. The timer is your trainer.",
+    exercises:[
+      {name:"Treadmill Warm-Up Run",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 6-8, flat. Comfortable pace. Build heart rate gradually. Between rounds: 30s walk.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Jab-Cross Floor Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Shadowbox only. Orthodox or southpaw stance. Jab extends the lead hand, cross rotates the rear hip. 30 reps per minute target. No arm-punching - rotate the torso.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Jab-Cross Basics",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Gloves on. Stand 1 arm's length from the bag. Jab to measure distance, cross for power. Breathe out sharp on contact. Reset stance after every combo. Mayweather cue: 'Stay on your toes, never flat-footed.'",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Squat + Shoulder Tap",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Core and lower body. 10 squats then 10 shoulder taps in plank. Fighters need strong legs - your power generation starts here.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Body Shot Focus",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Dig hooks to the body. Bend your knees to get to body level - do not hunch over. Canelo principle: body shots drain the engine. Aim for liver (right hook) and ribs (left hook).",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Burpee + Shadow Combo",sets:1,setsLabel:"AMRAP",reps:"3 min",note:"3-minute AMRAP challenge. 1 burpee, stand up, throw 1-2-1 combo (jab-cross-jab). Keep moving. This is your conditioning finisher.",rest:0,type:"cardio",isTimeBased:true},
+    ]
+  },
+  // -- BOXING BEGINNER 2 -------------------------------------
+  {
+    id:"boxing-beg-2",cat:"Boxing",name:"Defense & Flow",sessionCode:"BDF",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"Mayweather said it best: hit and don't get hit. Today we add movement. A punch you slip is better than a punch you block. We are learning the pull, the roll, and how to angle off after every combination. Three rounds each station. Stay light on your feet the whole session.",
+    exercises:[
+      {name:"Treadmill: Interval Warm-Up",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. 40s at speed 7, 20s at speed 9. Incline 0. Simulates the explosive-recovery rhythm of a real round.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Shadow: Slip & Counter Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Imagine a jab coming. Slip outside (move head off centreline), return a cross. Slip inside, return a left hook. Continuous rhythm. Mayweather's whole defensive game lives in this drill.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Pull-Back Combo",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Throw jab-cross, then pull straight back (lean back on rear foot), throw jab again. The pull makes you a moving target. Do not stand still after punching.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Lateral Band Walks + Press-Ups",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 15 lateral steps each direction (resistance band if available), then 10 press-ups. Lateral hip strength for footwork. Pressing strength for punch power.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Roll Under Hook",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Jab-cross, then roll under an imaginary hook (dip knees, U-shape with head), come up with left hook to body and right hand to head. This is the cornerstone Canelo combination.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Mountain Climbers + Combos",sets:1,setsLabel:"AMRAP",reps:"3 min",note:"10 mountain climbers, spring up, throw 5-punch combo (1-2-3-2-1). Keep your guard up between every burst. This separates conditioned fighters from tired ones.",rest:0,type:"cardio",isTimeBased:true},
+    ]
+  },
+  // -- BOXING INTERMEDIATE 1 ---------------------------------
+  {
+    id:"boxing-int-1",cat:"Boxing",name:"Power Combinations",sessionCode:"BPC",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"You know the basics. Now we build power. Tyson threw the hardest punches in heavyweight history because of hip rotation and timing, not because he was just big. Every punch in today's session should snap. Short, sharp, violent. Throw with bad intentions and reset immediately. The bag should be moving.",
+    exercises:[
+      {name:"Treadmill: Speed Intervals",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. 30s at speed 10 (sprint), 30s at speed 5 (recovery). Incline 0. Explosive cardiovascular conditioning matching real round intensity.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Dumbbell Punch-Out + Squat",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Hold light dumbbells (2-4kg). Squat down, drive up, throw rapid alternating punches x10 at eye level. The squat to punch motion trains the power transfer from legs to fists.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 3-Punch Power Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Tyson combo: right hook to body, left hook to body, right uppercut to chin. Dig the body shots deep. The uppercut should follow the body shots naturally as guard drops. Every 3rd combo, reset stance and breathe.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Core Power Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 15 Russian twists (plate or bodyweight), 10 dead bugs, 10 bicycle crunches each side. Rotational core power transfers directly to punch force. Non-negotiable for any fighter.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 5-Punch Explosive Combos",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Combo: 1-2-3-2-1 (jab-cross-lead hook-cross-jab). Throw in bursts of 3-5 combos, reset. Full power each punch. Breathe sharp out each time. Canelo's signature: the 5-punch combination finisher.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Bag Sprint Rounds",sets:1,setsLabel:"ALL OUT",reps:"3 min",note:"3-minute non-stop bag work. No combos - freestyle. Throw everything. Move, punch, move. This is your championship round. Leave nothing in the tank.",rest:0,type:"cardio",isTimeBased:true},
+    ]
+  },
+  // -- BOXING INTERMEDIATE 2 ---------------------------------
+  {
+    id:"boxing-int-2",cat:"Boxing",name:"Speed & Movement",sessionCode:"BSM",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"Mayweather's speed came from relaxation, not tension. Tight muscles are slow muscles. Every punch today should be fast and loose until the moment of impact, then snap. We are also working the feet: angles, pivots, circling. A moving fighter is a hard target. A fast fighter wins rounds.",
+    exercises:[
+      {name:"Treadmill: Footwork Ladder",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 7, alternate between incline 0 and incline 4 every 20 seconds. Mimics the change of pace and terrain demands of constant ring movement.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Shadow: Speed Combination Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Speed focus. Jab-jab-cross at maximum hand speed. Stay completely relaxed in shoulders. Pivot after every 3 combos - change your angle. Mayweather's output was 40-50 punches per round, mostly jabs.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Pivot & Counter",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Jab-cross, pivot 45 degrees off the bag, throw cross-hook. The pivot is what separates fighters from brawlers. You are never where your opponent expects you to be.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Explosive Power Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 5 broad jumps + 5 lateral bounds each side + 10 jump squats. Plyometric leg power for explosive ring movement. Your footwork speed comes from leg power.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Combination Speed Ladder",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Start with 1 punch, then 2, then 3, then 4, then 5 - then back down. Each punch crisp and fast. Rest 5 seconds between each set of the ladder. This drill was used extensively by Mayweather in camp.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Tabata Shadow + Core",sets:1,setsLabel:"ALL OUT",reps:"4 min",note:"8 rounds of 20s shadow boxing (all-out speed), 10s rest. Final 2 rounds on the floor: 20s hollow body hold, 10s rest. This is championship conditioning.",rest:0,type:"cardio",isTimeBased:true},
+    ]
+  },
+  // -- BOXING ADVANCED 1 -------------------------------------
+  {
+    id:"boxing-adv-1",cat:"Boxing",name:"Championship Rounds",sessionCode:"BCR",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"Mayweather finished his career undefeated at 50-0. He did it through discipline, angles, and an elite jab. Today's session is built around his principles: the jab controls distance, the shoulder roll neutralises the right hand, movement makes you impossible to hit. You are not just fit today. You are building fight IQ.",
+    exercises:[
+      {name:"Treadmill: Fight-Pace Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 9-11, incline 0. This is round 12 conditioning. You should be uncomfortably fast. Championship fights are decided by who can still perform when exhausted.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Mayweather Jab Clinic",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Jab only. But every jab has a job: measuring jab, stinging jab, pawing jab, double jab. Mix them. Vary the height - head level and body level. The jab is the most important punch in boxing. Never neglect it.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Weighted Core Power",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Heavy Russian twists (8-12kg), woodchop cable/band, oblique crunches. Every elite fighter has an elite core. This is where your real power generation lives.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Shoulder Roll Counter",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Practise the shoulder roll: lead shoulder comes up to protect the jaw from the right hand. Roll, then counter with right hand to body, left hook to head. This is Mayweather's signature defensive counter. Drill it until it is reflex.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Explosive Compound Lifts",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Dumbbell clean to press x5, jump squat x5, plank to push-up x10. Athletic total-body power. Championship fighters are complete athletes, not just punchers.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Finish: 12-Punch Championship Combo",sets:1,setsLabel:"MAX ROUNDS",reps:"3 min",note:"The full combo, as long as you can sustain it: 1-2-3-2-1-2 (body) -3-2-1-2-3-2. This is 12 punches. Control your breathing. Set your feet after every 3rd combo. This is what Mayweather trains to.",rest:0,type:"cardio",isTimeBased:true},
+    ]
+  },
+  // -- BOXING ADVANCED 2 -------------------------------------
+  {
+    id:"boxing-adv-2",cat:"Boxing",name:"Iron Pressure",sessionCode:"BIP",version:"1.0",tag:"Boxing",duration:"45 min",
+    gary:"Tyson's secret was not just power. It was the peek-a-boo style, the constant pressure, and the angles he created before every punch. He was small for a heavyweight but used that to his advantage - always working underneath, attacking the body first, then the head. Today we pressure. We never let the opponent settle. Relentless, calculated aggression.",
+    exercises:[
+      {name:"Treadmill: Maximum Incline Sprint",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 8, incline 10-12. Simulate the physical demands of cutting off the ring and constant pressure. Your legs must never fail in a fight.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Peek-A-Boo Defensive Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Hands high by temples, chin down. Bob and weave L-R-L continuously. Add a left hook each time you come up on the right side. Tyson drilled this thousands of times daily. The defence creates the offence.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Body Attack Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. 80% body shots. Double left hook to body, right hand to body, left hook up to head. Bend your knees to get to body level - never hunch. Body shots are a long-term weapon: they slow the legs, lower the guard, and open the head.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Floor: Power & Strength Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Barbell or dumbbell rows x8, dips or close-grip press x10, landmine rotational press x8 each side. Tyson's training included significant pulling and pressing work for the explosive snap in his hooks.",rest:30,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Pressure Combination Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Move forward, throw: jab to body - right to body - left hook to head - right uppercut. Then step to your left, throw right hook to body. Every 3rd combo change your angle of attack. Pressure from multiple angles is what broke Tyson's opponents.",rest:30,type:"cardio",isTimeBased:true},
+      {name:"Finish: Rounds of 8",sets:1,setsLabel:"IRON WILL",reps:"3 min",note:"8 combos all-out, 8 seconds rest. Repeat for 3 full minutes. The 8-second recovery mimics the split-second breathers in real rounds. Do not stop moving your feet during recovery. Championship is forged here.",rest:0,type:"cardio",isTimeBased:true},
+    ]
+  },
 ];
 const Onboarding=({onComplete})=>{
   const[step,setStep]=useState(0);
@@ -892,7 +972,7 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
 };
 
 // --- REST TIMER ---------------------------------------------------
-const RestTimer=({seconds,onDone,onSkip})=>{
+const RestTimer=({seconds,onDone,onSkip,logEx,logData,onUpdateLog,unitLabel})=>{
   const[remaining,setRemaining]=useState(seconds);
   useEffect(()=>{
     if(remaining<=0){onDone();return;}
@@ -901,20 +981,113 @@ const RestTimer=({seconds,onDone,onSkip})=>{
   },[remaining]);
   const pct=(remaining/seconds)*100;
   const radius=44;const circ=2*Math.PI*radius;
+  const lastSetIdx=logEx?(logData?.setsCompleted||1)-1:null;
   return(
-    <div style={{position:"fixed",inset:0,background:"rgba(10,10,11,0.92)",backdropFilter:"blur(16px)",zIndex:200,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:24}}>
-      <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.15em"}}>REST</div>
-      <div style={{position:"relative",width:120,height:120}}>
-        <svg width="120" height="120" style={{transform:"rotate(-90deg)"}}>
-          <circle cx="60" cy="60" r={radius} fill="none" stroke={C.bdr} strokeWidth="4"/>
-          <circle cx="60" cy="60" r={radius} fill="none" stroke={C.hyper} strokeWidth="4" strokeDasharray={circ} strokeDashoffset={circ*(1-pct/100)} strokeLinecap="round" style={{transition:"stroke-dashoffset 1s linear"}}/>
+    <div style={{position:"fixed",inset:0,background:"rgba(10,10,11,0.94)",backdropFilter:"blur(20px)",zIndex:200,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,padding:"0 32px"}}>
+      <div style={{fontSize:10,color:C.hyper,fontFamily:"'Space Mono',monospace",letterSpacing:"0.2em"}}>REST</div>
+      <div style={{position:"relative",width:110,height:110}}>
+        <svg width="110" height="110" style={{transform:"rotate(-90deg)"}}>
+          <circle cx="55" cy="55" r={radius} fill="none" stroke={C.bdr} strokeWidth="4"/>
+          <circle cx="55" cy="55" r={radius} fill="none" stroke={C.hyper} strokeWidth="4" strokeDasharray={circ} strokeDashoffset={circ*(1-pct/100)} strokeLinecap="round" style={{transition:"stroke-dashoffset 1s linear"}}/>
         </svg>
         <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
-          <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:42,lineHeight:1,color:remaining<=10?C.red:C.txt}}>{remaining}</span>
+          <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:40,lineHeight:1,color:remaining<=10?C.red:C.txt}}>{remaining}</span>
           <span style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace"}}>SEC</span>
         </div>
       </div>
-      <button onClick={onSkip} style={{background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 24px",color:C.mid,cursor:"pointer",fontSize:13,fontFamily:"'DM Sans',sans-serif"}}>Skip Rest</button>
+      {logEx&&lastSetIdx>=0&&onUpdateLog&&<div style={{width:"100%",maxWidth:320,background:C.sur,border:`1px solid ${C.bdrL}`,borderRadius:12,padding:"14px 16px"}}>
+        <div style={{fontSize:9,color:C.hyper,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:10}}>LOG SET {lastSetIdx+1} - {String(logEx.name||"").toUpperCase()}</div>
+        <div style={{display:"flex",gap:10,alignItems:"center"}}>
+          <div style={{flex:1}}>
+            <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:4}}>REPS</div>
+            <input type="number" inputMode="numeric" placeholder="reps" defaultValue={logData?.sets?.[lastSetIdx]?.reps||""} onBlur={e=>onUpdateLog(lastSetIdx,"reps",e.target.value)} style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px",color:C.txt,fontSize:18,fontFamily:"'Space Mono',monospace",outline:"none",textAlign:"center"}}/>
+          </div>
+          <div style={{flex:1}}>
+            <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:4}}>{(unitLabel||"kg").toUpperCase()}</div>
+            <input type="number" inputMode="decimal" placeholder={unitLabel||"kg"} defaultValue={logData?.sets?.[lastSetIdx]?.weight||""} onBlur={e=>onUpdateLog(lastSetIdx,"weight",e.target.value)} style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px",color:C.txt,fontSize:18,fontFamily:"'Space Mono',monospace",outline:"none",textAlign:"center"}}/>
+          </div>
+        </div>
+        <div style={{fontSize:10,color:C.dim,textAlign:"center",marginTop:8,fontFamily:"'Space Mono',monospace"}}>Log now, lift again in {remaining}s</div>
+      </div>}
+      <button onClick={onSkip} style={{background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 32px",color:C.mid,cursor:"pointer",fontSize:13,fontFamily:"'DM Sans',sans-serif"}}>Skip Rest</button>
+    </div>
+  );
+};
+
+
+// --- EXERCISE DETAIL MODAL ----------------------------------------
+const ExerciseDetailModal=({ex,onClose,onAskGary})=>{
+  if(!ex)return null;
+  let libEx=null;
+  try{libEx=EXERCISES.find(e=>e.name===ex.name||e.id===ex.id)||null;}catch(e){}
+  const safeNote=(libEx?.coachNote||"");
+  return(
+    <div onClick={e=>e.target===e.currentTarget&&onClose()} style={{position:"fixed",inset:0,background:"rgba(10,10,11,0.96)",backdropFilter:"blur(20px)",zIndex:300,overflowY:"auto"}}>
+      <div style={{maxWidth:480,margin:"0 auto",padding:"0 0 40px"}}>
+        <div style={{position:"sticky",top:0,background:`${C.bg}F8`,backdropFilter:"blur(16px)",borderBottom:`1px solid ${C.bdr}`,padding:"16px 20px",display:"flex",alignItems:"center",gap:12,zIndex:10}}>
+          <button onClick={onClose} style={{background:"none",border:"none",color:C.mid,cursor:"pointer",fontSize:20,padding:4,lineHeight:1}}>{String.fromCharCode(8592)}</button>
+          <div style={{flex:1}}>
+            <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:18,letterSpacing:"0.06em"}}>{String(ex.name||"")}</div>
+            {libEx&&<div style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace"}}>{libEx.muscle} {String.fromCharCode(183)} {libEx.equipment}</div>}
+          </div>
+          {onAskGary&&<button onClick={()=>{onClose();onAskGary("Give me the key coaching cues and technique notes for "+String(ex.name||"this exercise")+".");}} style={{background:C.hyperG,border:`1px solid ${C.hyper}40`,borderRadius:8,padding:"7px 12px",cursor:"pointer",fontSize:11,color:C.hyper,fontFamily:"'DM Sans',sans-serif",fontWeight:600,flexShrink:0}}>Ask Gary</button>}
+        </div>
+        <div style={{padding:"20px 20px 0"}}>
+          {libEx?(
+            <>
+              <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:16}}>
+                <Tag>{String(libEx.muscle||"")}</Tag>
+                <Tag color={C.blu}>{String(libEx.equipment||"")}</Tag>
+                <Tag color={C.pur}>{String(libEx.category||"")}</Tag>
+                {libEx.secondary&&<Tag color={C.dim}>+{String(libEx.secondary||"")}</Tag>}
+              </div>
+              <div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"18px",marginBottom:12}}>
+                <div style={{fontSize:10,color:C.recovery,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:10}}>TECHNIQUE</div>
+                <p style={{fontSize:14,color:C.txt,lineHeight:1.8}}>{String(libEx.cue||"")}</p>
+              </div>
+              <div style={{background:C.surUp,border:`1px solid ${C.bdrL}`,borderLeft:`3px solid ${C.recovery}`,borderRadius:10,padding:"14px 16px",marginBottom:12}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+                  <div style={{fontSize:10,color:C.recovery,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}}>GARY'S NOTE</div>
+                </div>
+                <p style={{fontSize:14,color:C.mid,lineHeight:1.7,marginBottom:10}}>{safeNote}</p>
+                {onAskGary&&safeNote&&<button onClick={()=>{onClose();onAskGary("Tell me more about this note for "+String(ex.name||"")+": "+safeNote.slice(0,100));}} style={{background:C.hyperG,border:`1px solid ${C.hyper}40`,borderRadius:8,padding:"8px 14px",cursor:"pointer",fontSize:12,color:C.hyper,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>Discuss this with Gary {String.fromCharCode(8594)}</button>}
+              </div>
+              {libEx.grip&&<div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"18px",marginBottom:12}}>
+                <div style={{fontSize:10,color:C.blu,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:10}}>GRIP & ANGLE VARIATIONS</div>
+                <p style={{fontSize:14,color:C.txt,lineHeight:1.8}}>{String(libEx.grip||"")}</p>
+              </div>}
+              <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10,marginBottom:12}}>
+                {[["SETS",ex.setsLabel||libEx.sets],["REPS",ex.reps||libEx.reps],["TEMPO",ex.tempo||libEx.tempo]].map(([l,v])=>(
+                  <div key={l} style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"12px",textAlign:"center"}}>
+                    <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:4}}>{l}</div>
+                    <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,color:C.hyper}}>{String(v||"--")}</div>
+                  </div>
+                ))}
+              </div>
+              {libEx.alt&&!libEx.alt.noAlt&&<div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"18px",marginBottom:16}}>
+                <div style={{fontSize:10,color:C.ora,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:10}}>LIMITED EQUIPMENT ALTERNATIVE</div>
+                <div style={{fontSize:15,fontWeight:600,color:C.txt,marginBottom:6}}>{String(libEx.alt.name||"")}</div>
+                <p style={{fontSize:13,color:C.mid,lineHeight:1.7}}>{String(libEx.alt.desc||"")}</p>
+              </div>}
+            </>
+          ):(
+            <div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"24px",marginBottom:16}}>
+              <div style={{fontSize:14,fontWeight:600,color:C.txt,marginBottom:8}}>{String(ex.name||"")}</div>
+              <p style={{fontSize:13,color:C.mid,lineHeight:1.7,marginBottom:12}}>{String(ex.note||"Perform this exercise with controlled form. Focus on the target muscle throughout each rep.")}</p>
+              <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10,marginBottom:12}}>
+                {[["SETS",ex.setsLabel||ex.sets],["REPS",ex.reps],["REST",ex.rest?(ex.rest+"s"):"--"]].map(([l,v])=>(
+                  <div key={l} style={{background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"12px",textAlign:"center"}}>
+                    <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:4}}>{l}</div>
+                    <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:20,color:C.hyper}}>{String(v||"--")}</div>
+                  </div>
+                ))}
+              </div>
+              {onAskGary&&<button onClick={()=>{onClose();onAskGary("Coach me on "+String(ex.name||"this exercise")+" - full technique breakdown, key cues, and what to watch for.");}} style={{background:C.hyperG,border:`1px solid ${C.hyper}40`,borderRadius:8,padding:"10px 16px",cursor:"pointer",fontSize:12,color:C.hyper,fontFamily:"'DM Sans',sans-serif",fontWeight:600,width:"100%"}}>Ask Gary about this exercise {String.fromCharCode(8594)}</button>}
+            </div>
+          )}
+          <button onClick={onClose} style={{width:"100%",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"14px",cursor:"pointer",fontSize:14,color:C.mid,fontFamily:"'DM Sans',sans-serif"}}>Close</button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -1033,8 +1206,13 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
 
   return(
     <div style={{minHeight:"100vh",paddingBottom:160}}>
-      {resting&&<RestTimer seconds={restSec} onDone={()=>setResting(false)} onSkip={()=>setResting(false)}/>}
-      {detailEx&&<ExerciseDetailModal ex={detailEx} onClose={()=>setDetailEx(null)}/>}
+      {resting&&<RestTimer seconds={restSec} onDone={()=>setResting(false)} onSkip={()=>setResting(false)}
+    logEx={exercises[currentEx]||null}
+    logData={{setsCompleted:completedSets[currentEx]||0,sets:Object.fromEntries(Object.entries(setLog).filter(([k])=>k.startsWith(currentEx+"_")).map(([k,v])=>[parseInt(k.split("_")[1]),v]))}}
+    onUpdateLog={(setIdx,field,val)=>updateLog(currentEx,setIdx,field,val)}
+    unitLabel={String(profile?.unit||"").includes("Imperial")?"lbs":"kg"}
+  />}
+      {detailEx&&<ExerciseDetailModal ex={detailEx} onClose={()=>setDetailEx(null)} onAskGary={(q)=>{setChatInput(q);setShowChat(true);}}/>}
       {tempoEx&&<TempoPopup tempo={tempoEx} onClose={()=>setTempoEx(null)}/>}
       {activeTimer&&(
         <div style={{position:"fixed",inset:0,background:"rgba(10,10,11,0.92)",backdropFilter:"blur(16px)",zIndex:200,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16}}>
@@ -1100,7 +1278,7 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
           const timeBased=isTimeBased(ex.reps);
 
           return(
-            <div key={i} onClick={()=>!allDone&&setCurrentEx(i)} style={{background:isActive?C.surUp:C.sur,border:`1px solid ${isActive?mc:allDone?mc+"50":C.bdr}`,borderRadius:12,overflow:"hidden",transition:"all 0.2s",cursor:allDone?"default":"pointer"}}>
+            <div key={i} onClick={()=>setCurrentEx(i)} style={{background:isActive?C.surUp:C.sur,border:`1px solid ${isActive?mc:allDone?mc+"50":C.bdr}`,borderRadius:12,overflow:"hidden",transition:"all 0.2s",cursor:"pointer"}}>
               {isActive&&<div style={{height:2,background:mc,width:"100%"}}/>}
               <div style={{padding:"14px 16px"}}>
                 <div style={{display:"flex",alignItems:"flex-start",gap:12,marginBottom:allDone?0:10}}>
@@ -1113,14 +1291,15 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
                       {isActive&&!allDone&&<span style={{fontSize:9,background:mg,color:mc,border:`1px solid ${mc}40`,borderRadius:3,padding:"1px 6px",fontFamily:"'Space Mono',monospace",letterSpacing:"0.06em",flexShrink:0}}>{exType.toUpperCase()}</span>}
                     </div>
                     {ex.note&&<div style={{fontSize:11,color:C.dim,marginTop:3,lineHeight:1.45}}>{ex.note}</div>}
+                    {isActive&&!allDone&&<div style={{fontSize:10,color:mc,marginTop:4,fontFamily:"'Space Mono',monospace",letterSpacing:"0.04em",opacity:0.7}}>Tap i for coaching cues {String.fromCharCode(8594)}</div>}
                   </div>
                   <div style={{display:"flex",gap:6,alignItems:"center",flexShrink:0}}>
                     {ex.rpe&&<RPEBadge rpe={ex.rpe}/>}
-                    <button onClick={e=>{e.stopPropagation();setDetailEx(ex);}} style={{width:26,height:26,borderRadius:6,background:C.bdr,border:"none",color:C.mid,fontSize:11,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Space Mono',monospace"}}>i</button>
+                    <button onClick={e=>{e.stopPropagation();setDetailEx(ex);}} title="Exercise info" style={{width:26,height:26,borderRadius:6,background:C.bdr,border:"none",color:C.hyper,fontSize:11,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Space Mono',monospace",fontWeight:700}}>i</button>
                   </div>
                 </div>
 
-                {!allDone&&<>
+                {(isActive||!allDone)&&<>
                   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginLeft:40,marginBottom:10,gap:8}}>
                     <div style={{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap",flex:1}}>
                       <span style={{fontSize:12,color:C.mid}}>
@@ -1147,8 +1326,8 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
                     )}
                   </div>
 
-                  {/* Weight + reps log - shown for active, non-time exercises */}
-                  {isActive&&!timeBased&&done>0&&(
+                  {/* Weight + reps log - shown for active exercises */}
+                  {(isActive||allDone)&&!timeBased&&done>0&&(
                     <div style={{marginLeft:40,marginBottom:8}}>
                       <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:6,letterSpacing:"0.08em"}}>LOG SETS</div>
                       <div style={{display:"flex",flexDirection:"column",gap:4}}>
@@ -1169,9 +1348,18 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
                     </div>
                   )}
 
-                  {isActive&&i<exercises.length-1&&<button onClick={e=>{e.stopPropagation();setCurrentEx(i+1);}} style={{marginLeft:40,background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:6,padding:"5px 12px",cursor:"pointer",fontSize:11,color:C.dim,fontFamily:"'DM Sans',sans-serif",display:"inline-flex",alignItems:"center",gap:4}}>
-                    Skip to next {String.fromCharCode(8594)}
-                  </button>}
+                  <div style={{marginLeft:40,display:"flex",gap:8,flexWrap:"wrap"}}>
+
+                    {isActive&&i<exercises.length-1&&<button onClick={e=>{e.stopPropagation();setCurrentEx(i+1);}} style={{background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:6,padding:"5px 12px",cursor:"pointer",fontSize:11,color:C.dim,fontFamily:"'DM Sans',sans-serif",display:"inline-flex",alignItems:"center",gap:4}}>
+                      Skip {String.fromCharCode(8594)}
+                    </button>}
+                    {isActive&&<button onClick={e=>{e.stopPropagation();setChatInput("Key cue for "+ex.name+" right now - one sentence.");setShowChat(c=>!c);}} style={{background:showChat?C.hyperG:"transparent",border:`1px solid ${showChat?C.hyper:C.bdr}`,borderRadius:6,padding:"5px 12px",cursor:"pointer",fontSize:11,color:showChat?C.hyper:C.mid,fontFamily:"'DM Sans',sans-serif",display:"inline-flex",alignItems:"center",gap:4}}>
+                      Gary {showChat?String.fromCharCode(8595):String.fromCharCode(9654)}
+                    </button>}
+                    {allDone&&isActive&&<button onClick={e=>{e.stopPropagation();const ext=(completedSets[i]||0)+1;setCompletedSets(s=>({...s,[i]:ext}));}} style={{background:C.strengthG,border:`1px solid ${C.strength}40`,borderRadius:6,padding:"5px 12px",cursor:"pointer",fontSize:11,color:C.strength,fontFamily:"'DM Sans',sans-serif",display:"inline-flex",alignItems:"center",gap:4}}>
+                      + Drop Set
+                    </button>}
+                  </div>
                 </>}
               </div>
             </div>
@@ -1179,14 +1367,27 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
         })}
 
         {/* Finish workout */}
-        <button onClick={onBack} style={{width:"100%",margin:"16px 0 8px",background:"transparent",border:`1px solid ${tagColor}`,borderRadius:10,padding:"14px",cursor:"pointer",fontSize:15,color:tagColor,fontFamily:"'DM Sans',sans-serif",fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
-          {isWarmup?"Finish Warm-Up":"Finish Workout"} {String.fromCharCode(8594)}
+        {!isWarmup&&<div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"14px 16px",marginTop:16,marginBottom:8}}>
+          <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:8,letterSpacing:"0.1em"}}>POST-WORKOUT NOTES FOR GARY</div>
+          <textarea value={sessionNotes} onChange={e=>setSessionNotes(e.target.value)} placeholder="How did it feel? Any PRs? What was tough? Gary reads this before your next session..." rows={3} style={{width:"100%",background:"transparent",border:"none",outline:"none",color:C.txt,fontSize:16,fontFamily:"'DM Sans',sans-serif",lineHeight:1.7,resize:"none"}}/>
+        </div>}
+        <button onClick={()=>{
+          const log={date:new Date().toISOString(),session:session.name,notes:sessionNotes,sets:Object.keys(setLog).length};
+          try{const prev=JSON.parse(localStorage.getItem("gmt_workout_history")||"[]");localStorage.setItem("gmt_workout_history",JSON.stringify([log,...prev].slice(0,50)));}catch{}
+          onBack();
+        }} style={{width:"100%",margin:"8px 0 8px",background:tagColor,border:`1px solid ${tagColor}`,borderRadius:10,padding:"14px",cursor:"pointer",fontSize:15,color:"#fff",fontFamily:"'DM Sans',sans-serif",fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+          {isWarmup?"Finish Warm-Up ":"Finish & Save "}
+          {String.fromCharCode(8594)}
         </button>
       </div>
 
       {/* Ask Gary - always visible, auto-opens on response */}
       <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 40px)",maxWidth:440,zIndex:50,paddingBottom:16}}>
         {showChat&&<div ref={chatRef} className="fu" style={{background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:12,padding:14,marginBottom:8,maxHeight:220,overflowY:"auto"}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+            <div style={{fontSize:10,color:C.hyper,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}}>ASK GARY</div>
+            <button onClick={()=>setShowChat(false)} style={{background:"none",border:"none",color:C.dim,cursor:"pointer",fontSize:16,padding:2,lineHeight:1}}>{String.fromCharCode(215)}</button>
+          </div>
           {chatHistory.length===0&&<div style={{fontSize:12,color:C.dim,textAlign:"center",padding:"8px 0"}}>Ask Gary anything about this session...</div>}
           {chatHistory.map((m,ii)=>(
             <div key={ii} style={{display:"flex",justifyContent:m.from==="user"?"flex-end":"flex-start",marginBottom:10,animation:"fadeUp 0.3s ease forwards"}}>
@@ -1207,9 +1408,10 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
 
 
 // --- EXERCISE LIBRARY ---------------------------------------------
-const ExerciseLibrary=({favourites,onToggleFav})=>{
+const ExerciseLibrary=({favourites,onToggleFav,onAskCoach})=>{
   const[search,setSearch]=useState("");
   const[filter,setFilter]=useState("All");
+  const[libTab,setLibTab]=useState("all");
   const[selected,setSelected]=useState(null);
   const muscles=["All","Chest","Back","Shoulders","Legs","Biceps","Triceps"];
   const filtered=EXERCISES.filter(e=>{
@@ -1326,7 +1528,7 @@ const WorkoutLibraryView=({onStartWorkout,weekSchedule={},favourites=[],onToggle
   const[filter,setFilter]=useState("All");
   const[selected,setSelected]=useState(null);
   const[view,setView]=useState("mine");
-  const cats=["All","Warm-Up","Athletic","Bodybuilding","Running"];
+  const cats=["All","Warm-Up","Athletic","Bodybuilding","Running","Boxing"];
   const mySessionNames=Object.values(weekSchedule);
   const myWorkouts=WORKOUT_LIBRARY.filter(w=>mySessionNames.includes(w.name)||w.id==="warmup");
   const exploreWorkouts=WORKOUT_LIBRARY.filter(w=>!mySessionNames.includes(w.name)&&w.id!=="warmup");
@@ -1491,6 +1693,11 @@ const CoachView=({profile,introMode=false,onReady})=>{
   const[input,setInput]=useState("");
   const[loading,setLoading]=useState(false);
   const[error,setError]=useState(null);
+  useEffect(()=>{
+    const h=e=>{if(e.detail){setInput(e.detail);setTimeout(()=>document.getElementById("gary-send-btn")?.click(),150);}};
+    window.addEventListener("gmt_coach_msg",h);
+    return()=>window.removeEventListener("gmt_coach_msg",h);
+  },[]);
   const[readyConfirmed,setReadyConfirmed]=useState(false);
   const bottomRef=useRef(null);
   const inputRef=useRef(null);
@@ -1590,7 +1797,7 @@ const CoachView=({profile,introMode=false,onReady})=>{
       {/* Input */}
       <div style={{padding:"12px 20px 40px",display:"flex",gap:10,alignItems:"flex-end"}}>
         <textarea ref={inputRef} value={input} onChange={e=>{setInput(e.target.value);e.target.style.height="auto";e.target.style.height=Math.min(e.target.scrollHeight,120)+"px";}} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send();}}} placeholder="Type your message or use quick replies above..." rows={1} disabled={loading} style={{flex:1,background:C.sur,border:`1px solid ${loading?C.bdr:C.bdrL}`,borderRadius:12,padding:"13px 16px",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",outline:"none",resize:"none",overflow:"hidden",lineHeight:1.5,transition:"border-color 0.2s",opacity:loading?0.6:1}}/>
-        <button onClick={()=>send()} disabled={loading||!input.trim()} style={{width:46,height:46,background:(!loading&&input.trim())?C.hyper:C.sur,border:`1px solid ${(!loading&&input.trim())?C.hyper:C.bdr}`,borderRadius:12,cursor:(!loading&&input.trim())?"pointer":"not-allowed",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",color:(!loading&&input.trim())?C.txt:C.dim,transition:"all 0.2s",flexShrink:0}}>
+        <button id="gary-send-btn" onClick={()=>send()} disabled={loading||!input.trim()} style={{width:46,height:46,background:(!loading&&input.trim())?C.hyper:C.sur,border:`1px solid ${(!loading&&input.trim())?C.hyper:C.bdr}`,borderRadius:12,cursor:(!loading&&input.trim())?"pointer":"not-allowed",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",color:(!loading&&input.trim())?C.txt:C.dim,transition:"all 0.2s",flexShrink:0}}>
           {loading?<Spinner/>:""}
         </button>
       </div>
@@ -1601,7 +1808,7 @@ const CoachView=({profile,introMode=false,onReady})=>{
 // --- DASHBOARD ----------------------------------------------------
 const weekProgram={};
 WORKOUT_LIBRARY.forEach(w=>{if(w.name)weekProgram[w.name]={name:w.name,label:w.name,sessionCode:w.sessionCode,version:w.version,tag:w.tag,exercises:w.exercises};});
-const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrition})=>{
+const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrition,onReorderDay,onShowRecovery,lastWorkout})=>{
   const days=["MON","TUE","WED","THU","FRI","SAT","SUN"];
   const sched=Object.keys(weekSchedule);
   const today=sched[0]||"MON";
@@ -1609,7 +1816,7 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
   const todayData=weekProgram[todayLabel]||Object.values(weekProgram)[0]||null;
   const[recoveryVals,setRecoveryVals]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_recovery")||"{}");}catch{return{};}});
   const saveRecovery=(k,v)=>{const n={...recoveryVals,[k]:v};setRecoveryVals(n);try{localStorage.setItem("gmt_recovery",JSON.stringify(n));}catch{}};
-  const recoveryData=[{key:"sleep",label:"Sleep",val:parseFloat(recoveryVals.sleep)||null,max:9,unit:"hrs",color:C.hyper},{key:"hrv",label:"HRV",val:parseFloat(recoveryVals.hrv)||null,max:100,unit:"ms",color:C.mid},{key:"readiness",label:"Readiness",val:parseFloat(recoveryVals.readiness)||null,max:100,unit:"%",color:C.ora}];
+  const 
   return(
     <div style={{paddingBottom:100}}>
       <div style={{padding:"48px 20px 24px"}}>
@@ -1627,57 +1834,114 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
       </div>
       {/* Today card */}
       <div style={{padding:"0 20px 24px"}}>
-        <div style={{background:`linear-gradient(135deg,${C.surUp},${C.sur})`,border:`1px solid ${C.bdr}`,borderRadius:14,padding:24,position:"relative",overflow:"hidden"}}>
+        {sched.includes(today)&&todayData?(<div style={{background:`linear-gradient(135deg,${C.surUp},${C.sur})`,border:`1px solid ${C.bdr}`,borderRadius:14,padding:24,position:"relative",overflow:"hidden"}}>
           <div style={{position:"absolute",right:-20,top:-20,width:120,height:120,borderRadius:"50%",background:C.hyperG,filter:"blur(40px)"}}/>
-          <Tag color={todayData?.tag==="Strength"?C.strength:todayData?.tag?.includes("Recovery")?C.recovery:C.hyper}>NEXT  {today}</Tag>
+          <Tag color={todayData?.tag==="Strength"?C.strength:todayData?.tag?.includes("Recovery")?C.recovery:todayData?.cat==="Boxing"?C.red:C.hyper}>TODAY  {today}</Tag>
           <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:30,letterSpacing:"0.04em",margin:"10px 0 2px",lineHeight:1.1}}>{todayData?.name||todayLabel}</h2>
-          <div style={{display:"flex",gap:8,alignItems:"center",marginBottom:20}}><Tag color={todayData?.tag==="Strength"?C.strength:todayData?.tag?.includes("Recovery")?C.recovery:C.hyper}>{todayData?.tag||"Hypertrophy"}</Tag><span style={{fontSize:12,color:C.mid}}>{todayData?.exercises?.length||6} exercises</span>{todayData?.sessionCode&&<span style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{todayData.sessionCode} v{todayData.version}</span>}</div>
+          <div style={{display:"flex",gap:8,alignItems:"center",marginBottom:20}}><Tag color={todayData?.tag==="Strength"?C.strength:todayData?.cat==="Boxing"?C.red:C.hyper}>{todayData?.tag||"Hypertrophy"}</Tag><span style={{fontSize:12,color:C.mid}}>{todayData?.exercises?.length||6} exercises</span>{todayData?.sessionCode&&<span style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{todayData.sessionCode} v{todayData.version}</span>}</div>
           <Btn onClick={()=>onStartWorkout(today,todayData)} style={{width:"100%"}}>Begin Session </Btn>
-        </div>
+        </div>):(
+          <div style={{background:`linear-gradient(135deg,${C.recoveryG||C.surUp},${C.sur})`,border:`1px solid ${C.recovery}40`,borderRadius:14,padding:24,position:"relative",overflow:"hidden"}}>
+            <div style={{position:"absolute",right:-20,top:-20,width:120,height:120,borderRadius:"50%",background:C.recoveryG,filter:"blur(50px)"}}/>
+            <Tag color={C.recovery}>REST DAY  {today}</Tag>
+            <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:28,letterSpacing:"0.04em",margin:"10px 0 4px",lineHeight:1.1}}>Active Recovery</h2>
+            <p style={{fontSize:12,color:C.mid,marginBottom:16,lineHeight:1.6}}>Rest days build the fitness you earned in training. Stay active without stressing the system.</p>
+            <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:16}}>
+              {[
+                {icon:"",task:"Dead Hang",detail:"3 sets of 30s. Spinal decompression + grip health."},
+                {icon:"",task:"10,000 Steps",detail:"Walk, do not run. Zone 1 blood flow for recovery."},
+                {icon:"",task:"Mobility Circuit",detail:"Hip 90/90, thoracic rotation, ankle circles. 10 min."},
+                {icon:"",task:"Prehab Work",detail:"Band pull-aparts, clamshells, face pulls. 3x15 each."},
+                {icon:"",task:"Hydration",detail:"Target 3-4L today. Recovery is biochemical."},
+              ].map((item,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 12px"}}>
+                  <span style={{fontSize:18,flexShrink:0}}>{item.icon}</span>
+                  <div>
+                    <div style={{fontSize:13,fontWeight:600,color:C.txt,marginBottom:2}}>{item.task}</div>
+                    <div style={{fontSize:11,color:C.dim,lineHeight:1.5}}>{item.detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 12px",fontSize:11,color:C.mid,lineHeight:1.6}}>
+              Gary says: Adaptation happens in rest, not training. Protect this day.
+            </div>
+          </div>
+        )}
       </div>
       {/* Week */}
       <div style={{padding:"0 20px 24px"}}>
-        <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:12}}>YOUR WEEK</div>
-        <div style={{display:"flex",gap:6}}>
-          {days.map(d=>{const has=sched.includes(d);const lbl=weekSchedule[d];return(
-            <div key={d} style={{flex:1,background:d===today?C.hyperG:C.sur,border:`1px solid ${d===today?C.hyper:C.bdr}`,borderRadius:8,padding:"10px 3px",textAlign:"center"}}>
-              <div style={{fontSize:8,fontFamily:"'Space Mono',monospace",color:d===today?C.hyper:C.dim,marginBottom:5}}>{d}</div>
-              <div style={{width:5,height:5,borderRadius:"50%",background:has?(d===today?C.hyper:C.mid):C.bdr,margin:"0 auto 5px"}}/>
-              {has&&lbl&&<div style={{fontSize:7,color:d===today?C.hyper:C.dim,fontFamily:"'Space Mono',monospace",lineHeight:1.3}}>{lbl.replace(" ","\n")}</div>}
-            </div>
-          );})}
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+          <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em"}}>YOUR WEEK</div>
+          <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",opacity:0.6}}>tap to start</div>
         </div>
+        <div style={{display:"flex",gap:6}}>
+          {days.map(d=>{
+            const has=sched.includes(d);
+            const lbl=weekSchedule[d];
+            const isToday=d===today;
+            const sess=lbl?weekProgram[lbl]:null;
+            return(
+              <div key={d}
+                draggable={has}
+                onDragStart={e=>e.dataTransfer.setData("dragDay",d)}
+                onDragOver={e=>e.preventDefault()}
+                onDrop={e=>{e.preventDefault();const from=e.dataTransfer.getData("dragDay");if(from&&from!==d&&onReorderDay)onReorderDay(from,d);}}
+                onClick={()=>{if(has&&sess)onStartWorkout(d,Object.assign({name:lbl},sess));}}
+                style={{flex:1,background:isToday?C.hyperG:C.sur,border:`1px solid ${isToday?C.hyper:has?C.bdrL:C.bdr}`,borderRadius:8,padding:"10px 3px",textAlign:"center",cursor:has?"pointer":"default",transition:"all 0.15s",userSelect:"none"}}
+              >
+                <div style={{fontSize:8,fontFamily:"'Space Mono',monospace",color:isToday?C.hyper:C.dim,marginBottom:5}}>{d}</div>
+                <div style={{width:6,height:6,borderRadius:"50%",background:has?(isToday?C.hyper:C.mid):C.bdr,margin:"0 auto 4px"}}/>
+                {has&&lbl&&<div style={{fontSize:6,color:isToday?C.hyper:C.mid,fontFamily:"'Space Mono',monospace",lineHeight:1.3}}>{lbl.slice(0,8)}</div>}
+                {!has&&<div style={{fontSize:6,color:C.dim,fontFamily:"'Space Mono',monospace"}}>rest</div>}
+              </div>
+            );
+          })}
+        </div>
+        <div style={{fontSize:9,color:C.dim,textAlign:"center",marginTop:6,fontFamily:"'Space Mono',monospace",opacity:0.5}}>Hold & drag to reorder</div>
       </div>
       {/* Recovery */}
       <div style={{padding:"0 20px 24px"}}>
-        <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:12}}>RECOVERY</div>
-        {sessionCount<2?<div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"28px 20px",textAlign:"center"}}>
-          <div style={{fontSize:24,marginBottom:10,opacity:.3}}></div>
-          <div style={{fontSize:13,color:C.mid,marginBottom:4}}>No recovery data yet</div>
-          <div style={{fontSize:11,color:C.dim,lineHeight:1.6}}>Builds after your first two sessions.</div>
-        </div>:<div style={{display:"flex",flexDirection:"column",gap:8}}>
-          {recoveryData.map(r=>(
-            <div key={r.label} style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"12px 16px"}}>
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:r.val?8:6}}>
-                <span style={{fontSize:13,color:C.mid}}>{r.label}</span>
-                {r.val
-                  ?<span style={{fontFamily:"'Space Mono',monospace",fontSize:16,color:r.color}}>{r.val}<span style={{fontSize:10,color:C.dim}}>{r.unit}</span></span>
-                  :<div style={{display:"flex",alignItems:"center",gap:6}}>
-                    <input type="number" placeholder="--" onBlur={e=>saveRecovery(r.key,e.target.value)} defaultValue={recoveryVals[r.key]||""} style={{width:52,background:C.bdr,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"4px 8px",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
+        <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:12}}>DAILY RECOVERY</div>
+        <div style={{display:"flex",flexDirection:"column",gap:8}}>
+          {[
+            {key:"sleep",label:"Sleep",unit:"hrs",color:C.hyper,placeholder:"7.5",max:10,icon:""},
+            {key:"calories",label:"Calories",unit:"kcal",color:C.ora,placeholder:"2200",max:4000,icon:""},
+            {key:"water",label:"Water",unit:"L",color:C.blu,placeholder:"2.5",max:5,icon:""},
+          ].map(r=>{
+            const saved=recoveryVals[r.key];
+            const val=parseFloat(saved)||null;
+            return(
+              <div key={r.key} style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"12px 16px"}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                  <div style={{display:"flex",alignItems:"center",gap:8}}>
+                    <span style={{fontSize:18}}>{r.icon}</span>
+                    <span style={{fontSize:13,color:C.mid}}>{r.label}</span>
+                  </div>
+                  <div style={{display:"flex",alignItems:"center",gap:6}}>
+                    <input type="number" inputMode="decimal" placeholder={r.placeholder} defaultValue={saved||""} key={saved}
+                      onBlur={e=>saveRecovery(r.key,e.target.value)}
+                      style={{width:64,background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"5px 8px",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
                     <span style={{fontSize:11,color:C.dim}}>{r.unit}</span>
                   </div>
-                }
+                </div>
+                {val&&<div style={{marginTop:8}}><PBar value={val} max={r.max} color={r.color} h={4}/></div>}
               </div>
-              {r.val?<PBar value={r.val} max={r.max} color={r.color} h={4}/>:<div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em"}}>LOG TODAY</div>}
-            </div>
-          ))}
-        </div>}
+            );
+          })}
+        </div>
       </div>
       {/* Coach note */}
       <div style={{padding:"0 20px"}}>
         <div style={{background:C.surUp,border:`1px solid ${C.accD}40`,borderLeft:`3px solid ${C.acc}`,borderRadius:10,padding:"16px 18px"}}>
           <div style={{fontSize:10,color:C.recovery,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:8}}>COACH NOTE</div>
-          <p style={{fontSize:14,color:C.mid,lineHeight:1.7}}>First priority this block: find the muscle before loading it. Every set starts with the squeeze, not the weight. If you can't feel it in the first rep, the weight is too heavy or the setup is wrong.</p>
+          {lastWorkout&&<div style={{background:C.strengthG,border:`1px solid ${C.strength}30`,borderRadius:6,padding:"8px 10px",marginBottom:8}}>
+            <div style={{fontSize:9,color:C.strength,fontFamily:"'Space Mono',monospace",marginBottom:2}}>LAST SESSION</div>
+            <div style={{fontSize:12,color:C.mid}}>{String(lastWorkout.session||"")} {lastWorkout.sets?` -- ${lastWorkout.sets} sets logged`:""}</div>
+            {lastWorkout.notes&&<div style={{fontSize:11,color:C.dim,marginTop:4,fontStyle:"italic"}}>"{lastWorkout.notes.slice(0,80)}"</div>}
+          </div>}
+          <p style={{fontSize:14,color:C.mid,lineHeight:1.7,marginBottom:12}}>{lastWorkout?"Great work. Focus on recovery now - protein within 90 minutes, 7-9 hours sleep, and stay mobile tomorrow. I have noted your performance for next session.":"First priority this block: find the muscle before loading it. Every set starts with the squeeze, not the weight. If you cannot feel it in the first rep, the weight is too heavy or the setup is wrong."}</p>
+          <button onClick={()=>window.dispatchEvent(new CustomEvent("gmt_nav",{detail:"coach"}))} style={{background:C.hyperG,border:`1px solid ${C.hyper}40`,borderRadius:8,padding:"8px 14px",cursor:"pointer",fontSize:12,color:C.hyper,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>Discuss with Gary {String.fromCharCode(8594)}</button>
         </div>
       </div>
     </div>
@@ -2020,7 +2284,7 @@ const BottomNav=({active,setActive})=>{
     {id:"home",icon:"",label:"Home"},
     {id:"program",icon:"",label:"Programme"},
     {id:"workouts",icon:"",label:"Workouts"},
-    {id:"favourites",icon:"",label:"Favourites"},
+    {id:"library",icon:"",label:"Exercises"},
     {id:"coach",icon:"",label:"Coach"},
   ];
   return(
@@ -2094,6 +2358,11 @@ function AppInner(){
     try{return localStorage.getItem("gmt_screen")||"terms";}catch{return"terms";}
   });
   const[tab,setTab]=useState("home");
+  useEffect(()=>{
+    const handler=e=>setTab(e.detail||"coach");
+    window.addEventListener("gmt_nav",handler);
+    return()=>window.removeEventListener("gmt_nav",handler);
+  },[]);
   const[activeWorkout,setActiveWorkout]=useState(null);
   const[profile,setProfile]=useState(()=>{
     try{const p=localStorage.getItem("gmt_profile");return p?JSON.parse(p):null;}catch{return null;}
@@ -2104,6 +2373,7 @@ function AppInner(){
   const[sessionCount,setSessionCount]=useState(()=>{
     try{return parseInt(localStorage.getItem("gmt_sessions")||"0");}catch{return 0;}
   });
+  const[lastWorkout,setLastWorkout]=useState(()=>{try{const h=JSON.parse(localStorage.getItem("gmt_workout_history")||"[]");return h[0]||null;}catch{return null;}});
   const[favourites,setFavourites]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_favs")||"[]");}catch{return[];}});
 
   const toggleFav=id=>setFavourites(f=>{
@@ -2122,16 +2392,16 @@ function AppInner(){
         {screen==="coachIntro"&&<CoachIntro profile={profile} onReady={()=>{setScreen("dayPicker");try{localStorage.setItem("gmt_screen","dayPicker");}catch(e){}}}/>}
         {screen==="dayPicker"&&<DayPicker frequency={profile?.frequency} profile={profile} onConfirm={s=>{setWeekSchedule(s);setScreen("main");try{localStorage.setItem("gmt_schedule",JSON.stringify(s));localStorage.setItem("gmt_screen","main");}catch(e){}}}/>}
         {screen==="main"&&!activeWorkout&&<>
-          {tab==="home"&&<Dashboard onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} profile={profile} weekSchedule={weekSchedule} sessionCount={sessionCount} onNutrition={()=>setTab("nutrition")}/>}
+          {tab==="home"&&<Dashboard onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} profile={profile} weekSchedule={weekSchedule} sessionCount={sessionCount} onNutrition={()=>setTab("nutrition")} lastWorkout={lastWorkout} onReorderDay={(from,to)=>{const ns={...weekSchedule};const tmp=ns[from];ns[from]=ns[to];ns[to]=tmp;setWeekSchedule(ns);try{localStorage.setItem("gmt_schedule",JSON.stringify(ns));}catch{}}} onShowRecovery={()=>setTab("progress")}/>}
           {tab==="program"&&<ProgramView onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} weekSchedule={weekSchedule}/>}
-          {tab==="library"&&<ExerciseLibrary favourites={favourites} onToggleFav={toggleFav}/>}
+          {tab==="library"&&<ExerciseLibrary favourites={favourites} onToggleFav={toggleFav} profile={profile} onAskCoach={msg=>{setTab("coach");window.dispatchEvent(new CustomEvent("gmt_coach_msg",{detail:msg}));}}/>}
           {tab==="workouts"&&<WorkoutLibraryView onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} weekSchedule={weekSchedule} favourites={favourites} onToggleFav={toggleFav}/>}
           {tab==="favourites"&&<FavouritesView favourites={favourites} onToggleFav={toggleFav} profile={profile}/>}
           {tab==="nutrition"&&<NutritionView profile={profile}/>}
           {tab==="coach"&&<CoachView profile={profile}/>}
           <BottomNav active={tab} setActive={setTab}/>
         </>}
-        {screen==="main"&&activeWorkout&&activeWorkout.session?.exercises&&<WorkoutView day={activeWorkout.day} session={activeWorkout.session} onBack={()=>{const nc=sessionCount+1;setSessionCount(nc);setActiveWorkout(null);try{localStorage.setItem("gmt_sessions",nc);}catch(e){}}} profile={profile} onWarmup={()=>{const wu=WORKOUT_LIBRARY.find(w=>w.id==="warmup");if(wu)setActiveWorkout({day:"WARM-UP",session:wu,isWarmup:true});}}/>}
+        {screen==="main"&&activeWorkout&&activeWorkout.session?.exercises&&<WorkoutView day={activeWorkout.day} session={activeWorkout.session} onBack={()=>{const nc=sessionCount+1;setSessionCount(nc);setActiveWorkout(null);try{localStorage.setItem("gmt_sessions",nc);const h=JSON.parse(localStorage.getItem("gmt_workout_history")||"[]");if(h[0])setLastWorkout(h[0]);}catch(e){}}} profile={profile} onWarmup={()=>{const wu=WORKOUT_LIBRARY.find(w=>w.id==="warmup");if(wu)setActiveWorkout({day:"WARM-UP",session:wu,isWarmup:true});}}/>}
       </div>
     </>
   );
