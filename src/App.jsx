@@ -419,6 +419,307 @@ const MUSCLE_VOLUME_MAP = {
   "Ab Wheel Rollout":      {Core:1},
 };
 
+const EXERCISE_DIAGRAMS={
+  "Back Squat":{"primary":["quads","glutes"],"secondary":["adductors","abs"],"stabilizer":["erectors"],"view":"front"},
+  "Front Squat":{"primary":["quads"],"secondary":["glutes","abs"],"stabilizer":["erectors"],"view":"front"},
+  "Safety Bar Squat":{"primary":["quads","glutes"],"secondary":["abs"],"stabilizer":["erectors"],"view":"front"},
+  "Hack Squat":{"primary":["quads"],"secondary":["glutes"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Leg Press":{"primary":["quads"],"secondary":["glutes"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Smith Squat":{"primary":["quads"],"secondary":["glutes"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Goblet Squat":{"primary":["quads"],"secondary":["glutes","abs"],"stabilizer":["erectors"],"view":"front"},
+  "Box Squat":{"primary":["quads","glutes"],"secondary":["abs"],"stabilizer":["erectors"],"view":"front"},
+  "Cyclist Squat":{"primary":["quads"],"secondary":["glutes"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Heel-Elevated Squat":{"primary":["quads"],"secondary":["glutes"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Bulgarian Split Squat":{"primary":["quads","glutes"],"secondary":["abs"],"stabilizer":["erectors"],"view":"front"},
+  "Reverse Lunge":{"primary":["quads","glutes"],"secondary":["abs"],"stabilizer":["erectors"],"view":"front"},
+  "Walking Lunge":{"primary":["quads","glutes"],"secondary":["adductors"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Step-Up":{"primary":["quads","glutes"],"secondary":["abs"],"stabilizer":["erectors"],"view":"front"},
+  "Single-Leg Press":{"primary":["quads"],"secondary":["glutes"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Conventional Deadlift":{"primary":["glutes","hamstrings"],"secondary":["lats","traps","erectors","abs"],"stabilizer":[],"view":"back"},
+  "Trap Bar Deadlift":{"primary":["glutes","quads"],"secondary":["hamstrings"],"stabilizer":["abs","lats"],"view":"back"},
+  "Romanian Deadlift":{"primary":["hamstrings","glutes"],"secondary":["lats","traps","erectors"],"stabilizer":["abs"],"view":"back"},
+  "Stiff-Leg Deadlift":{"primary":["hamstrings"],"secondary":["glutes","lats","traps","erectors"],"stabilizer":["abs"],"view":"back"},
+  "Good Morning":{"primary":["glutes","hamstrings"],"secondary":["lats","traps","erectors","abs"],"stabilizer":[],"view":"back"},
+  "Rack Pull":{"primary":["lats","traps","erectors","glutes"],"secondary":["hamstrings"],"stabilizer":["abs"],"view":"back"},
+  "Deficit Deadlift":{"primary":["glutes","hamstrings"],"secondary":["lats","traps","erectors"],"stabilizer":["abs"],"view":"back"},
+  "Kettlebell Deadlift":{"primary":["glutes","hamstrings"],"secondary":["abs"],"stabilizer":["lats"],"view":"back"},
+  "Dumbbell RDL":{"primary":["hamstrings","glutes"],"secondary":["lats","traps","erectors"],"stabilizer":["abs"],"view":"back"},
+  "Single-Leg RDL":{"primary":["hamstrings","glutes"],"secondary":["abs"],"stabilizer":["lats"],"view":"back"},
+  "Cable Pull-Through":{"primary":["glutes"],"secondary":["hamstrings"],"stabilizer":["abs","lats"],"view":"back"},
+  "45-Degree Back Extension":{"primary":["glutes","hamstrings"],"secondary":["lats","traps","erectors"],"stabilizer":["abs"],"view":"back"},
+  "Reverse Hyper":{"primary":["glutes","hamstrings"],"secondary":["lats","traps","erectors"],"stabilizer":["abs"],"view":"back"},
+  "Kettlebell Swing":{"primary":["glutes","hamstrings"],"secondary":["abs"],"stabilizer":["lats"],"view":"back"},
+  "Bench Press":{"primary":["chest"],"secondary":["triceps","anterior_deltoid"],"stabilizer":["abs"],"view":"front"},
+  "Paused Bench Press":{"primary":["chest"],"secondary":["triceps","anterior_deltoid"],"stabilizer":["abs"],"view":"front"},
+  "Incline Bench Press":{"primary":["chest"],"secondary":["anterior_deltoid","triceps"],"stabilizer":["abs"],"view":"front"},
+  "Dumbbell Bench Press":{"primary":["chest"],"secondary":["triceps"],"stabilizer":["abs"],"view":"front"},
+  "Incline Dumbbell Press":{"primary":["chest"],"secondary":["anterior_deltoid","triceps"],"stabilizer":["abs"],"view":"front"},
+  "Machine Chest Press":{"primary":["chest"],"secondary":["triceps"],"stabilizer":["abs"],"view":"front"},
+  "Smith Incline Press":{"primary":["chest"],"secondary":["triceps","anterior_deltoid"],"stabilizer":["abs"],"view":"front"},
+  "Floor Press":{"primary":["chest","triceps"],"secondary":["anterior_deltoid"],"stabilizer":["abs"],"view":"front"},
+  "Weighted Push-Up":{"primary":["chest"],"secondary":["triceps","obliques"],"stabilizer":["abs"],"view":"front"},
+  "Deficit Push-Up":{"primary":["chest"],"secondary":["triceps"],"stabilizer":["abs"],"view":"front"},
+  "Single-Arm Dumbbell Press":{"primary":["chest"],"secondary":["triceps","abs"],"stabilizer":[],"view":"front"},
+  "Overhead Press":{"primary":["anterior_deltoid"],"secondary":["triceps","chest"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Push Press":{"primary":["anterior_deltoid"],"secondary":["triceps","quads","glutes"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Seated Dumbbell Press":{"primary":["anterior_deltoid"],"secondary":["triceps"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Arnold Press":{"primary":["anterior_deltoid"],"secondary":["triceps"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Machine Shoulder Press":{"primary":["anterior_deltoid"],"secondary":["triceps"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Landmine Press":{"primary":["anterior_deltoid"],"secondary":["chest","triceps"],"stabilizer":["abs","erectors"],"view":"front"},
+  "Single-Arm Landmine Press":{"primary":["anterior_deltoid"],"secondary":["abs","triceps"],"stabilizer":["erectors"],"view":"front"},
+  "Single-Arm Dumbbell Press":{"primary":["anterior_deltoid"],"secondary":["abs","triceps"],"stabilizer":["erectors"],"view":"front"},
+  "Barbell Row":{"primary":["lats","traps","rear_delts"],"secondary":["biceps"],"stabilizer":["abs","erectors"],"view":"back"},
+  "Pendlay Row":{"primary":["lats","traps","rear_delts"],"secondary":["biceps"],"stabilizer":["abs","erectors"],"view":"back"},
+  "Chest-Supported Row":{"primary":["lats","traps","rear_delts"],"secondary":["biceps"],"stabilizer":["abs","erectors"],"view":"back"},
+  "Seated Cable Row":{"primary":["lats","traps","rear_delts"],"secondary":["biceps"],"stabilizer":["abs","erectors"],"view":"back"},
+  "Machine Row":{"primary":["lats","traps","rear_delts"],"secondary":["biceps"],"stabilizer":["abs","erectors"],"view":"back"},
+  "T-Bar Row":{"primary":["lats","traps","rear_delts"],"secondary":[],"stabilizer":["abs","erectors"],"view":"back"},
+  "Dumbbell Row":{"primary":["lats"],"secondary":["traps","rear_delts","biceps"],"stabilizer":["abs","erectors"],"view":"back"},
+  "Single-Arm Cable Row":{"primary":["lats"],"secondary":["traps","rear_delts","biceps"],"stabilizer":["abs","erectors"],"view":"back"},
+  "Inverted Row":{"primary":["lats","traps","rear_delts"],"secondary":["biceps"],"stabilizer":["abs","erectors"],"view":"back"},
+  "Band Row":{"primary":["lats","traps","rear_delts"],"secondary":["biceps"],"stabilizer":["abs","erectors"],"view":"back"},
+  "Pull-Up":{"primary":["lats"],"secondary":["biceps","traps","rear_delts"],"stabilizer":["abs"],"view":"back"},
+  "Weighted Pull-Up":{"primary":["lats"],"secondary":["biceps"],"stabilizer":["abs"],"view":"back"},
+  "Chin-Up":{"primary":["lats","biceps"],"secondary":["traps","rear_delts"],"stabilizer":["abs"],"view":"back"},
+  "Assisted Pull-Up":{"primary":["lats"],"secondary":["biceps"],"stabilizer":["abs"],"view":"back"},
+  "Lat Pulldown":{"primary":["lats"],"secondary":["biceps"],"stabilizer":["abs"],"view":"back"},
+  "Neutral-Grip Pulldown":{"primary":["lats"],"secondary":["biceps","traps","rear_delts"],"stabilizer":["abs"],"view":"back"},
+  "Single-Arm Pulldown":{"primary":["lats"],"secondary":["biceps"],"stabilizer":["abs"],"view":"back"},
+  "Machine Pulldown":{"primary":["lats"],"secondary":["biceps"],"stabilizer":["abs"],"view":"back"},
+  "Band Pulldown":{"primary":["lats"],"secondary":["biceps"],"stabilizer":["abs"],"view":"back"},
+  "Barbell Hip Thrust":{"primary":["glutes"],"secondary":["hamstrings"],"stabilizer":["abs"],"view":"back"},
+  "Smith Hip Thrust":{"primary":["glutes"],"secondary":["hamstrings"],"stabilizer":["abs"],"view":"back"},
+  "Machine Hip Thrust":{"primary":["glutes"],"secondary":["hamstrings"],"stabilizer":["abs"],"view":"back"},
+  "Glute Bridge":{"primary":["glutes"],"secondary":["hamstrings"],"stabilizer":["abs"],"view":"back"},
+  "Single-Leg Hip Thrust":{"primary":["glutes"],"secondary":["hamstrings","abs"],"stabilizer":[],"view":"back"},
+  "Frog Pump":{"primary":["glutes"],"secondary":["adductors"],"stabilizer":["abs"],"view":"back"},
+  "Cable Kickback":{"primary":["glutes"],"secondary":["hamstrings"],"stabilizer":["abs"],"view":"back"},
+  "45-Degree Hip Extension":{"primary":["glutes","hamstrings"],"secondary":["lats","traps","erectors"],"stabilizer":["abs"],"view":"back"},
+  "Seated Leg Curl":{"primary":["hamstrings"],"secondary":["calves"],"stabilizer":[],"view":"back"},
+  "Lying Leg Curl":{"primary":["hamstrings"],"secondary":["calves"],"stabilizer":[],"view":"back"},
+  "Single-Leg Leg Curl":{"primary":["hamstrings"],"secondary":["calves"],"stabilizer":[],"view":"back"},
+  "Nordic Curl":{"primary":["hamstrings"],"secondary":["glutes"],"stabilizer":[],"view":"back"},
+  "Sliding Leg Curl":{"primary":["hamstrings"],"secondary":["glutes"],"stabilizer":[],"view":"back"},
+  "Band Leg Curl":{"primary":["hamstrings"],"secondary":["calves"],"stabilizer":[],"view":"back"},
+  "Leg Extension":{"primary":["quads"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Single-Leg Extension":{"primary":["quads"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Reverse Nordic":{"primary":["quads"],"secondary":["hip_flexors"],"stabilizer":[],"view":"front"},
+  "Spanish Squat":{"primary":["quads"],"secondary":["glutes"],"stabilizer":[],"view":"front"},
+  "Terminal Knee Extension":{"primary":["quads"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Standing Calf Raise":{"primary":["calves"],"secondary":[],"stabilizer":[],"view":"back"},
+  "Seated Calf Raise":{"primary":["calves"],"secondary":[],"stabilizer":[],"view":"back"},
+  "Single-Leg Calf Raise":{"primary":["calves"],"secondary":[],"stabilizer":[],"view":"back"},
+  "Tibialis Raise":{"primary":["tibialis"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Backward Sled Drag":{"primary":["quads"],"secondary":["calves","glutes"],"stabilizer":[],"view":"front"},
+  "Donkey Calf Raise":{"primary":["calves"],"secondary":[],"stabilizer":[],"view":"back"},
+  "Lateral Band Walk":{"primary":["glutes"],"secondary":[],"stabilizer":["abs","obliques"],"view":"back"},
+  "Cable Hip Abduction":{"primary":["glutes"],"secondary":[],"stabilizer":["abs","obliques"],"view":"back"},
+  "Machine Hip Abduction":{"primary":["glutes"],"secondary":[],"stabilizer":["abs","obliques"],"view":"back"},
+  "Side-Lying Abduction":{"primary":["glutes"],"secondary":[],"stabilizer":["abs","obliques"],"view":"back"},
+  "Copenhagen Plank":{"primary":["glutes"],"secondary":["obliques"],"stabilizer":["abs"],"view":"back"},
+  "Lateral Step-Down":{"primary":["glutes"],"secondary":["abs"],"stabilizer":["obliques"],"view":"back"},
+  "Skater Squat":{"primary":["glutes"],"secondary":["abs"],"stabilizer":["obliques"],"view":"back"},
+  "Barbell Curl":{"primary":["biceps"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Dumbbell Curl":{"primary":["biceps"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Hammer Curl":{"primary":["biceps"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Incline Curl":{"primary":["biceps"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Preacher Curl":{"primary":["biceps"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Cable Curl":{"primary":["biceps"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Bayesian Curl":{"primary":["biceps"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Concentration Curl":{"primary":["biceps"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Single-Arm Cable Curl":{"primary":["biceps"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Cable Pushdown":{"primary":["triceps"],"secondary":[],"stabilizer":[],"view":"back"},
+  "Single-Arm Pushdown":{"primary":["triceps"],"secondary":[],"stabilizer":[],"view":"back"},
+  "Overhead Cable Extension":{"primary":["triceps"],"secondary":[],"stabilizer":[],"view":"back"},
+  "Single-Arm Overhead Extension":{"primary":["triceps"],"secondary":[],"stabilizer":[],"view":"back"},
+  "Skullcrusher":{"primary":["triceps"],"secondary":[],"stabilizer":[],"view":"back"},
+  "Close-Grip Bench Press":{"primary":["triceps"],"secondary":["chest","anterior_deltoid"],"stabilizer":[],"view":"front"},
+  "Machine Dip":{"primary":["triceps"],"secondary":["anterior_deltoid"],"stabilizer":["chest"],"view":"back"},
+  "Dip":{"primary":["triceps"],"secondary":["anterior_deltoid"],"stabilizer":["chest"],"view":"back"},
+  "PJR Pullover":{"primary":["triceps"],"secondary":["lats"],"stabilizer":[],"view":"back"},
+  "Dumbbell Lateral Raise":{"primary":["anterior_deltoid"],"secondary":["traps"],"stabilizer":["abs"],"view":"front"},
+  "Cable Lateral Raise":{"primary":["anterior_deltoid"],"secondary":["traps"],"stabilizer":["abs"],"view":"front"},
+  "Machine Lateral Raise":{"primary":["anterior_deltoid"],"secondary":[],"stabilizer":["abs"],"view":"front"},
+  "Rear Delt Fly":{"primary":["rear_delts"],"secondary":["lats","traps"],"stabilizer":[],"view":"back"},
+  "Reverse Pec Deck":{"primary":["rear_delts"],"secondary":["lats","traps"],"stabilizer":[],"view":"back"},
+  "Face Pull":{"primary":["rear_delts"],"secondary":["traps"],"stabilizer":[],"view":"back"},
+  "Incline Rear Delt Raise":{"primary":["rear_delts"],"secondary":["lats","traps"],"stabilizer":[],"view":"back"},
+  "Y-Raise":{"primary":["rear_delts"],"secondary":["traps"],"stabilizer":[],"view":"back"},
+  "McGill Curl-Up":{"primary":["abs"],"secondary":[],"stabilizer":["obliques"],"view":"front"},
+  "Bird Dog":{"primary":["erectors","glutes"],"secondary":["abs"],"stabilizer":[],"view":"back"},
+  "Dead Bug":{"primary":["abs"],"secondary":["hip_flexors"],"stabilizer":["obliques"],"view":"front"},
+  "Plank":{"primary":["abs"],"secondary":["anterior_deltoid"],"stabilizer":["obliques"],"view":"front"},
+  "Side Plank":{"primary":["obliques"],"secondary":["abs"],"stabilizer":[],"view":"front"},
+  "Pallof Press":{"primary":["abs","obliques"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Suitcase Carry":{"primary":["obliques"],"secondary":["abs","glutes"],"stabilizer":[],"view":"front"},
+  "Farmer Carry":{"primary":["traps"],"secondary":["abs","obliques"],"stabilizer":[],"view":"front"},
+  "Ab Wheel Rollout":{"primary":["abs"],"secondary":["lats"],"stabilizer":["obliques"],"view":"front"},
+  "Hollow Body Hold":{"primary":["abs"],"secondary":["hip_flexors"],"stabilizer":["obliques"],"view":"front"},
+  "Cable Chop":{"primary":["abs","obliques"],"secondary":[],"stabilizer":[],"view":"front"},
+  "Cable Lift":{"primary":["abs","obliques"],"secondary":["anterior_deltoid"],"stabilizer":[],"view":"front"},
+  "Box Jump":{"primary":["quads","glutes"],"secondary":["calves","hamstrings"],"stabilizer":["abs"],"view":"back"},
+  "Broad Jump":{"primary":["quads","glutes"],"secondary":["calves","hamstrings"],"stabilizer":["abs"],"view":"back"},
+  "Med-Ball Slam":{"primary":["abs","anterior_deltoid"],"secondary":["lats","triceps"],"stabilizer":[],"view":"front"},
+  "Sprint":{"primary":["glutes","quads"],"secondary":["hamstrings","calves","tibialis"],"stabilizer":["abs"],"view":"back"},
+  "Sled Push":{"primary":["quads","glutes"],"secondary":["calves","abs"],"stabilizer":[],"view":"front"},
+  "Sled Drag":{"primary":["quads","glutes"],"secondary":["calves","tibialis"],"stabilizer":["abs"],"view":"front"},
+  "Bounds":{"primary":["quads","glutes"],"secondary":["calves","hamstrings"],"stabilizer":["abs"],"view":"back"},
+  "A-Skip":{"primary":["glutes","quads"],"secondary":["hamstrings","calves","tibialis"],"stabilizer":["abs"],"view":"back"},
+  "High Knees":{"primary":["glutes","quads"],"secondary":["hamstrings","calves","tibialis"],"stabilizer":["abs"],"view":"back"},
+  "Lateral Shuffle":{"primary":["glutes"],"secondary":["quads","calves"],"stabilizer":["abs"],"view":"back"},
+};
+
+const SUBSTITUTION_MATRIX={
+  "Back Squat":{busy:"Front Squat",unavailable:"Goblet Squat",fatigued:"Hack Squat",discomfort:"Safety Bar Squat",injury:"Step-Up",complex:"Safety Bar Squat",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Front Squat":{busy:"Safety Bar Squat",unavailable:"Goblet Squat",fatigued:"Hack Squat",discomfort:"Safety Bar Squat",injury:"Back Squat",complex:"Safety Bar Squat",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Safety Bar Squat":{busy:"Hack Squat",unavailable:"Goblet Squat",fatigued:"Hack Squat",discomfort:"Leg Press",injury:"Single-Leg Press",complex:"Leg Press",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Hack Squat":{busy:"Leg Press",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Leg Press",injury:"Safety Bar Squat",complex:"Leg Press",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Leg Press":{busy:"Smith Squat",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Smith Squat",injury:"Goblet Squat",complex:"Smith Squat",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Smith Squat":{busy:"Goblet Squat",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Goblet Squat",injury:"Leg Press",complex:"Goblet Squat",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Goblet Squat":{busy:"Box Squat",unavailable:"Goblet Squat",fatigued:"Box Squat",discomfort:"Box Squat",injury:"Smith Squat",complex:"Box Squat",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Box Squat":{busy:"Cyclist Squat",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Leg Press",injury:"Hack Squat",complex:"Leg Press",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Cyclist Squat":{busy:"Heel-Elevated Squat",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Leg Press",injury:"Box Squat",complex:"Leg Press",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Heel-Elevated Squat":{busy:"Bulgarian Split Squat",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Leg Press",injury:"Cyclist Squat",complex:"Leg Press",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Bulgarian Split Squat":{busy:"Reverse Lunge",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Leg Press",injury:"Heel-Elevated Squat",complex:"Leg Press",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Reverse Lunge":{busy:"Walking Lunge",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Leg Press",injury:"Bulgarian Split Squat",complex:"Leg Press",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Walking Lunge":{busy:"Step-Up",unavailable:"Goblet Squat",fatigued:"Hack Squat",discomfort:"Leg Press",injury:"Reverse Lunge",complex:"Leg Press",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Step-Up":{busy:"Single-Leg Press",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Leg Press",injury:"Walking Lunge",complex:"Leg Press",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Single-Leg Press":{busy:"Back Squat",unavailable:"Goblet Squat",fatigued:"Goblet Squat",discomfort:"Back Squat",injury:"Goblet Squat",complex:"Back Squat",dumbbell:"Goblet Squat",home:"Goblet Squat"},
+  "Conventional Deadlift":{busy:"Trap Bar Deadlift",unavailable:"Kettlebell Deadlift",fatigued:"Romanian Deadlift",discomfort:"Trap Bar Deadlift",injury:"Kettlebell Swing",complex:"Trap Bar Deadlift",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Trap Bar Deadlift":{busy:"Romanian Deadlift",unavailable:"Kettlebell Deadlift",fatigued:"Romanian Deadlift",discomfort:"Kettlebell Deadlift",injury:"Reverse Hyper",complex:"Kettlebell Deadlift",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Romanian Deadlift":{busy:"Stiff-Leg Deadlift",unavailable:"Kettlebell Deadlift",fatigued:"Kettlebell Deadlift",discomfort:"Kettlebell Deadlift",injury:"Trap Bar Deadlift",complex:"Kettlebell Deadlift",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Stiff-Leg Deadlift":{busy:"Good Morning",unavailable:"Kettlebell Deadlift",fatigued:"Romanian Deadlift",discomfort:"Trap Bar Deadlift",injury:"Conventional Deadlift",complex:"Trap Bar Deadlift",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Good Morning":{busy:"Rack Pull",unavailable:"Kettlebell Deadlift",fatigued:"Kettlebell Deadlift",discomfort:"Trap Bar Deadlift",injury:"Stiff-Leg Deadlift",complex:"Trap Bar Deadlift",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Rack Pull":{busy:"Deficit Deadlift",unavailable:"Kettlebell Deadlift",fatigued:"Romanian Deadlift",discomfort:"Kettlebell Deadlift",injury:"Romanian Deadlift",complex:"Kettlebell Deadlift",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Deficit Deadlift":{busy:"Kettlebell Deadlift",unavailable:"Kettlebell Deadlift",fatigued:"Romanian Deadlift",discomfort:"Trap Bar Deadlift",injury:"Good Morning",complex:"Trap Bar Deadlift",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Kettlebell Deadlift":{busy:"Dumbbell RDL",unavailable:"Kettlebell Deadlift",fatigued:"Dumbbell RDL",discomfort:"Dumbbell RDL",injury:"Kettlebell Deadlift",complex:"Dumbbell RDL",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Dumbbell RDL":{busy:"Single-Leg RDL",unavailable:"Kettlebell Deadlift",fatigued:"Kettlebell Deadlift",discomfort:"Single-Leg RDL",injury:"Kettlebell Deadlift",complex:"Single-Leg RDL",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Single-Leg RDL":{busy:"Cable Pull-Through",unavailable:"Kettlebell Deadlift",fatigued:"Kettlebell Deadlift",discomfort:"Kettlebell Deadlift",injury:"Rack Pull",complex:"Kettlebell Deadlift",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Cable Pull-Through":{busy:"45-Degree Back Extension",unavailable:"Kettlebell Deadlift",fatigued:"45-Degree Back Extension",discomfort:"45-Degree Back Extension",injury:"Dumbbell RDL",complex:"45-Degree Back Extension",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "45-Degree Back Extension":{busy:"Reverse Hyper",unavailable:"Kettlebell Deadlift",fatigued:"Kettlebell Deadlift",discomfort:"Reverse Hyper",injury:"Cable Pull-Through",complex:"Reverse Hyper",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Reverse Hyper":{busy:"Kettlebell Swing",unavailable:"Kettlebell Deadlift",fatigued:"Kettlebell Swing",discomfort:"Kettlebell Swing",injury:"45-Degree Back Extension",complex:"Kettlebell Swing",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Kettlebell Swing":{busy:"Conventional Deadlift",unavailable:"Kettlebell Deadlift",fatigued:"Kettlebell Deadlift",discomfort:"Kettlebell Deadlift",injury:"Single-Leg RDL",complex:"Kettlebell Deadlift",dumbbell:"Romanian Deadlift",home:"Kettlebell Deadlift"},
+  "Bench Press":{busy:"Paused Bench Press",unavailable:"Push-Up",fatigued:"Incline Bench Press",discomfort:"Machine Chest Press",injury:"Deficit Push-Up",complex:"Machine Chest Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Paused Bench Press":{busy:"Incline Bench Press",unavailable:"Push-Up",fatigued:"Incline Bench Press",discomfort:"Machine Chest Press",injury:"Bench Press",complex:"Machine Chest Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Incline Bench Press":{busy:"Dumbbell Bench Press",unavailable:"Push-Up",fatigued:"Dumbbell Bench Press",discomfort:"Machine Chest Press",injury:"Paused Bench Press",complex:"Machine Chest Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Dumbbell Bench Press":{busy:"Incline Dumbbell Press",unavailable:"Push-Up",fatigued:"Incline Dumbbell Press",discomfort:"Machine Chest Press",injury:"Incline Bench Press",complex:"Machine Chest Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Incline Dumbbell Press":{busy:"Machine Chest Press",unavailable:"Push-Up",fatigued:"Machine Chest Press",discomfort:"Machine Chest Press",injury:"Dumbbell Bench Press",complex:"Machine Chest Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Machine Chest Press":{busy:"Smith Incline Press",unavailable:"Push-Up",fatigued:"Smith Incline Press",discomfort:"Smith Incline Press",injury:"Push-Up",complex:"Smith Incline Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Smith Incline Press":{busy:"Floor Press",unavailable:"Push-Up",fatigued:"Floor Press",discomfort:"Floor Press",injury:"Machine Chest Press",complex:"Floor Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Floor Press":{busy:"Weighted Push-Up",unavailable:"Push-Up",fatigued:"Weighted Push-Up",discomfort:"Machine Chest Press",injury:"Incline Dumbbell Press",complex:"Machine Chest Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Weighted Push-Up":{busy:"Deficit Push-Up",unavailable:"Push-Up",fatigued:"Deficit Push-Up",discomfort:"Deficit Push-Up",injury:"Smith Incline Press",complex:"Deficit Push-Up",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Deficit Push-Up":{busy:"Single-Arm Dumbbell Press",unavailable:"Push-Up",fatigued:"Single-Arm Dumbbell Press",discomfort:"Single-Arm Dumbbell Press",injury:"Weighted Push-Up",complex:"Single-Arm Dumbbell Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Single-Arm Dumbbell Press":{busy:"Bench Press",unavailable:"Push-Up",fatigued:"Bench Press",discomfort:"Machine Chest Press",injury:"Floor Press",complex:"Machine Chest Press",dumbbell:"Dumbbell Bench Press",home:"Push-Up"},
+  "Overhead Press":{busy:"Push Press",unavailable:"Pike Push-Up",fatigued:"Seated Dumbbell Press",discomfort:"Seated Dumbbell Press",injury:"Single-Arm Landmine Press",complex:"Seated Dumbbell Press",dumbbell:"Seated Dumbbell Press",home:"Pike Push-Up"},
+  "Push Press":{busy:"Seated Dumbbell Press",unavailable:"Pike Push-Up",fatigued:"Seated Dumbbell Press",discomfort:"Overhead Press",injury:"Single-Arm Dumbbell Press",complex:"Overhead Press",dumbbell:"Seated Dumbbell Press",home:"Pike Push-Up"},
+  "Seated Dumbbell Press":{busy:"Arnold Press",unavailable:"Pike Push-Up",fatigued:"Landmine Press",discomfort:"Arnold Press",injury:"Pike Push-Up",complex:"Arnold Press",dumbbell:"Seated Dumbbell Press",home:"Pike Push-Up"},
+  "Arnold Press":{busy:"Machine Shoulder Press",unavailable:"Pike Push-Up",fatigued:"Landmine Press",discomfort:"Seated Dumbbell Press",injury:"Overhead Press",complex:"Seated Dumbbell Press",dumbbell:"Seated Dumbbell Press",home:"Pike Push-Up"},
+  "Machine Shoulder Press":{busy:"Landmine Press",unavailable:"Pike Push-Up",fatigued:"Landmine Press",discomfort:"Landmine Press",injury:"Seated Dumbbell Press",complex:"Landmine Press",dumbbell:"Seated Dumbbell Press",home:"Pike Push-Up"},
+  "Landmine Press":{busy:"Single-Arm Landmine Press",unavailable:"Pike Push-Up",fatigued:"Single-Arm Landmine Press",discomfort:"Single-Arm Landmine Press",injury:"Machine Shoulder Press",complex:"Single-Arm Landmine Press",dumbbell:"Seated Dumbbell Press",home:"Pike Push-Up"},
+  "Single-Arm Landmine Press":{busy:"Single-Arm Dumbbell Press",unavailable:"Pike Push-Up",fatigued:"Single-Arm Dumbbell Press",discomfort:"Single-Arm Dumbbell Press",injury:"Landmine Press",complex:"Single-Arm Dumbbell Press",dumbbell:"Seated Dumbbell Press",home:"Pike Push-Up"},
+  "Single-Arm Dumbbell Press":{busy:"Overhead Press",unavailable:"Pike Push-Up",fatigued:"Landmine Press",discomfort:"Seated Dumbbell Press",injury:"Arnold Press",complex:"Seated Dumbbell Press",dumbbell:"Seated Dumbbell Press",home:"Pike Push-Up"},
+  "Barbell Row":{busy:"Pendlay Row",unavailable:"Band Row",fatigued:"Single-Arm Cable Row",discomfort:"Chest-Supported Row",injury:"Band Row",complex:"Chest-Supported Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "Pendlay Row":{busy:"Chest-Supported Row",unavailable:"Band Row",fatigued:"Barbell Row",discomfort:"Barbell Row",injury:"T-Bar Row",complex:"Barbell Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "Chest-Supported Row":{busy:"Seated Cable Row",unavailable:"Band Row",fatigued:"Single-Arm Cable Row",discomfort:"Seated Cable Row",injury:"Band Row",complex:"Seated Cable Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "Seated Cable Row":{busy:"Machine Row",unavailable:"Band Row",fatigued:"Single-Arm Cable Row",discomfort:"Machine Row",injury:"Chest-Supported Row",complex:"Machine Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "Machine Row":{busy:"T-Bar Row",unavailable:"Band Row",fatigued:"Single-Arm Cable Row",discomfort:"T-Bar Row",injury:"Seated Cable Row",complex:"T-Bar Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "T-Bar Row":{busy:"Dumbbell Row",unavailable:"Band Row",fatigued:"Barbell Row",discomfort:"Chest-Supported Row",injury:"Barbell Row",complex:"Chest-Supported Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "Dumbbell Row":{busy:"Single-Arm Cable Row",unavailable:"Band Row",fatigued:"Single-Arm Cable Row",discomfort:"Single-Arm Cable Row",injury:"Machine Row",complex:"Single-Arm Cable Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "Single-Arm Cable Row":{busy:"Inverted Row",unavailable:"Band Row",fatigued:"Inverted Row",discomfort:"Inverted Row",injury:"Dumbbell Row",complex:"Inverted Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "Inverted Row":{busy:"Band Row",unavailable:"Band Row",fatigued:"Band Row",discomfort:"Band Row",injury:"Single-Arm Cable Row",complex:"Band Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "Band Row":{busy:"Barbell Row",unavailable:"Band Row",fatigued:"Barbell Row",discomfort:"Barbell Row",injury:"Inverted Row",complex:"Barbell Row",dumbbell:"Chest-Supported Row",home:"Band Row"},
+  "Pull-Up":{busy:"Weighted Pull-Up",unavailable:"Band Pulldown",fatigued:"Assisted Pull-Up",discomfort:"Assisted Pull-Up",injury:"Assisted Pull-Up",complex:"Assisted Pull-Up",dumbbell:"Band Pulldown",home:"Band Pulldown"},
+  "Weighted Pull-Up":{busy:"Chin-Up",unavailable:"Band Pulldown",fatigued:"Assisted Pull-Up",discomfort:"Assisted Pull-Up",injury:"Pull-Up",complex:"Assisted Pull-Up",dumbbell:"Band Pulldown",home:"Band Pulldown"},
+  "Chin-Up":{busy:"Assisted Pull-Up",unavailable:"Band Pulldown",fatigued:"Assisted Pull-Up",discomfort:"Assisted Pull-Up",injury:"Weighted Pull-Up",complex:"Assisted Pull-Up",dumbbell:"Band Pulldown",home:"Band Pulldown"},
+  "Assisted Pull-Up":{busy:"Lat Pulldown",unavailable:"Band Pulldown",fatigued:"Single-Arm Pulldown",discomfort:"Lat Pulldown",injury:"Band Pulldown",complex:"Lat Pulldown",dumbbell:"Band Pulldown",home:"Band Pulldown"},
+  "Lat Pulldown":{busy:"Neutral-Grip Pulldown",unavailable:"Band Pulldown",fatigued:"Single-Arm Pulldown",discomfort:"Neutral-Grip Pulldown",injury:"Band Pulldown",complex:"Neutral-Grip Pulldown",dumbbell:"Band Pulldown",home:"Band Pulldown"},
+  "Neutral-Grip Pulldown":{busy:"Single-Arm Pulldown",unavailable:"Band Pulldown",fatigued:"Single-Arm Pulldown",discomfort:"Single-Arm Pulldown",injury:"Lat Pulldown",complex:"Single-Arm Pulldown",dumbbell:"Band Pulldown",home:"Band Pulldown"},
+  "Single-Arm Pulldown":{busy:"Machine Pulldown",unavailable:"Band Pulldown",fatigued:"Machine Pulldown",discomfort:"Machine Pulldown",injury:"Neutral-Grip Pulldown",complex:"Machine Pulldown",dumbbell:"Band Pulldown",home:"Band Pulldown"},
+  "Machine Pulldown":{busy:"Band Pulldown",unavailable:"Band Pulldown",fatigued:"Single-Arm Pulldown",discomfort:"Band Pulldown",injury:"Single-Arm Pulldown",complex:"Band Pulldown",dumbbell:"Band Pulldown",home:"Band Pulldown"},
+  "Band Pulldown":{busy:"Pull-Up",unavailable:"Band Pulldown",fatigued:"Pull-Up",discomfort:"Pull-Up",injury:"Machine Pulldown",complex:"Pull-Up",dumbbell:"Band Pulldown",home:"Band Pulldown"},
+  "Barbell Hip Thrust":{busy:"Smith Hip Thrust",unavailable:"Glute Bridge",fatigued:"Glute Bridge",discomfort:"Smith Hip Thrust",injury:"Glute Bridge",complex:"Smith Hip Thrust",dumbbell:"Single-Leg Hip Thrust",home:"Glute Bridge"},
+  "Smith Hip Thrust":{busy:"Machine Hip Thrust",unavailable:"Glute Bridge",fatigued:"Glute Bridge",discomfort:"Machine Hip Thrust",injury:"Barbell Hip Thrust",complex:"Machine Hip Thrust",dumbbell:"Single-Leg Hip Thrust",home:"Glute Bridge"},
+  "Machine Hip Thrust":{busy:"Glute Bridge",unavailable:"Glute Bridge",fatigued:"Glute Bridge",discomfort:"Glute Bridge",injury:"Smith Hip Thrust",complex:"Glute Bridge",dumbbell:"Single-Leg Hip Thrust",home:"Glute Bridge"},
+  "Glute Bridge":{busy:"Single-Leg Hip Thrust",unavailable:"Glute Bridge",fatigued:"Single-Leg Hip Thrust",discomfort:"Single-Leg Hip Thrust",injury:"Machine Hip Thrust",complex:"Single-Leg Hip Thrust",dumbbell:"Single-Leg Hip Thrust",home:"Glute Bridge"},
+  "Single-Leg Hip Thrust":{busy:"Frog Pump",unavailable:"Glute Bridge",fatigued:"Glute Bridge",discomfort:"Barbell Hip Thrust",injury:"45-Degree Hip Extension",complex:"Barbell Hip Thrust",dumbbell:"Single-Leg Hip Thrust",home:"Glute Bridge"},
+  "Frog Pump":{busy:"Cable Kickback",unavailable:"Glute Bridge",fatigued:"Cable Kickback",discomfort:"Cable Kickback",injury:"Glute Bridge",complex:"Cable Kickback",dumbbell:"Single-Leg Hip Thrust",home:"Glute Bridge"},
+  "Cable Kickback":{busy:"45-Degree Hip Extension",unavailable:"Glute Bridge",fatigued:"45-Degree Hip Extension",discomfort:"45-Degree Hip Extension",injury:"Frog Pump",complex:"45-Degree Hip Extension",dumbbell:"Single-Leg Hip Thrust",home:"Glute Bridge"},
+  "45-Degree Hip Extension":{busy:"Barbell Hip Thrust",unavailable:"Glute Bridge",fatigued:"Glute Bridge",discomfort:"Barbell Hip Thrust",injury:"Cable Kickback",complex:"Barbell Hip Thrust",dumbbell:"Single-Leg Hip Thrust",home:"Glute Bridge"},
+  "Seated Leg Curl":{busy:"Lying Leg Curl",unavailable:"Sliding Leg Curl",fatigued:"Lying Leg Curl",discomfort:"Lying Leg Curl",injury:"Sliding Leg Curl",complex:"Lying Leg Curl",dumbbell:"Sliding Leg Curl",home:"Sliding Leg Curl"},
+  "Lying Leg Curl":{busy:"Single-Leg Leg Curl",unavailable:"Sliding Leg Curl",fatigued:"Single-Leg Leg Curl",discomfort:"Single-Leg Leg Curl",injury:"Seated Leg Curl",complex:"Single-Leg Leg Curl",dumbbell:"Sliding Leg Curl",home:"Sliding Leg Curl"},
+  "Single-Leg Leg Curl":{busy:"Nordic Curl",unavailable:"Sliding Leg Curl",fatigued:"Nordic Curl",discomfort:"Nordic Curl",injury:"Lying Leg Curl",complex:"Nordic Curl",dumbbell:"Sliding Leg Curl",home:"Sliding Leg Curl"},
+  "Nordic Curl":{busy:"Sliding Leg Curl",unavailable:"Sliding Leg Curl",fatigued:"Seated Leg Curl",discomfort:"Seated Leg Curl",injury:"Sliding Leg Curl",complex:"Seated Leg Curl",dumbbell:"Sliding Leg Curl",home:"Sliding Leg Curl"},
+  "Sliding Leg Curl":{busy:"Band Leg Curl",unavailable:"Sliding Leg Curl",fatigued:"Seated Leg Curl",discomfort:"Seated Leg Curl",injury:"Band Leg Curl",complex:"Seated Leg Curl",dumbbell:"Sliding Leg Curl",home:"Sliding Leg Curl"},
+  "Band Leg Curl":{busy:"Seated Leg Curl",unavailable:"Sliding Leg Curl",fatigued:"Seated Leg Curl",discomfort:"Seated Leg Curl",injury:"Single-Leg Leg Curl",complex:"Seated Leg Curl",dumbbell:"Sliding Leg Curl",home:"Sliding Leg Curl"},
+  "Leg Extension":{busy:"Single-Leg Extension",unavailable:"Reverse Nordic",fatigued:"Single-Leg Extension",discomfort:"Single-Leg Extension",injury:"Reverse Nordic",complex:"Single-Leg Extension",dumbbell:"Reverse Nordic",home:"Reverse Nordic"},
+  "Single-Leg Extension":{busy:"Reverse Nordic",unavailable:"Reverse Nordic",fatigued:"Reverse Nordic",discomfort:"Reverse Nordic",injury:"Leg Extension",complex:"Reverse Nordic",dumbbell:"Reverse Nordic",home:"Reverse Nordic"},
+  "Reverse Nordic":{busy:"Spanish Squat",unavailable:"Reverse Nordic",fatigued:"Leg Extension",discomfort:"Leg Extension",injury:"Terminal Knee Extension",complex:"Leg Extension",dumbbell:"Reverse Nordic",home:"Reverse Nordic"},
+  "Spanish Squat":{busy:"Terminal Knee Extension",unavailable:"Reverse Nordic",fatigued:"Terminal Knee Extension",discomfort:"Terminal Knee Extension",injury:"Single-Leg Extension",complex:"Terminal Knee Extension",dumbbell:"Reverse Nordic",home:"Reverse Nordic"},
+  "Terminal Knee Extension":{busy:"Leg Extension",unavailable:"Reverse Nordic",fatigued:"Leg Extension",discomfort:"Leg Extension",injury:"Spanish Squat",complex:"Leg Extension",dumbbell:"Reverse Nordic",home:"Reverse Nordic"},
+  "Standing Calf Raise":{busy:"Seated Calf Raise",unavailable:"Single-Leg Calf Raise",fatigued:"Seated Calf Raise",discomfort:"Seated Calf Raise",injury:"Single-Leg Calf Raise",complex:"Seated Calf Raise",dumbbell:"Single-Leg Calf Raise",home:"Single-Leg Calf Raise"},
+  "Seated Calf Raise":{busy:"Single-Leg Calf Raise",unavailable:"Single-Leg Calf Raise",fatigued:"Single-Leg Calf Raise",discomfort:"Single-Leg Calf Raise",injury:"Standing Calf Raise",complex:"Single-Leg Calf Raise",dumbbell:"Single-Leg Calf Raise",home:"Single-Leg Calf Raise"},
+  "Single-Leg Calf Raise":{busy:"Tibialis Raise",unavailable:"Single-Leg Calf Raise",fatigued:"Tibialis Raise",discomfort:"Tibialis Raise",injury:"Seated Calf Raise",complex:"Tibialis Raise",dumbbell:"Single-Leg Calf Raise",home:"Single-Leg Calf Raise"},
+  "Tibialis Raise":{busy:"Backward Sled Drag",unavailable:"Single-Leg Calf Raise",fatigued:"Backward Sled Drag",discomfort:"Backward Sled Drag",injury:"Single-Leg Calf Raise",complex:"Backward Sled Drag",dumbbell:"Single-Leg Calf Raise",home:"Single-Leg Calf Raise"},
+  "Backward Sled Drag":{busy:"Donkey Calf Raise",unavailable:"Single-Leg Calf Raise",fatigued:"Standing Calf Raise",discomfort:"Donkey Calf Raise",injury:"Tibialis Raise",complex:"Donkey Calf Raise",dumbbell:"Single-Leg Calf Raise",home:"Single-Leg Calf Raise"},
+  "Donkey Calf Raise":{busy:"Standing Calf Raise",unavailable:"Single-Leg Calf Raise",fatigued:"Standing Calf Raise",discomfort:"Standing Calf Raise",injury:"Backward Sled Drag",complex:"Standing Calf Raise",dumbbell:"Single-Leg Calf Raise",home:"Single-Leg Calf Raise"},
+  "Lateral Band Walk":{busy:"Cable Hip Abduction",unavailable:"Side-Lying Abduction",fatigued:"Cable Hip Abduction",discomfort:"Cable Hip Abduction",injury:"Side-Lying Abduction",complex:"Cable Hip Abduction",dumbbell:"Lateral Step-Down",home:"Side-Lying Abduction"},
+  "Cable Hip Abduction":{busy:"Machine Hip Abduction",unavailable:"Side-Lying Abduction",fatigued:"Machine Hip Abduction",discomfort:"Machine Hip Abduction",injury:"Lateral Band Walk",complex:"Machine Hip Abduction",dumbbell:"Lateral Step-Down",home:"Side-Lying Abduction"},
+  "Machine Hip Abduction":{busy:"Side-Lying Abduction",unavailable:"Side-Lying Abduction",fatigued:"Side-Lying Abduction",discomfort:"Side-Lying Abduction",injury:"Cable Hip Abduction",complex:"Side-Lying Abduction",dumbbell:"Lateral Step-Down",home:"Side-Lying Abduction"},
+  "Side-Lying Abduction":{busy:"Copenhagen Plank",unavailable:"Side-Lying Abduction",fatigued:"Copenhagen Plank",discomfort:"Copenhagen Plank",injury:"Machine Hip Abduction",complex:"Copenhagen Plank",dumbbell:"Lateral Step-Down",home:"Side-Lying Abduction"},
+  "Copenhagen Plank":{busy:"Lateral Step-Down",unavailable:"Side-Lying Abduction",fatigued:"Lateral Band Walk",discomfort:"Lateral Band Walk",injury:"Side-Lying Abduction",complex:"Lateral Band Walk",dumbbell:"Lateral Step-Down",home:"Side-Lying Abduction"},
+  "Lateral Step-Down":{busy:"Skater Squat",unavailable:"Side-Lying Abduction",fatigued:"Lateral Band Walk",discomfort:"Lateral Band Walk",injury:"Copenhagen Plank",complex:"Lateral Band Walk",dumbbell:"Lateral Step-Down",home:"Side-Lying Abduction"},
+  "Skater Squat":{busy:"Lateral Band Walk",unavailable:"Side-Lying Abduction",fatigued:"Lateral Band Walk",discomfort:"Lateral Band Walk",injury:"Lateral Step-Down",complex:"Lateral Band Walk",dumbbell:"Lateral Step-Down",home:"Side-Lying Abduction"},
+  "Barbell Curl":{busy:"Dumbbell Curl",unavailable:"Dumbbell Curl",fatigued:"Dumbbell Curl",discomfort:"Dumbbell Curl",injury:"Dumbbell Curl",complex:"Dumbbell Curl",dumbbell:"Dumbbell Curl",home:"Dumbbell Curl"},
+  "Dumbbell Curl":{busy:"Hammer Curl",unavailable:"Dumbbell Curl",fatigued:"Hammer Curl",discomfort:"Hammer Curl",injury:"Barbell Curl",complex:"Hammer Curl",dumbbell:"Dumbbell Curl",home:"Dumbbell Curl"},
+  "Hammer Curl":{busy:"Incline Curl",unavailable:"Dumbbell Curl",fatigued:"Incline Curl",discomfort:"Incline Curl",injury:"Dumbbell Curl",complex:"Incline Curl",dumbbell:"Dumbbell Curl",home:"Dumbbell Curl"},
+  "Incline Curl":{busy:"Preacher Curl",unavailable:"Dumbbell Curl",fatigued:"Preacher Curl",discomfort:"Preacher Curl",injury:"Hammer Curl",complex:"Preacher Curl",dumbbell:"Dumbbell Curl",home:"Dumbbell Curl"},
+  "Preacher Curl":{busy:"Cable Curl",unavailable:"Dumbbell Curl",fatigued:"Cable Curl",discomfort:"Cable Curl",injury:"Incline Curl",complex:"Cable Curl",dumbbell:"Dumbbell Curl",home:"Dumbbell Curl"},
+  "Cable Curl":{busy:"Bayesian Curl",unavailable:"Dumbbell Curl",fatigued:"Bayesian Curl",discomfort:"Bayesian Curl",injury:"Preacher Curl",complex:"Bayesian Curl",dumbbell:"Dumbbell Curl",home:"Dumbbell Curl"},
+  "Bayesian Curl":{busy:"Concentration Curl",unavailable:"Dumbbell Curl",fatigued:"Concentration Curl",discomfort:"Concentration Curl",injury:"Cable Curl",complex:"Concentration Curl",dumbbell:"Dumbbell Curl",home:"Dumbbell Curl"},
+  "Concentration Curl":{busy:"Single-Arm Cable Curl",unavailable:"Dumbbell Curl",fatigued:"Single-Arm Cable Curl",discomfort:"Single-Arm Cable Curl",injury:"Bayesian Curl",complex:"Single-Arm Cable Curl",dumbbell:"Dumbbell Curl",home:"Dumbbell Curl"},
+  "Single-Arm Cable Curl":{busy:"Barbell Curl",unavailable:"Dumbbell Curl",fatigued:"Barbell Curl",discomfort:"Barbell Curl",injury:"Concentration Curl",complex:"Barbell Curl",dumbbell:"Dumbbell Curl",home:"Dumbbell Curl"},
+  "Cable Pushdown":{busy:"Single-Arm Pushdown",unavailable:"Single-Arm Overhead Extension",fatigued:"Single-Arm Pushdown",discomfort:"Single-Arm Pushdown",injury:"Single-Arm Overhead Extension",complex:"Single-Arm Pushdown",dumbbell:"Single-Arm Overhead Extension",home:"Single-Arm Overhead Extension"},
+  "Single-Arm Pushdown":{busy:"Overhead Cable Extension",unavailable:"Single-Arm Overhead Extension",fatigued:"Overhead Cable Extension",discomfort:"Overhead Cable Extension",injury:"Cable Pushdown",complex:"Overhead Cable Extension",dumbbell:"Single-Arm Overhead Extension",home:"Single-Arm Overhead Extension"},
+  "Overhead Cable Extension":{busy:"Single-Arm Overhead Extension",unavailable:"Single-Arm Overhead Extension",fatigued:"Single-Arm Overhead Extension",discomfort:"Single-Arm Overhead Extension",injury:"Single-Arm Pushdown",complex:"Single-Arm Overhead Extension",dumbbell:"Single-Arm Overhead Extension",home:"Single-Arm Overhead Extension"},
+  "Single-Arm Overhead Extension":{busy:"Skullcrusher",unavailable:"Single-Arm Overhead Extension",fatigued:"Skullcrusher",discomfort:"Skullcrusher",injury:"Overhead Cable Extension",complex:"Skullcrusher",dumbbell:"Single-Arm Overhead Extension",home:"Single-Arm Overhead Extension"},
+  "Skullcrusher":{busy:"Close-Grip Bench Press",unavailable:"Single-Arm Overhead Extension",fatigued:"Cable Pushdown",discomfort:"Cable Pushdown",injury:"Machine Dip",complex:"Cable Pushdown",dumbbell:"Single-Arm Overhead Extension",home:"Single-Arm Overhead Extension"},
+  "Close-Grip Bench Press":{busy:"Machine Dip",unavailable:"Single-Arm Overhead Extension",fatigued:"Cable Pushdown",discomfort:"Cable Pushdown",injury:"Skullcrusher",complex:"Cable Pushdown",dumbbell:"Single-Arm Overhead Extension",home:"Single-Arm Overhead Extension"},
+  "Machine Dip":{busy:"Dip",unavailable:"Single-Arm Overhead Extension",fatigued:"Cable Pushdown",discomfort:"Dip",injury:"Single-Arm Overhead Extension",complex:"Dip",dumbbell:"Single-Arm Overhead Extension",home:"Single-Arm Overhead Extension"},
+  "Dip":{busy:"PJR Pullover",unavailable:"Single-Arm Overhead Extension",fatigued:"Cable Pushdown",discomfort:"Cable Pushdown",injury:"PJR Pullover",complex:"Cable Pushdown",dumbbell:"Single-Arm Overhead Extension",home:"Single-Arm Overhead Extension"},
+  "PJR Pullover":{busy:"Cable Pushdown",unavailable:"Single-Arm Overhead Extension",fatigued:"Cable Pushdown",discomfort:"Cable Pushdown",injury:"Close-Grip Bench Press",complex:"Cable Pushdown",dumbbell:"Single-Arm Overhead Extension",home:"Single-Arm Overhead Extension"},
+  "Dumbbell Lateral Raise":{busy:"Cable Lateral Raise",unavailable:"Dumbbell Lateral Raise",fatigued:"Cable Lateral Raise",discomfort:"Cable Lateral Raise",injury:"Dumbbell Lateral Raise",complex:"Cable Lateral Raise",dumbbell:"Dumbbell Lateral Raise",home:"Dumbbell Lateral Raise"},
+  "Cable Lateral Raise":{busy:"Machine Lateral Raise",unavailable:"Dumbbell Lateral Raise",fatigued:"Machine Lateral Raise",discomfort:"Machine Lateral Raise",injury:"Dumbbell Lateral Raise",complex:"Machine Lateral Raise",dumbbell:"Dumbbell Lateral Raise",home:"Dumbbell Lateral Raise"},
+  "Machine Lateral Raise":{busy:"Rear Delt Fly",unavailable:"Dumbbell Lateral Raise",fatigued:"Rear Delt Fly",discomfort:"Rear Delt Fly",injury:"Cable Lateral Raise",complex:"Rear Delt Fly",dumbbell:"Dumbbell Lateral Raise",home:"Dumbbell Lateral Raise"},
+  "Rear Delt Fly":{busy:"Reverse Pec Deck",unavailable:"Dumbbell Lateral Raise",fatigued:"Reverse Pec Deck",discomfort:"Reverse Pec Deck",injury:"Machine Lateral Raise",complex:"Reverse Pec Deck",dumbbell:"Dumbbell Lateral Raise",home:"Dumbbell Lateral Raise"},
+  "Reverse Pec Deck":{busy:"Face Pull",unavailable:"Dumbbell Lateral Raise",fatigued:"Face Pull",discomfort:"Face Pull",injury:"Rear Delt Fly",complex:"Face Pull",dumbbell:"Dumbbell Lateral Raise",home:"Dumbbell Lateral Raise"},
+  "Face Pull":{busy:"Incline Rear Delt Raise",unavailable:"Dumbbell Lateral Raise",fatigued:"Incline Rear Delt Raise",discomfort:"Incline Rear Delt Raise",injury:"Reverse Pec Deck",complex:"Incline Rear Delt Raise",dumbbell:"Dumbbell Lateral Raise",home:"Dumbbell Lateral Raise"},
+  "Incline Rear Delt Raise":{busy:"Y-Raise",unavailable:"Dumbbell Lateral Raise",fatigued:"Y-Raise",discomfort:"Y-Raise",injury:"Face Pull",complex:"Y-Raise",dumbbell:"Dumbbell Lateral Raise",home:"Dumbbell Lateral Raise"},
+  "Y-Raise":{busy:"Dumbbell Lateral Raise",unavailable:"Dumbbell Lateral Raise",fatigued:"Dumbbell Lateral Raise",discomfort:"Dumbbell Lateral Raise",injury:"Incline Rear Delt Raise",complex:"Dumbbell Lateral Raise",dumbbell:"Dumbbell Lateral Raise",home:"Dumbbell Lateral Raise"},
+  "McGill Curl-Up":{busy:"Bird Dog",unavailable:"Dead Bug",fatigued:"Bird Dog",discomfort:"Bird Dog",injury:"Dead Bug",complex:"Bird Dog",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Bird Dog":{busy:"Dead Bug",unavailable:"Dead Bug",fatigued:"Dead Bug",discomfort:"Dead Bug",injury:"McGill Curl-Up",complex:"Dead Bug",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Dead Bug":{busy:"Plank",unavailable:"Dead Bug",fatigued:"Plank",discomfort:"Plank",injury:"Bird Dog",complex:"Plank",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Plank":{busy:"Side Plank",unavailable:"Dead Bug",fatigued:"Side Plank",discomfort:"Side Plank",injury:"Dead Bug",complex:"Side Plank",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Side Plank":{busy:"Pallof Press",unavailable:"Dead Bug",fatigued:"Pallof Press",discomfort:"Pallof Press",injury:"Plank",complex:"Pallof Press",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Pallof Press":{busy:"Suitcase Carry",unavailable:"Dead Bug",fatigued:"Suitcase Carry",discomfort:"Suitcase Carry",injury:"Side Plank",complex:"Suitcase Carry",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Suitcase Carry":{busy:"Farmer Carry",unavailable:"Dead Bug",fatigued:"McGill Curl-Up",discomfort:"Farmer Carry",injury:"Pallof Press",complex:"Farmer Carry",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Farmer Carry":{busy:"Ab Wheel Rollout",unavailable:"Dead Bug",fatigued:"McGill Curl-Up",discomfort:"Ab Wheel Rollout",injury:"Suitcase Carry",complex:"Ab Wheel Rollout",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Ab Wheel Rollout":{busy:"Hollow Body Hold",unavailable:"Dead Bug",fatigued:"McGill Curl-Up",discomfort:"McGill Curl-Up",injury:"Cable Lift",complex:"McGill Curl-Up",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Hollow Body Hold":{busy:"Cable Chop",unavailable:"Dead Bug",fatigued:"McGill Curl-Up",discomfort:"McGill Curl-Up",injury:"Ab Wheel Rollout",complex:"McGill Curl-Up",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Cable Chop":{busy:"Cable Lift",unavailable:"Dead Bug",fatigued:"Cable Lift",discomfort:"Cable Lift",injury:"Farmer Carry",complex:"Cable Lift",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Cable Lift":{busy:"McGill Curl-Up",unavailable:"Dead Bug",fatigued:"McGill Curl-Up",discomfort:"McGill Curl-Up",injury:"Cable Chop",complex:"McGill Curl-Up",dumbbell:"Suitcase Carry",home:"Dead Bug"},
+  "Box Jump":{busy:"Broad Jump",unavailable:"High Knees",fatigued:"Med-Ball Slam",discomfort:"Med-Ball Slam",injury:"Lateral Shuffle",complex:"Med-Ball Slam",dumbbell:"High Knees",home:"High Knees"},
+  "Broad Jump":{busy:"Med-Ball Slam",unavailable:"High Knees",fatigued:"Med-Ball Slam",discomfort:"Med-Ball Slam",injury:"Box Jump",complex:"Med-Ball Slam",dumbbell:"High Knees",home:"High Knees"},
+  "Med-Ball Slam":{busy:"Sprint",unavailable:"High Knees",fatigued:"Sprint",discomfort:"Sprint",injury:"High Knees",complex:"Sprint",dumbbell:"High Knees",home:"High Knees"},
+  "Sprint":{busy:"Sled Push",unavailable:"High Knees",fatigued:"Box Jump",discomfort:"Box Jump",injury:"Broad Jump",complex:"Box Jump",dumbbell:"High Knees",home:"High Knees"},
+  "Sled Push":{busy:"Sled Drag",unavailable:"High Knees",fatigued:"Box Jump",discomfort:"Sled Drag",injury:"Med-Ball Slam",complex:"Sled Drag",dumbbell:"High Knees",home:"High Knees"},
+  "Sled Drag":{busy:"Bounds",unavailable:"High Knees",fatigued:"Med-Ball Slam",discomfort:"Bounds",injury:"Sled Push",complex:"Bounds",dumbbell:"High Knees",home:"High Knees"},
+  "Bounds":{busy:"A-Skip",unavailable:"High Knees",fatigued:"Med-Ball Slam",discomfort:"Box Jump",injury:"Sprint",complex:"Box Jump",dumbbell:"High Knees",home:"High Knees"},
+  "A-Skip":{busy:"High Knees",unavailable:"High Knees",fatigued:"High Knees",discomfort:"High Knees",injury:"Sled Drag",complex:"High Knees",dumbbell:"High Knees",home:"High Knees"},
+  "High Knees":{busy:"Lateral Shuffle",unavailable:"High Knees",fatigued:"Med-Ball Slam",discomfort:"Lateral Shuffle",injury:"A-Skip",complex:"Lateral Shuffle",dumbbell:"High Knees",home:"High Knees"},
+  "Lateral Shuffle":{busy:"Box Jump",unavailable:"High Knees",fatigued:"Med-Ball Slam",discomfort:"Box Jump",injury:"High Knees",complex:"Box Jump",dumbbell:"High Knees",home:"High Knees"},
+};
+
+
 // --- WORKOUT LIBRARY DATA -----------------------------------------
 // sets = actual number of dots shown in workout tracker (use max of range for advanced)
 // setsLabel = display string shown in programme view
@@ -1499,18 +1800,37 @@ const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
   const [view,setView]=React.useState("front");
   if(!exercise||!exercise.muscle)return null;
   
-  // Determine which regions to highlight and with what colour
-  const primary = String(exercise.muscle||"").toLowerCase().trim();
-  const secondary = String(exercise.secondary||"").toLowerCase().split(",")[0].trim();
+  // Determine which regions to highlight using EXERCISE_DIAGRAMS lookup first
+  // then fall back to legacy MUSCLE_MAP
+  const exDiag = EXERCISE_DIAGRAMS[exercise.name] || null;
   const tag = String(exercise.tag||exercise.type||"").toLowerCase();
+  
+  // Set default view from diagram data
+  React.useEffect(()=>{
+    if(exDiag?.view) setView(exDiag.view);
+  },[exercise.name]);
   
   // Primary colour based on context
   const primaryCol = tag.includes("hyper")?"#0066FF":tag.includes("strength")?"#FF1744":tag.includes("recovery")||tag.includes("stretch")?"#00C9B1":"#FF1744";
   const secondaryCol = "#FF8C00";
-  const stretchCol = "#00C9B1";
+  const stabilizerCol = "rgba(33,150,243,0.5)";
   
-  const primaryRegions = MUSCLE_MAP[primary]?.[view]||[];
-  const secondaryRegions = MUSCLE_MAP[secondary]?.[view]||[];
+  // Get regions from EXERCISE_DIAGRAMS or fall back to legacy
+  const primaryRegionIds = exDiag ? (exDiag.primary||[]) : (()=>{
+    const p = String(exercise.muscle||"").toLowerCase().trim();
+    return MUSCLE_MAP[p]?.[view]||[];
+  })();
+  const secondaryRegionIds = exDiag ? (exDiag.secondary||[]) : (()=>{
+    const s = String(exercise.secondary||"").toLowerCase().split(",")[0].trim();
+    return MUSCLE_MAP[s]?.[view]||[];
+  })();
+  const stabilizerRegionIds = exDiag ? (exDiag.stabilizer||[]) : [];
+  
+  // Map region IDs to BODY_PATHS keys (GMT region IDs already match BODY_PATHS keys with _ -> -)
+  const toPathKey = id => id.replace(/_/g,"-");
+  const primaryRegions = primaryRegionIds.map(toPathKey);
+  const secondaryRegions = secondaryRegionIds.map(toPathKey);
+  const stabilizerRegions = stabilizerRegionIds.map(toPathKey);
   
   const FRONT_REGIONS = new Set(["head","neck","chest","front-delt","biceps","forearms","abs","obliques","hip-flexors","quads","adductors","tibialis"]);
   const allPaths = Object.keys(BODY_PATHS).filter(k => view==="front"?FRONT_REGIONS.has(k):!FRONT_REGIONS.has(k));
@@ -1523,12 +1843,13 @@ const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
       {allPaths.map(region=>{
         const isPrimary = primaryRegions.includes(region);
         const isSecondary = secondaryRegions.includes(region);
+        const isStabilizer = stabilizerRegions.includes(region);
         return(
           <path key={region} d={BODY_PATHS[region]}
-            fill={isPrimary?primaryCol:isSecondary?secondaryCol:"#1E1E2E"}
-            stroke={isPrimary?primaryCol:isSecondary?secondaryCol:"#333350"}
-            strokeWidth={isPrimary||isSecondary?1.5:0.8}
-            opacity={isPrimary?0.85:isSecondary?0.6:0.5}
+            fill={isPrimary?primaryCol:isSecondary?secondaryCol:isStabilizer?stabilizerCol:"#1E1E2E"}
+            stroke={isPrimary?primaryCol:isSecondary?secondaryCol:isStabilizer?"#2196F3":"#333350"}
+            strokeWidth={isPrimary||isSecondary?1.5:isStabilizer?1:0.8}
+            opacity={isPrimary?0.85:isSecondary?0.6:isStabilizer?0.4:0.5}
           />
         );
       })}
@@ -1631,7 +1952,26 @@ const ExerciseDetailModal=({ex,onClose,onAskGary})=>{
                 <div style={{fontSize:15,fontWeight:600,color:C.txt,marginBottom:6}}>{String(libEx.alt.name||"")}</div>
                 <p style={{fontSize:13,color:C.mid,lineHeight:1.7}}>{String(libEx.alt.desc||"")}</p>
               </div>}
-            </>
+            
+              {/* GMT Smart Substitutions */}
+              {SUBSTITUTION_MATRIX[ex.name]&&<div style={{background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:10,padding:"14px 16px",marginBottom:12}}>
+                <div style={{fontSize:10,color:"#FF8C00",fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:10}}>GMT SMART SUBSTITUTIONS</div>
+                <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                  {[
+                    {label:"Equipment unavailable",key:"unavailable"},
+                    {label:"If fatigued",key:"fatigued"},
+                    {label:"Prefer dumbbell",key:"dumbbell"},
+                    {label:"Home option",key:"home"},
+                    {label:"Too complex today",key:"complex"},
+                  ].filter(s=>SUBSTITUTION_MATRIX[ex.name][s.key]).map(s=>(
+                    <div key={s.key} style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <span style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{s.label.toUpperCase()}</span>
+                      <span style={{fontSize:12,color:C.mid,fontWeight:600}}>{SUBSTITUTION_MATRIX[ex.name][s.key]}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>}
+</>
           ):(
             <div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"24px",marginBottom:16}}>
               <div style={{fontSize:14,fontWeight:600,color:C.txt,marginBottom:8}}>{String(ex.name||"")}</div>
@@ -2413,7 +2753,27 @@ const ExerciseLibrary=({favourites,onToggleFav,onAskCoach,onBack})=>{
                   <p style={{fontSize:13,color:C.mid,lineHeight:1.7}}>{ex.alt.desc}</p>
                 </>
               )}
-            </div>
+            
+
+            {/* GMT Smart Substitutions */}
+            {SUBSTITUTION_MATRIX[ex.name]&&<div style={{background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:10,padding:"14px 16px",marginBottom:14}}>
+              <div style={{fontSize:10,color:"#FF8C00",fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:10}}>GMT SMART SUBSTITUTIONS</div>
+              <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                {[
+                  {label:"No equipment",key:"unavailable"},
+                  {label:"If fatigued",key:"fatigued"},
+                  {label:"Prefer dumbbell",key:"dumbbell"},
+                  {label:"Home option",key:"home"},
+                  {label:"Too complex",key:"complex"},
+                ].filter(s=>SUBSTITUTION_MATRIX[ex.name][s.key]).map(s=>(
+                  <div key={s.key} style={{display:"flex",justifyContent:"space-between",alignItems:"center",paddingBottom:4,borderBottom:`1px solid ${C.bdr}`}}>
+                    <span style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{s.label.toUpperCase()}</span>
+                    <span style={{fontSize:12,color:C.mid,fontWeight:600}}>{SUBSTITUTION_MATRIX[ex.name][s.key]}</span>
+                  </div>
+                ))}
+              </div>
+            </div>}
+</div>
           </div>
         </div>
       ):(
