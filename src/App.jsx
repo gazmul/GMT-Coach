@@ -340,7 +340,7 @@ const EXERCISES = [
    grip:"N/A.",
    alt:{name:"Standard plank",desc:"If shoulder taps are too difficult, hold a standard plank. Progress to shoulder taps over 2-3 weeks.",noAlt:false},
    coachNote:"Every stride, every press, every carry requires the core to resist rotation while the limbs move. This is that demand in the most accessible form. The test is simple: if your hips move when you tap your shoulder, your anti-rotation strength is inadequate for the loads you are lifting."},
-
+];
 
 // --- STOIC QUOTES (daily rotation) ---
 const STOIC_QUOTES=[
