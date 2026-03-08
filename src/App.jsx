@@ -1178,6 +1178,20 @@ const Onboarding=({onComplete})=>{
                       <span style={{padding:"0 12px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>{fi.unit}</span>
                     </div>
                   ))}
+              </div>
+            );
+            // Regular single input
+            return(
+              <div key={f.key} style={{marginBottom:4}}>
+                <label style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",display:"block",marginBottom:8}}>{(f.label||"").toUpperCase()}</label>
+                <div style={{display:"flex",alignItems:"center",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,overflow:"hidden"}}>
+                  <input type={f.type||"text"} inputMode={f.type==="number"?"numeric":"text"} placeholder={f.placeholder||""} value={fv[f.key]||""} onChange={e=>setFv(v=>({...v,[f.key]:e.target.value}))} style={{flex:1,background:"transparent",border:"none",outline:"none",padding:"16px 12px",color:C.txt,fontSize:20,fontFamily:"'Space Mono',monospace"}}/>
+                  {f.unit&&<span style={{padding:"0 12px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>{f.unit}</span>}
+                </div>
+              </div>
+            );
+          })}
+        </div>}
         {cur.type==="equipment"&&<div style={{display:"flex",flexDirection:"column",gap:12}}>
           <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:4}}>
             {["Full Gym","Dumbbells","Barbell + Rack","Pull-Up Bar","Cables / Machines","Resistance Bands","Treadmill","Heavy Bag","Kettlebells","Home / Bodyweight Only"].map(eq=>{
@@ -1195,25 +1209,9 @@ const Onboarding=({onComplete})=>{
             <textarea value={fv.equipment||""} onChange={e=>setFv({...fv,equipment:e.target.value})} placeholder="e.g. Home gym with squat rack, dumbbells and cables..." style={{width:"100%",background:"transparent",border:"none",outline:"none",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",lineHeight:1.6,resize:"none",minHeight:80}} rows={3}/>
           </div>
         </div>}
-                </div>
-              </div>
-            );
-            return(
-              <div key={f.key}>
-                <label style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",display:"block",marginBottom:8}}>{f.label.toUpperCase()}</label>
-                <div style={{display:"flex",alignItems:"center",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,overflow:"hidden"}}>
-                  <input type="number" placeholder="0" value={fv[f.key]||""} onChange={e=>setFv(v=>({...v,[f.key]:e.target.value}))} style={{flex:1,background:"transparent",border:"none",outline:"none",padding:"16px 20px",color:C.txt,fontSize:20,fontFamily:"'Space Mono',monospace"}}/>
-                  <span style={{padding:"0 20px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>
-                    {f.unit!==undefined?f.unit:lbl.includes("height")?"cm":lbl.includes("weight")||lbl.includes("bodyweight")?isImp?"lbs":"kg":lbl.includes("mileage")||lbl.includes("run")?isImp?"miles":"km":isImp?"lbs":"kg"}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>}
       </div>
       <div style={{marginTop:32}}>
-        <Btn onClick={next} disabled={!canNext} style={{width:"100%"}}>{step<STEPS.length-1?"Continue ":"Build My Programme"}</Btn>
+        <Btn onClick={next} disabled={!canNext} style={{width:"100%"}}>{step<STEPS.length-1?"Continue":"Build My Programme"}</Btn>
         {cur.optional&&<button onClick={()=>{setStep(s=>s+1);setFv({});}} style={{width:"100%",background:"transparent",border:"none",color:C.dim,cursor:"pointer",padding:"12px",fontSize:13,marginTop:4}}>Skip (not a runner)</button>}
         {step>0&&<button onClick={()=>setStep(s=>s-1)} style={{width:"100%",background:"transparent",border:"none",color:C.dim,cursor:"pointer",padding:"14px",fontSize:14,marginTop:4}}> Back</button>}
       </div>
@@ -1798,17 +1796,17 @@ const BODY_PATHS = {
 
 const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
   const [view,setView]=React.useState("front");
+  // useEffect MUST be before any conditional return (Rules of Hooks)
+  const exDiagForEffect = exercise?.name ? (EXERCISE_DIAGRAMS[exercise.name]||null) : null;
+  React.useEffect(()=>{
+    if(exDiagForEffect?.view) setView(exDiagForEffect.view);
+  },[exercise?.name]);
   if(!exercise||!exercise.muscle)return null;
   
   // Determine which regions to highlight using EXERCISE_DIAGRAMS lookup first
   // then fall back to legacy MUSCLE_MAP
   const exDiag = EXERCISE_DIAGRAMS[exercise.name] || null;
   const tag = String(exercise.tag||exercise.type||"").toLowerCase();
-  
-  // Set default view from diagram data
-  React.useEffect(()=>{
-    if(exDiag?.view) setView(exDiag.view);
-  },[exercise.name]);
   
   // Primary colour based on context
   const primaryCol = tag.includes("hyper")?"#0066FF":tag.includes("strength")?"#FF1744":tag.includes("recovery")||tag.includes("stretch")?"#00C9B1":"#FF1744";
@@ -2339,8 +2337,8 @@ const parseSeconds=(reps)=>{
 };
 
 const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
-  if(session?.boxingMode) return <BoxingSessionTimer exercises={session.exercises||[]} onBack={onBack}/>;
-  const isWarmup=session.id==="warmup";
+  // All hooks must come before any conditional returns (Rules of Hooks)
+  const isWarmup=session?.id==="warmup";
   const exercises=session.exercises||[];
   const[completedSets,setCompletedSets]=useState({});
   const[currentEx,setCurrentEx]=useState(0);
@@ -2654,7 +2652,7 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
               <div style={{maxWidth:"80%",padding:"10px 14px",borderRadius:10,background:m.from==="user"?C.hyperG:C.sur,border:`1px solid ${m.from==="user"?C.hyper+"40":C.bdr}`,fontSize:13,lineHeight:1.6,color:C.txt}}>{m.text}</div>
             </div>
           ))}
-          {coachLoading&&<div style={{display:"flex",gap:4,padding:"4px 0 4px 30px"}}>{[0,1,2].map(i=><div key={i} style={{width:6,height:6,borderRadius:"50%",background:C.hyper,animation:`pulse 1.2s ${i*0.2}s infinite`}}/>)}</div>}
+          {coachLoading&&<div style={{display:"flex",gap:4,padding:"4px 0 4px 30px"}}>{[0,1,2].map(i=><div key={i} style={{width:6,height:6,borderRadius:"50%",background:C.hyper,animation:`pulse 1.2s ${i*0.2}s infinite`}}/>)}}</div>}
         </div>}
         <div style={{display:"flex",gap:8,background:C.bg,paddingTop:4}}>
           <input value={chatInput} onChange={e=>setChatInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&sendChat()} onFocus={()=>setShowChat(true)} placeholder="Ask Gary about this exercise..." style={{flex:1,background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:10,padding:"12px 14px",color:C.txt,fontSize:16,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
@@ -3066,7 +3064,7 @@ const CoachView=({profile,introMode=false,onReady})=>{
           </div>
         </div>
       </div>
-      <div style={{flex:1,overflowY:"auto",padding:"20px 20px 8px"}}>
+      <div style={{flex:1,overflowY:"auto",padding:"20px 20px 120px",WebkitOverflowScrolling:"touch"}}>
         {msgs.map((m,i)=>(
           <div key={i} style={{display:"flex",justifyContent:m.from==="user"?"flex-end":"flex-start",marginBottom:14,animation:i===msgs.length-1?"fadeUp 0.3s ease forwards":"none"}}>
             {m.from==="coach"&&<div style={{width:28,height:28,borderRadius:8,background:C.hyperG,border:`1px solid ${C.hyper}40`,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Bebas Neue',sans-serif",fontSize:12,color:C.hyper,marginRight:10,flexShrink:0,marginTop:2}}>G</div>}
@@ -3087,7 +3085,7 @@ const CoachView=({profile,introMode=false,onReady})=>{
         {sugs.map((s,i)=><button key={i} onClick={()=>!loading&&send(s)} disabled={loading} style={{flexShrink:0,background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:20,padding:"8px 14px",cursor:loading?"not-allowed":"pointer",color:loading?C.dim:C.mid,fontSize:12,fontFamily:"'DM Sans',sans-serif",whiteSpace:"nowrap",opacity:loading?0.5:1}}>{s}</button>)}
       </div>
       {/* Input */}
-      <div style={{padding:"12px 20px 40px",display:"flex",gap:10,alignItems:"flex-end"}}>
+      <div style={{padding:"12px 20px 24px",display:"flex",gap:10,alignItems:"flex-end",position:"sticky",bottom:0,background:`${C.bg}F8`,backdropFilter:"blur(12px)",borderTop:`1px solid ${C.bdr}`}}>
         <textarea ref={inputRef} value={input} onChange={e=>{setInput(e.target.value);e.target.style.height="auto";e.target.style.height=Math.min(e.target.scrollHeight,120)+"px";}} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send();}}} placeholder="Type your message or use quick replies above..." rows={1} disabled={loading} style={{flex:1,background:C.sur,border:`1px solid ${loading?C.bdr:C.bdrL}`,borderRadius:12,padding:"13px 16px",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",outline:"none",resize:"none",overflow:"hidden",lineHeight:1.5,transition:"border-color 0.2s",opacity:loading?0.6:1}}/>
         <button id="gary-send-btn" onClick={()=>send()} disabled={loading||!input.trim()} style={{width:46,height:46,background:(!loading&&input.trim())?C.hyper:C.sur,border:`1px solid ${(!loading&&input.trim())?C.hyper:C.bdr}`,borderRadius:12,cursor:(!loading&&input.trim())?"pointer":"not-allowed",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",color:(!loading&&input.trim())?C.txt:C.dim,transition:"all 0.2s",flexShrink:0}}>
           {loading?<Spinner/>:""}
@@ -3142,20 +3140,13 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
           </button>
         </div>
       </div>
-      {/* -- STOIC QUOTE ------------------ */}
-      <div style={{padding:"0 20px 16px"}}>
-        <div style={{background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:12,padding:"16px 18px",borderLeft:"3px solid rgba(255,140,0,0.5)"}}>
-          <div style={{fontSize:11,color:"rgba(255,140,0,0.7)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:8}}>TODAY'S REFLECTION</div>
-          <div style={{fontSize:14,color:C.txt,lineHeight:1.65,fontStyle:"italic",marginBottom:8}}>"{stoicQ.text}"</div>
-          <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>-- {stoicQ.author}</div>
-        </div>
-      </div>
+
 
       {/* -- SUNLIGHT + CUSTOM WORKOUT ROW -- */}
       <div style={{padding:"0 20px 20px",display:"flex",gap:10}}>
         {/* Sunlight card */}
         <div style={{flex:1,background:sunlightRunning?"rgba(255,140,0,0.08)":"rgba(255,255,255,0.02)",border:`1px solid ${sunlightRunning?"rgba(255,140,0,0.35)":"rgba(255,255,255,0.07)"}`,borderRadius:12,padding:"14px 16px",transition:"all 0.3s"}}>
-          <div style={{fontSize:10,color:sunlightRunning?"#FF8C00":C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:6}}>SUN SUNLIGHT</div>
+          <div style={{fontSize:10,color:sunlightRunning?"#FF8C00":C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:6}}>SUNLIGHT</div>
           <div style={{fontSize:22,fontFamily:"'Bebas Neue',sans-serif",letterSpacing:"0.05em",color:sunlightRunning?"#FF8C00":C.txt,marginBottom:4}}>
             {sunlightRunning?fmtS(sunlightElapsed):`${todayMinutes}m`}
           </div>
@@ -3163,7 +3154,7 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
             {sunlightRunning?"TRACKING...":"today"}
           </div>
           <button onClick={toggleSunlight} style={{background:sunlightRunning?"rgba(255,140,0,0.2)":"rgba(255,140,0,0.08)",border:`1px solid ${sunlightRunning?"rgba(255,140,0,0.4)":"rgba(255,140,0,0.2)"}`,borderRadius:8,padding:"7px 12px",cursor:"pointer",fontSize:11,color:"#FF8C00",fontFamily:"'Space Mono',monospace",letterSpacing:"0.06em",width:"100%"}}>
-            {sunlightRunning?"? STOP":"? START"}
+            {sunlightRunning?"STOP":"START"}
           </button>
         </div>
 
@@ -3173,7 +3164,7 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
           <div style={{fontSize:14,fontWeight:700,color:C.txt,marginBottom:4,lineHeight:1.3}}>Build My Workout</div>
           <div style={{fontSize:11,color:C.mid,lineHeight:1.5,marginBottom:10}}>Custom session for today</div>
           <div style={{background:"rgba(0,102,255,0.15)",border:"1px solid rgba(0,102,255,0.3)",borderRadius:8,padding:"7px 12px",fontSize:11,color:"#0066FF",fontFamily:"'Space Mono',monospace",letterSpacing:"0.06em",textAlign:"center"}}>
-            LET'S GO ?
+            LET'S GO
           </div>
         </div>
       </div>
@@ -3291,29 +3282,37 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
         </div>
       </div>
 
-      {/* Readiness & Training Guidance Card */}
+      {/* Readiness Card - only after recovery data exists */}
       {(()=>{
         const sleep=parseFloat(recoveryVals.sleep)||0;
         const stress=parseFloat(recoveryVals.stress)||5;
         const sunMins=Math.round((sunlightLog[todayKey]||0)/60);
+        const hasData=sleep>0||sunMins>0;
+        if(!hasData)return null; // Don't show on first day
         let readiness="moderate";
         let readColor=C.ora;
         let readLabel="MODERATE READINESS";
         let readAdvice="Train as programmed. Monitor bar speed and adjust load if needed.";
-        if(sleep>=7.5&&stress<=4&&sunMins>=10){readiness="high";readColor="#00C9B1";readLabel="HIGH READINESS";readAdvice="You are primed. Push load. This is a day to chase progressive overload on your primary lifts.";}
-        else if(sleep<6||stress>=7){readiness="low";readColor="#FF1744";readLabel="LOW READINESS";readAdvice="Reduce volume by 30%. Avoid heavy axial loading. Stick to machine and cable work. Recovery is the training today.";}
+        let garyPrompt="My readiness today is moderate. Sleep was average. How should I approach today's session?";
+        if(sleep>=7.5&&stress<=4&&sunMins>=10){readiness="high";readColor="#00C9B1";readLabel="HIGH READINESS";readAdvice="You are primed. Push load. This is a day to chase progressive overload on your primary lifts.";garyPrompt="My readiness is high today - great sleep, sun exposure. How do I make the most of today's session?";}
+        else if(sleep<6||stress>=7){readiness="low";readColor="#FF1744";readLabel="LOW READINESS";readAdvice="Reduce volume by 30%. Avoid heavy axial loading. Stick to machine and cable work. Recovery is the training today.";garyPrompt="My readiness is low today - poor sleep, high stress. How should I adjust my training?";}
+        const openGary=()=>{
+          window.dispatchEvent(new CustomEvent("gmt_coach_msg",{detail:garyPrompt}));
+          window.dispatchEvent(new CustomEvent("gmt_nav",{detail:"coach"}));
+        };
         return(
           <div style={{padding:"0 20px 16px"}}>
-            <div style={{background:`${readiness==="high"?"rgba(0,201,177,0.06)":readiness==="low"?"rgba(255,23,68,0.06)":"rgba(255,140,0,0.06)"}`,border:`1px solid ${readiness==="high"?"rgba(0,201,177,0.2)":readiness==="low"?"rgba(255,23,68,0.2)":"rgba(255,140,0,0.2)"}`,borderRadius:12,padding:"16px"}}>
+            <button onClick={openGary} style={{width:"100%",background:`${readiness==="high"?"rgba(0,201,177,0.06)":readiness==="low"?"rgba(255,23,68,0.06)":"rgba(255,140,0,0.06)"}`,border:`1px solid ${readiness==="high"?"rgba(0,201,177,0.2)":readiness==="low"?"rgba(255,23,68,0.2)":"rgba(255,140,0,0.2)"}`,borderRadius:12,padding:"16px",cursor:"pointer",textAlign:"left"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
                 <div style={{fontSize:10,color:readColor,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}}>{readLabel}</div>
-                <div style={{display:"flex",gap:8}}>
+                <div style={{display:"flex",gap:8,alignItems:"center"}}>
                   {sleep>0&&<span style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{sleep}h sleep</span>}
                   {sunMins>0&&<span style={{fontSize:10,color:"#FF8C00",fontFamily:"'Space Mono',monospace"}}>{sunMins}m sun</span>}
+                  <span style={{fontSize:10,color:readColor,fontFamily:"'Space Mono',monospace"}}>Ask Gary -></span>
                 </div>
               </div>
               <div style={{fontSize:13,color:C.mid,lineHeight:1.6}}>{readAdvice}</div>
-            </div>
+            </button>
           </div>
         );
       })()}
@@ -3326,6 +3325,21 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
             <div style={{fontSize:11,color:C.mid,marginTop:2}}>Sets per muscle - Hypertrophy targets</div>
           </div>
           <div style={{fontSize:20,color:"#0066FF"}}>&rarr;</div>
+        </button>
+      </div>
+
+      {/* -- STOIC QUOTE (bottom, clickable) -- */}
+      <div style={{padding:"0 20px 32px"}}>
+        <button onClick={()=>{
+          window.dispatchEvent(new CustomEvent("gmt_coach_msg",{detail:`I want to discuss today's stoic quote: "${stoicQ.text}" -- ${stoicQ.author}. What does this mean for how I approach my training?`}));
+          window.dispatchEvent(new CustomEvent("gmt_nav",{detail:"coach"}));
+        }} style={{width:"100%",background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:12,padding:"16px 18px",borderLeft:"3px solid rgba(255,140,0,0.5)",cursor:"pointer",textAlign:"left"}}>
+          <div style={{fontSize:11,color:"rgba(255,140,0,0.7)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:8,display:"flex",justifyContent:"space-between"}}>
+            <span>TODAY'S REFLECTION</span>
+            <span style={{color:C.dim}}>Discuss with Gary -></span>
+          </div>
+          <div style={{fontSize:14,color:C.txt,lineHeight:1.65,fontStyle:"italic",marginBottom:8}}>"{stoicQ.text}"</div>
+          <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>-- {stoicQ.author}</div>
         </button>
       </div>
     </div>
@@ -3649,7 +3663,7 @@ const FavouritesView=({favourites,onToggleFav,profile})=>{
               <div style={{maxWidth:"80%",padding:"10px 14px",borderRadius:10,background:m.from==="user"?C.hyperG:C.sur,border:`1px solid ${m.from==="user"?C.hyper+"40":C.bdr}`,fontSize:13,lineHeight:1.65,color:C.txt}}>{m.text}</div>
             </div>
           ))}
-          {loading&&<div style={{display:"flex",gap:4,padding:"4px 0 4px 30px"}}>{[0,1,2].map(i=><div key={i} style={{width:6,height:6,borderRadius:"50%",background:C.hyper,animation:`pulse 1.2s ${i*0.2}s infinite`}}/>)}</div>}
+          {loading&&<div style={{display:"flex",gap:4,padding:"4px 0 4px 30px"}}>{[0,1,2].map(i=><div key={i} style={{width:6,height:6,borderRadius:"50%",background:C.hyper,animation:`pulse 1.2s ${i*0.2}s infinite`}}/>)</div>}
         </div>}
         <div style={{display:"flex",gap:8,background:C.bg,paddingTop:4}}>
           <input value={chatInput} onChange={e=>setChatInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&sendChat()} onFocus={()=>favExercises.length>0&&setShowChat(true)} placeholder={favExercises.length>0?"Ask Gary about your favourites...":"Add favourites from the exercise library first"} style={{flex:1,background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:10,padding:"12px 14px",color:C.txt,fontSize:16,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
@@ -3665,11 +3679,11 @@ const FavouritesView=({favourites,onToggleFav,profile})=>{
 // --- BOTTOM NAV ---------------------------------------------------
 const BottomNav=({active,setActive,user,onProfile})=>{
   const tabs=[
-    {id:"home",icon:"?",label:"Home"},
-    {id:"program",icon:"?",label:"Programme"},
-    {id:"workouts",icon:"?",label:"Workouts"},
-    {id:"library",icon:"?",label:"Exercises"},
-    {id:"coach",icon:"?",label:"Coach"},
+    {id:"home",icon:"H"",label:"Home"},
+    {id:"program",icon:"P"",label:"Programme"},
+    {id:"workouts",icon:"W"",label:"Workouts"},
+    {id:"library",icon:"E"",label:"Exercises"},
+    {id:"coach",icon:"G"",label:"Coach"},
   ];
   const initial=(user?.initial||user?.name?.[0]||"G").toUpperCase();
   return(
@@ -4248,7 +4262,7 @@ function AppInner(){
           <BottomNav active={tab} setActive={setTab} user={user} onProfile={()=>setShowProfile(true)}/>
         </>}
         {screen==="main"&&boxingSession&&<BoxingTimerView session={boxingSession} profile={profile} onBack={()=>{setBoxingSession(null);const nc=sessionCount+1;setSessionCount(nc);try{localStorage.setItem("gmt_sessions",nc);}catch{}}}/>}
-        {screen==="main"&&activeWorkout&&activeWorkout.session?.exercises&&<WorkoutView day={activeWorkout.day} session={activeWorkout.session} onBack={()=>{const nc=sessionCount+1;setSessionCount(nc);setActiveWorkout(null);try{localStorage.setItem("gmt_sessions",nc);const h=JSON.parse(localStorage.getItem("gmt_workout_history")||"[]");if(h[0])setLastWorkout(h[0]);}catch(e){}}} profile={profile} onWarmup={()=>{const wu=WORKOUT_LIBRARY.find(w=>w.id==="warmup");if(wu)setActiveWorkout({day:"WARM-UP",session:wu,isWarmup:true});}}/>}
+        {screen==="main"&&activeWorkout&&activeWorkout.session?.exercises&&(activeWorkout.session?.boxingMode?<BoxingSessionTimer exercises={activeWorkout.session.exercises||[]} onBack={()=>{setActiveWorkout(null);}}/>:<WorkoutView day={activeWorkout.day} session={activeWorkout.session} onBack={()=>{const nc=sessionCount+1;setSessionCount(nc);setActiveWorkout(null);try{localStorage.setItem("gmt_sessions",nc);const h=JSON.parse(localStorage.getItem("gmt_workout_history")||"[]");if(h[0])setLastWorkout(h[0]);}catch(e){}}} profile={profile} onWarmup={()=>{const wu=WORKOUT_LIBRARY.find(w=>w.id==="warmup");if(wu)setActiveWorkout({day:"WARM-UP",session:wu,isWarmup:true});}}/>)}
       </div>
     </>
   );
