@@ -1163,7 +1163,6 @@ const Onboarding=({onComplete})=>{
           {cur.fields.map(f=>{
             const isImp=String(ans.unit||"").includes("Imperial");
             const lbl=(f.label||"").toLowerCase();
-            // Height in Imperial: show ft + in side by side
             if(f.key==="height"&&isImp) return(
               <div key={f.key}>
                 <label style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",display:"block",marginBottom:8}}>HEIGHT</label>
@@ -1178,9 +1177,9 @@ const Onboarding=({onComplete})=>{
                       <span style={{padding:"0 12px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>{fi.unit}</span>
                     </div>
                   ))}
+                </div>
               </div>
             );
-            // Regular single input
             return(
               <div key={f.key} style={{marginBottom:4}}>
                 <label style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",display:"block",marginBottom:8}}>{(f.label||"").toUpperCase()}</label>
