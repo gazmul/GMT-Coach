@@ -288,7 +288,7 @@ const EXERCISES = [
    grip:"Overhand: rear delt. Underhand: lower trap. Both matter.",
    alt:{name:"Face Pull with Band",desc:"Adds external rotation component. Excellent substitute.",noAlt:false},
    coachNote:"Ten minutes of band work before pressing prevents more injuries than any amount of stretching after. Shoulder health lives here."},
-];
+,
 
   // ABS & CORE
   {id:"dead-bug-core",name:"Dead Bug",muscle:"Core",secondary:"Hip Flexors, Lower Back",equipment:"Bodyweight",category:"isolation",difficulty:"beginner",
@@ -3291,6 +3291,32 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
         </div>
       </div>
 
+      {/* Readiness & Training Guidance Card */}
+      {(()=>{
+        const sleep=parseFloat(recoveryVals.sleep)||0;
+        const stress=parseFloat(recoveryVals.stress)||5;
+        const sunMins=Math.round((sunlightLog[todayKey]||0)/60);
+        let readiness="moderate";
+        let readColor=C.ora;
+        let readLabel="MODERATE READINESS";
+        let readAdvice="Train as programmed. Monitor bar speed and adjust load if needed.";
+        if(sleep>=7.5&&stress<=4&&sunMins>=10){readiness="high";readColor="#00C9B1";readLabel="HIGH READINESS";readAdvice="You are primed. Push load. This is a day to chase progressive overload on your primary lifts.";}
+        else if(sleep<6||stress>=7){readiness="low";readColor="#FF1744";readLabel="LOW READINESS";readAdvice="Reduce volume by 30%. Avoid heavy axial loading. Stick to machine and cable work. Recovery is the training today.";}
+        return(
+          <div style={{padding:"0 20px 16px"}}>
+            <div style={{background:`${readiness==="high"?"rgba(0,201,177,0.06)":readiness==="low"?"rgba(255,23,68,0.06)":"rgba(255,140,0,0.06)"}`,border:`1px solid ${readiness==="high"?"rgba(0,201,177,0.2)":readiness==="low"?"rgba(255,23,68,0.2)":"rgba(255,140,0,0.2)"}`,borderRadius:12,padding:"16px"}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+                <div style={{fontSize:10,color:readColor,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}}>{readLabel}</div>
+                <div style={{display:"flex",gap:8}}>
+                  {sleep>0&&<span style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{sleep}h sleep</span>}
+                  {sunMins>0&&<span style={{fontSize:10,color:"#FF8C00",fontFamily:"'Space Mono',monospace"}}>{sunMins}m sun</span>}
+                </div>
+              </div>
+              <div style={{fontSize:13,color:C.mid,lineHeight:1.6}}>{readAdvice}</div>
+            </div>
+          </div>
+        );
+      })()}
       {/* Volume Engine shortcut */}
       <div style={{padding:"0 20px 24px"}}>
         <button onClick={()=>onVolumeEngine&&onVolumeEngine()} style={{width:"100%",background:"rgba(0,102,255,0.05)",border:"1px solid rgba(0,102,255,0.15)",borderRadius:12,padding:"14px 16px",cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all 0.2s"}}>
@@ -3950,6 +3976,36 @@ const VolumeEngineView=({weekSchedule,onBack})=>{
         </div>
       </div>
       <div style={{padding:"20px 20px 0"}}>
+        {/* Movement Balance Analysis */}
+        {(()=>{
+          const push=Math.max(1,(weeklyVolume.Chest||0)+(weeklyVolume.Shoulders||0)+(weeklyVolume.Triceps||0));
+          const pull=Math.max(1,(weeklyVolume.Back||0)+(weeklyVolume.Biceps||0));
+          const quad=Math.max(1,weeklyVolume.Quads||0);
+          const ham=Math.max(1,(weeklyVolume.Hamstrings||0)+(weeklyVolume.Glutes||0)*0.5);
+          const ppRatio=(pull/push).toFixed(2);
+          const qhRatio=(quad/ham).toFixed(2);
+          const ppOk=ppRatio>=0.8&&ppRatio<=1.3;
+          const qhOk=qhRatio>=0.6&&qhRatio<=1.4;
+          return(
+            <div style={{background:"rgba(255,255,255,0.02)",border:`1px solid ${C.bdr}`,borderRadius:12,padding:"16px",marginBottom:20}}>
+              <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:12}}>MOVEMENT BALANCE</div>
+              <div style={{display:"flex",gap:10}}>
+                {[
+                  {label:"PULL:PUSH",val:ppRatio,ok:ppOk,lo:"More pull needed",hi:"Push-heavy",bal:"Balanced"},
+                  {label:"QUAD:HAM+GLUTE",val:qhRatio,ok:qhOk,lo:"Add hinge work",hi:"Quad-dominant",bal:"Balanced"},
+                ].map(item=>(
+                  <div key={item.label} style={{flex:1,background:item.ok?"rgba(0,201,177,0.06)":"rgba(255,140,0,0.06)",border:`1px solid ${item.ok?"rgba(0,201,177,0.2)":"rgba(255,140,0,0.2)"}`,borderRadius:10,padding:"12px",textAlign:"center"}}>
+                    <div style={{fontSize:24,fontFamily:"'Bebas Neue',sans-serif",color:item.ok?"#00C9B1":"#FF8C00"}}>{item.val}</div>
+                    <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",marginTop:2}}>{item.label}</div>
+                    <div style={{fontSize:10,color:item.ok?"#00C9B1":"#FF8C00",marginTop:4}}>{item.ok?item.bal:parseFloat(item.val)<(item.label.includes("PULL")?0.8:0.6)?item.lo:item.hi}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{fontSize:11,color:C.dim,marginTop:10,lineHeight:1.5}}>Target: pull:push 0.8-1.3, quad:ham 0.6-1.4. Imbalances drive injury and postural issues over time.</div>
+            </div>
+          );
+        })()}
+
         <div style={{background:"rgba(0,102,255,0.05)",border:"1px solid rgba(0,102,255,0.15)",borderRadius:12,padding:"14px 16px",marginBottom:20}}>
           <div style={{fontSize:12,color:C.mid,lineHeight:1.6}}>Hypertrophy targets from GMT doctrine. Green = in optimal range. Orange = approaching limit. Red = exceeding recommended ceiling.</div>
         </div>
