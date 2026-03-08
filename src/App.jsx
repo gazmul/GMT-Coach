@@ -4169,7 +4169,6 @@ function AppInner(){
   const handleSignOut=()=>{setUser(null);setShowProfile(false);try{localStorage.clear();}catch(e){}setScreen("login");};
   const[showCustomWorkout,setShowCustomWorkout]=useState(false);
   const[showVolumeEngine,setShowVolumeEngine]=useState(false);
-  const[showCustomWorkout,setShowCustomWorkout]=useState(false);
   const[tab,setTab]=useState("home");
   useEffect(()=>{
     const handler=e=>setTab(e.detail||"coach");
