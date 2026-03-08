@@ -84,7 +84,7 @@ const EXERCISES = [
   // CHEST
   {id:"bench-press",name:"Barbell Bench Press",muscle:"Chest",secondary:"Anterior Deltoid, Triceps",equipment:"Barbell",category:"compound",difficulty:"intermediate",
    cue:"Set up with a slight arch  not excessive. Shoulder blades pinched and driven into the bench. Bar path travels in a slight diagonal: from lower chest to above your upper chest. Pause 1 second at the chest. Drive through your heels.",
-   tempo:"3-1-1-0",sets:"4",reps:"46",rest:180,rpe:8,
+   tempo:"3-1-1-0",sets:"4",reps:"4-6",rest:180,rpe:8,
    grip:"Standard: hands just outside shoulder width. Wide grip (1 hand wider each side): greater pec stretch, less tricep. Close grip: more tricep involvement  keep for tricep work, not chest.",
    alt:{name:"DB Bench Press",desc:"Same mechanics. Each dumbbell moves independently, which increases stability demand and forces even pressing strength. Slightly greater ROM at the bottom.",noAlt:false},
    coachNote:"If you can't feel your chest working, your shoulder blades aren't set. Retract them hard before every set. The squeeze happens when you think about pushing your hands together, not just pushing up."},
@@ -110,13 +110,13 @@ const EXERCISES = [
   // BACK
   {id:"pull-up",name:"Weighted Pull-Up",muscle:"Back",secondary:"Biceps, Rear Deltoid",equipment:"Pull-Up Bar",category:"compound",difficulty:"advanced",
    cue:"Dead hang to start  full scapular depression before initiating. Pull from your elbows, not your hands. Think about driving your elbows to your hips. Chest to bar is the goal.",
-   tempo:"3-1-1-0",sets:"4",reps:"46",rest:180,rpe:8,
+   tempo:"3-1-1-0",sets:"4",reps:"4-6",rest:180,rpe:8,
    grip:"Overhand (pronated): more lat width. Neutral (parallel handles): more comfortable for shoulders, slightly more bicep. Underhand (chin-up): strong bicep involvement, easier for beginners.",
    alt:{name:"Lat Pulldown",desc:"Excellent alternative  same movement pattern. Use a wide overhand grip. Lean back 10-15  and pull to upper chest.",noAlt:false},
    coachNote:"Initiate by pulling your shoulder blades down before your arms bend. That first movement activates your lats. Without it, you're mostly biceps."},
   {id:"pendlay-row",name:"Pendlay Row",muscle:"Back",secondary:"Biceps, Rear Deltoid",equipment:"Barbell",category:"compound",difficulty:"advanced",
    cue:"Horizontal torso  parallel to floor. Bar starts on the floor each rep (this is what separates Pendlay from bent-over row). Explosive pull to lower chest. Bar returns to floor, full dead stop. No hip drive.",
-   tempo:"1-0-1-2",sets:"4",reps:"56",rest:180,rpe:8,
+   tempo:"1-0-1-2",sets:"4",reps:"5-6",rest:180,rpe:8,
    grip:"Double overhand: develops grip and keeps bicep honest. Mixed grip acceptable at heavier loads. Hook grip for maximum weight.",
    alt:{name:"DB Bent-Over Row",desc:"Good alternative. Chest-supported DB row is better if lower back fatigues first  removes the stabilisation variable.",noAlt:false},
    coachNote:"The Pendlay row develops back thickness better than almost any other movement because of the full dead stop. Don't round your lower back  McGill says that's where the risk lives. Brace like you're about to take a punch."},
@@ -136,7 +136,7 @@ const EXERCISES = [
   // SHOULDERS
   {id:"ohp",name:"Barbell Overhead Press",muscle:"Shoulders",secondary:"Triceps, Upper Chest",equipment:"Barbell",category:"compound",difficulty:"intermediate",
    cue:"Grip just outside shoulder width. Bar rests on upper chest/front delts. Press in a straight vertical line  move your head back slightly as bar passes. Lock out fully at the top. Brace your entire torso.",
-   tempo:"2-0-1-0",sets:"4",reps:"46",rest:180,rpe:8,
+   tempo:"2-0-1-0",sets:"4",reps:"4-6",rest:180,rpe:8,
    grip:"Standard: just outside shoulder width. Wider: slightly more front delt, less tricep. Don't go too wide  it limits ROM.",
    alt:{name:"Seated DB Shoulder Press",desc:"Less total load possible, but greater shoulder joint freedom. Slightly different arc. Solid alternative.",noAlt:false},
    coachNote:"Most pressing injuries happen because people arch excessively and turn this into an incline press. Keep your ribs down. This is a pure shoulder movement."},
@@ -156,7 +156,7 @@ const EXERCISES = [
   // LEGS
   {id:"back-squat",name:"Back Squat",muscle:"Legs",secondary:"Glutes, Lower Back",equipment:"Barbell",category:"compound",difficulty:"advanced",
    cue:"Bar sits across the traps  high bar: more quad dominant. Low bar: more hip/posterior. Knees track over toes throughout. Brace your entire core before descent. Descend in control. Break parallel  upper thigh below knee. Drive through mid-foot on ascent.",
-   tempo:"3-1-1-0",sets:"4",reps:"46",rest:180,rpe:8,
+   tempo:"3-1-1-0",sets:"4",reps:"4-6",rest:180,rpe:8,
    grip:"High bar: narrower stance, more upright torso, quad emphasis. Low bar: slightly wider, more forward lean, more hip and hamstring.",
    alt:{name:"Goblet Squat or DB Front Squat",desc:"Limited load but teaches excellent mechanics. Good for warm-up or technique work, not a primary compound substitute.",noAlt:false},
    coachNote:"The squat is honest. You can't hide poor mobility or weak glutes in a heavy squat. Find your depth first  then load it. Knees over toes is not dangerous. Knees caving in is."},
@@ -290,6 +290,135 @@ const EXERCISES = [
    coachNote:"Ten minutes of band work before pressing prevents more injuries than any amount of stretching after. Shoulder health lives here."},
 ];
 
+  // ABS & CORE
+  {id:"dead-bug-core",name:"Dead Bug",muscle:"Core",secondary:"Hip Flexors, Lower Back",equipment:"Bodyweight",category:"isolation",difficulty:"beginner",
+   cue:"Lie on back, arms vertical, knees 90 degrees above hips. Press lower back flat and keep it there. Lower one arm overhead and opposite leg to just above floor simultaneously. Return. Never let the lower back arch away from the floor.",
+   tempo:"2-0-2-0",sets:"3",reps:"8-10 each side",rest:45,rpe:5,
+   muscle_group:"abs",
+   grip:"N/A.",
+   alt:{name:"Modified Dead Bug",desc:"Move one limb at a time instead of opposite pairs. Easier entry point.",noAlt:false},
+   coachNote:"Stuart McGill rates this above crunches and sit-ups for spinal safety and function. The anti-extension demand is what your core is actually designed for. If your lower back lifts off the floor at any point, you have lost the movement."},
+  {id:"ab-wheel",name:"Ab Wheel Rollout",muscle:"Core",secondary:"Shoulders, Lats",equipment:"Ab Wheel",category:"compound",difficulty:"intermediate",
+   cue:"Kneel on a pad. Grip the wheel. Roll forward slowly - keep your lower back flat by bracing your core hard. Go as far as you can without arching the back. Roll back by pulling from the abs and lats. Never let the hips sag.",
+   tempo:"3-0-2-0",sets:"3",reps:"8-10",rest:60,rpe:8,
+   muscle_group:"abs",
+   grip:"Neutral grip on handles. Shoulder-width or slightly wider.",
+   alt:{name:"Barbell Rollout",desc:"Same movement with a barbell. Harder to control. Use the same cues.",noAlt:false},
+   coachNote:"Athlean-X principle: the rectus abdominis is maximally loaded in the stretched position. No crunch touches this. Start from knees. When you can do 15 controlled reps from knees, progress to standing rollouts."},
+  {id:"hollow-hold",name:"Hollow Body Hold",muscle:"Core",secondary:"Hip Flexors, Serratus",equipment:"Bodyweight",category:"isolation",difficulty:"intermediate",
+   cue:"Lie on back. Arms overhead. Lift shoulders and legs off the floor. Lower back pressed flat. Hold. The further your legs are from the floor, the harder it is. Find the height where you can maintain a flat lower back.",
+   tempo:"hold",sets:"3",reps:"20-30s",rest:45,rpe:7,
+   muscle_group:"abs",
+   grip:"N/A. Arms straight overhead, hands together.",
+   alt:{name:"Hollow Body with bent knees",desc:"Bend the knees to 90 degrees to reduce the lever arm. Same lower back requirement applies.",noAlt:false},
+   coachNote:"The gymnastic foundation. This is the position the core must maintain in every overhead lift, press, and ring movement. Build this and every other lift gets stronger. It looks simple. Hold it for 30 seconds properly and you will disagree."},
+  {id:"myotatic-crunch",name:"Myotatic Crunch",muscle:"Core",secondary:"Rectus Abdominis",equipment:"BOSU / Rolled Towel",category:"isolation",difficulty:"beginner",
+   cue:"Lie over a BOSU ball or a tightly rolled towel placed under your lower back. Arms extended overhead. Let yourself fully extend at the bottom - arms touch the floor. Then crunch slowly to full contraction at the top. The extension at the bottom is the whole point.",
+   tempo:"3-1-2-0",sets:"3",reps:"10-12",rest:45,rpe:7,
+   muscle_group:"abs",
+   grip:"N/A. Arms extended, hands clasped overhead.",
+   alt:{name:"Standard crunch on floor",desc:"Less effective due to the absence of the myotatic stretch. But still valid if no BOSU available.",noAlt:false},
+   coachNote:"Tim Ferriss Four Hour Body. The pre-stretch activates the myotatic reflex and recruits significantly more motor units than a standard crunch. Studies Ferriss cites show 3x greater activation. Full extension at the bottom is non-negotiable."},
+  {id:"pallof-press",name:"Pallof Press",muscle:"Core",secondary:"Obliques, Transverse Abdominis",equipment:"Cable Machine",category:"isolation",difficulty:"beginner",
+   cue:"Stand perpendicular to a cable anchored at chest height. Hold handle at chest. Press straight out, hold 1 second, return to chest. The cable is pulling you toward it. Your core resists that rotation the entire time. Do not twist toward the cable.",
+   tempo:"2-1-2-0",sets:"3",reps:"12 each side",rest:45,rpe:6,
+   muscle_group:"abs",
+   grip:"Both hands on handle. Neutral grip.",
+   alt:{name:"Pallof Press with band",desc:"Anchor a band at chest height to a rack. Same movement. Travel further from the anchor for more resistance.",noAlt:false},
+   coachNote:"Athlean-X anti-rotation essential. The Pallof Press trains the core in its actual function - resisting rotation while the limbs move. This transfers directly to every sport, every carry, and every loaded movement. If you only have time for one cable core exercise, this is it."},
+  {id:"l-sit",name:"L-Sit Hold",muscle:"Core",secondary:"Hip Flexors, Triceps",equipment:"Parallel Bars / Bench",category:"isolation",difficulty:"advanced",
+   cue:"Support yourself on parallel bars or the edge of a bench with straight arms. Lift your legs to parallel with the floor. Hold. Toes pointed. Hips in line with hands or in front of them. Start with bent knees if full extension is not yet possible.",
+   tempo:"hold",sets:"3",reps:"10-20s",rest:60,rpe:8,
+   muscle_group:"abs",
+   grip:"Parallel bars, dip handles, or edge of a bench. Overhand.",
+   alt:{name:"L-Sit from floor",desc:"Place hands on the floor with fists or parallettes. Lift the hips slightly first, then work toward legs parallel.",noAlt:false},
+   coachNote:"The L-sit develops hip flexor strength and core compression that no other exercise replicates. If you want a visible core without body fat reduction, you need compression exercises like this. It also reveals any core strength imbalances between left and right sides within the first attempt."},
+  {id:"plank-shoulder-tap",name:"Plank with Shoulder Tap",muscle:"Core",secondary:"Obliques, Shoulders",equipment:"Bodyweight",category:"isolation",difficulty:"beginner",
+   cue:"High plank position. Feet slightly wider than normal for stability. Lift one hand to touch the opposite shoulder while keeping the hips completely square. No rotation. Return. Alternate. The anti-rotation demand is the entire exercise.",
+   tempo:"controlled",sets:"3",reps:"10 each side",rest:45,rpe:6,
+   muscle_group:"abs",
+   grip:"N/A.",
+   alt:{name:"Standard plank",desc:"If shoulder taps are too difficult, hold a standard plank. Progress to shoulder taps over 2-3 weeks.",noAlt:false},
+   coachNote:"Every stride, every press, every carry requires the core to resist rotation while the limbs move. This is that demand in the most accessible form. The test is simple: if your hips move when you tap your shoulder, your anti-rotation strength is inadequate for the loads you are lifting."},
+
+
+// --- STOIC QUOTES (daily rotation) ---
+const STOIC_QUOTES=[
+  {text:"You have power over your mind, not outside events. Realise this, and you will find strength.",author:"Marcus Aurelius"},
+  {text:"The impediment to action advances action. What stands in the way becomes the way.",author:"Marcus Aurelius"},
+  {text:"Waste no more time arguing about what a good man should be. Be one.",author:"Marcus Aurelius"},
+  {text:"He who is brave is free.",author:"Seneca"},
+  {text:"It is not the man who has too little, but the man who craves more, that is poor.",author:"Seneca"},
+  {text:"Luck is what happens when preparation meets opportunity.",author:"Seneca"},
+  {text:"No man is free who is not master of himself.",author:"Epictetus"},
+  {text:"Make the best use of what is in your power, and take the rest as it happens.",author:"Epictetus"},
+  {text:"Seek not the good in external things; seek it in yourself.",author:"Epictetus"},
+  {text:"First say to yourself what you would be; and then do what you have to do.",author:"Epictetus"},
+  {text:"Confine yourself to the present.",author:"Marcus Aurelius"},
+  {text:"Loss is nothing else but change, and change is Nature's delight.",author:"Marcus Aurelius"},
+  {text:"Difficulties strengthen the mind, as labour does the body.",author:"Seneca"},
+  {text:"If it is not right, do not do it; if it is not true, do not say it.",author:"Marcus Aurelius"},
+  {text:"The whole future lies in uncertainty: live immediately.",author:"Seneca"},
+  {text:"Accept the things to which fate binds you.",author:"Marcus Aurelius"},
+  {text:"Don't explain your philosophy. Embody it.",author:"Epictetus"},
+  {text:"Man is not worried by real problems so much as by his imagined anxieties about real problems.",author:"Epictetus"},
+  {text:"How long are you going to wait before you demand the best for yourself?",author:"Epictetus"},
+  {text:"Begin at once to live, and count each separate day as a separate life.",author:"Seneca"},
+  {text:"Receive without pride, relinquish without struggle.",author:"Marcus Aurelius"},
+  {text:"He suffers more than necessary, who suffers before it is necessary.",author:"Seneca"},
+  {text:"Know first who you are, and then adorn yourself accordingly.",author:"Epictetus"},
+  {text:"Today I escaped anxiety. Or no, I discarded it, because it was within me, in my own perceptions -- not outside.",author:"Marcus Aurelius"},
+  {text:"The obstacle is the path.",author:"Marcus Aurelius"},
+  {text:"Caretake this moment. Immerse yourself in its particulars.",author:"Epictetus"},
+  {text:"Wealth consists not in having great possessions, but in having few wants.",author:"Epictetus"},
+  {text:"Every new beginning comes from some other beginning's end.",author:"Seneca"},
+  {text:"When you wake up in the morning, tell yourself: the people I deal with today will be meddling, ungrateful, arrogant, dishonest, jealous and surly. But I have seen the beauty of good.",author:"Marcus Aurelius"},
+  {text:"Very little is needed to make a happy life; it is all within yourself.",author:"Marcus Aurelius"},
+];
+
+// Volume Engine targets per muscle group (from GMT doctrine)
+const VOLUME_TARGETS={
+  Chest:      {hyper:[12,18],strength:[8,12],spec:[16,22]},
+  Back:       {hyper:[14,20],strength:[10,16],spec:[18,24]},
+  Quads:      {hyper:[10,16],strength:[8,12],spec:[14,20]},
+  Hamstrings: {hyper:[8,14], strength:[6,10],spec:[12,18]},
+  Glutes:     {hyper:[10,18],strength:[8,12],spec:[16,24]},
+  Shoulders:  {hyper:[10,16],strength:[8,12],spec:[14,20]},
+  Biceps:     {hyper:[8,14], strength:[6,10],spec:[12,18]},
+  Triceps:    {hyper:[8,14], strength:[6,10],spec:[12,18]},
+  Calves:     {hyper:[6,12], strength:[4,8], spec:[10,16]},
+  Core:       {hyper:[6,12], strength:[6,10],spec:[10,16]},
+};
+
+// Muscle volume contribution per exercise (sets * contribution factor)
+const MUSCLE_VOLUME_MAP = {
+  "Barbell Bench Press":   {Chest:1,   Shoulders:0.5, Triceps:0.5},
+  "Incline Dumbbell Press":{Chest:1,   Shoulders:0.5, Triceps:0.3},
+  "Chest Dip":             {Chest:1,   Triceps:0.7,   Shoulders:0.3},
+  "Cable Chest Fly":       {Chest:1},
+  "Weighted Pull-Up":      {Back:1,    Biceps:0.5},
+  "Pendlay Row":           {Back:1,    Biceps:0.5},
+  "Seated Cable Row":      {Back:1,    Biceps:0.4,    Shoulders:0.2},
+  "Face Pull":             {Back:0.5,  Shoulders:0.7},
+  "Barbell Overhead Press":{Shoulders:1,Triceps:0.5},
+  "Cable Lateral Raise":   {Shoulders:1},
+  "Rear Delt Fly":         {Shoulders:0.7,Back:0.3},
+  "Back Squat":            {Quads:1,   Glutes:0.7,    Hamstrings:0.3},
+  "Romanian Deadlift":     {Hamstrings:1,Glutes:0.7,  Back:0.3},
+  "Bulgarian Split Squat": {Quads:1,   Glutes:0.8},
+  "Leg Press":             {Quads:1,   Glutes:0.5},
+  "Nordic Hamstring Curl": {Hamstrings:1},
+  "Single Leg RDL":        {Hamstrings:1,Glutes:0.8},
+  "EZ Bar Curl":           {Biceps:1},
+  "Incline DB Curl":       {Biceps:1},
+  "Tricep Rope Pushdown":  {Triceps:1},
+  "Overhead Tricep Extension":{Triceps:1},
+  "Dead Bug":              {Core:1},
+  "Bird Dog":              {Core:1},
+  "Cable Crunch":          {Core:1},
+  "Ab Wheel Rollout":      {Core:1},
+};
+
 // --- WORKOUT LIBRARY DATA -----------------------------------------
 // sets = actual number of dots shown in workout tracker (use max of range for advanced)
 // setsLabel = display string shown in programme view
@@ -362,7 +491,8 @@ const WORKOUT_LIBRARY = [
       {name:"Dead Hang",sets:3,reps:"20-30s",note:"Decompress the spine. Retract scapula at top, let it go at bottom. Builds grip and shoulder health.",rest:30},
       {name:"Scapular Retraction Pulls",sets:3,reps:"15",note:"Hang from bar, squeeze shoulder blades together without bending elbows. Activates lower traps and protects rotator cuff.",rest:30},
       {name:"Band Pull-Apart",sets:2,reps:"20",note:"Overhand and underhand. Wake the rear delts.",rest:30},
-      {name:"Hip Circle",sets:2,reps:"10 each way",note:"Active mobility. Both directions.",rest:0},
+      {name:"Hip CARs",sets:1,reps:"5 each direction",note:"Slow, deliberate, full range. Load the end range of the hip. Both directions. This is nervous system priming.",rest:0},
+      {name:"Shoulder CARs",sets:1,reps:"5 each direction each side",note:"Arm fully extended, draw the largest circle possible. Slow, controlled, no compensation. Primes rotator cuff and full glenohumeral range before pressing or pulling. Both arms, both directions.",rest:0},
       {name:"Bodyweight Squat",sets:2,reps:"15",note:"Full depth. Pause at bottom.",rest:30},
       {name:"Scapular Push-Up",sets:2,reps:"12",note:"Serratus activation. Pressing health.",rest:30},
       {name:"Hip Hinge (bodyweight)",sets:2,reps:"10",note:"Groove the pattern. Neutral spine throughout.",rest:0},
@@ -497,75 +627,181 @@ const WORKOUT_LIBRARY = [
       {name:"SUPERSET D2: Cable Lateral Raise",sets:2,setsLabel:"2",reps:"15-20",note:"Rest 60s. Lead with elbow.",rest:60,rpe:8,tempo:"2-1-2-0",type:"hyper"},
     ]
   },
-  // BOXING BEGINNER 1
-  {id:"boxing-beg-1",cat:"Boxing",name:"Foundation Fight",sessionCode:"BFD",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"This is where fighters are made. Before you throw a single punch, understand: power comes from the ground up. Every combo starts with your feet, rotates through your hips, and finishes with your fist. We are building the language of boxing today. Three rounds at each station. 60 seconds work, 30 seconds rest. The timer is your trainer.",
+  // BOXING - 9-station circuit, beginner level 1
+  {id:"boxing-beg-1",cat:"Boxing",name:"Foundation Fight",sessionCode:"BFD",version:"2.0",tag:"Boxing",duration:"45 min",
+    boxingMode:true,
+    gary:"Every station is 3 rounds of 60 seconds. You work the full 60, rest 10 seconds, then go again. When all 3 rounds are done, you get 30 seconds to move to the next station. Treadmill first - vary your speed. Then strength. Then the bag. We rotate three times. Stay light on your feet all session.",
     exercises:[
-      {name:"Treadmill Warm-Up Run",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 6-8, flat. Comfortable pace. Build heart rate gradually. Between rounds: 30s walk.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Jab-Cross Floor Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Shadowbox only. Orthodox or southpaw stance. Jab extends the lead hand, cross rotates the rear hip. 30 reps per minute target. No arm-punching - rotate the torso.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Jab-Cross Basics",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Gloves on. Stand 1 arm length from the bag. Jab to measure distance, cross for power. Breathe out sharp on contact. Reset stance after every combo. Mayweather cue: Stay on your toes, never flat-footed.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Squat + Shoulder Tap",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Core and lower body. 10 squats then 10 shoulder taps in plank. Fighters need strong legs - your power generation starts here.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Body Shot Focus",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Dig hooks to the body. Bend your knees to get to body level - do not hunch over. Canelo principle: body shots drain the engine. Aim for liver (right hook) and ribs (left hook).",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Burpee + Shadow Combo",sets:1,setsLabel:"AMRAP",reps:"3 min",note:"3-minute AMRAP. 1 burpee, stand up, throw 1-2-1 combo. Keep moving. This is your conditioning finisher.",rest:0,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Jog Build",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 6-8, incline 0. Warm up the engine. Jog first 20s, build to a run. Arms pumping.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Squat + Punch Out",stationType:"STRENGTH",sets:3,reps:"60s",note:"Squat deep, drive up, throw 1-2 (jab-cross) x5 at eye level. Power from the legs into the hands.",combo:"1,2",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 1,2 Basics",stationType:"BAG",sets:3,reps:"60s",note:"Stand one arm length away. 1 (jab) to measure, 2 (cross) for power. Breathe out on each punch. Reset stance every 4 combos.",combo:"1,2 - jab cross",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Incline Walk",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 5, incline 8-10. Drive with your heels. Arms still boxing - shadow jab as you walk.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Press-Up + Stand + Jab",stationType:"STRENGTH",sets:3,reps:"60s",note:"5 press-ups, spring to feet, throw 1,2,1 (jab-cross-jab). Repeat. Core tight through the press.",combo:"1,2,1",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 1,2,3,2",stationType:"BAG",sets:3,reps:"60s",note:"Jab-cross-hook-cross. The hook rotates from the hip - not the arm. Pivot the lead foot on the hook.",combo:"1,2,3,2 - jab cross hook cross",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Speed Burst",stationType:"TREADMILL",sets:3,reps:"60s",note:"20s at speed 9, 20s at 6, 20s at 9. Simulate the explosive bursts of real round pace.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Plank Shoulder Taps + Bob",stationType:"STRENGTH",sets:3,reps:"60s",note:"20s plank shoulder taps (core stability), 20s standing bob-and-weave. Repeat twice. Core is where your power comes from.",combo:"",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Body + Head",stationType:"BAG",sets:3,reps:"60s",note:"Lead hook to body (5), cross to head (2). Bend the knees to get to body level. The body shot forces the guard down. This is how rounds are won.",combo:"5,2 - body hook, cross",rest:10,type:"cardio",isTimeBased:true},
     ]},
-  // BOXING BEGINNER 2
-  {id:"boxing-beg-2",cat:"Boxing",name:"Defense & Flow",sessionCode:"BDF",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"Mayweather said it best: hit and do not get hit. Today we add movement. A punch you slip is better than a punch you block. We are learning the pull, the roll, and how to angle off after every combination. Three rounds each station. Stay light on your feet.",
+  // BOXING - 9-station circuit, beginner level 2
+  {id:"boxing-beg-2",cat:"Boxing",name:"Defense & Flow",sessionCode:"BDF",version:"2.0",tag:"Boxing",duration:"45 min",
+    boxingMode:true,
+    gary:"Today we add defensive movement. After every combination, you must move. Step left or right. Change your angle. A punch you slip is better than one you block. Stay light, stay moving.",
     exercises:[
-      {name:"Treadmill: Interval Warm-Up",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. 40s at speed 7, 20s at speed 9. Incline 0. Simulates the explosive-recovery rhythm of a real round.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Shadow: Slip & Counter Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Slip outside - return a cross. Slip inside - return a left hook. Continuous rhythm. Mayweather whole defensive game lives in this drill.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Pull-Back Combo",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Throw jab-cross, then pull straight back on rear foot, throw jab again. The pull makes you a moving target. Never stand still after punching.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Lateral Band Walks + Press-Ups",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 15 lateral steps each direction then 10 press-ups. Lateral hip strength for footwork. Pressing strength for punch power.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Roll Under Hook",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Jab-cross, roll under imaginary hook, come up with left hook to body and right hand to head. This is the cornerstone Canelo combination.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Mountain Climbers + Combos",sets:1,setsLabel:"AMRAP",reps:"3 min",note:"10 mountain climbers, spring up, throw 5-punch combo. Keep your guard up between every burst.",rest:0,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Lateral Shuffle",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 5-6, incline 0. Every 15 seconds, shadow a slip (head off centreline, left then right). Active movement.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Dumbbell Curl to Press",stationType:"STRENGTH",sets:3,reps:"60s",note:"Light dumbbells. Bicep curl, rotate, press overhead. Builds the shoulder stability needed for sustained combinations.",combo:"",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 1,2 + Slip",stationType:"BAG",sets:3,reps:"60s",note:"Jab-cross, then slip outside right (duck your head to the left of the bag). Come back, throw again. Never stand square.",combo:"1,2 + slip - jab cross then slip",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Hill Run",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 7, incline 5-6. Incline running builds the explosive leg drive needed for ring movement and punching power.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Lateral Lunge + Jab",stationType:"STRENGTH",sets:3,reps:"60s",note:"Step wide to the right, lunge, throw a jab from the low position. Alternate sides. Lateral hip strength = footwork.",combo:"1",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 1,1,2,3",stationType:"BAG",sets:3,reps:"60s",note:"Double jab-cross-hook. First jab is the range finder. Second jab disrupts the guard. Cross through the gap. Hook as they react.",combo:"1,1,2,3 - jab jab cross hook",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Sprint Intervals",stationType:"TREADMILL",sets:3,reps:"60s",note:"10s sprint (speed 10), 20s jog (speed 6), repeat 2 times. 60 seconds total. This is round 10 conditioning.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Mountain Climbers + Roll",stationType:"STRENGTH",sets:3,reps:"60s",note:"20s mountain climbers, 10s standing shoulder roll drill (dip under imaginary hook, U-shape). Repeat twice.",combo:"",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 1,2,3,2,3",stationType:"BAG",sets:3,reps:"60s",note:"Jab-cross-hook-cross-hook. The double hook at the end is a Canelo signature. Second hook comes from a different angle.",combo:"1,2,3,2,3 - jab cross hook cross hook",rest:10,type:"cardio",isTimeBased:true},
     ]},
-  // BOXING INTERMEDIATE 1
-  {id:"boxing-int-1",cat:"Boxing",name:"Power Combinations",sessionCode:"BPC",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"You know the basics. Now we build power. Tyson threw the hardest punches in heavyweight history because of hip rotation and timing. Every punch today should snap. Short, sharp, violent. Throw with intent and reset immediately. The bag should be moving.",
+  // BOXING - intermediate 1
+  {id:"boxing-int-1",cat:"Boxing",name:"Power Combinations",sessionCode:"BPC",version:"2.0",tag:"Boxing",duration:"45 min",
+    boxingMode:true,
+    gary:"Every punch today has bad intentions. Tyson threw the hardest punches in heavyweight history by combining hip rotation with explosive timing. Short. Sharp. Reset immediately. We are building combinations that flow naturally from one punch to the next.",
     exercises:[
-      {name:"Treadmill: Speed Intervals",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. 30s at speed 10, 30s at speed 5. Incline 0. Explosive cardiovascular conditioning matching real round intensity.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Dumbbell Punch-Out + Squat",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Hold light dumbbells 2-4kg. Squat down, drive up, throw rapid alternating punches x10. The squat to punch motion trains power transfer from legs to fists.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: 3-Punch Power Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Tyson combo: right hook to body, left hook to body, right uppercut. Dig the body shots deep. The uppercut follows as the guard drops. Reset stance and breathe every 3rd combo.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Core Power Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 15 Russian twists, 10 dead bugs, 10 bicycle crunches each side. Rotational core power transfers directly to punch force.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: 5-Punch Explosive Combos",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Combo: 1-2-3-2-1. Throw in bursts of 3-5, reset. Full power each punch. Canelo signature: the 5-punch combination finisher.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Bag Sprint Rounds",sets:1,setsLabel:"ALL OUT",reps:"3 min",note:"3-minute non-stop freestyle bag work. Move, punch, move. Championship round. Leave nothing.",rest:0,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Speed Build",stationType:"TREADMILL",sets:3,reps:"60s",note:"Start speed 7, increase 1 notch every 15 seconds. Reach 10 by the end. This is fight-pace conditioning.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Dumbbell Squat Press",stationType:"STRENGTH",sets:3,reps:"60s",note:"Dumbbells at shoulders, squat deep, explode up, press overhead. Builds the full-body drive that powers your combinations.",combo:"",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 1,2,3,3",stationType:"BAG",sets:3,reps:"60s",note:"Jab-cross-double hook. The double hook is Tyson. First hook to body (3 to the ribs), second hook to head. Bend knees on body shot.",combo:"1,2,3,3 - jab cross hook hook",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Hill Attack",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 8, incline 8. No holding the rails. Drive with your arms as if throwing uppercuts. Pure cardiovascular power.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Core Power Circuit",stationType:"STRENGTH",sets:3,reps:"60s",note:"15 Russian twists (rotate fully, both sides count), 5 V-ups, 10 bicycle crunches. Rotational core = punch power.",combo:"",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 2,3,2,4",stationType:"BAG",sets:3,reps:"60s",note:"Cross-hook-cross-right hook. Tyson combo. The 4 (right hook) is the finisher - throw it over the guard. Weight transfer is everything.",combo:"2,3,2,4 - cross hook cross right hook",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Max Effort",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 10+, incline 0. All out. This is championship conditioning. The third round is where fights are won.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Burpee to Uppercut",stationType:"STRENGTH",sets:3,reps:"60s",note:"1 burpee, spring up, throw 6,5,2 (right uppercut, left uppercut, cross). The explosive drive from the floor mirrors the power in uppercuts.",combo:"6,5,2",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 1,2,5,2,3",stationType:"BAG",sets:3,reps:"60s",note:"Jab-cross-body hook-cross-hook. The 5 (body hook) drops the guard. The 2 (cross) goes to the now-open head. Canelo favourite.",combo:"1,2,5,2,3 - jab cross body hook cross hook",rest:10,type:"cardio",isTimeBased:true},
     ]},
-  // BOXING INTERMEDIATE 2
-  {id:"boxing-int-2",cat:"Boxing",name:"Speed & Movement",sessionCode:"BSM",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"Mayweather speed came from relaxation, not tension. Tight muscles are slow muscles. Every punch today should be fast and loose until impact, then snap. We also work the feet: angles, pivots, circling. A moving fighter is a hard target.",
+  // BOXING - intermediate 2
+  {id:"boxing-int-2",cat:"Boxing",name:"Speed & Movement",sessionCode:"BSM",version:"2.0",tag:"Boxing",duration:"45 min",
+    boxingMode:true,
+    gary:"Mayweather output 40-50 punches per round, mostly jabs. His speed came from relaxation between punches. Stay loose. The punch accelerates at the end and snaps back immediately. Every combination finishes with a pivot to a new angle.",
     exercises:[
-      {name:"Treadmill: Footwork Ladder",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 7, alternate incline 0 and incline 4 every 20 seconds. Mimics the change of pace in ring movement.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Shadow: Speed Combination Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Jab-jab-cross at maximum hand speed. Pivot after every 3 combos to change angle. Mayweather output was 40-50 punches per round, mostly jabs.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Pivot & Counter",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Jab-cross, pivot 45 degrees off the bag, throw cross-hook. The pivot separates fighters from brawlers.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Explosive Power Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. 5 broad jumps, 5 lateral bounds each side, 10 jump squats. Plyometric leg power for explosive ring movement.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Combination Speed Ladder",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. 1 punch, then 2, 3, 4, 5 - back down. Each crisp and fast. Rest 5 seconds between each set. Mayweather camp staple.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Tabata Shadow + Core",sets:1,setsLabel:"ALL OUT",reps:"4 min",note:"8 rounds of 20s all-out shadow boxing, 10s rest. Final 2: 20s hollow hold, 10s rest. Championship conditioning.",rest:0,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Footwork Pace",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 7, incline alternates 0 and 4 every 15 seconds. Simulates the constant change of pace in a real round.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Speed Shadowbox",stationType:"STRENGTH",sets:3,reps:"60s",note:"No equipment. Maximum hand speed. 1,1,2 (jab jab cross) for 20s, then 1,2,3 (jab cross hook) for 20s, then 1,2,3,2 for 20s. Count your reps.",combo:"1,1,2 then 1,2,3",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Heavy Bag: Speed Ladder",stationType:"BAG",sets:3,reps:"60s",note:"Throw: 1 punch, then 2, then 3, then 4 in rapid sequence. Rest 5 seconds, repeat. The ladder builds combination flow.",combo:"1 then 1,2 then 1,2,3 then 1,2,3,4",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Incline Sprint",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 9, incline 6. Explosive combination of incline and speed. Your legs drive punch power as much as your arms.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Dumbbell Row + Uppercut",stationType:"STRENGTH",sets:3,reps:"60s",note:"Single arm row (pulling power for the cross), then transition to dumbbell uppercut motion. 30s each arm. Back power transfers to punching.",combo:"6,5",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 1,2,3,2 + Pivot",stationType:"BAG",sets:3,reps:"60s",note:"Jab-cross-hook-cross, then pivot 45 degrees off the bag, throw 2 (cross). The pivot puts you at the new angle. Mayweather won rounds this way.",combo:"1,2,3,2 + pivot, 2",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Fartlek",stationType:"TREADMILL",sets:3,reps:"60s",note:"Your choice: vary speed freely, no fixed intervals. 60 seconds of intelligent self-paced effort. Build where you have energy.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Jump Squat + Body Combo",stationType:"STRENGTH",sets:3,reps:"60s",note:"3 jump squats, then throw 5,5,2 (double body hook, cross) at standing height. Explosive leg drive into immediate punching.",combo:"5,5,2",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 1,2,3,2,3,2",stationType:"BAG",sets:3,reps:"60s",note:"Six-punch combo. Jab-cross-hook-cross-hook-cross. This is the full combination sequence. Throw it in bursts of 3, rest 5 seconds, repeat.",combo:"1,2,3,2,3,2 - full six combo",rest:10,type:"cardio",isTimeBased:true},
     ]},
-  // BOXING ADVANCED 1
-  {id:"boxing-adv-1",cat:"Boxing",name:"Championship Rounds",sessionCode:"BCR",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"Mayweather finished 50-0. He did it through discipline, angles, and an elite jab. Today is built around his principles: the jab controls distance, the shoulder roll neutralises the right hand, movement makes you impossible to hit. You are building fight IQ.",
+  // BOXING - advanced 1
+  {id:"boxing-adv-1",cat:"Boxing",name:"Championship Rounds",sessionCode:"BCR",version:"2.0",tag:"Boxing",duration:"45 min",
+    boxingMode:true,
+    gary:"Championship fighters do not tire. They have conditioned every energy system. Today we push all three. Treadmill at fight pace. Strength at explosive pace. Bag work at competition intensity. The goal is to maintain technique when your body is screaming to quit.",
     exercises:[
-      {name:"Treadmill: Fight-Pace Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 9-11, incline 0. Round 12 conditioning. You should be uncomfortably fast. Championship fights are decided by who performs when exhausted.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Mayweather Jab Clinic",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Jab only. Measuring jab, stinging jab, pawing jab, double jab. Vary height - head and body level. The jab is the most important punch in boxing.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Weighted Core Power",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. Heavy Russian twists 8-12kg, woodchop band, oblique crunches. Every elite fighter has an elite core.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Shoulder Roll Counter",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Lead shoulder up to protect jaw from right hand. Roll, counter with right hand to body, left hook to head. Mayweather signature defensive counter. Drill to reflex.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Explosive Compound Lifts",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Dumbbell clean to press x5, jump squat x5, plank to push-up x10. Championship fighters are complete athletes.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Finish: 12-Punch Championship Combo",sets:1,setsLabel:"MAX",reps:"3 min",note:"Full combo: 1-2-3-2-1-2 body-3-2-1-2-3-2. Control breathing. Set feet after every 3rd combo. This is what Mayweather trains to.",rest:0,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Fight Pace",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 10-11, incline 0. Championship round pace. Every champion trains beyond what they expect to face.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Weighted Punch Circuit",stationType:"STRENGTH",sets:3,reps:"60s",note:"Light dumbbells (2-3kg). Throw 1,2 (jab-cross) continuously for 20s, then 3,2 (hook-cross) for 20s, then 6,5 (uppercuts) for 20s. Shoulder endurance.",combo:"1,2 then 3,2 then 6,5",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Mayweather Jab Clinic",stationType:"BAG",sets:3,reps:"60s",note:"Jab only. But every jab has a different purpose: 1 to measure distance, 1,1 double jab to disrupt, 1 to the body. Vary height. The jab wins rounds.",combo:"1 variations - measuring, double, body",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Max Incline",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 7, incline 12. Quad and hip flexor power. Maximum incline running simulates cutting off the ring.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Explosive Power Compound",stationType:"STRENGTH",sets:3,reps:"60s",note:"5 dumbbell clean and press, 5 jump squats, 5 renegade rows each side. Total athletic power for a complete fighter.",combo:"",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Shoulder Roll Counter",stationType:"BAG",sets:3,reps:"60s",note:"Simulate incoming jab: lead shoulder rolls up to protect chin, counter with 2,3 (cross-hook). This is the Mayweather shoulder roll. Drill it until it becomes a reflex.",combo:"shoulder roll, 2,3",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Interval Championship",stationType:"TREADMILL",sets:3,reps:"60s",note:"15s sprint (11), 15s jog (6), 15s sprint, 15s jog. Four intervals in 60 seconds. This is the hardest treadmill round of the session.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Pull-Up + Body Attack",stationType:"STRENGTH",sets:3,reps:"60s",note:"3-5 pull-ups or inverted rows, then immediately 6 body punches (5,5,5,5,5,5 continuous body hooks). The pulling power behind your hooks comes from your lats.",combo:"5,5,5,5",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: 12-Punch Combo",stationType:"BAG",sets:3,reps:"60s",note:"The championship combo: 1,2,3,2,1,2,5,2,3,2,6,3. Breathe out on every punch. Set feet after punch 6. This is 12 punches. Championship fighters can throw this in under 4 seconds.",combo:"1,2,3,2,1,2,5,2,3,2,6,3",rest:10,type:"cardio",isTimeBased:true},
     ]},
-  // BOXING ADVANCED 2
-  {id:"boxing-adv-2",cat:"Boxing",name:"Iron Pressure",sessionCode:"BIP",version:"1.0",tag:"Boxing",duration:"45 min",
-    gary:"Tyson secret was not just power. It was peek-a-boo style, constant pressure, and the angles he created before every punch. He used his size disadvantage - working underneath, body first, then head. Today we pressure. Relentless, calculated aggression.",
+  // BOXING - advanced 2
+  {id:"boxing-adv-2",cat:"Boxing",name:"Iron Pressure",sessionCode:"BIP",version:"2.0",tag:"Boxing",duration:"45 min",
+    boxingMode:true,
+    gary:"Tyson was 5 foot 10 in a heavyweight division of 6 foot 4 fighters. He won by using his height as an advantage - constant forward pressure, working underneath, attacking the body. Today we are Tyson. We go forward. We never let the opponent settle. Relentless.",
     exercises:[
-      {name:"Treadmill: Maximum Incline Sprint",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 1-3. Speed 8, incline 10-12. Simulate cutting off the ring and constant pressure. Your legs must never fail in a fight.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Peek-A-Boo Defensive Drill",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 4-6. Hands high by temples, chin down. Bob and weave L-R-L continuously. Add left hook each time you come up on the right side. Tyson drilled this thousands of times daily.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Heavy Bag: Body Attack Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 7-9. 80% body shots. Double left hook to body, right to body, left hook up. Bend knees - never hunch. Body shots slow the legs, lower the guard, and open the head.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Floor: Power & Strength Circuit",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 10-12. Rows x8, dips x10, landmine rotational press x8 each side. Tyson training included significant pulling and pressing for explosive snap in his hooks.",rest:30,type:"strength",isTimeBased:true},
-      {name:"Heavy Bag: Pressure Combination Rounds",sets:3,setsLabel:"3",reps:"60s",note:"Rounds 13-15. Forward pressure: jab body, right body, left hook head, right uppercut. Step left, right hook body. Change angle every 3rd combo.",rest:30,type:"cardio",isTimeBased:true},
-      {name:"Finish: Rounds of 8",sets:1,setsLabel:"IRON WILL",reps:"3 min",note:"8 combos all-out, 8 seconds rest, repeat 3 minutes. Never stop moving feet during recovery. Championship is forged here.",rest:0,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Incline Pressure",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 8, incline 10-12. This simulates cutting off the ring - relentless forward pressure. Your legs cannot fail.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Peek-A-Boo + Bob Circuit",stationType:"STRENGTH",sets:3,reps:"60s",note:"Hands by temples, chin down. Continuous bob and weave (L-R-L-R). Every time you come up on the right, throw 3 (left hook). Tyson drilled this daily.",combo:"bob-weave + 3",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Body First Attack",stationType:"BAG",sets:3,reps:"60s",note:"Exclusively body shots for first 30s: 5,2,5 (body hook, cross to body, body hook). Last 30s: 5,2,3 (body hook opens the guard, cross, hook to head).",combo:"5,2,5 then 5,2,3",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Explosive Sprint",stationType:"TREADMILL",sets:3,reps:"60s",note:"Speed 11, incline 0. Maximum effort sprint. Champions train faster than they fight. Your body must know what elite pace feels like.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Dumbbell Power Row + Press",stationType:"STRENGTH",sets:3,reps:"60s",note:"5 explosive rows each arm (snap the elbow back fast - this is your cross mechanics), 10 push press. Build the pulling and pressing power Tyson used for his hooks.",combo:"",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Pressure Combination",stationType:"BAG",sets:3,reps:"60s",note:"Move forward into the bag, throw: 1,5,2,5,3. Jab-body hook-cross-body hook-hook. The two body shots build the combination and lower the guard for the final hook.",combo:"1,5,2,5,3 - jab body-hook cross body-hook hook",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Treadmill - Variable Beast",stationType:"TREADMILL",sets:3,reps:"60s",note:"Athlete controlled. Push when you have strength, sustain when you do not. 60 seconds of maximum intelligent effort.",combo:"",rest:10,type:"cardio",isTimeBased:true},
+      {name:"Iron Core Circuit",stationType:"STRENGTH",sets:3,reps:"60s",note:"Hollow body hold 15s, bicycle crunch 15s, plank-to-push-up 10 reps, Russian twist 15s. Tyson had some of the strongest abdominals in boxing history.",combo:"",rest:10,type:"strength",isTimeBased:true},
+      {name:"Heavy Bag: Rounds of 8",stationType:"BAG",sets:3,reps:"60s",note:"8 punches all-out (any combination), 8 seconds rest, repeat for 60 seconds. The 8-second rest mimics the micro-breathers in real rounds. Choose your combos: make them 1,2,3,2,1,2,5,2 or your own.",combo:"8 punches, 8s rest x rounds",rest:10,type:"cardio",isTimeBased:true},
     ]},
+
+  // ---- BOXING --------------------------------------------------------
+  // -- WARMUP: UPPER BODY (BACK FOCUS) --------------------------------
+  {id:"warmup-upper-back",cat:"Warm-Up",name:"Upper Body Warm-Up: Back",sessionCode:"WUB",version:"1.0",tag:"Warm-Up",duration:"12-15 min",
+    gary:"Before any pulling session, we need to prime the posterior chain and get the scapulae moving. This warm-up activates your rotator cuff, opens the thoracic spine, and turns on the rear delts and lower traps before they are needed under load.",
+    exercises:[
+      {name:"Shoulder CARs",sets:2,reps:"5 each direction each arm",note:"Controlled articular rotation. Full range of glenohumeral joint. Slow and deliberate. This is your rotator cuff check-in.",rest:0,type:"recovery"},
+      {name:"Scapular Retraction Pulls",sets:2,reps:"15",note:"Hang from bar if available. Squeeze shoulder blades together without bending elbows. Activates lower traps. Non-negotiable before pulling.",rest:15,type:"recovery"},
+      {name:"Band Pull-Apart",sets:3,reps:"20",note:"Overhand then underhand. Full spread. Control the return. Rear delt and external rotator primer.",rest:15,type:"recovery"},
+      {name:"Dead Hang",sets:2,reps:"30s",note:"Decompress the spine. Let everything hang. Retract at the top to feel the lat engage.",rest:20,type:"recovery"},
+      {name:"Hip Hinge (bodyweight)",sets:2,reps:"10",note:"Set the posterior chain before loading it. Drive hips back, maintain neutral spine. Feel the hamstrings load.",rest:0,type:"recovery"},
+      {name:"Scapular Push-Up",sets:2,reps:"10",note:"Protract and retract the shoulder blades in a plank. No elbow bend. Pure serratus and trap activation.",rest:0,type:"recovery"},
+    ]},
+  // -- WARMUP: UPPER BODY (CHEST FOCUS) -------------------------------
+  {id:"warmup-upper-chest",cat:"Warm-Up",name:"Upper Body Warm-Up: Push",sessionCode:"WUC",version:"1.0",tag:"Warm-Up",duration:"12-15 min",
+    gary:"Pressing sessions get most injuries from cold shoulders and lazy scapular control. We are going to open the pec minor, prime the rotator cuff, and activate serratus anterior before any load goes through the shoulder. Do this every time. No exceptions.",
+    exercises:[
+      {name:"Shoulder CARs",sets:2,reps:"5 each direction each arm",note:"Full range. Slow. Controlled. This is non-negotiable before pressing.",rest:0,type:"recovery"},
+      {name:"Band Pull-Apart",sets:3,reps:"15",note:"Rear delt activation before anterior delt loading. Classic push-pull warm-up principle.",rest:15,type:"recovery"},
+      {name:"Scapular Push-Up",sets:2,reps:"12",note:"Serratus anterior activation. This muscle stabilises the scapula during pressing. If it is asleep, your shoulder is unprotected.",rest:15,type:"recovery"},
+      {name:"Bodyweight Squat",sets:1,reps:"10",note:"Full body temperature raise. Blood flow before pressing.",rest:0,type:"recovery"},
+      {name:"90/90 Hip Stretch",sets:1,reps:"60s each side",note:"Open the hips before any bench work. A tight posterior chain causes excessive arch and back strain during pressing.",rest:0,type:"recovery"},
+      {name:"Hip Circle (Active Mobility)",sets:1,reps:"10 each way",note:"Thoracic mobility and total body activation. Final primer before pressing.",rest:0,type:"recovery"},
+    ]},
+  // -- WARMUP: LOWER BODY FOCUS ----------------------------------------
+  {id:"warmup-lower",cat:"Warm-Up",name:"Lower Body Warm-Up",sessionCode:"WLB",version:"1.0",tag:"Warm-Up",duration:"15 min",
+    gary:"Lower body training without a proper warm-up is where most knee and hip injuries happen. We are going to activate the glutes, mobilise the hips, and get the tibialis and calves working before loading the legs. This sequence is non-negotiable.",
+    exercises:[
+      {name:"Hip CARs",sets:2,reps:"5 each direction each leg",note:"Controlled articular rotation of the hip joint. Load the end range. This is the single best hip warm-up movement available.",rest:0,type:"recovery"},
+      {name:"90/90 Hip Stretch",sets:2,reps:"60s each side",note:"Active positions. Sit upright. Two positions per side: forward fold over front shin, then rear shin. Open both hip positions before loading.",rest:10,type:"recovery"},
+      {name:"Bodyweight Squat",sets:2,reps:"15",note:"Full depth, heels flat, knees tracking toes. Slow descent. This is a movement assessment and warm-up in one.",rest:20,type:"recovery"},
+      {name:"Tibialis Raise",sets:2,reps:"20",note:"Tibialis anterior activation. Prevents knee pain and shin splints. 30 seconds of work that saves your knees long-term.",rest:0,type:"recovery"},
+      {name:"Banded Lateral Walk",sets:2,reps:"15 steps each way",note:"Glute medius activation. Prevents lateral pelvic drop under load. Required before any single-leg or squat work.",rest:20,type:"recovery"},
+      {name:"Hip Hinge (bodyweight)",sets:2,reps:"10",note:"Hamstring and glute activation. Practice the hinge pattern before loading it. Find the position here.",rest:0,type:"recovery"},
+    ]},
+  // -- WARMUP: RUNNING -------------------------------------------------
+  {id:"warmup-running",cat:"Warm-Up",name:"Running Warm-Up",sessionCode:"WRN",version:"1.0",tag:"Warm-Up",duration:"10-12 min",
+    gary:"Cold muscles and unprepared tendons are the leading cause of running injuries. This warm-up progressively loads your tibialis, calf, and Achilles before you ask them to absorb thousands of impacts. Do not skip this. It takes 10 minutes and prevents weeks off training.",
+    exercises:[
+      {name:"Tibialis Raise",sets:2,reps:"20",note:"First movement every time. Activates tibialis anterior. Prevents shin splints. 60 seconds of work that saves your shins.",rest:0,type:"recovery"},
+      {name:"Hip CARs",sets:1,reps:"5 each direction each leg",note:"Open the hip joint fully before running. Running on stiff hips creates compensatory knee and lower back issues.",rest:0,type:"recovery"},
+      {name:"Patrick Step",sets:2,reps:"15 each leg",note:"Tibialis and ankle warm-up specific to running load. This is the movement that most directly prepares the lower leg for impact.",rest:10,type:"recovery"},
+      {name:"Single Leg Calf Raise (Full ROM)",sets:2,reps:"10 each leg",note:"Slow eccentric. Achilles and calf warm-up. Full ROM - heel drop at the bottom is the point. Never load an unwarmed Achilles.",rest:20,type:"recovery"},
+      {name:"Banded Lateral Walk",sets:2,reps:"10 steps each way",note:"Glute medius activation before single-leg loading. Every running stride requires this muscle to fire. Wake it up first.",rest:0,type:"recovery"},
+      {name:"Hip Hinge (bodyweight)",sets:1,reps:"10",note:"Hamstring activation and posterior chain priming before the impact of running loads it.",rest:0,type:"recovery"},
+    ]},
+  // -- WARMUP: PLYOMETRIC ----------------------------------------------
+  {id:"warmup-plyo",cat:"Warm-Up",name:"Plyometric Warm-Up",sessionCode:"WPL",version:"1.0",tag:"Warm-Up",duration:"15 min",
+    gary:"Plyometric training is the highest-force activity most athletes will ever do. Landing from a jump produces 3-8x bodyweight through the joints. The warm-up before a plyometric session must progressively load the tendons and joints from low to high impact. This sequence does exactly that.",
+    exercises:[
+      {name:"Hip CARs",sets:2,reps:"5 each direction each leg",note:"Full hip range. Slow. Prime every plane before explosive loading.",rest:0,type:"recovery"},
+      {name:"Tibialis Raise",sets:2,reps:"20",note:"The tibialis controls dorsiflexion in landing. Warm it up before any jumping or bounding.",rest:0,type:"recovery"},
+      {name:"Bodyweight Squat",sets:2,reps:"15",note:"Full depth. Slow eccentric. This is a joint and tendon warm-up. Do not rush it.",rest:15,type:"recovery"},
+      {name:"Single Leg Calf Raise (Full ROM)",sets:2,reps:"10 each leg",note:"Calf and Achilles must be fully warmed before explosive calf loading in jumps and bounds.",rest:15,type:"recovery"},
+      {name:"Hip Circle (Active Mobility)",sets:2,reps:"10 each way",note:"Dynamic hip mobility. Transition from slow controlled movements to slightly more dynamic loading.",rest:0,type:"recovery"},
+      {name:"Box Jump",sets:3,reps:"3",note:"Sub-maximal warm-up jumps. 60-70% effort. Land softly, control the landing, step down. These are not max effort - they are tendon and joint priming.",rest:30,type:"recovery"},
+    ]},
+
+  // -- ABS & CORE --------------------------------------------------------
+  {id:"abs-core",cat:"Strength",name:"Core & Abs Protocol",sessionCode:"ABS",version:"1.0",tag:"Strength",duration:"25-30 min",
+    gary:"Most abs training is useless. Crunches create flexion under load, which is exactly what Stuart McGill says causes disc injury. The best abs training is anti-movement: resist rotation, resist extension, resist lateral flexion. We also train the core in its functional role as a force transmitter. Tim Ferriss identified the myotatic crunch as one of the most effective abs movements available. Jeff Cavaliere proved that absence of lower back pain correlates directly with core strength. We are building a functional midsection.",
+    exercises:[
+      {name:"Dead Bug",sets:3,reps:"8-10 each side",note:"The McGill-approved foundational anti-extension movement. Lower back pressed flat throughout. This is the safest and most functional ab exercise. Never skip it.",rest:45,rpe:5,tempo:"2-0-2-0",type:"strength"},
+      {name:"Plank with Shoulder Tap",sets:3,reps:"10 each side",note:"Anti-rotation core stability. Every tap requires the core to resist rotation. This is the functional demand of running, lifting, and sport. Hips stay square throughout.",rest:45,rpe:6,tempo:"controlled",type:"strength"},
+      {name:"Ab Wheel Rollout",sets:3,reps:"8-10",note:"Athlean-X principle: the rectus abdominis works hardest in the fully stretched position. The rollout maximises this stretch. Start from knees. Keep lower back flat and breathe out on the rollout. Never let the back arch.",rest:60,rpe:8,tempo:"3-0-2-0",type:"strength"},
+      {name:"Hollow Body Hold",sets:3,reps:"20-30s",note:"The gymnast foundation. Arms overhead, lower back pressed to floor, legs at 30-45 degrees. This is the most demanding anti-extension isometric available. Progress by lowering leg height.",rest:45,rpe:7,tempo:"hold",type:"strength"},
+      {name:"Myotatic Crunch",sets:3,reps:"10-12",note:"Tim Ferriss Four Hour Body: performed on a BOSU or rolled towel under the lower back. Full extension at bottom - arms overhead touching floor. Then crunch slowly to peak contraction. The pre-stretch activates the myotatic reflex for maximum motor unit recruitment. 2-3x more effective than standard crunch per rep.",rest:45,rpe:7,tempo:"3-1-2-0",type:"strength"},
+      {name:"Pallof Press",sets:3,reps:"12 each side",note:"Athlean-X anti-rotation essential. Cable or band anchored at chest height. Press out, hold 1 second, return. The core must resist the rotational pull the entire time. This is how your core actually functions in sport and life.",rest:45,rpe:6,tempo:"2-1-2-0",type:"strength"},
+      {name:"L-Sit Hold (bench or floor)",sets:3,reps:"10-20s",note:"Hip flexor and core compression strength. Hands on bench, legs extended parallel to floor. This loads the hip flexors and core simultaneously in a compressed position. Progress from bent knee to full leg extension.",rest:45,rpe:7,tempo:"hold",type:"strength"},
+    ]},
+
+  // -- FEMALE GLUTE: ADD UNILATERAL -------------------------------------
+  {id:"glute-unilateral",cat:"Glutes",name:"Glute Unilateral Protocol",sessionCode:"GUP",version:"1.0",tag:"Strength",duration:"45 min",
+    gary:"Bilateral training builds strength. Unilateral training builds functional strength. Every step, every stride, every acceleration happens on one leg. If your glutes are not trained to fire hard on each leg independently, you have a strength gap that bilateral work will never fix. This session identifies and corrects left-right imbalances. Expect one side to feel weaker. That is the entire point.",
+    exercises:[
+      {name:"Bulgarian Split Squat",sets:4,reps:"8-10 each",note:"Rear foot elevated on bench. Front foot far enough forward that your knee does not travel excessively over toes at the bottom. Full depth: rear knee grazes the floor. Lead through the heel to bias glutes over quads.",rest:90,rpe:8,tempo:"3-1-1-0",type:"strength"},
+      {name:"Reverse Lunge",sets:3,reps:"10-12 each",note:"Step back into the lunge. Control the descent with the front leg. Drive up through the front heel. The reverse lunge is safer on the knee than forward lunge and allows better glute loading through hip extension.",rest:75,rpe:7,tempo:"3-1-1-0",type:"strength"},
+      {name:"Single Leg RDL",sets:3,reps:"8-10 each",note:"Stand on one leg, hinge from the hip. Rear leg extends as counterbalance. Full hip hinge - feel the hamstring and glute load. Neutral spine throughout. This is the single best unilateral posterior chain exercise available.",rest:75,rpe:7,tempo:"3-1-1-0",type:"strength"},
+      {name:"Cable Kickback",sets:3,reps:"15 each",note:"Cable at floor level, ankle strap on working leg. Slight forward lean, hinge at hip. Drive the leg back and slightly up - hip extension is the movement, not knee extension. Squeeze at full extension. Return slowly under control. This isolates the gluteus maximus. Both sides - the stretched feeling at the front tells you it is working.",rest:60,rpe:7,tempo:"2-1-2-1",type:"hyper"},
+      {name:"Lateral Lunge",sets:3,reps:"10 each",note:"Step laterally, sit back into the hip of the stepping leg. Inside of foot flat on floor. Knee tracks toes. Drive through the heel to return. This loads the adductors and glutes in a lateral plane - a position most training ignores.",rest:60,rpe:6,tempo:"3-1-1-0",type:"strength"},
+      {name:"Single Leg Glute Bridge",sets:3,reps:"15 each",note:"Lie on back, one knee bent foot flat, one leg extended. Drive through the grounded heel to elevate hips. Full hip extension at the top, squeeze the glute. Do not let the pelvis drop on the unloaded side. Progress by elevating the foot.",rest:45,rpe:6,tempo:"2-1-2-1",type:"hyper"},
+    ]},
+
 ];
 
-const isRunner=(goals)=>Array.isArray(goals)&&goals.some(g=>g.toLowerCase().includes("run")||g.toLowerCase().includes("marathon")||g.toLowerCase().includes("endurance"));
 const STEPS=[
   {id:"trainingAge",title:"Training Experience",sub:"How long have you trained consistently?",type:"select",opts:["Less than 1 year","1-2 years","2-4 years","4-7 years","7+ years"]},
   {id:"age",title:"Your Age",sub:"Age significantly shapes how we programme recovery, intensity and volume.",type:"select",opts:["16-20","21-29","30-39","40-49","50+"]},
@@ -575,11 +811,12 @@ const STEPS=[
   {id:"unit",title:"Units",sub:"Choose your preferred units. All measurements throughout the app will use these.",type:"select",opts:["Metric (kg / km / cm)","Imperial (lbs / miles / ft)"]},
   {id:"bodyStats",title:"Height & Weight",sub:"This helps us contextualise your strength numbers and build the right programme for your body.",type:"inputs",fields:[{key:"height",label:"Height"},{key:"weight",label:"Bodyweight"}]},
   {id:"runningContext",title:"Your Running",sub:"Tell us about your running. Skip if running is not a goal.",type:"inputs",fields:[{key:"weeklyMiles",label:"Weekly mileage"},{key:"longestRun",label:"Longest recent run"},{key:"raceGoal",label:"Next race distance (e.g. 10K, half, marathon)",unit:""}],optional:true},
-  {id:"benchmarks",title:"Strength Benchmarks",sub:"Approximate 5-rep max. Honest estimates are fine. Skip if you are a runner new to lifting.",type:"inputs",fields:[{key:"squat",label:"Back Squat"},{key:"bench",label:"Bench Press"},{key:"deadlift",label:"Deadlift"},{key:"ohp",label:"OHP"}]},
-  {id:"limitations",title:"Pain / Limitations",sub:"Select any current concerns. Include any running-related injuries.",type:"multi",opts:["Lower back","Knees","Shoulders","Hips","Neck","Shin Splints","IT Band","Achilles / Calf","Plantar Fasciitis","None"]},
+  {id:"benchmarks",title:"Strength Benchmarks",sub:"Approximate 5-rep max. Honest estimates are fine. Skip if new to lifting.",type:"inputs",fields:[{key:"squat",label:"Back Squat"},{key:"bench",label:"Bench Press"},{key:"deadlift",label:"Deadlift"},{key:"ohp",label:"OHP"}],optional:true},
+  {id:"equipment",title:"Equipment Access",sub:"Tell us what equipment you have available. This shapes every session we build.",type:"equipment",optional:false},
+  {id:"limitations",title:"Pain / Limitations",sub:"Select any current concerns.",type:"multi",opts:["Lower back","Knees","Shoulders","Hips","Neck","Shin Splints","IT Band","Achilles / Calf","Plantar Fasciitis","None"]},
   {id:"recovery",title:"Recovery Baseline",sub:"Honest answers change the programme.",type:"inputs",fields:[{key:"sleep",label:"Avg sleep per night",unit:"hrs"},{key:"stress",label:"Daily stress level",unit:"/10"}]},
-
 ];
+
 const Onboarding=({onComplete})=>{
   const[step,setStep]=useState(0);
   const[ans,setAns]=useState({});
@@ -590,13 +827,14 @@ const Onboarding=({onComplete})=>{
   const next=()=>{
     const m={...ans};
     if(cur.type==="select")m[cur.id]=ans[cur.id];
-    if(cur.type==="inputs")m[cur.id]=fv;
+    if(cur.type==="inputs"||cur.type==="bodyStats")m[cur.id]=fv;
     if(cur.type==="multi")m[cur.id]=ms;
+    if(cur.type==="equipment")m[cur.id]=fv.equipment||"";
     setAns(m);
     if(step<STEPS.length-1){setStep(s=>s+1);setFv({});setMs([]);}
     else onComplete(m);
   };
-  const canNext=cur.optional?true:cur.type==="select"?!!ans[cur.id]:cur.type==="multi"?ms.length>0:true;
+  const canNext=cur.optional?true:cur.type==="select"?!!ans[cur.id]:cur.type==="multi"?ms.length>0:cur.type==="equipment"?true:true;
   return(
     <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",padding:"40px 24px 32px",maxWidth:480,margin:"0 auto"}}>
       <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,letterSpacing:"0.15em",color:C.txt,marginBottom:32}}>GMT COACH</div>
@@ -621,17 +859,56 @@ const Onboarding=({onComplete})=>{
           );})}
         </div>}
         {cur.type==="inputs"&&<div style={{display:"flex",flexDirection:"column",gap:14}}>
-          {cur.fields.map(f=>(
-            <div key={f.key}>
-              <label style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",display:"block",marginBottom:8}}>{f.label.toUpperCase()}</label>
-              <div style={{display:"flex",alignItems:"center",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,overflow:"hidden"}}>
-                <input type="number" placeholder="0" value={fv[f.key]||""} onChange={e=>setFv(v=>({...v,[f.key]:e.target.value}))} style={{flex:1,background:"transparent",border:"none",outline:"none",padding:"16px 20px",color:C.txt,fontSize:20,fontFamily:"'Space Mono',monospace"}}/>
-                <span style={{padding:"0 20px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>
-                  {(()=>{const isImp=String(ans.unit||"").includes("Imperial");if(f.unit!==undefined)return f.unit;const lbl=(f.label||"").toLowerCase();if(lbl.includes("height"))return isImp?"ft/in":"cm";if(lbl.includes("weight")||lbl.includes("bodyweight"))return isImp?"lbs":"kg";if(lbl.includes("mileage")||lbl.includes("run"))return isImp?"miles":"km";return isImp?"lbs":"kg";})()}
-                </span>
+          {cur.fields.map(f=>{
+            const isImp=String(ans.unit||"").includes("Imperial");
+            const lbl=(f.label||"").toLowerCase();
+            // Height in Imperial: show ft + in side by side
+            if(f.key==="height"&&isImp) return(
+              <div key={f.key}>
+                <label style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",display:"block",marginBottom:8}}>HEIGHT</label>
+                <div style={{display:"flex",gap:8}}>
+                  {[{k:"heightFt",ph:"5",unit:"ft"},{k:"heightIn",ph:"10",unit:"in"}].map(fi=>(
+                    <div key={fi.k} style={{flex:1,display:"flex",alignItems:"center",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,overflow:"hidden"}}>
+                      <input type="number" inputMode="numeric" placeholder={fi.ph} value={fv[fi.k]||""} onChange={e=>{
+                        const nv={...fv,[fi.k]:e.target.value};
+                        const totalCm=(parseFloat(nv.heightFt||0)*30.48+parseFloat(nv.heightIn||0)*2.54).toFixed(1);
+                        setFv({...nv,height:totalCm});
+                      }} style={{flex:1,background:"transparent",border:"none",outline:"none",padding:"16px 12px",color:C.txt,fontSize:20,fontFamily:"'Space Mono',monospace"}}/>
+                      <span style={{padding:"0 12px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>{fi.unit}</span>
+                    </div>
+                  ))}
+        {cur.type==="equipment"&&<div style={{display:"flex",flexDirection:"column",gap:12}}>
+          <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:4}}>
+            {["Full Gym","Dumbbells","Barbell + Rack","Pull-Up Bar","Cables / Machines","Resistance Bands","Treadmill","Heavy Bag","Kettlebells","Home / Bodyweight Only"].map(eq=>{
+              const selected=(fv.equipment||"").includes(eq);
+              return <button key={eq} onClick={()=>{
+                const cur=(fv.equipment||"");
+                const arr=cur?cur.split(",").map(s=>s.trim()).filter(Boolean):[];
+                const next=selected?arr.filter(x=>x!==eq):[...arr,eq];
+                setFv({...fv,equipment:next.join(", ")});
+              }} style={{background:selected?"rgba(0,102,255,0.15)":"rgba(255,255,255,0.04)",border:`1px solid ${selected?"#0066FF":"rgba(255,255,255,0.1)"}`,borderRadius:20,padding:"8px 14px",cursor:"pointer",fontSize:13,color:selected?"#0066FF":C.mid,fontFamily:"'DM Sans',sans-serif",transition:"all 0.15s"}}>{eq}</button>;
+            })}
+          </div>
+          <div style={{background:"rgba(255,255,255,0.03)",border:`1px solid rgba(255,255,255,0.08)`,borderRadius:10,padding:14}}>
+            <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:8}}>OR DESCRIBE YOUR SETUP</div>
+            <textarea value={fv.equipment||""} onChange={e=>setFv({...fv,equipment:e.target.value})} placeholder="e.g. Home gym with squat rack, dumbbells and cables..." style={{width:"100%",background:"transparent",border:"none",outline:"none",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",lineHeight:1.6,resize:"none",minHeight:80}} rows={3}/>
+          </div>
+        </div>}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+            return(
+              <div key={f.key}>
+                <label style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",display:"block",marginBottom:8}}>{f.label.toUpperCase()}</label>
+                <div style={{display:"flex",alignItems:"center",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,overflow:"hidden"}}>
+                  <input type="number" placeholder="0" value={fv[f.key]||""} onChange={e=>setFv(v=>({...v,[f.key]:e.target.value}))} style={{flex:1,background:"transparent",border:"none",outline:"none",padding:"16px 20px",color:C.txt,fontSize:20,fontFamily:"'Space Mono',monospace"}}/>
+                  <span style={{padding:"0 20px",color:C.dim,fontSize:13,fontFamily:"'Space Mono',monospace"}}>
+                    {f.unit!==undefined?f.unit:lbl.includes("height")?"cm":lbl.includes("weight")||lbl.includes("bodyweight")?isImp?"lbs":"kg":lbl.includes("mileage")||lbl.includes("run")?isImp?"miles":"km":isImp?"lbs":"kg"}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>}
       </div>
       <div style={{marginTop:32}}>
@@ -799,9 +1076,13 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
   const goal=sanitise(profile?.goals||"Aesthetics");
 
   const base=[
-    "You are Gary Mulholland, elite strength and performance coach inside the GMT Coach app.",
+    "You are Gary Mulholland -- an elite strength, physique, and performance coach. Your coaching is a synthesis of the greatest training minds:",
+    "Arnold Schwarzenegger (golden era aesthetics, mind-muscle connection), Dorian Yates + Mike Mentzer (intensity-first, stimulus over volume), Chris Bumstead (precision hypertrophy, modern physique standards), Mike Thurston (balanced aesthetics, practical programming), Jeff Nippard (evidence-based method, stimulus-to-fatigue ratio), Charles Poliquin (structural balance, antagonist pairing, German Volume Training), Pavel Tsatsouline (tension efficiency, strength-skill, grease the groove), Brett Contreras (glute science, hip thrust biomechanics), Ben Patrick / Knees Over Toes (tibialis work, ATG squat, connective tissue longevity), Stuart McGill (spinal mechanics, anti-rotation core, Big 3), Andrew Huberman (circadian performance, recovery science, dopamine-driven motivation), Jeff Brigham (athleticism, explosive output, unilateral stability).",
     "",
-    "COACHING PHILOSOPHY: High-intensity principles for advanced athletes. Evidence-based hypertrophy for intermediate. Technique-first for beginners. Glute-focused for female clients. Joint longevity always.",
+    "GMT DOCTRINE: Train like an athlete. Build like a bodybuilder. Recover like a specialist. Think like a scientist.",
+    "Core principles: (1) Training is stimulus -- not exhaustion. Every set must have purpose. (2) Strength is the foundation -- even in hypertrophy phases. (3) Hypertrophy is precision engineering -- full ROM, controlled eccentrics, stretch-biased loading. (4) Athleticism protects the system -- unilateral work, explosive output, joint integrity. (5) Longevity is non-negotiable -- McGill spinal mechanics, Ben Patrick joint loading, connective tissue adaptation. (6) Recovery drives adaptation -- sleep, nutrition, stress, active recovery.",
+    "",
+    "COACHING PHILOSOPHY: RPE 7-9 on working sets. Failure used selectively on isolation. Intensity methods (drop sets, rest-pause, tempo) applied late in sessions. Strength and hypertrophy are integrated, not competing goals.",
     "",
     "TONE - CRITICAL:",
     "- Firm, direct, and genuinely encouraging. You believe in this athlete.",
@@ -960,6 +1241,142 @@ const buildPrompt=(profile,introMode=false,workoutCtx=null)=>{
   return lines.join("\n");
 };
 
+
+// --- TEMPO TIMER ---------------------------------------------------
+// Guides athlete through each phase of a lift rep-by-rep
+// Tempo format: E-I-C-P (eccentric-isometric-concentric-pause)
+// e.g. "3-1-1-0" = 3s down, 1s pause, 1s up, 0s reset
+const parseTempoStr=(tempo)=>{
+  const parts=String(tempo||"2-0-1-0").split("-").map(Number);
+  return{ecc:parts[0]||2,iso:parts[1]||0,con:parts[2]||1,pause:parts[3]||0};
+};
+const TEMPO_PHASES=[
+  {key:"ecc",label:"LOWER",color:"#0066FF",hint:"Resist on the way down"},
+  {key:"iso",label:"PAUSE",color:"#FF8C00",hint:"Hold at bottom"},
+  {key:"con",label:"LIFT",color:"#00E676",hint:"Drive through the muscle"},
+  {key:"pause",label:"RESET",color:"#AA00FF",hint:"Reset and breathe"},
+];
+
+const TempoTimer=({ex,reps,onDone,onSkip,onNext,setNumber,totalSets})=>{
+  const tempo=parseTempoStr(ex?.tempo);
+  const totalReps=parseInt(String(reps||"8").split("-")[0])||8;
+  const[repsDone,setRepsDone]=React.useState(0);
+  const[phaseIdx,setPhaseIdx]=React.useState(0);
+  const[phaseSec,setPhaseSec]=React.useState(0);
+  const[running,setRunning]=React.useState(false);
+  const[done,setDone]=React.useState(false);
+  const phases=TEMPO_PHASES.filter(p=>tempo[p.key]>0);
+  const totalRepTime=TEMPO_PHASES.reduce((s,p)=>s+(tempo[p.key]||0),0);
+  const phase=phases[phaseIdx]||phases[0];
+  const phaseDur=tempo[phase?.key||"ecc"]||1;
+  
+  // Circular progress
+  const R=80,circ=2*Math.PI*R;
+  const progress=running?(phaseDur-phaseSec)/phaseDur:0;
+  const dash=circ*progress;
+  
+  React.useEffect(()=>{
+    if(!running||done)return;
+    if(phaseSec>=phaseDur){
+      // Move to next phase
+      const nextPhaseIdx=(phaseIdx+1)%phases.length;
+      if(phaseIdx===phases.length-1){
+        // Completed one rep
+        const newReps=repsDone+1;
+        if(newReps>=totalReps){
+          setDone(true);
+          setRunning(false);
+          setTimeout(onDone,300);
+          return;
+        }
+        setRepsDone(newReps);
+        setPhaseIdx(0);
+        setPhaseSec(0);
+      } else {
+        setPhaseIdx(nextPhaseIdx);
+        setPhaseSec(0);
+      }
+      return;
+    }
+    const t=setTimeout(()=>setPhaseSec(s=>s+1),1000);
+    return()=>clearTimeout(t);
+  },[running,phaseSec,phaseIdx,repsDone,done]);
+  
+  const handleStart=()=>{setRunning(true);setPhaseIdx(0);setPhaseSec(0);setRepsDone(0);setDone(false);};
+  const phaseColor=phase?.color||C.hyper;
+  
+  return(
+    <div style={{position:"fixed",inset:0,background:C.bg,zIndex:100,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"flex-start",padding:"60px 24px 24px",maxWidth:480,margin:"0 auto"}}>
+      {/* Header */}
+      <div style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+        <button onClick={onSkip} style={{background:"none",border:"none",color:C.dim,fontSize:13,cursor:"pointer",fontFamily:"'Space Mono',monospace"}}>Exit</button>
+        <span style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}}>SET {setNumber} / {totalSets}</span>
+      </div>
+      <div style={{fontSize:10,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:6,textAlign:"center"}}>TEMPO GUIDE</div>
+      <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:24,letterSpacing:"0.04em",textAlign:"center",marginBottom:4,color:C.txt}}>{ex?.name}</div>
+      <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:24,textAlign:"center"}}>TEMPO {String(ex?.tempo||"2-0-1-0")} &bull; {totalReps} REPS &bull; REP {Math.min(repsDone+1,totalReps)}/{totalReps}</div>
+      
+      {/* Circular timer */}
+      <div style={{position:"relative",width:200,height:200,marginBottom:24}}>
+        <svg width="200" height="200" style={{transform:"rotate(-90deg)"}}>
+          <circle cx="100" cy="100" r={R} fill="none" stroke={C.sur} strokeWidth="12"/>
+          <circle cx="100" cy="100" r={R} fill="none" stroke={phaseColor} strokeWidth="12"
+            strokeDasharray={`${dash} ${circ}`} strokeLinecap="round"
+            style={{transition:"stroke-dasharray 0.8s linear,stroke 0.3s"}}/>
+        </svg>
+        <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
+          {running?(
+            <>
+              <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:54,lineHeight:1,color:phaseColor,letterSpacing:"0.02em"}}>{phaseDur-phaseSec}</div>
+              <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.15em",marginTop:2}}>{phase?.label}</div>
+            </>
+          ):(
+            <>
+              <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:44,lineHeight:1,color:C.hyper,letterSpacing:"0.02em"}}>{done?"DONE":String(ex?.tempo||"2-0-1-0")}</div>
+              <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginTop:2}}>{done?"SET COMPLETE":"PRESS START"}</div>
+            </>
+          )}
+        </div>
+      </div>
+      
+      {/* Phase breakdown */}
+      <div style={{display:"flex",gap:6,marginBottom:24,flexWrap:"wrap",justifyContent:"center"}}>
+        {TEMPO_PHASES.map((p,i)=>{
+          const dur=tempo[p.key];
+          const isActive=running&&phases[phaseIdx]?.key===p.key;
+          const isDone=running&&(phaseIdx>phases.indexOf(p)||(repsDone>0));
+          return(
+            <div key={p.key} style={{background:isActive?p.color+"22":C.sur,border:`1px solid ${isActive?p.color:C.bdr}`,borderRadius:8,padding:"6px 12px",textAlign:"center",minWidth:56,transition:"all 0.2s"}}>
+              <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,color:isActive?p.color:dur===0?C.dim:C.txt,lineHeight:1}}>{dur||0}</div>
+              <div style={{fontSize:8,color:isActive?p.color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em"}}>{p.label}</div>
+            </div>
+          );
+        })}
+      </div>
+      
+      {/* Cue */}
+      {running&&<div style={{fontSize:13,color:C.mid,fontFamily:"'DM Sans',sans-serif",textAlign:"center",marginBottom:24,minHeight:20,fontStyle:"italic"}}>{phase?.hint}</div>}
+      
+      {/* Rep progress dots */}
+      <div style={{display:"flex",gap:6,marginBottom:32}}>
+        {Array.from({length:totalReps}).map((_,i)=>(
+          <div key={i} style={{width:8,height:8,borderRadius:"50%",background:i<repsDone?C.hyper:i===repsDone&&running?phaseColor:C.bdr,transition:"all 0.3s"}}/>
+        ))}
+      </div>
+      
+      {/* Controls */}
+      {!running&&!done&&<button onClick={handleStart} style={{width:"100%",maxWidth:320,padding:"16px",background:C.hyperG,border:"none",borderRadius:12,cursor:"pointer",fontFamily:"'Bebas Neue',sans-serif",fontSize:22,letterSpacing:"0.08em",color:C.txt}}>START SET</button>}
+      {!running&&done&&(
+        <div style={{width:"100%",maxWidth:320,display:"flex",flexDirection:"column",gap:10}}>
+          <button onClick={onNext} style={{width:"100%",padding:"16px",background:C.hyperG,border:"none",borderRadius:12,cursor:"pointer",fontFamily:"'Bebas Neue',sans-serif",fontSize:20,letterSpacing:"0.08em",color:C.txt}}>Next Exercise</button>
+          <button onClick={onDone} style={{width:"100%",padding:"12px",background:"none",border:`1px solid ${C.bdr}`,borderRadius:12,cursor:"pointer",fontFamily:"'Space Mono',monospace",fontSize:12,color:C.mid}}>Rest Timer</button>
+        </div>
+      )}
+      {running&&<button onClick={()=>{setRunning(false);}} style={{padding:"10px 28px",background:"none",border:`1px solid ${C.bdr}`,borderRadius:10,cursor:"pointer",fontFamily:"'Space Mono',monospace",fontSize:11,color:C.dim}}>Pause</button>}
+    </div>
+  );
+};
+
 // --- REST TIMER ---------------------------------------------------
 const RestTimer=({seconds,onDone,onSkip,logEx,logData,onUpdateLog,unitLabel})=>{
   const[remaining,setRemaining]=useState(seconds);
@@ -1007,6 +1424,18 @@ const RestTimer=({seconds,onDone,onSkip,logEx,logData,onUpdateLog,unitLabel})=>{
 // --- MUSCLE DIAGRAM -------------------------------------------------
 // Maps exercise muscle names to SVG body region highlights
 const MUSCLE_MAP = {
+  // Capitalised aliases (from EXERCISES array)
+  "chest":           {front:["chest"],back:[]},
+  "back":            {front:[],back:["lats","upper-back","traps"]},
+  "legs":            {front:["quads","adductors"],back:["hamstrings","glutes","calves"]},
+  "shoulders":       {front:["front-delt"],back:["rear-delt","traps"]},
+  "biceps":          {front:["biceps"],back:[]},
+  "triceps":         {front:[],back:["triceps"]},
+  "hips":            {front:["hip-flexors","adductors"],back:["glutes"]},
+  "shoulders":       {front:["front-delt"],back:["rear-delt","traps"]},
+  "hips":            {front:["hip-flexors","adductors"],back:["glutes"]},
+  "biceps":          {front:["biceps"],back:[]},
+  "triceps":         {front:[],back:["triceps"]},
   // Chest
   "chest":           {front:["chest"],back:[]},
   "pectorals":       {front:["chest"],back:[]},
@@ -1068,11 +1497,11 @@ const BODY_PATHS = {
 
 const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
   const [view,setView]=React.useState("front");
-  if(!exercise)return null;
+  if(!exercise||!exercise.muscle)return null;
   
   // Determine which regions to highlight and with what colour
-  const primary = String(exercise.muscle||"").toLowerCase();
-  const secondary = String(exercise.secondary||"").toLowerCase();
+  const primary = String(exercise.muscle||"").toLowerCase().trim();
+  const secondary = String(exercise.secondary||"").toLowerCase().split(",")[0].trim();
   const tag = String(exercise.tag||exercise.type||"").toLowerCase();
   
   // Primary colour based on context
@@ -1083,10 +1512,8 @@ const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
   const primaryRegions = MUSCLE_MAP[primary]?.[view]||[];
   const secondaryRegions = MUSCLE_MAP[secondary]?.[view]||[];
   
-  const allPaths = Object.keys(BODY_PATHS).filter(k => {
-    const inFront = ["head","neck","chest","front-delt","biceps","forearms","abs","obliques","hip-flexors","quads","adductors","tibialis"].includes(k);
-    return view==="front"?inFront:!inFront;
-  });
+  const FRONT_REGIONS = new Set(["head","neck","chest","front-delt","biceps","forearms","abs","obliques","hip-flexors","quads","adductors","tibialis"]);
+  const allPaths = Object.keys(BODY_PATHS).filter(k => view==="front"?FRONT_REGIONS.has(k):!FRONT_REGIONS.has(k));
   
   const diagram = (
     <svg viewBox="0 0 220 410" style={{width:"100%",maxWidth:180,display:"block",margin:"0 auto"}}>
@@ -1151,11 +1578,11 @@ const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
 
 // --- EXERCISE DETAIL MODAL ----------------------------------------
 const ExerciseDetailModal=({ex,onClose,onAskGary})=>{
+  const [diagramExpanded,setDiagramExpanded]=React.useState(false);
   if(!ex)return null;
   let libEx=null;
   try{libEx=EXERCISES.find(e=>e.name===ex.name||e.id===ex.id)||null;}catch(e){}
   const safeNote=(libEx?.coachNote||"");
-  const [diagramExpanded,setDiagramExpanded]=React.useState(false);
   return(
     <div onClick={e=>e.target===e.currentTarget&&onClose()} style={{position:"fixed",inset:0,background:"rgba(10,10,11,0.96)",backdropFilter:"blur(20px)",zIndex:300,overflowY:"auto"}}>
       <div style={{maxWidth:480,margin:"0 auto",padding:"0 0 40px"}}>
@@ -1227,6 +1654,338 @@ const ExerciseDetailModal=({ex,onClose,onAskGary})=>{
   );
 };
 
+// --- BOXING SESSION TIMER ------------------------------------------
+// Auto-flow: 60s work -> 10s rest -> 60s work -> 10s rest -> 60s work -> 30s station rest -> repeat
+// 9 stations total (3x rotation of Treadmill / Strength / Bag)
+const BoxingSessionTimer=({exercises,onBack})=>{
+  // Build flat phase list from exercises
+  // Each exercise = 1 station = 3 rounds
+  const buildPhases=(exs)=>{
+    const phases=[];
+    exs.forEach((ex,si)=>{
+      for(let r=0;r<3;r++){
+        phases.push({type:"work",station:si,round:r,ex,label:`ROUND ${r+1}/3`,sublabel:ex.name,next:r<2?`REST 10s then Round ${r+2}`:si<exs.length-1?`STATION BREAK - ${exs[si+1].name}`:"FINAL ROUND"});
+        if(r<2) phases.push({type:"rest-rounds",station:si,round:r,ex,duration:10,label:"REST",sublabel:`Round ${r+2} next`,next:ex.name});
+      }
+      if(si<exs.length-1){
+        phases.push({type:"rest-station",station:si,round:2,ex,duration:30,label:"STATION CHANGE",sublabel:`Next: ${exs[si+1].name}`,next:exs[si+1].name,stationType:exs[si+1].stationType||""});
+      }
+    });
+    phases.push({type:"done",label:"SESSION COMPLETE"});
+    return phases;
+  };
+
+  const phases=React.useMemo(()=>buildPhases(exercises),[exercises]);
+  const[phaseIdx,setPhaseIdx]=React.useState(0);
+  const[sec,setSec]=React.useState(null);
+  const[running,setRunning]=React.useState(false);
+  const[started,setStarted]=React.useState(false);
+  const phase=phases[phaseIdx]||phases[phases.length-1];
+
+  const phaseDuration=phase.type==="work"?60:phase.type==="rest-rounds"?10:phase.type==="rest-station"?30:0;
+
+  React.useEffect(()=>{
+    if(sec===null) setSec(phaseDuration);
+  },[phaseIdx]);
+
+  React.useEffect(()=>{
+    if(!running||sec===null) return;
+    if(sec<=0){
+      // Advance to next phase
+      if(phaseIdx<phases.length-1){
+        setPhaseIdx(p=>p+1);
+        setSec(null);
+      } else {
+        setRunning(false);
+      }
+      return;
+    }
+    const t=setTimeout(()=>setSec(s=>s-1),1000);
+    return()=>clearTimeout(t);
+  },[running,sec,phaseIdx,phases.length]);
+
+  // Station progress
+  const stationCount=exercises.length;
+  const currentStation=phase.station||0;
+  const currentRound=phase.round||0;
+
+  // Type colours
+  const typeCol=phase.type==="work"?C.red:phase.type==="rest-rounds"?C.hyper:phase.type==="rest-station"?C.ora:C.strength;
+  const stationType=(phase.ex?.stationType||"").toUpperCase();
+  const stationIcon=stationType==="TREADMILL"?"":stationType==="BAG"?"":stationType==="STRENGTH"?"":"";
+
+  if(phase.type==="done") return(
+    <div style={{minHeight:"100vh",background:C.bg,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:40}}>
+      <div style={{fontSize:60,marginBottom:16}}>-</div>
+      <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:48,letterSpacing:"0.04em",marginBottom:8}}>Session Complete</h1>
+      <p style={{color:C.mid,marginBottom:32,textAlign:"center",lineHeight:1.6}}>All {stationCount} stations complete. Hydrate, stretch, and recover.</p>
+      <Btn onClick={onBack}>Back to Workout</Btn>
+    </div>
+  );
+
+  if(!started) return(
+    <div style={{minHeight:"100vh",background:C.bg,display:"flex",flexDirection:"column",padding:"48px 24px 32px"}}>
+      <button onClick={onBack} style={{background:"none",border:"none",color:C.mid,cursor:"pointer",fontSize:20,textAlign:"left",marginBottom:24}}>&#8592; Back</button>
+      <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:36,letterSpacing:"0.04em",marginBottom:8}}>BOXING CIRCUIT</div>
+      <div style={{fontSize:13,color:C.mid,marginBottom:32,lineHeight:1.6}}>{stationCount} stations - 3 rounds - 60s - 10s rest between rounds - 30s between stations</div>
+      <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:32}}>
+        {exercises.map((ex,i)=>(
+          <div key={i} style={{display:"flex",gap:12,alignItems:"center",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"12px 16px"}}>
+            <div style={{width:32,height:32,borderRadius:8,background:ex.stationType==="TREADMILL"?C.hyperG:ex.stationType==="BAG"?`${C.red}20`:C.strengthG,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>
+              {ex.stationType==="TREADMILL"?"":ex.stationType==="BAG"?"":""}</div>
+            <div>
+              <div style={{fontSize:13,fontWeight:600,color:C.txt}}>{ex.name}</div>
+              <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{ex.stationType} - 3 - 60s</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Btn onClick={()=>{setStarted(true);setSec(60);setRunning(true);}}>Start Session</Btn>
+    </div>
+  );
+
+  const circumference=2*Math.PI*80;
+  const dashOffset=circumference*(1-(sec||0)/phaseDuration);
+
+  return(
+    <div style={{minHeight:"100vh",background:C.bg,display:"flex",flexDirection:"column",alignItems:"center",padding:"32px 24px 40px",maxWidth:480,margin:"0 auto"}}>
+      {/* Header */}
+      <div style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:24}}>
+        <button onClick={()=>{setRunning(false);onBack();}} style={{background:"none",border:"none",color:C.mid,cursor:"pointer",fontSize:14,fontFamily:"'Space Mono',monospace"}}>EXIT</button>
+        <div style={{display:"flex",gap:4}}>
+          {exercises.map((_,i)=>(
+            <div key={i} style={{width:i===currentStation?16:6,height:6,borderRadius:3,background:i<currentStation?C.mid:i===currentStation?typeCol:C.bdr,transition:"all 0.3s"}}/>
+          ))}
+        </div>
+        <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>STN {currentStation+1}/{stationCount}</div>
+      </div>
+
+      {/* Station type badge */}
+      <div style={{background:phase.type==="work"?(phase.ex?.stationType==="TREADMILL"?C.hyperG:phase.ex?.stationType==="BAG"?`${C.red}20`:C.strengthG):`${typeCol}15`,border:`1px solid ${typeCol}40`,borderRadius:20,padding:"6px 16px",fontSize:11,color:typeCol,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:16}}>
+        {phase.type==="work"?`${stationIcon} ${phase.ex?.stationType||"STATION"}`:`${phase.label}`}
+      </div>
+
+      {/* Phase label */}
+      <div style={{fontSize:13,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:8}}>{phase.label}</div>
+
+      {/* Round dots */}
+      {(phase.type==="work"||phase.type==="rest-rounds")&&<div style={{display:"flex",gap:8,marginBottom:16}}>
+        {[0,1,2].map(r=>(
+          <div key={r} style={{width:10,height:10,borderRadius:"50%",background:r<currentRound?C.mid:r===currentRound?typeCol:C.bdr,transition:"all 0.3s"}}/>
+        ))}
+      </div>}
+
+      {/* Timer ring */}
+      <div style={{position:"relative",width:200,height:200,marginBottom:24}}>
+        <svg width="200" height="200" style={{transform:"rotate(-90deg)"}}>
+          <circle cx="100" cy="100" r="80" fill="none" stroke={C.bdr} strokeWidth="8"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke={typeCol} strokeWidth="8"
+            strokeDasharray={circumference} strokeDashoffset={dashOffset}
+            strokeLinecap="round" style={{transition:"stroke-dashoffset 0.9s linear"}}/>
+        </svg>
+        <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
+          <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:64,lineHeight:1,color:sec<=5&&phase.type==="work"?C.red:C.txt}}>{sec||0}</div>
+          <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>SEC</div>
+        </div>
+      </div>
+
+      {/* Exercise name */}
+      {phase.ex&&<div style={{textAlign:"center",marginBottom:8}}>
+        <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:26,letterSpacing:"0.04em",lineHeight:1.1}}>{phase.ex.name}</div>
+        {phase.ex.combo&&<div style={{fontSize:13,color:typeCol,fontFamily:"'Space Mono',monospace",marginTop:4}}>{phase.ex.combo}</div>}
+        {phase.type==="work"&&phase.ex.note&&<div style={{fontSize:11,color:C.mid,marginTop:6,lineHeight:1.5,maxWidth:300}}>{phase.ex.note}</div>}
+      </div>}
+
+      {/* Next up */}
+      {phase.next&&<div style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:8,padding:"10px 16px",marginBottom:24,width:"100%",textAlign:"center"}}>
+        <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:3}}>NEXT UP</div>
+        <div style={{fontSize:13,color:C.mid}}>{phase.next}</div>
+      </div>}
+
+      {/* Controls */}
+      <div style={{display:"flex",gap:12,width:"100%"}}>
+        <button onClick={()=>setRunning(r=>!r)} style={{flex:1,background:running?C.sur:C.hyperG,border:`1px solid ${running?C.bdr:C.hyper}`,borderRadius:12,padding:"16px",cursor:"pointer",fontSize:16,color:running?C.mid:C.hyper,fontWeight:700,fontFamily:"'DM Sans',sans-serif"}}>
+          {running?"PAUSE":"RESUME"}
+        </button>
+        <button onClick={()=>{if(phaseIdx<phases.length-1){setPhaseIdx(p=>p+1);setSec(null);}}} style={{background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:12,padding:"16px 20px",cursor:"pointer",fontSize:13,color:C.dim,fontFamily:"'Space Mono',monospace"}}>
+          SKIP
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// --- BOXING TIMER ---------------------------------------------------
+// Auto-flowing 9-station timer. No-touch operation after start.
+// Per-round: 60s work, 10s inter-round rest, 30s inter-station rest.
+const BoxingTimerView=({session,onBack,profile})=>{
+  const stations=session.stations||[];
+  const totalStations=stations.length;
+  // Phase: "work" | "round-rest" | "station-rest" | "done"
+  const [stationIdx,setStationIdx]=React.useState(0);
+  const [roundIdx,setRoundIdx]=React.useState(0);
+  const [phase,setPhase]=React.useState("work"); // "work"|"round-rest"|"station-rest"|"done"
+  const [timeLeft,setTimeLeft]=React.useState(60);
+  const [running,setRunning]=React.useState(false);
+  const [started,setStarted]=React.useState(false);
+  const timerRef=React.useRef(null);
+
+  const WORK_SECS=60;
+  const ROUND_REST=10;
+  const STATION_REST=30;
+
+  const station=stations[stationIdx]||stations[0];
+  const round=station?.rounds?.[roundIdx];
+  const nextStation=stations[stationIdx+1];
+  const nextRound=station?.rounds?.[roundIdx+1];
+
+  const phaseTotal=phase==="work"?WORK_SECS:phase==="round-rest"?ROUND_REST:STATION_REST;
+  const progress=timeLeft/phaseTotal;
+
+  const stationType=station?.type||"bag";
+  const typeColor=stationType==="treadmill"?"#00C9B1":stationType==="dumbbell"?"#FF8C00":C.red;
+  const typeLabel=stationType==="treadmill"?"TREADMILL":stationType==="dumbbell"?"STRENGTH":"HEAVY BAG";
+
+  const advance=React.useCallback(()=>{
+    const maxRounds=(station?.rounds?.length||3)-1;
+    const isLastRound=roundIdx>=maxRounds;
+    const isLastStation=stationIdx>=totalStations-1;
+    if(phase==="work"){
+      if(isLastRound){
+        if(isLastStation){setPhase("done");setRunning(false);}
+        else{setPhase("station-rest");setTimeLeft(STATION_REST);}
+      } else {
+        setPhase("round-rest");setTimeLeft(ROUND_REST);
+      }
+    } else if(phase==="round-rest"){
+      setRoundIdx(r=>r+1);
+      setPhase("work");setTimeLeft(WORK_SECS);
+    } else if(phase==="station-rest"){
+      setStationIdx(s=>s+1);
+      setRoundIdx(0);
+      setPhase("work");setTimeLeft(WORK_SECS);
+    }
+  },[phase,roundIdx,stationIdx,station,totalStations]);
+
+  React.useEffect(()=>{
+    if(!running)return;
+    timerRef.current=setInterval(()=>{
+      setTimeLeft(t=>{
+        if(t<=1){advance();return phase==="work"?WORK_SECS:phase==="round-rest"?ROUND_REST:STATION_REST;}
+        return t-1;
+      });
+    },1000);
+    return()=>clearInterval(timerRef.current);
+  },[running,advance,phase]);
+
+  const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+  const circumference=2*Math.PI*80;
+  const dashOffset=circumference*(1-progress);
+
+  if(phase==="done") return(
+    <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:32,background:C.bg,textAlign:"center"}}>
+      <div style={{fontSize:60,marginBottom:16}}>-</div>
+      <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:48,letterSpacing:"0.04em",color:C.txt,marginBottom:8}}>SESSION COMPLETE</h2>
+      <p style={{color:C.mid,fontSize:15,marginBottom:8}}>9 stations. 27 rounds. Done.</p>
+      <p style={{color:C.dim,fontSize:12,fontFamily:"'Space Mono',monospace",marginBottom:32}}>Gary will note this session.</p>
+      <Btn onClick={onBack} style={{width:"100%",maxWidth:320}}>Back to Workout</Btn>
+    </div>
+  );
+
+  return(
+    <div style={{minHeight:"100vh",background:C.bg,display:"flex",flexDirection:"column"}}>
+      {/* Header */}
+      <div style={{padding:"16px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:`1px solid ${C.bdr}`}}>
+        <button onClick={onBack} style={{background:"none",border:"none",color:C.dim,fontSize:13,cursor:"pointer",fontFamily:"'Space Mono',monospace"}}>Exit</button>
+        <div style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}}>
+          STATION {stationIdx+1}/{totalStations} - RD {roundIdx+1}/{station?.rounds?.length||3}
+        </div>
+        <div style={{fontSize:11,color:typeColor,fontFamily:"'Space Mono',monospace"}}>{typeLabel}</div>
+      </div>
+
+      {/* Main content */}
+      <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",padding:"24px 20px",gap:0}}>
+
+        {/* Station name */}
+        <div style={{fontSize:12,color:typeColor,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:6,textAlign:"center"}}>{station?.name}</div>
+
+        {/* Current exercise */}
+        <div style={{background:C.surUp,border:`2px solid ${phase==="work"?typeColor:C.bdr}`,borderRadius:14,padding:"16px 20px",marginBottom:20,width:"100%",maxWidth:400,textAlign:"center",transition:"border-color 0.3s"}}>
+          <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:6}}>
+            {phase==="work"?"ROUND "+String(roundIdx+1)+" - WORKING":phase==="round-rest"?"REST - NEXT ROUND IN":"REST - NEXT STATION IN"}
+          </div>
+          {phase==="work"?(
+            <p style={{fontSize:14,color:C.txt,lineHeight:1.6,margin:0,fontFamily:"'DM Sans',sans-serif"}}>{round?.exercise}</p>
+          ):(
+            <div>
+              <p style={{fontSize:12,color:C.mid,lineHeight:1.5,margin:"0 0 8px",fontFamily:"'DM Sans',sans-serif"}}>
+                {phase==="round-rest"
+                  ?`Next: Round ${roundIdx+2} - ${nextRound?.exercise||""}`
+                  :`Next Station: ${nextStation?.name||""}`}
+              </p>
+              {phase==="station-rest"&&nextStation&&(
+                <div style={{fontSize:11,color:typeColor,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em"}}>
+                  {(nextStation.type==="treadmill"?"TREADMILL":nextStation.type==="dumbbell"?"STRENGTH":"HEAVY BAG")}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Timer circle */}
+        <div style={{position:"relative",width:200,height:200,marginBottom:20}}>
+          <svg width="200" height="200" style={{transform:"rotate(-90deg)"}}>
+            <circle cx="100" cy="100" r="80" fill="none" stroke={C.bdr} strokeWidth="10"/>
+            <circle cx="100" cy="100" r="80" fill="none"
+              stroke={phase==="work"?typeColor:phase==="round-rest"?C.hyper:C.recovery}
+              strokeWidth="10" strokeLinecap="round"
+              strokeDasharray={circumference}
+              strokeDashoffset={dashOffset}
+              style={{transition:"stroke-dashoffset 1s linear, stroke 0.3s"}}
+            />
+          </svg>
+          <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
+            <div style={{fontSize:52,fontWeight:700,color:C.txt,fontFamily:"'Space Mono',monospace",lineHeight:1}}>{fmt(timeLeft)}</div>
+            <div style={{fontSize:10,color:phase==="work"?typeColor:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginTop:4}}>
+              {phase==="work"?"WORK":phase==="round-rest"?"ROUND REST":"STATION REST"}
+            </div>
+          </div>
+        </div>
+
+        {/* Progress dots */}
+        <div style={{display:"flex",gap:8,marginBottom:20}}>
+          {stations.map((s,i)=>(
+            <div key={i} style={{width:i===stationIdx?24:8,height:8,borderRadius:4,background:i<stationIdx?C.recovery:i===stationIdx?typeColor:C.bdr,transition:"all 0.3s"}}/>
+          ))}
+        </div>
+
+        {/* Round dots */}
+        <div style={{display:"flex",gap:6,marginBottom:28}}>
+          {(station?.rounds||[]).map((_,i)=>(
+            <div key={i} style={{width:8,height:8,borderRadius:4,background:i<roundIdx?"#fff":i===roundIdx?typeColor:C.bdr}}/>
+          ))}
+        </div>
+
+        {/* Controls */}
+        {!started?(
+          <Btn onClick={()=>{setStarted(true);setRunning(true);}} style={{width:"100%",maxWidth:320,fontSize:18}}>
+            START SESSION
+          </Btn>
+        ):(
+          <div style={{display:"flex",gap:12,width:"100%",maxWidth:320}}>
+            <button onClick={()=>setRunning(r=>!r)} style={{flex:1,padding:"16px",background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:12,cursor:"pointer",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>
+              {running?"Pause":"Resume"}
+            </button>
+            <button onClick={advance} style={{flex:1,padding:"16px",background:C.surUp,border:`1px solid ${C.bdr}`,borderRadius:12,cursor:"pointer",color:C.dim,fontSize:13,fontFamily:"'DM Sans',sans-serif"}}>
+              Skip
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // --- WORKOUT VIEW ------------------------------------------------
 const modeColor=(type)=>{if(type==="strength")return C.strength;if(type==="recovery")return C.recovery;return C.hyper;};
 const modeGlow=(type)=>{if(type==="strength")return C.strengthG;if(type==="recovery")return C.recoveryG;return C.hyperG;};
@@ -1240,6 +1999,7 @@ const parseSeconds=(reps)=>{
 };
 
 const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
+  if(session?.boxingMode) return <BoxingSessionTimer exercises={session.exercises||[]} onBack={onBack}/>;
   const isWarmup=session.id==="warmup";
   const exercises=session.exercises||[];
   const[completedSets,setCompletedSets]=useState({});
@@ -1341,6 +2101,29 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
 
   return(
     <div style={{minHeight:"100vh",paddingBottom:160}}>
+      {tempoActive&&<TempoTimer
+        ex={exercises[tempoActive.exIdx]}
+        reps={exercises[tempoActive.exIdx]?.reps}
+        setNumber={tempoActive.setNum}
+        totalSets={exercises[tempoActive.exIdx]?.sets||3}
+        onDone={()=>{
+          // After set done, trigger rest timer
+          const ex=exercises[tempoActive.exIdx];
+          const restSecs=ex?.rest||90;
+          tapSet(tempoActive.exIdx);
+          setTempoActive(null);
+          setActiveTimer(tempoActive.exIdx);
+          setRestSec(restSecs);
+          setResting(true);
+        }}
+        onNext={()=>{
+          tapSet(tempoActive.exIdx);
+          setTempoActive(null);
+          const nextEx=exercises.findIndex((e,i)=>i>tempoActive.exIdx&&!(completedSets[i]>=(e.sets||3)));
+          if(nextEx>=0)setCurrentEx(nextEx);
+        }}
+        onSkip={()=>setTempoActive(null)}
+      />}
       {resting&&<RestTimer seconds={restSec} onDone={()=>setResting(false)} onSkip={()=>setResting(false)}
     logEx={exercises[currentEx]||null}
     logData={{setsCompleted:completedSets[currentEx]||0,sets:Object.fromEntries(Object.entries(setLog).filter(([k])=>k.startsWith(currentEx+"_")).map(([k,v])=>[parseInt(k.split("_")[1]),v]))}}
@@ -1451,7 +2234,8 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
                         {String.fromCharCode(9654)} Timer
                       </button>
                     ):(
-                      <div style={{display:"flex",gap:4,flexShrink:0}}>
+                      <div style={{display:"flex",gap:4,alignItems:"center",flexShrink:0}}>
+                        {isActive&&ex.tempo&&!timeBased&&<button onClick={e=>{e.stopPropagation();setTempoActive({exIdx:i,setNum:done+1});}} style={{background:C.hyper,border:"none",borderRadius:8,padding:"6px 12px",cursor:"pointer",fontSize:11,color:"#fff",fontFamily:"'Space Mono',monospace",marginRight:4,whiteSpace:"nowrap"}}>Start Set</button>}
                         {Array.from({length:total}).map((_,s)=>(
                           <button key={s} onClick={e=>{e.stopPropagation();isActive&&s===done&&tapSet(i);}} style={{width:32,height:32,borderRadius:8,background:s<done?mc:s===done&&isActive?"transparent":C.bdr,border:s===done&&isActive?`2px solid ${mc}`:s<done?`1px solid ${mc}`:`1px solid ${C.bdr}`,cursor:s===done&&isActive?"pointer":"default",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:s<done?"#0A0A0B":C.dim,fontWeight:700,fontFamily:"'Space Mono',monospace",transition:"all 0.15s"}}>
                             {s<done?String.fromCharCode(10003):s===done&&isActive?String.fromCharCode(9654):""}
@@ -1543,7 +2327,7 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
 
 
 // --- EXERCISE LIBRARY ---------------------------------------------
-const ExerciseLibrary=({favourites,onToggleFav,onAskCoach})=>{
+const ExerciseLibrary=({favourites,onToggleFav,onAskCoach,onBack})=>{
   const[search,setSearch]=useState("");
   const[filter,setFilter]=useState("All");
   const[libTab,setLibTab]=useState("all");
@@ -1561,10 +2345,10 @@ const ExerciseLibrary=({favourites,onToggleFav,onAskCoach})=>{
         // Detail view
         <div>
           <div style={{position:"sticky",top:0,background:`${C.bg}F0`,backdropFilter:"blur(16px)",borderBottom:`1px solid ${C.bdr}`,padding:"16px 20px",display:"flex",alignItems:"center",gap:12,zIndex:10}}>
-            <button onClick={()=>setSelected(null)} style={{background:"none",border:"none",color:C.mid,cursor:"pointer",fontSize:20,padding:4}}></button>
+            <button onClick={()=>setSelected(null)} style={{background:"none",border:"none",color:C.mid,cursor:"pointer",fontSize:20,padding:4}}>&#8592;</button>
             <div style={{flex:1}}>
               <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:18,letterSpacing:"0.06em"}}>{ex.name}</div>
-              <div style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace"}}>{ex.muscle}  {ex.equipment}</div>
+              <div style={{fontSize:11,color:C.mid,fontFamily:"'Space Mono',monospace"}}>{ex.muscle} - {ex.equipment}</div>
             </div>
             <button onClick={()=>onToggleFav(ex.id)} style={{background:favourites.includes(ex.id)?C.strengthG:"transparent",border:`1px solid ${favourites.includes(ex.id)?C.strength:C.bdr}`,borderRadius:8,padding:"8px 14px",cursor:"pointer",fontSize:12,color:favourites.includes(ex.id)?C.strength:C.mid,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>
               {favourites.includes(ex.id)?"Favourited":"+ Favourite"}
@@ -1636,7 +2420,10 @@ const ExerciseLibrary=({favourites,onToggleFav,onAskCoach})=>{
         // List view
         <>
           <div style={{padding:"48px 20px 16px"}}>
-            <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:8}}>EXERCISE LIBRARY</div>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+              <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em"}}>EXERCISE LIBRARY</div>
+              {onBack&&<button onClick={onBack} style={{background:"none",border:`1px solid ${C.bdr}`,borderRadius:6,padding:"4px 12px",cursor:"pointer",fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>Home</button>}
+            </div>
             <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:38,letterSpacing:"0.04em",marginBottom:16}}>MOVEMENTS</h1>
             <div style={{background:C.sur,border:`1px solid ${C.bdrL}`,borderRadius:10,display:"flex",alignItems:"center",gap:10,padding:"12px 16px",marginBottom:16}}>
               <span style={{color:C.dim,fontSize:16}}></span>
@@ -1953,12 +2740,29 @@ const CoachView=({profile,introMode=false,onReady})=>{
 // --- DASHBOARD ----------------------------------------------------
 const weekProgram={};
 WORKOUT_LIBRARY.forEach(w=>{if(w.name)weekProgram[w.name]={name:w.name,label:w.name,sessionCode:w.sessionCode,version:w.version,tag:w.tag,exercises:w.exercises};});
-const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrition,onReorderDay,onShowRecovery,lastWorkout})=>{
+const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrition,onReorderDay,onShowRecovery,lastWorkout,onCustomWorkout,onShowProfile,user,onVolumeEngine})=>{
   const days=["MON","TUE","WED","THU","FRI","SAT","SUN"];
   const sched=Object.keys(weekSchedule);
   const today=sched[0]||"MON";
   const todayLabel=weekSchedule[today]||"Push A";
   const todayData=weekProgram[todayLabel]||Object.values(weekProgram)[0]||null;
+  // Stoic: rotate by day of year
+  const dayOfYear=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/(1000*60*60*24));
+  const stoicQ=STOIC_QUOTES[dayOfYear%STOIC_QUOTES.length];
+  // Sunlight tracker
+  const[sunlightLog,setSunlightLog]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_sunlight")||"{}");}catch{return{};}});
+  const[sunlightRunning,setSunlightRunning]=useState(false);
+  const[sunlightStart,setSunlightStart]=useState(null);
+  const[sunlightTick,setSunlightTick]=useState(0);
+  const todayKey=new Date().toISOString().slice(0,10);
+  const todayMinutes=Math.round((sunlightLog[todayKey]||0)/60);
+  useEffect(()=>{let iv;if(sunlightRunning){iv=setInterval(()=>setSunlightTick(t=>t+1),1000);}return()=>clearInterval(iv);},[sunlightRunning]);
+  const sunlightElapsed=sunlightRunning&&sunlightStart?Math.floor((Date.now()-sunlightStart)/1000):0;
+  const toggleSunlight=()=>{
+    if(!sunlightRunning){setSunlightRunning(true);setSunlightStart(Date.now());}
+    else{const elapsed=Math.floor((Date.now()-sunlightStart)/1000);const updated={...sunlightLog,[todayKey]:(sunlightLog[todayKey]||0)+elapsed};setSunlightLog(updated);setSunlightRunning(false);setSunlightStart(null);try{localStorage.setItem("gmt_sunlight",JSON.stringify(updated));}catch{}}
+  };
+  const fmtS=s=>{const m=Math.floor(s/60);const sc=s%60;return m>0?`${m}m ${sc}s`:`${sc}s`;};
   const[recoveryVals,setRecoveryVals]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_recovery")||"{}");}catch{return{};}});
   const saveRecovery=(k,v)=>{const n={...recoveryVals,[k]:v};setRecoveryVals(n);try{localStorage.setItem("gmt_recovery",JSON.stringify(n));}catch{}};
   return(
@@ -1973,9 +2777,47 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
               {profile?.gender==="Female"&&<Tag color={C.pur}>GLUTE PROTOCOL</Tag>}
             </div>
           </div>
-          <div style={{width:44,height:44,borderRadius:"50%",background:`linear-gradient(135deg,${C.strength},${C.hyper})`,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Bebas Neue',sans-serif",fontWeight:700,fontSize:18,color:"#fff"}}>G</div>
+          <button onClick={()=>onShowProfile&&onShowProfile()} style={{width:44,height:44,borderRadius:"50%",background:`linear-gradient(135deg,${C.strength},${C.hyper})`,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Bebas Neue',sans-serif",fontWeight:700,fontSize:18,color:"#fff",border:"none",cursor:"pointer",flexShrink:0}}>
+            {(user?.initial||user?.name?.[0]||profile?.name?.[0]||"G").toUpperCase()}
+          </button>
         </div>
       </div>
+      {/* -- STOIC QUOTE ------------------ */}
+      <div style={{padding:"0 20px 16px"}}>
+        <div style={{background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:12,padding:"16px 18px",borderLeft:"3px solid rgba(255,140,0,0.5)"}}>
+          <div style={{fontSize:11,color:"rgba(255,140,0,0.7)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:8}}>TODAY'S REFLECTION</div>
+          <div style={{fontSize:14,color:C.txt,lineHeight:1.65,fontStyle:"italic",marginBottom:8}}>"{stoicQ.text}"</div>
+          <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>-- {stoicQ.author}</div>
+        </div>
+      </div>
+
+      {/* -- SUNLIGHT + CUSTOM WORKOUT ROW -- */}
+      <div style={{padding:"0 20px 20px",display:"flex",gap:10}}>
+        {/* Sunlight card */}
+        <div style={{flex:1,background:sunlightRunning?"rgba(255,140,0,0.08)":"rgba(255,255,255,0.02)",border:`1px solid ${sunlightRunning?"rgba(255,140,0,0.35)":"rgba(255,255,255,0.07)"}`,borderRadius:12,padding:"14px 16px",transition:"all 0.3s"}}>
+          <div style={{fontSize:10,color:sunlightRunning?"#FF8C00":C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:6}}>SUN SUNLIGHT</div>
+          <div style={{fontSize:22,fontFamily:"'Bebas Neue',sans-serif",letterSpacing:"0.05em",color:sunlightRunning?"#FF8C00":C.txt,marginBottom:4}}>
+            {sunlightRunning?fmtS(sunlightElapsed):`${todayMinutes}m`}
+          </div>
+          <div style={{fontSize:10,color:C.dim,marginBottom:10}}>
+            {sunlightRunning?"TRACKING...":"today"}
+          </div>
+          <button onClick={toggleSunlight} style={{background:sunlightRunning?"rgba(255,140,0,0.2)":"rgba(255,140,0,0.08)",border:`1px solid ${sunlightRunning?"rgba(255,140,0,0.4)":"rgba(255,140,0,0.2)"}`,borderRadius:8,padding:"7px 12px",cursor:"pointer",fontSize:11,color:"#FF8C00",fontFamily:"'Space Mono',monospace",letterSpacing:"0.06em",width:"100%"}}>
+            {sunlightRunning?"? STOP":"? START"}
+          </button>
+        </div>
+
+        {/* Custom workout card */}
+        <div style={{flex:1,background:"rgba(0,102,255,0.05)",border:"1px solid rgba(0,102,255,0.15)",borderRadius:12,padding:"14px 16px",cursor:"pointer",transition:"all 0.2s"}} onClick={onCustomWorkout}>
+          <div style={{fontSize:10,color:"rgba(0,102,255,0.7)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:6}}>? ASK GARY</div>
+          <div style={{fontSize:14,fontWeight:700,color:C.txt,marginBottom:4,lineHeight:1.3}}>Build My Workout</div>
+          <div style={{fontSize:11,color:C.mid,lineHeight:1.5,marginBottom:10}}>Custom session for today</div>
+          <div style={{background:"rgba(0,102,255,0.15)",border:"1px solid rgba(0,102,255,0.3)",borderRadius:8,padding:"7px 12px",fontSize:11,color:"#0066FF",fontFamily:"'Space Mono',monospace",letterSpacing:"0.06em",textAlign:"center"}}>
+            LET'S GO ?
+          </div>
+        </div>
+      </div>
+
       {/* Today card */}
       <div style={{padding:"0 20px 24px"}}>
         {sched.includes(today)&&todayData?(<div style={{background:`linear-gradient(135deg,${C.surUp},${C.sur})`,border:`1px solid ${C.bdr}`,borderRadius:14,padding:24,position:"relative",overflow:"hidden"}}>
@@ -2049,9 +2891,9 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
         <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.12em",marginBottom:12}}>DAILY RECOVERY</div>
         <div style={{display:"flex",flexDirection:"column",gap:8}}>
           {[
-            {key:"sleep",label:"Sleep",unit:"hrs",color:C.hyper,placeholder:"7.5",max:10,icon:""},
-            {key:"calories",label:"Calories",unit:"kcal",color:C.ora,placeholder:"2200",max:4000,icon:""},
-            {key:"water",label:"Water",unit:"L",color:C.blu,placeholder:"2.5",max:5,icon:""},
+            {key:"sleep",label:"Sleep",unit:"hrs",color:C.hyper,placeholder:"7.5",max:10,icon:"",rec:"7-9 hrs"},
+            {key:"calories",label:"Calories",unit:"kcal",color:C.ora,placeholder:(()=>{const bw=parseFloat(profile?.bodyStats?.weight)||70;const kg=String(profile?.unit||"").includes("Imperial")?bw*0.453592:bw;const hasStr=(profile?.goals||[]).some(g=>/strength|hyper/i.test(g));const hasRun=(profile?.goals||[]).some(g=>/run/i.test(g));return String(Math.round(kg*24*(hasStr?1.55:hasRun?1.65:1.5)));})(),max:5000,icon:"",rec:(()=>{const bw=parseFloat(profile?.bodyStats?.weight)||70;const kg=String(profile?.unit||"").includes("Imperial")?bw*0.453592:bw;const hasStr=(profile?.goals||[]).some(g=>/strength|hyper/i.test(g));const hasRun=(profile?.goals||[]).some(g=>/run/i.test(g));return"~"+Math.round(kg*24*(hasStr?1.55:hasRun?1.65:1.5))+" kcal target";})()},
+            {key:"water",label:"Water",unit:"L",color:C.blu,placeholder:(()=>{const bw=parseFloat(profile?.bodyStats?.weight)||70;const kg=String(profile?.unit||"").includes("Imperial")?bw*0.453592:bw;const hasRun=(profile?.goals||[]).some(g=>/run/i.test(g));return(Math.round((kg*0.035+(hasRun?0.5:0.2))*10)/10).toFixed(1);})(),max:5,icon:"",rec:(()=>{const bw=parseFloat(profile?.bodyStats?.weight)||70;const kg=String(profile?.unit||"").includes("Imperial")?bw*0.453592:bw;const hasRun=(profile?.goals||[]).some(g=>/run/i.test(g));return(Math.round((kg*0.035+(hasRun?0.5:0.2))*10)/10).toFixed(1)+"L daily target";})()},
           ].map(r=>{
             const saved=recoveryVals[r.key];
             const val=parseFloat(saved)||null;
@@ -2069,7 +2911,7 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
                     <span style={{fontSize:11,color:C.dim}}>{r.unit}</span>
                   </div>
                 </div>
-                {val&&<div style={{marginTop:8}}><PBar value={val} max={r.max} color={r.color} h={4}/></div>}
+                {val&&<div style={{marginTop:8}}><PBar value={val} max={r.max} color={r.color} h={4}/><div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginTop:3,letterSpacing:"0.05em"}}>Target: {r.rec}</div></div>}
               </div>
             );
           })}
@@ -2087,6 +2929,18 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
           <p style={{fontSize:14,color:C.mid,lineHeight:1.7,marginBottom:12}}>{lastWorkout?"Great work. Focus on recovery now - protein within 90 minutes, 7-9 hours sleep, and stay mobile tomorrow. I have noted your performance for next session.":"First priority this block: find the muscle before loading it. Every set starts with the squeeze, not the weight. If you cannot feel it in the first rep, the weight is too heavy or the setup is wrong."}</p>
           <button onClick={()=>window.dispatchEvent(new CustomEvent("gmt_nav",{detail:"coach"}))} style={{background:C.hyperG,border:`1px solid ${C.hyper}40`,borderRadius:8,padding:"8px 14px",cursor:"pointer",fontSize:12,color:C.hyper,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>Discuss with Gary {String.fromCharCode(8594)}</button>
         </div>
+      </div>
+
+      {/* Volume Engine shortcut */}
+      <div style={{padding:"0 20px 24px"}}>
+        <button onClick={()=>onVolumeEngine&&onVolumeEngine()} style={{width:"100%",background:"rgba(0,102,255,0.05)",border:"1px solid rgba(0,102,255,0.15)",borderRadius:12,padding:"14px 16px",cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all 0.2s"}}>
+          <div style={{textAlign:"left"}}>
+            <div style={{fontSize:10,color:"rgba(0,102,255,0.7)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:3}}>GMT VOLUME ENGINE</div>
+            <div style={{fontSize:14,fontWeight:700,color:C.txt}}>Weekly Volume Tracker</div>
+            <div style={{fontSize:11,color:C.mid,marginTop:2}}>Sets per muscle - Hypertrophy targets</div>
+          </div>
+          <div style={{fontSize:20,color:"#0066FF"}}>&rarr;</div>
+        </button>
       </div>
     </div>
   );
@@ -2423,22 +3277,26 @@ const FavouritesView=({favourites,onToggleFav,profile})=>{
 };
 
 // --- BOTTOM NAV ---------------------------------------------------
-const BottomNav=({active,setActive})=>{
+const BottomNav=({active,setActive,user,onProfile})=>{
   const tabs=[
-    {id:"home",icon:"",label:"Home"},
-    {id:"program",icon:"",label:"Programme"},
-    {id:"workouts",icon:"",label:"Workouts"},
-    {id:"library",icon:"",label:"Exercises"},
-    {id:"coach",icon:"",label:"Coach"},
+    {id:"home",icon:"?",label:"Home"},
+    {id:"program",icon:"?",label:"Programme"},
+    {id:"workouts",icon:"?",label:"Workouts"},
+    {id:"library",icon:"?",label:"Exercises"},
+    {id:"coach",icon:"?",label:"Coach"},
   ];
+  const initial=(user?.initial||user?.name?.[0]||"G").toUpperCase();
   return(
-    <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,background:`${C.bg}F0`,backdropFilter:"blur(20px)",borderTop:`1px solid ${C.bdr}`,display:"flex",padding:"10px 0 24px",zIndex:100}}>
+    <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,background:`${C.bg}F0`,backdropFilter:"blur(20px)",borderTop:`1px solid ${C.bdr}`,display:"flex",padding:"10px 0 24px",zIndex:100,alignItems:"center"}}>
       {tabs.map(t=>(
         <button key={t.id} onClick={()=>setActive(t.id)} style={{flex:1,background:"none",border:"none",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"3px 0"}}>
-          <div style={{fontSize:16,width:34,height:34,borderRadius:10,background:active===t.id?C.accG:"transparent",display:"flex",alignItems:"center",justifyContent:"center",color:active===t.id?C.hyper:C.dim,border:active===t.id?`1px solid ${C.acc}40`:"1px solid transparent",transition:"all 0.15s"}}>{t.icon}</div>
+          <div style={{fontSize:16,width:34,height:34,borderRadius:10,background:active===t.id?"rgba(0,102,255,0.12)":"transparent",display:"flex",alignItems:"center",justifyContent:"center",color:active===t.id?C.hyper:C.dim,border:active===t.id?`1px solid rgba(0,102,255,0.25)`:"1px solid transparent",transition:"all 0.15s"}}>{t.icon}</div>
           <span style={{fontSize:9,fontFamily:"'Space Mono',monospace",color:active===t.id?C.hyper:C.dim,letterSpacing:"0.04em"}}>{t.label}</span>
         </button>
       ))}
+      <button onClick={onProfile} style={{flexShrink:0,width:36,height:36,borderRadius:"50%",background:"linear-gradient(135deg,rgba(0,102,255,0.25),rgba(0,201,177,0.15))",border:`1px solid rgba(0,102,255,0.35)`,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,fontFamily:"'Bebas Neue',sans-serif",color:"#0066FF",marginRight:10,letterSpacing:"0.05em",transition:"all 0.15s"}}>
+        {initial}
+      </button>
     </div>
   );
 };
@@ -2497,10 +3355,405 @@ const TermsScreen=({onAccept})=>{
 };
 
 // --- APP ROOT -----------------------------------------------------
+// --- CUSTOM WORKOUT BUILDER ----------------------------------------
+const CustomWorkoutBuilder=({profile,onClose,onStartWorkout})=>{
+  const[step,setStep]=useState(0); // 0=questions, 1=generating, 2=result
+  const[answers,setAnswers]=useState({});
+  const[result,setResult]=useState(null);
+  const[error,setError]=useState("");
+
+  const questions=[
+    {key:"equipment",label:"What equipment do you have available right now?",type:"select",
+     opts:["Full gym","Dumbbells only","Barbell + rack","Cables + machines","Home / bodyweight","Heavy bag available","Treadmill available"],multi:true,
+     hint:profile?.equipment?`Your usual setup: ${profile.equipment.slice(0,60)}`:""},
+    {key:"time",label:"How much time do you have?",type:"select",
+     opts:["20 minutes","30 minutes","45 minutes","60 minutes","75+ minutes"],multi:false},
+    {key:"energy",label:"How is your energy today?",type:"select",
+     opts:["High -- ready to push hard","Medium -- solid session","Low -- something is better than nothing","Recovering -- light movement only"],multi:false},
+    {key:"focus",label:"What do you want to work on?",type:"select",
+     opts:["Upper body -- push (chest, shoulders, triceps)","Upper body -- pull (back, biceps)","Lower body (quads, hamstrings, glutes)","Full body","Core and stability","Conditioning / cardio","Boxing","Whatever Gary recommends"],multi:true},
+    {key:"notes",label:"Anything else Gary should know?",type:"text",placeholder:"Injury, soreness, specific goal for today..."},
+  ];
+
+  const q=questions[step];
+  const canNext=step<questions.length-1?(q.multi?(answers[q.key]||[]).length>0:!!answers[q.key]):true;
+
+  const handleSelect=(opt)=>{
+    if(q.multi){
+      const curr=answers[q.key]||[];
+      const next=curr.includes(opt)?curr.filter(x=>x!==opt):[...curr,opt];
+      setAnswers({...answers,[q.key]:next});
+    } else {
+      setAnswers({...answers,[q.key]:opt});
+    }
+  };
+
+  const generateWorkout=async()=>{
+    setStep("generating");
+    const profileStr=[
+      profile?.trainingAge&&`Training age: ${profile.trainingAge}`,
+      profile?.goals?.length&&`Goals: ${profile.goals.slice(0,3).join(", ")}`,
+      profile?.gender&&`Gender: ${profile.gender}`,
+      profile?.bodyStats?.weight&&`Bodyweight: ${profile.bodyStats.weight}`,
+    ].filter(Boolean).join(". ");
+
+    const prompt=`You are Gary Mulholland, an elite strength and physique coach. Your doctrine: Train like an athlete. Build like a bodybuilder. Recover like a specialist. Think like a scientist. Your influences: Arnold Schwarzenegger, Dorian Yates, Mike Mentzer, Chris Bumstead, Mike Thurston, Jeff Nippard, Charles Poliquin, Pavel Tsatsouline, Brett Contreras, Ben Patrick, Stuart McGill, Andrew Huberman.
+
+Athlete profile: ${profileStr||"No profile data"}.
+
+Today's parameters:
+- Equipment available: ${(answers.equipment||[]).join(", ")||"general gym"}
+- Time available: ${answers.time||"45 minutes"}
+- Energy level: ${answers.energy||"Medium"}
+- Focus: ${(answers.focus||[]).join(", ")||"Gary's recommendation"}
+- Notes: ${answers.notes||"None"}
+
+Generate a complete, ready-to-execute workout session. Follow GMT session architecture: movement prep ? primary compound ? secondary compound ? hypertrophy accessory ? isolation ? optional conditioning.
+
+Respond ONLY in this exact JSON format (no markdown, no preamble):
+{
+  "sessionName": "string -- creative session name",
+  "garyNote": "string -- 2-3 sentence coaching briefing in Gary's direct, calm voice",
+  "duration": "string -- e.g. 45 min",
+  "exercises": [
+    {
+      "name": "Exercise Name",
+      "sets": number,
+      "reps": "e.g. 6-8 or 12-15 or 45s",
+      "rest": number_seconds,
+      "tempo": "e.g. 3-1-1-0",
+      "rpe": number,
+      "note": "string -- brief coaching cue"
+    }
+  ]
+}`;
+
+    try{
+      const res=await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          model:"claude-sonnet-4-20250514",
+          max_tokens:1500,
+          system:"You are Gary Mulholland, GMT Coach AI. Respond only in the exact JSON format requested. No markdown fences.",
+          messages:[{role:"user",content:prompt}]
+        })
+      });
+      const data=await res.json();
+      const text=data.content?.map(b=>b.text||"").join("").trim();
+      const clean=text.replace(/```json|```/g,"").trim();
+      const workout=JSON.parse(clean);
+      setResult(workout);
+      setStep("result");
+    } catch(e){
+      setError("Gary is unavailable right now. Check your connection and try again.");
+      setStep(0);
+    }
+  };
+
+  if(step==="generating") return(
+    <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:40}}>
+      <div style={{width:48,height:48,borderRadius:"50%",border:`3px solid rgba(0,102,255,0.2)`,borderTop:`3px solid #0066FF`,animation:"spin 1s linear infinite",marginBottom:24}}/>
+      <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:24,letterSpacing:"0.1em",marginBottom:8}}>GARY IS THINKING</div>
+      <div style={{fontSize:13,color:C.dim,textAlign:"center"}}>Building your perfect session...</div>
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+    </div>
+  );
+
+  if(step==="result"&&result) return(
+    <div style={{minHeight:"100vh",background:C.bg,paddingBottom:100}}>
+      <div style={{background:`${C.bg}F0`,backdropFilter:"blur(16px)",borderBottom:`1px solid ${C.bdr}`,padding:"16px 20px",display:"flex",alignItems:"center",gap:12,position:"sticky",top:0,zIndex:10}}>
+        <button onClick={onClose} style={{background:"none",border:"none",color:C.mid,cursor:"pointer",fontSize:20,padding:"4px 8px 4px 0"}}>{"<"}</button>
+        <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:20,letterSpacing:"0.1em"}}>CUSTOM SESSION</span>
+        <Tag color={C.hyper} style={{marginLeft:"auto"}}>{result.duration||"Custom"}</Tag>
+      </div>
+      <div style={{padding:"24px 20px"}}>
+        <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:32,letterSpacing:"0.04em",lineHeight:1.1,marginBottom:16}}>{result.sessionName}</div>
+        {result.garyNote&&<div style={{background:"rgba(0,102,255,0.06)",border:"1px solid rgba(0,102,255,0.15)",borderRadius:12,padding:"14px 16px",marginBottom:24}}>
+          <div style={{fontSize:11,color:"rgba(0,102,255,0.7)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:6}}>GARY</div>
+          <div style={{fontSize:14,color:C.txt,lineHeight:1.65}}>{result.garyNote}</div>
+        </div>}
+        <div style={{display:"flex",flexDirection:"column",gap:12,marginBottom:24}}>
+          {(result.exercises||[]).map((ex,i)=>(
+            <div key={i} style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:12,padding:"16px 18px"}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:6}}>
+                <div style={{fontWeight:700,fontSize:15,color:C.txt}}>{ex.name}</div>
+                <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",textAlign:"right"}}>
+                  {ex.sets}?{ex.reps}
+                </div>
+              </div>
+              <div style={{display:"flex",gap:16,marginBottom:6}}>
+                {ex.rest&&<span style={{fontSize:11,color:C.dim}}>Rest {ex.rest}s</span>}
+                {ex.tempo&&<span style={{fontSize:11,color:C.dim}}>Tempo {ex.tempo}</span>}
+                {ex.rpe&&<span style={{fontSize:11,color:C.ora}}>RPE {ex.rpe}</span>}
+              </div>
+              {ex.note&&<div style={{fontSize:12,color:C.mid,lineHeight:1.5,marginTop:4,fontStyle:"italic"}}>{ex.note}</div>}
+            </div>
+          ))}
+        </div>
+        <Btn onClick={()=>onStartWorkout&&onStartWorkout("Custom",{
+          name:result.sessionName,
+          gary:result.garyNote||"",
+          exercises:(result.exercises||[]).map(ex=>({...ex,note:ex.note||""})),
+          tag:"Custom",
+          cat:"Custom",
+          duration:result.duration||"Custom",
+          isCustom:true,
+        })} style={{width:"100%",fontSize:16}}>START SESSION ?</Btn>
+      </div>
+    </div>
+  );
+
+  // Questions UI
+  return(
+    <div style={{minHeight:"100vh",background:C.bg,paddingBottom:80}}>
+      <div style={{background:`${C.bg}F0`,backdropFilter:"blur(16px)",borderBottom:`1px solid ${C.bdr}`,padding:"16px 20px",display:"flex",alignItems:"center",gap:12,position:"sticky",top:0,zIndex:10}}>
+        <button onClick={onClose} style={{background:"none",border:"none",color:C.mid,cursor:"pointer",fontSize:20,padding:"4px 8px 4px 0"}}>{"<"}</button>
+        <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:20,letterSpacing:"0.1em"}}>BUILD MY WORKOUT</span>
+        <span style={{marginLeft:"auto",fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{typeof step==="number"?step+1:1}/{questions.length}</span>
+      </div>
+      <div style={{padding:"32px 20px"}}>
+        {/* Progress */}
+        <div style={{background:C.surUp,borderRadius:4,height:3,marginBottom:32,overflow:"hidden"}}>
+          <div style={{height:"100%",borderRadius:4,background:`linear-gradient(90deg,${C.hyper},${C.recovery})`,width:`${((typeof step==="number"?step+1:1)/questions.length)*100}%`,transition:"width 0.3s"}}/>
+        </div>
+        <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:12}}>GARY ASKS</div>
+        <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:28,letterSpacing:"0.04em",lineHeight:1.2,marginBottom:6}}>{q.label}</h2>
+        {q.hint&&<div style={{fontSize:12,color:C.dim,marginBottom:20,fontStyle:"italic"}}>{q.hint}</div>}
+        {!q.hint&&<div style={{marginBottom:20}}/>}
+
+        {q.type==="select"&&<div style={{display:"flex",flexDirection:"column",gap:8}}>
+          {q.opts.map(opt=>{
+            const sel=q.multi?(answers[q.key]||[]).includes(opt):answers[q.key]===opt;
+            return <button key={opt} onClick={()=>handleSelect(opt)} style={{background:sel?"rgba(0,102,255,0.12)":"rgba(255,255,255,0.03)",border:`1px solid ${sel?"rgba(0,102,255,0.4)":"rgba(255,255,255,0.08)"}`,borderRadius:10,padding:"14px 16px",cursor:"pointer",fontSize:14,color:sel?"#0066FF":C.txt,fontFamily:"'DM Sans',sans-serif",textAlign:"left",transition:"all 0.15s",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+              <span>{opt}</span>
+              {sel&&<span style={{fontSize:16}}>?</span>}
+            </button>;
+          })}
+        </div>}
+
+        {q.type==="text"&&<textarea value={answers[q.key]||""} onChange={e=>setAnswers({...answers,[q.key]:e.target.value})} placeholder={q.placeholder||""} style={{width:"100%",background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:10,padding:"14px 16px",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",resize:"none",outline:"none",minHeight:100,lineHeight:1.6,boxSizing:"border-box"}} rows={4}/>}
+
+        {error&&<div style={{background:"rgba(255,23,68,0.1)",border:"1px solid rgba(255,23,68,0.3)",borderRadius:8,padding:"12px 14px",marginTop:16,fontSize:13,color:"#FF1744"}}>{error}</div>}
+      </div>
+      <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,padding:"16px 20px 32px",background:`${C.bg}F0`,backdropFilter:"blur(16px)",borderTop:`1px solid ${C.bdr}`,display:"flex",gap:10}}>
+        {typeof step==="number"&&step>0&&<button onClick={()=>setStep(s=>s-1)} style={{flex:1,background:"rgba(255,255,255,0.04)",border:`1px solid ${C.bdr}`,borderRadius:12,padding:"14px",cursor:"pointer",fontSize:14,color:C.mid,fontFamily:"'DM Sans',sans-serif"}}>? Back</button>}
+        {typeof step==="number"&&step<questions.length-1&&<Btn onClick={()=>setStep(s=>s+1)} disabled={!canNext} style={{flex:3}}>Continue ?</Btn>}
+        {typeof step==="number"&&step===questions.length-1&&<Btn onClick={generateWorkout} style={{flex:3}}>Build My Session ?</Btn>}
+      </div>
+    </div>
+  );
+};
+
+
+// --- VOLUME ENGINE VIEW --------------------------------------------
+const VolumeEngineView=({weekSchedule,onBack})=>{
+  // Calculate sets per muscle from this week's completed workouts
+  const workoutHistory=React.useMemo(()=>{
+    try{return JSON.parse(localStorage.getItem("gmt_workout_history")||"[]");}catch{return[];}
+  },[]);
+  
+  // Get this week's sessions
+  const weekStart=new Date();weekStart.setHours(0,0,0,0);
+  weekStart.setDate(weekStart.getDate()-weekStart.getDay());
+  
+  const weekSessions=workoutHistory.filter(w=>{
+    const d=new Date(w.date||w.completedAt||0);
+    return d>=weekStart;
+  });
+  
+  // Count sets per muscle from completed sessions
+  const weeklyVolume={Chest:0,Back:0,Quads:0,Hamstrings:0,Glutes:0,Shoulders:0,Biceps:0,Triceps:0,Calves:0,Core:0};
+  weekSessions.forEach(session=>{
+    (session.exercises||[]).forEach(ex=>{
+      const map=MUSCLE_VOLUME_MAP[ex.name];
+      if(map){
+        const sets=ex.completedSets||ex.sets||3;
+        Object.entries(map).forEach(([muscle,factor])=>{
+          if(weeklyVolume[muscle]!==undefined){
+            weeklyVolume[muscle]+=Math.round(sets*factor);
+          }
+        });
+      }
+    });
+  });
+  
+  const goal="hyper"; // Could be dynamic from profile
+  
+  return(
+    <div style={{minHeight:"100vh",background:C.bg,paddingBottom:100}}>
+      <div style={{background:`${C.bg}F0`,backdropFilter:"blur(16px)",borderBottom:`1px solid ${C.bdr}`,padding:"16px 20px",display:"flex",alignItems:"center",gap:12,position:"sticky",top:0,zIndex:10}}>
+        <button onClick={onBack} style={{background:"none",border:"none",color:C.mid,cursor:"pointer",fontSize:20,padding:"4px 8px 4px 0"}}>{"<"}</button>
+        <div>
+          <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:20,letterSpacing:"0.1em"}}>VOLUME ENGINE</div>
+          <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.06em"}}>THIS WEEK</div>
+        </div>
+      </div>
+      <div style={{padding:"20px 20px 0"}}>
+        <div style={{background:"rgba(0,102,255,0.05)",border:"1px solid rgba(0,102,255,0.15)",borderRadius:12,padding:"14px 16px",marginBottom:20}}>
+          <div style={{fontSize:12,color:C.mid,lineHeight:1.6}}>Hypertrophy targets from GMT doctrine. Green = in optimal range. Orange = approaching limit. Red = exceeding recommended ceiling.</div>
+        </div>
+        {Object.entries(VOLUME_TARGETS).map(([muscle,targets])=>{
+          const sets=weeklyVolume[muscle]||0;
+          const [lo,hi]=targets[goal]||targets.hyper;
+          const pct=Math.min(1,sets/hi);
+          const overTarget=sets>hi;
+          const inRange=sets>=lo&&sets<=hi;
+          const color=overTarget?"#FF1744":inRange?"#00C9B1":sets>lo*0.7?"#FF8C00":"#0066FF";
+          return(
+            <div key={muscle} style={{marginBottom:16}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:5}}>
+                <span style={{fontSize:13,fontWeight:600,color:C.txt}}>{muscle}</span>
+                <div style={{display:"flex",alignItems:"center",gap:8}}>
+                  <span style={{fontSize:13,color:color,fontFamily:"'Space Mono',monospace",fontWeight:700}}>{sets}</span>
+                  <span style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>/{lo}-{hi} sets</span>
+                </div>
+              </div>
+              <div style={{height:6,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden",position:"relative"}}>
+                {/* Target zone indicator */}
+                <div style={{position:"absolute",left:`${(lo/hi)*100}%`,right:0,top:0,bottom:0,background:"rgba(0,201,177,0.08)",borderLeft:`1px dashed rgba(0,201,177,0.3)`}}/>
+                {/* Progress bar */}
+                <div style={{height:"100%",width:`${pct*100}%`,background:color,borderRadius:3,transition:"width 0.5s ease"}}/>
+              </div>
+              {overTarget&&<div style={{fontSize:10,color:"#FF1744",fontFamily:"'Space Mono',monospace",marginTop:4}}>OVER TARGET -- consider reducing {muscle.toLowerCase()} volume this week</div>}
+              {inRange&&<div style={{fontSize:10,color:"#00C9B1",fontFamily:"'Space Mono',monospace",marginTop:4}}>IN RANGE</div>}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+// --- AUTH / PROFILE SYSTEM ------------------------------------------
+const LoginScreen=({onLogin,onGuest})=>{
+  const[email,setEmail]=React.useState("");
+  const[pw,setPw]=React.useState("");
+  const[name,setName]=React.useState("");
+  const[mode,setMode]=React.useState("login"); // login | signup
+  const[err,setErr]=React.useState("");
+
+  const handleAuth=()=>{
+    if(!email.trim()){setErr("Enter your email.");return;}
+    if(!pw.trim()||pw.length<6){setErr("Password must be 6+ characters.");return;}
+    if(mode==="signup"&&!name.trim()){setErr("Enter your name.");return;}
+    // Store locally (cloud sync is a future feature)
+    const user={email:email.trim().toLowerCase(),name:name.trim()||email.split("@")[0],initial:(name.trim()||email)[0].toUpperCase(),createdAt:Date.now()};
+    try{localStorage.setItem("gmt_user",JSON.stringify(user));}catch(e){}
+    onLogin(user);
+  };
+
+  return(
+    <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"40px 24px",maxWidth:480,margin:"0 auto"}}>
+      <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:36,letterSpacing:"0.15em",color:C.txt,marginBottom:8}}>GMT COACH</div>
+      <div style={{fontSize:13,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:48}}>ELITE COACHING INTELLIGENCE</div>
+      
+      <div style={{width:"100%",background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:16,padding:24,marginBottom:16}}>
+        <div style={{display:"flex",gap:0,marginBottom:24,background:C.bg,borderRadius:8,padding:3}}>
+          {["login","signup"].map(m=>(
+            <button key={m} onClick={()=>{setMode(m);setErr("");}} style={{flex:1,background:mode===m?C.sur:"transparent",border:"none",borderRadius:6,padding:"8px 0",cursor:"pointer",fontSize:12,color:mode===m?C.txt:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",textTransform:"uppercase",transition:"all 0.15s"}}>
+              {m==="login"?"Sign In":"Sign Up"}
+            </button>
+          ))}
+        </div>
+
+        {mode==="signup"&&<div style={{marginBottom:14}}>
+          <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:6}}>YOUR NAME</div>
+          <input value={name} onChange={e=>setName(e.target.value)} placeholder="e.g. Alex" style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:8,padding:"12px 14px",color:C.txt,fontSize:15,fontFamily:"'DM Sans',sans-serif",outline:"none",boxSizing:"border-box"}}/>
+        </div>}
+
+        <div style={{marginBottom:14}}>
+          <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:6}}>EMAIL</div>
+          <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@email.com" style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:8,padding:"12px 14px",color:C.txt,fontSize:15,fontFamily:"'DM Sans',sans-serif",outline:"none",boxSizing:"border-box"}}/>
+        </div>
+
+        <div style={{marginBottom:20}}>
+          <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:6}}>PASSWORD</div>
+          <input type="password" value={pw} onChange={e=>setPw(e.target.value)} placeholder="6+ characters" onKeyDown={e=>e.key==="Enter"&&handleAuth()} style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:8,padding:"12px 14px",color:C.txt,fontSize:15,fontFamily:"'DM Sans',sans-serif",outline:"none",boxSizing:"border-box"}}/>
+        </div>
+
+        {err&&<div style={{background:"rgba(255,23,68,0.1)",border:"1px solid rgba(255,23,68,0.3)",borderRadius:8,padding:"10px 14px",marginBottom:16,fontSize:13,color:"#FF1744",fontFamily:"'DM Sans',sans-serif"}}>{err}</div>}
+
+        <Btn onClick={handleAuth} style={{width:"100%"}}>{mode==="login"?"Sign In":"Create Account"}</Btn>
+      </div>
+
+      <button onClick={onGuest} style={{background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:12,padding:"14px",width:"100%",cursor:"pointer",fontSize:14,color:C.mid,fontFamily:"'DM Sans',sans-serif",letterSpacing:"0.02em"}}>
+        Continue as Guest
+      </button>
+      <div style={{fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace",marginTop:10,textAlign:"center",lineHeight:1.6}}>
+        Guest mode stores data on this device only.
+      </div>
+    </div>
+  );
+};
+
+const ProfileView=({user,profile,onSignOut,onBack})=>{
+  const isGuest=!user?.email;
+  const initial=(user?.initial||user?.name?.[0]||"G").toUpperCase();
+  const goals=(profile?.goals||[]).slice(0,3);
+  const trainingAge=profile?.trainingAge||"";
+  const equipment=profile?.equipment||"Not specified";
+
+  return(
+    <div style={{minHeight:"100vh",background:C.bg,paddingBottom:100}}>
+      <div style={{background:`${C.bg}F0`,backdropFilter:"blur(16px)",borderBottom:`1px solid ${C.bdr}`,padding:"16px 20px",display:"flex",alignItems:"center",gap:12,position:"sticky",top:0,zIndex:10}}>
+        <button onClick={onBack} style={{background:"none",border:"none",color:C.mid,cursor:"pointer",fontSize:20,padding:"4px 8px 4px 0"}}>{"<"}</button>
+        <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:20,letterSpacing:"0.1em"}}>PROFILE</span>
+      </div>
+
+      <div style={{padding:"32px 20px"}}>
+        {/* Avatar */}
+        <div style={{display:"flex",alignItems:"center",gap:16,marginBottom:32}}>
+          <div style={{width:72,height:72,borderRadius:"50%",background:"linear-gradient(135deg,#0066FF,#00C9B1)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,fontFamily:"'Bebas Neue',sans-serif",color:"#fff",flexShrink:0}}>
+            {initial}
+          </div>
+          <div>
+            <div style={{fontSize:20,fontWeight:700,color:C.txt,marginBottom:4}}>{isGuest?"Guest Athlete":user?.name||"Athlete"}</div>
+            <div style={{fontSize:13,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{isGuest?"No account":""+user?.email}</div>
+          </div>
+        </div>
+
+        {/* Training profile */}
+        {[
+          {label:"Training Age",value:trainingAge||"Not set"},
+          {label:"Goals",value:goals.length?goals.map(g=>g.split("(")[0].trim()).join(", "):"Not set"},
+          {label:"Equipment",value:equipment.length>60?equipment.slice(0,60)+"...":equipment},
+          {label:"Frequency",value:profile?.frequency||"Not set"},
+          {label:"Units",value:String(profile?.unit||"").includes("Imperial")?"Imperial":"Metric"},
+        ].map(item=>(
+          <div key={item.label} style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",padding:"14px 0",borderBottom:`1px solid ${C.bdr}`}}>
+            <span style={{fontSize:12,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.06em",flexShrink:0,marginRight:12}}>{item.label.toUpperCase()}</span>
+            <span style={{fontSize:14,color:C.txt,textAlign:"right"}}>{item.value}</span>
+          </div>
+        ))}
+
+        {isGuest&&<div style={{background:"rgba(0,102,255,0.08)",border:"1px solid rgba(0,102,255,0.2)",borderRadius:12,padding:16,margin:"24px 0"}}>
+          <div style={{fontSize:13,color:"#0066FF",fontFamily:"'Space Mono',monospace",marginBottom:8}}>CREATE AN ACCOUNT</div>
+          <div style={{fontSize:14,color:C.mid,lineHeight:1.6}}>Sign up to keep your programme safe across devices.</div>
+        </div>}
+
+        <button onClick={onSignOut} style={{width:"100%",background:"rgba(255,23,68,0.08)",border:"1px solid rgba(255,23,68,0.2)",borderRadius:12,padding:"14px",cursor:"pointer",fontSize:14,color:"#FF1744",fontFamily:"'DM Sans',sans-serif",marginTop:24}}>
+          {isGuest?"Reset App":"Sign Out"}
+        </button>
+      </div>
+    </div>
+  );
+};
+
 function AppInner(){
   const[screen,setScreen]=useState(()=>{
-    try{return localStorage.getItem("gmt_screen")||"terms";}catch{return"terms";}
+    try{return localStorage.getItem("gmt_screen")||"login";}catch{return"login";}
   });
+  const[user,setUser]=useState(()=>{
+    try{const u=localStorage.getItem("gmt_user");return u?JSON.parse(u):null;}catch{return null;}
+  });
+  const[showProfile,setShowProfile]=useState(false);
+  const handleLogin=(u)=>{setUser(u);try{localStorage.setItem("gmt_user",JSON.stringify(u));}catch(e){}setScreen("terms");};
+  const handleGuest=()=>{const g={name:"Guest",initial:"G",guest:true};setUser(g);try{localStorage.setItem("gmt_user",JSON.stringify(g));}catch(e){}setScreen("terms");};
+  const handleSignOut=()=>{setUser(null);setShowProfile(false);try{localStorage.clear();}catch(e){}setScreen("login");};
+  const[showCustomWorkout,setShowCustomWorkout]=useState(false);
+  const[showVolumeEngine,setShowVolumeEngine]=useState(false);
+  const[showCustomWorkout,setShowCustomWorkout]=useState(false);
   const[tab,setTab]=useState("home");
   useEffect(()=>{
     const handler=e=>setTab(e.detail||"coach");
@@ -2508,6 +3761,7 @@ function AppInner(){
     return()=>window.removeEventListener("gmt_nav",handler);
   },[]);
   const[activeWorkout,setActiveWorkout]=useState(null);
+  const[boxingSession,setBoxingSession]=useState(null);
   const[profile,setProfile]=useState(()=>{
     try{const p=localStorage.getItem("gmt_profile");return p?JSON.parse(p):null;}catch{return null;}
   });
@@ -2531,23 +3785,58 @@ function AppInner(){
       <style>{fonts}</style>
       <style>{gStyles}</style>
       <div style={{maxWidth:480,margin:"0 auto",minHeight:"100vh",position:"relative",background:C.bg}}>
-        {screen==="terms"&&<TermsScreen onAccept={()=>{setScreen("onboarding");try{localStorage.setItem("gmt_screen","onboarding");}catch(e){}}}/>}
+        {showCustomWorkout&&<CustomWorkoutBuilder profile={profile} onClose={()=>setShowCustomWorkout(false)} onStartWorkout={(d,s)=>{setShowCustomWorkout(false);setActiveWorkout({day:d,session:s});}}/>}
+        {!showCustomWorkout&&showProfile&&<ProfileView user={user} profile={profile} onSignOut={handleSignOut} onBack={()=>setShowProfile(false)}/>}
+        {!showCustomWorkout&&!showProfile&&screen==="login"&&<LoginScreen onLogin={handleLogin} onGuest={handleGuest}/>}
+        {!showProfile&&screen==="terms"&&<TermsScreen onAccept={()=>{setScreen("onboarding");try{localStorage.setItem("gmt_screen","onboarding");}catch(e){}}}/>}
         {screen==="onboarding"&&<Onboarding onComplete={d=>{setProfile(d);setScreen("coachIntro");try{localStorage.setItem("gmt_profile",JSON.stringify(d));localStorage.setItem("gmt_screen","coachIntro");}catch(e){}}}/>}
         {screen==="coachIntro"&&<CoachIntro profile={profile} onReady={()=>{setScreen("dayPicker");try{localStorage.setItem("gmt_screen","dayPicker");}catch(e){}}}/>}
         {screen==="dayPicker"&&<DayPicker frequency={profile?.frequency} profile={profile} onConfirm={s=>{setWeekSchedule(s);setScreen("main");try{localStorage.setItem("gmt_schedule",JSON.stringify(s));localStorage.setItem("gmt_screen","main");}catch(e){}}}/>}
-        {screen==="main"&&!activeWorkout&&<>
-          {tab==="home"&&<Dashboard onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} profile={profile} weekSchedule={weekSchedule} sessionCount={sessionCount} onNutrition={()=>setTab("nutrition")} lastWorkout={lastWorkout} onReorderDay={(from,to)=>{const ns={...weekSchedule};const tmp=ns[from];ns[from]=ns[to];ns[to]=tmp;setWeekSchedule(ns);try{localStorage.setItem("gmt_schedule",JSON.stringify(ns));}catch{}}} onShowRecovery={()=>setTab("progress")}/>}
-          {tab==="program"&&<ProgramView onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} weekSchedule={weekSchedule}/>}
-          {tab==="library"&&<ExerciseLibrary favourites={favourites} onToggleFav={toggleFav} profile={profile} onAskCoach={msg=>{setTab("coach");window.dispatchEvent(new CustomEvent("gmt_coach_msg",{detail:msg}));}}/>}
-          {tab==="workouts"&&<WorkoutLibraryView onStartWorkout={(d,s)=>setActiveWorkout({day:d,session:s})} weekSchedule={weekSchedule} favourites={favourites} onToggleFav={toggleFav}/>}
+        {screen==="main"&&!activeWorkout&&!showCustomWorkout&&<>
+          {showProfile&&<ProfileView user={user} profile={profile} onSignOut={handleSignOut} onBack={()=>setShowProfile(false)}/>}
+        {showCustomWorkout&&<CustomWorkoutBuilder profile={profile} user={user} onClose={()=>setShowCustomWorkout(false)} onStartWorkout={(s)=>{setShowCustomWorkout(false);setActiveWorkout({day:"TODAY",session:s});}}/>}
+        {showVolumeEngine&&<VolumeEngineView weekSchedule={weekSchedule} onBack={()=>setShowVolumeEngine(false)}/>}
+          {!showProfile&&!showCustomWorkout&&tab==="home"&&<Dashboard onStartWorkout={(d,s)=>{if(s?.isBoxing){
+          // Transform exercises (with stationType) into stations format for BoxingTimerView
+          const exs=s.exercises||[];
+          const stationTypes=[{key:"TREADMILL",type:"treadmill"},{key:"STRENGTH",type:"dumbbell"},{key:"BAG",type:"bag"}];
+          const stations=stationTypes.map(({key,type})=>({
+            type,
+            rounds:exs.filter(e=>(e.stationType||"").toUpperCase().includes(key)).map(e=>({name:e.name,note:e.note||"",combo:e.combo||""})),
+          })).filter(st=>st.rounds.length>0);
+          setBoxingSession({...s,stations:stations.length?stations:s.stations||[]});
+        }else setActiveWorkout({day:d,session:s});}} onCustomWorkout={()=>setShowCustomWorkout(true)} onShowProfile={()=>setShowProfile(true)} user={user} profile={profile} onVolumeEngine={()=>setShowVolumeEngine(true)} weekSchedule={weekSchedule} sessionCount={sessionCount} onNutrition={()=>setTab("nutrition")} lastWorkout={lastWorkout} onReorderDay={(from,to)=>{const ns={...weekSchedule};const tmp=ns[from];ns[from]=ns[to];ns[to]=tmp;setWeekSchedule(ns);try{localStorage.setItem("gmt_schedule",JSON.stringify(ns));}catch{}}} onShowRecovery={()=>setTab("progress")}/>}
+          {tab==="program"&&<ProgramView onStartWorkout={(d,s)=>{if(s?.isBoxing){
+          // Transform exercises (with stationType) into stations format for BoxingTimerView
+          const exs=s.exercises||[];
+          const stationTypes=[{key:"TREADMILL",type:"treadmill"},{key:"STRENGTH",type:"dumbbell"},{key:"BAG",type:"bag"}];
+          const stations=stationTypes.map(({key,type})=>({
+            type,
+            rounds:exs.filter(e=>(e.stationType||"").toUpperCase().includes(key)).map(e=>({name:e.name,note:e.note||"",combo:e.combo||""})),
+          })).filter(st=>st.rounds.length>0);
+          setBoxingSession({...s,stations:stations.length?stations:s.stations||[]});
+        }else setActiveWorkout({day:d,session:s});}} weekSchedule={weekSchedule}/>}
+          {tab==="library"&&<ExerciseLibrary favourites={favourites} onToggleFav={toggleFav} profile={profile} onBack={()=>setTab("home")} onAskCoach={msg=>{setTab("coach");window.dispatchEvent(new CustomEvent("gmt_coach_msg",{detail:msg}));}}/>}
+          {tab==="workouts"&&<WorkoutLibraryView onStartWorkout={(d,s)=>{if(s?.isBoxing){
+          // Transform exercises (with stationType) into stations format for BoxingTimerView
+          const exs=s.exercises||[];
+          const stationTypes=[{key:"TREADMILL",type:"treadmill"},{key:"STRENGTH",type:"dumbbell"},{key:"BAG",type:"bag"}];
+          const stations=stationTypes.map(({key,type})=>({
+            type,
+            rounds:exs.filter(e=>(e.stationType||"").toUpperCase().includes(key)).map(e=>({name:e.name,note:e.note||"",combo:e.combo||""})),
+          })).filter(st=>st.rounds.length>0);
+          setBoxingSession({...s,stations:stations.length?stations:s.stations||[]});
+        }else setActiveWorkout({day:d,session:s});}} weekSchedule={weekSchedule} favourites={favourites} onToggleFav={toggleFav}/>}
           {tab==="favourites"&&<FavouritesView favourites={favourites} onToggleFav={toggleFav} profile={profile}/>}
           {tab==="nutrition"&&<NutritionView profile={profile}/>}
           {tab==="coach"&&<CoachView profile={profile}/>}
-          <BottomNav active={tab} setActive={setTab}/>
+          <BottomNav active={tab} setActive={setTab} user={user} onProfile={()=>setShowProfile(true)}/>
         </>}
+        {screen==="main"&&boxingSession&&<BoxingTimerView session={boxingSession} profile={profile} onBack={()=>{setBoxingSession(null);const nc=sessionCount+1;setSessionCount(nc);try{localStorage.setItem("gmt_sessions",nc);}catch{}}}/>}
         {screen==="main"&&activeWorkout&&activeWorkout.session?.exercises&&<WorkoutView day={activeWorkout.day} session={activeWorkout.session} onBack={()=>{const nc=sessionCount+1;setSessionCount(nc);setActiveWorkout(null);try{localStorage.setItem("gmt_sessions",nc);const h=JSON.parse(localStorage.getItem("gmt_workout_history")||"[]");if(h[0])setLastWorkout(h[0]);}catch(e){}}} profile={profile} onWarmup={()=>{const wu=WORKOUT_LIBRARY.find(w=>w.id==="warmup");if(wu)setActiveWorkout({day:"WARM-UP",session:wu,isWarmup:true});}}/>}
       </div>
     </>
   );
 }
-export default function App(){return(<ErrorBoundary><AppInner/></ErrorBoundary>);}
+function App(){return(<ErrorBoundary><AppInner/></ErrorBoundary>);}
+export default App;
