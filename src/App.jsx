@@ -3678,11 +3678,11 @@ const FavouritesView=({favourites,onToggleFav,profile})=>{
 // --- BOTTOM NAV ---------------------------------------------------
 const BottomNav=({active,setActive,user,onProfile})=>{
   const tabs=[
-    {id:"home",icon:"H"",label:"Home"},
-    {id:"program",icon:"P"",label:"Programme"},
-    {id:"workouts",icon:"W"",label:"Workouts"},
-    {id:"library",icon:"E"",label:"Exercises"},
-    {id:"coach",icon:"G"",label:"Coach"},
+    {id:"home",icon:"H",label:"Home"},
+    {id:"program",icon:"P",label:"Programme"},
+    {id:"workouts",icon:"W",label:"Workouts"},
+    {id:"library",icon:"E",label:"Exercises"},
+    {id:"coach",icon:"G",label:"Coach"},
   ];
   const initial=(user?.initial||user?.name?.[0]||"G").toUpperCase();
   return(
