@@ -1802,7 +1802,7 @@ const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
   const tag=String(exercise.tag||exercise.type||"").toLowerCase();
   const primaryCol=tag.includes("hyper")?"#0066FF":tag.includes("strength")?"#FF0066":tag.includes("recovery")||tag.includes("stretch")?"#00E6B5":"#FF0066";
 
-  // Map muscle group names -> SVG path IDs
+  // Map muscle group names → SVG path IDs
   const GROUP_MAP={
     chest:["pec-l-upper","pec-l-lower","pec-r-upper","pec-r-lower"],
     quads:["quad-rf-l","quad-rf-r","quad-vl-l","quad-vl-r","quad-vm-l","quad-vm-r"],
@@ -1925,7 +1925,7 @@ const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
   const FRONT_BASE="M50,2 C44,2 40,5 39,10 C38,14 39,18 41,22 C42,25 43,28 43,31 L41,34 C37,31 31,30 26,33 C18,29 8,33 5,43 C2,52 2,64 5,74 C7,82 12,88 15,90 L14,118 C13,128 13,138 16,147 L22,195 C22,203 23,210 24,216 L26,248 C26,256 27,264 28,270 L30,280 L35,282 L37,270 L39,258 L41,266 L42,280 L44,282 L56,282 L58,280 L59,266 L61,258 L63,270 L65,282 L70,280 L72,270 L74,264 L75,256 L74,248 L76,216 C77,210 78,203 78,195 L84,147 C87,138 87,128 86,118 L85,90 C88,88 93,82 95,74 C98,64 98,52 95,43 C92,33 82,29 74,33 C69,30 63,31 59,34 L57,31 C57,28 58,25 59,22 C61,18 62,14 61,10 C60,5 56,2 50,2Z";
   const BACK_BASE="M50,2 C44,2 40,5 39,10 C38,14 39,18 41,22 C42,25 43,28 43,31 L41,34 C37,31 31,30 26,33 C18,29 7,33 4,44 C1,55 1,68 4,78 C6,86 11,91 14,94 L13,125 C12,136 12,148 15,158 L20,206 C20,216 21,225 22,232 L25,262 C24,272 24,280 26,286 L28,290 L34,292 L36,278 L38,265 L41,274 L42,290 L44,292 L56,292 L58,290 L59,274 L62,265 L64,278 L66,292 L72,290 L74,286 L75,280 L75,272 L73,262 L78,232 C79,225 80,216 80,206 L85,158 C88,148 88,136 87,125 L86,94 C89,91 94,86 96,78 C99,68 99,55 96,44 C93,33 82,29 74,33 C69,30 63,31 59,34 L57,31 C57,28 58,25 59,22 C61,18 62,14 61,10 C60,5 56,2 50,2Z";
 
-  // Front muscles - all anatomically shaped
+  // Front muscles — all anatomically shaped
   const FM=[
     {id:"pec-l-upper",d:"M50,36 C45,34 36,34 28,39 C21,44 19,54 22,63 C24,70 30,74 37,73 C42,72 47,66 50,58Z"},
     {id:"pec-l-lower",d:"M50,58 C47,66 42,74 34,78 C26,82 19,77 20,69 C21,63 27,60 34,60 C40,60 46,60 50,58Z"},
