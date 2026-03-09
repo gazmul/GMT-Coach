@@ -1799,255 +1799,320 @@ const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
   const exDiag=EXERCISE_DIAGRAMS[exercise.name]||null;
   const tag=String(exercise.tag||exercise.type||"").toLowerCase();
   const primaryCol=tag.includes("hyper")?"#1D7BFF":tag.includes("recovery")||tag.includes("stretch")?"#12D7C8":"#FF2B6E";
+  const primaryGlow=tag.includes("hyper")?"#1D7BFF":tag.includes("recovery")?"#12D7C8":"#FF2B6E";
 
   const GROUP_MAP={
-    chest:["pec-l","pec-r"],
-    quads:["quad-rf-l","quad-rf-r","quad-vl-l","quad-vl-r"],
-    glutes:["glute-l","glute-r"],
-    hamstrings:["ham-l","ham-r"],
-    lats:["lat-l","lat-r"],
-    traps:["trap-l","trap-r"],
-    biceps:["bicep-l","bicep-r"],
-    triceps:["tricep-l","tricep-r"],
-    abs:["abs-l","abs-r"],
-    obliques:["oblique-l","oblique-r"],
-    erectors:["erector-l","erector-r"],
-    anterior_deltoid:["delt-ant-l","delt-ant-r"],
-    lateral_deltoid:["delt-lat-l","delt-lat-r"],
-    rear_delts:["rear-delt-l","rear-delt-r"],
+    chest:["pec-l","pec-r"],quads:["quad-l","quad-r"],glutes:["glute-l","glute-r"],
+    hamstrings:["ham-l","ham-r"],lats:["lat-l","lat-r"],traps:["trap-l","trap-r"],
+    biceps:["bicep-l","bicep-r"],triceps:["tri-l","tri-r"],abs:["abs"],obliques:["obl-l","obl-r"],
+    erectors:["erect-l","erect-r"],anterior_deltoid:["delt-ant-l","delt-ant-r"],
+    lateral_deltoid:["delt-lat-l","delt-lat-r"],rear_delts:["rdelt-l","rdelt-r"],
     shoulders:["delt-ant-l","delt-ant-r","delt-lat-l","delt-lat-r"],
-    adductors:["adductor-l","adductor-r"],
-    calves:["calf-l","calf-r"],
-    serratus:["serratus-l","serratus-r"],
-    rhomboids:["rhomboid-l","rhomboid-r"],
-    teres:["teres-l","teres-r"],
-    forearms:["forearm-l","forearm-r"],
-    hip_flexors:["hip-flex-l","hip-flex-r"],
+    adductors:["add-l","add-r"],calves:["calf-l","calf-r"],serratus:["ser-l","ser-r"],
+    rhomboids:["rhomb-l","rhomb-r"],teres:["teres-l","teres-r"],forearms:["fore-l","fore-r"],
+    hip_flexors:["hipflex-l","hipflex-r"],
   };
-
-  const resolveIds=(groups=[])=>{
-    if(!groups||!groups.length)return[];
-    const ids=[];
-    groups.forEach(g=>{const m=GROUP_MAP[g];if(m)ids.push(...m);else ids.push(g);});
-    return ids;
-  };
-
-  const fallback=(()=>{
-    const p=String(exercise.muscle||"").toLowerCase();
-    if(p.includes("chest"))return["chest"];
-    if(p.includes("back")||p.includes("lat"))return["lats"];
-    if(p.includes("shoulder")||p.includes("delt"))return["shoulders"];
-    if(p.includes("quad"))return["quads"];
-    if(p.includes("hamstring"))return["hamstrings"];
-    if(p.includes("glute"))return["glutes"];
-    if(p.includes("bicep"))return["biceps"];
-    if(p.includes("tricep"))return["triceps"];
-    if(p.includes("calf"))return["calves"];
-    if(p.includes("core")||p.includes("ab"))return["abs"];
-    return[];
+  const resolveIds=(g=[])=>{const ids=[];(g||[]).forEach(x=>{const m=GROUP_MAP[x];m?ids.push(...m):ids.push(x);});return ids;};
+  const fall=(()=>{const p=String(exercise.muscle||"").toLowerCase();
+    if(p.includes("chest"))return["chest"];if(p.includes("lat")||p.includes("back"))return["lats"];
+    if(p.includes("shoulder")||p.includes("delt"))return["shoulders"];if(p.includes("quad"))return["quads"];
+    if(p.includes("ham"))return["hamstrings"];if(p.includes("glute"))return["glutes"];
+    if(p.includes("bicep"))return["biceps"];if(p.includes("tricep"))return["triceps"];
+    if(p.includes("calf"))return["calves"];if(p.includes("ab")||p.includes("core"))return["abs"];return[];
   })();
-
-  const primaryIds=resolveIds(exDiag?.primary||fallback);
-  const secondaryIds=resolveIds(exDiag?.secondary||[]);
+  const primIds=resolveIds(exDiag?.primary||fall);
+  const secIds=resolveIds(exDiag?.secondary||[]);
   const stabIds=resolveIds(exDiag?.stabilizer||[]);
+  const stateOf=(id)=>primIds.includes(id)?"p":secIds.includes(id)?"s":stabIds.includes(id)?"st":"off";
 
-  const getState=(id)=>{
-    if(primaryIds.includes(id))return"primary";
-    if(secondaryIds.includes(id))return"secondary";
-    if(stabIds.includes(id))return"stab";
-    return"none";
+  // Per-muscle radial gradient colors
+  const muscleBaseColors={
+    "pec-l":"130,40,70","pec-r":"130,40,70",
+    "delt-ant-l":"90,50,120","delt-ant-r":"90,50,120",
+    "delt-lat-l":"70,40,110","delt-lat-r":"70,40,110",
+    "bicep-l":"50,80,140","bicep-r":"50,80,140",
+    "tri-l":"60,40,100","tri-r":"60,40,100",
+    "fore-l":"40,50,90","fore-r":"40,50,90",
+    "lat-l":"50,60,130","lat-r":"50,60,130",
+    "ser-l":"50,55,100","ser-r":"50,55,100",
+    "abs":"80,60,110","obl-l":"60,50,100","obl-r":"60,50,100",
+    "hipflex-l":"70,50,110","hipflex-r":"70,50,110",
+    "quad-l":"50,70,140","quad-r":"50,70,140",
+    "add-l":"45,60,120","add-r":"45,60,120",
+    "calf-l":"50,70,130","calf-r":"50,70,130",
+    "trap-l":"80,50,120","trap-r":"80,50,120",
+    "rdelt-l":"70,45,115","rdelt-r":"70,45,115",
+    "rhomb-l":"60,50,110","rhomb-r":"60,50,110",
+    "teres-l":"55,48,108","teres-r":"55,48,108",
+    "erect-l":"60,55,115","erect-r":"60,55,115",
+    "glute-l":"100,50,130","glute-r":"100,50,130",
+    "ham-l":"60,70,140","ham-r":"60,70,140",
   };
 
-  const pStop0=primaryCol==="#1D7BFF"?"#5599FF":primaryCol==="#12D7C8"?"#40FFE8":"#FF5C93";
-  const pStop1=primaryCol;
+  const fillOf=(id,cx,cy,r=28)=>{
+    const st=stateOf(id);
+    const base=muscleBaseColors[id]||"50,55,100";
+    if(st==="p"){
+      const c=primaryCol;
+      return{fill:`radial-gradient(circle at ${cx}% ${cy}%, ${c}EE 0%, ${c}99 45%, ${c}44 100%)`,filter:`drop-shadow(0 0 8px ${c}88)`};
+    }
+    if(st==="s") return{fill:`radial-gradient(circle at ${cx}% ${cy}%, #FF9F1A dd 0%, #FF9F1A88 45%, #FF9F1A33 100%)`,filter:"drop-shadow(0 0 5px #FF9F1A66)"};
+    if(st==="st") return{fill:`radial-gradient(circle at ${cx}% ${cy}%, #4499FFcc 0%, #4499FF66 50%, #4499FF22 100%)`,filter:"drop-shadow(0 0 4px #4499FF55)"};
+    // resting state: subtle 3D shading using muscle-specific tones
+    return{fill:`radial-gradient(circle at ${cx}% ${cy}%, rgba(${base},0.55) 0%, rgba(${base},0.28) 55%, rgba(${base},0.10) 100%)`};
+  };
 
-  const Defs=({suffix})=>React.createElement("defs",null,
-    React.createElement("linearGradient",{id:`bG${suffix}`,x1:"0%",y1:"0%",x2:"0%",y2:"100%"},
-      React.createElement("stop",{offset:"0%",stopColor:"#2A3042"}),
-      React.createElement("stop",{offset:"55%",stopColor:"#181C27"}),
-      React.createElement("stop",{offset:"100%",stopColor:"#0D1119"})
-    ),
-    React.createElement("linearGradient",{id:`pG${suffix}`,x1:"0%",y1:"0%",x2:"100%",y2:"100%"},
-      React.createElement("stop",{offset:"0%",stopColor:pStop0}),
-      React.createElement("stop",{offset:"100%",stopColor:pStop1})
-    ),
-    React.createElement("linearGradient",{id:`sG${suffix}`,x1:"0%",y1:"0%",x2:"100%",y2:"100%"},
-      React.createElement("stop",{offset:"0%",stopColor:"#FFC066"}),
-      React.createElement("stop",{offset:"100%",stopColor:"#FF9F1A"})
-    ),
-    React.createElement("linearGradient",{id:`stG${suffix}`,x1:"0%",y1:"0%",x2:"100%",y2:"100%"},
-      React.createElement("stop",{offset:"0%",stopColor:"#4499FF"}),
-      React.createElement("stop",{offset:"100%",stopColor:"#1D7BFF"})
-    ),
-    React.createElement("filter",{id:`gP${suffix}`,x:"-40%",y:"-40%",width:"180%",height:"180%"},
-      React.createElement("feGaussianBlur",{stdDeviation:"5",result:"blur"}),
-      React.createElement("feMerge",null,React.createElement("feMergeNode",{in:"blur"}),React.createElement("feMergeNode",{in:"SourceGraphic"}))
-    ),
-    React.createElement("filter",{id:`gS${suffix}`,x:"-40%",y:"-40%",width:"180%",height:"180%"},
-      React.createElement("feGaussianBlur",{stdDeviation:"3.5",result:"blur"}),
-      React.createElement("feMerge",null,React.createElement("feMergeNode",{in:"blur"}),React.createElement("feMergeNode",{in:"SourceGraphic"}))
-    )
-  );
+  // SVG muscle path renderer using inline style (supports radial-gradient in foreignObject workaround via filter+fill)
+  // We use CSS filter approach: flat fill + glow for active, subtle fill for inactive
+  const flatFill=(id)=>{
+    const st=stateOf(id);
+    if(st==="p") return{fill:primaryCol,filter:`drop-shadow(0 0 7px ${primaryGlow}aa)`};
+    if(st==="s") return{fill:"#FF9F1A",filter:"drop-shadow(0 0 5px #FF9F1A88)"};
+    if(st==="st") return{fill:"#4499FF",filter:"drop-shadow(0 0 4px #4499FF77)"};
+    return{fill:"rgba(255,255,255,0.075)"};
+  };
+  const strokeOf=(id)=>{
+    const st=stateOf(id);
+    if(st==="p") return{stroke:`${primaryCol}88`,strokeWidth:0.8};
+    if(st==="s") return{stroke:"#FF9F1A55",strokeWidth:0.7};
+    if(st==="st") return{stroke:"#4499FF44",strokeWidth:0.7};
+    return{stroke:"rgba(255,255,255,0.10)",strokeWidth:0.5};
+  };
 
-  const BODY_LINE="rgba(255,255,255,0.10)";
-  const TORSO="M128,138 C112,152 100,170 94,194 C82,204 74,222 74,246 C74,280 84,308 96,334 C104,352 108,372 110,390 C116,436 124,506 128,642 L162,642 L170,552 L180,470 L190,552 L198,642 L232,642 C236,506 244,436 250,390 C252,372 256,352 264,334 C276,308 286,280 286,246 C286,222 278,204 266,194 C260,170 248,152 232,138 Z";
-  const ARM_L="M102,188 C74,202 60,236 60,286 C60,344 66,390 76,434 C82,456 94,466 108,458 C112,420 116,372 116,316 C116,256 112,212 102,188 Z";
-  const ARM_R="M258,188 C286,202 300,236 300,286 C300,344 294,390 284,434 C278,456 266,466 252,458 C248,420 244,372 244,316 C244,256 248,212 258,188 Z";
-  const LEG_L_U="M132,390 C112,426 104,488 108,566 C112,620 126,652 148,652 C158,620 160,546 156,470 C154,434 146,404 132,390 Z";
-  const LEG_R_U="M228,390 C248,426 256,488 252,566 C248,620 234,652 212,652 C202,620 200,546 204,470 C206,434 214,404 228,390 Z";
-  const LEG_L_D="M146,648 C136,672 132,714 138,746 C142,758 152,762 160,754 C164,714 160,678 154,650 Z";
-  const LEG_R_D="M214,648 C224,672 228,714 222,746 C218,758 208,762 200,754 C196,714 200,678 206,650 Z";
-  const HEAD="M164,106 L160,138 L200,138 L196,106 Z";
-  const NECK="M164,106 L160,138 L200,138 L196,106 Z";
-
-  const MPath=({id,d,suffix,opacity=1})=>{
-    const state=getState(id);
-    const fill=state==="primary"?`url(#pG${suffix})`:state==="secondary"?`url(#sG${suffix})`:state==="stab"?`url(#stG${suffix})`:(hov===id?"rgba(255,255,255,0.10)":"rgba(255,255,255,0.04)");
-    const filter=state==="primary"?`url(#gP${suffix})`:state==="secondary"||state==="stab"?`url(#gS${suffix})`:undefined;
-    const stroke=state!=="none"?"rgba(255,255,255,0.12)":"rgba(255,255,255,0.06)";
-    return React.createElement("path",{d,fill,stroke,strokeWidth:0.9,opacity,filter,
-      style:{cursor:"crosshair",transition:"fill 0.25s"},
+  const M=({id,d,o=1})=>{
+    const ff=flatFill(id);
+    const sf=strokeOf(id);
+    return React.createElement("path",{d,opacity:o,
+      fill:ff.fill,stroke:sf.stroke,strokeWidth:sf.strokeWidth,
+      style:{filter:ff.filter,cursor:"crosshair",transition:"fill 0.3s,filter 0.3s"},
       onMouseEnter:()=>setHov(id),onMouseLeave:()=>setHov(null)
     });
   };
 
-  const mkFront=()=>React.createElement("svg",{viewBox:"0 0 360 760",style:{width:"100%",display:"block"}},
-    React.createElement(Defs,{suffix:"F"}),
-    // Body segments
-    React.createElement("ellipse",{cx:180,cy:72,rx:34,ry:44,fill:"url(#bGF)",stroke:BODY_LINE,strokeWidth:1.2}),
-    React.createElement("path",{d:HEAD,fill:"url(#bGF)",stroke:BODY_LINE,strokeWidth:1.2}),
-    React.createElement("path",{d:TORSO,fill:"url(#bGF)",stroke:BODY_LINE,strokeWidth:1.2}),
-    React.createElement("path",{d:ARM_L,fill:"url(#bGF)",stroke:BODY_LINE}),
-    React.createElement("path",{d:ARM_R,fill:"url(#bGF)",stroke:BODY_LINE}),
-    React.createElement("path",{d:LEG_L_U,fill:"url(#bGF)",stroke:BODY_LINE}),
-    React.createElement("path",{d:LEG_R_U,fill:"url(#bGF)",stroke:BODY_LINE}),
-    React.createElement("path",{d:LEG_L_D,fill:"url(#bGF)",stroke:BODY_LINE}),
-    React.createElement("path",{d:LEG_R_D,fill:"url(#bGF)",stroke:BODY_LINE}),
-    // Contour lines
-    React.createElement("g",{fill:"none",stroke:"rgba(255,255,255,0.07)",strokeWidth:1.2},
-      React.createElement("path",{d:"M180 138 L180 386"}),
-      React.createElement("path",{d:"M128 218 C148 224,164 226,180 226 C196 226,212 224,232 218"}),
-      React.createElement("path",{d:"M136 274 C152 278,166 280,180 280 C194 280,208 278,224 274"}),
-      React.createElement("path",{d:"M144 324 C156 328,168 330,180 330 C192 330,204 328,216 324"})
-    ),
-    // Muscles  -  Front
-    React.createElement(MPath,{id:"pec-l",suffix:"F",d:"M176,156 C148,142 110,146 92,168 C84,180 84,204 92,220 C104,240 130,252 154,250 C166,248 174,242 180,232 C180,202 180,176 176,156 Z"}),
-    React.createElement(MPath,{id:"pec-r",suffix:"F",d:"M184,156 C212,142 250,146 268,168 C276,180 276,204 268,220 C256,240 230,252 206,250 C194,248 186,242 180,232 C180,202 180,176 184,156 Z"}),
-    React.createElement(MPath,{id:"delt-ant-l",suffix:"F",d:"M106,154 C86,162 76,180 78,202 C84,220 98,228 112,222 C122,214 126,188 122,166 C118,158 114,154 106,154 Z"}),
-    React.createElement(MPath,{id:"delt-ant-r",suffix:"F",d:"M254,154 C274,162 284,180 282,202 C278,222 264,232 248,228 C238,214 234,188 238,166 C242,158 246,154 254,154 Z"}),
-    React.createElement(MPath,{id:"delt-lat-l",suffix:"F",d:"M84,190 C68,206 64,240 70,270 C76,286 88,290 98,280 C100,250 96,214 88,190 Z",opacity:0.75}),
-    React.createElement(MPath,{id:"delt-lat-r",suffix:"F",d:"M276,190 C292,206 296,240 290,270 C284,286 272,290 262,280 C260,250 264,214 272,190 Z",opacity:0.75}),
-    React.createElement(MPath,{id:"tricep-l",suffix:"F",d:"M84,254 C74,280 74,322 82,360 C90,378 102,384 112,374 C114,334 110,290 100,252 Z",opacity:0.72}),
-    React.createElement(MPath,{id:"tricep-r",suffix:"F",d:"M276,254 C286,280 286,322 278,360 C270,378 258,384 248,374 C246,334 250,290 260,252 Z",opacity:0.72}),
-    React.createElement(MPath,{id:"bicep-l",suffix:"F",d:"M94,198 C82,212 76,248 82,284 C88,298 100,300 108,290 C110,258 108,222 100,200 Z",opacity:0.8}),
-    React.createElement(MPath,{id:"bicep-r",suffix:"F",d:"M266,198 C278,212 284,248 278,284 C272,298 260,300 252,290 C250,258 252,222 260,200 Z",opacity:0.8}),
-    React.createElement(MPath,{id:"forearm-l",suffix:"F",d:"M90,296 C78,316 76,354 82,390 C86,408 96,414 106,406 C108,370 106,330 100,298 Z",opacity:0.68}),
-    React.createElement(MPath,{id:"forearm-r",suffix:"F",d:"M270,296 C282,316 284,354 278,390 C274,408 264,414 254,406 C252,370 254,330 260,298 Z",opacity:0.68}),
-    React.createElement(MPath,{id:"serratus-l",suffix:"F",d:"M128,250 C118,262 114,280 118,296 C126,300 136,296 142,286 C140,272 136,260 128,250 Z",opacity:0.64}),
-    React.createElement(MPath,{id:"serratus-r",suffix:"F",d:"M232,250 C242,262 246,280 242,296 C234,300 224,296 218,286 C220,272 224,260 232,250 Z",opacity:0.64}),
-    React.createElement(MPath,{id:"abs-l",suffix:"F",d:"M144,238 C136,256 135,296 140,330 C146,350 158,358 168,352 C172,330 170,290 165,258 C162,240 150,234 144,238 Z",opacity:0.72}),
-    React.createElement(MPath,{id:"abs-r",suffix:"F",d:"M216,238 C224,256 225,296 220,330 C214,350 202,358 192,352 C188,330 190,290 195,258 C198,240 210,234 216,238 Z",opacity:0.72}),
-    React.createElement(MPath,{id:"oblique-l",suffix:"F",d:"M120,252 C112,272 110,308 114,338 C118,354 130,360 140,352 C138,322 136,284 132,258 Z",opacity:0.6}),
-    React.createElement(MPath,{id:"oblique-r",suffix:"F",d:"M240,252 C248,272 250,308 246,338 C242,354 230,360 220,352 C222,322 224,284 228,258 Z",opacity:0.6}),
-    React.createElement(MPath,{id:"quad-rf-l",suffix:"F",d:"M138,400 C124,432 118,492 122,550 C126,582 138,598 152,594 C160,566 158,506 154,456 C150,420 144,398 138,400 Z"}),
-    React.createElement(MPath,{id:"quad-rf-r",suffix:"F",d:"M222,400 C236,432 242,492 238,550 C234,582 222,598 208,594 C200,566 202,506 206,456 C210,420 216,398 222,400 Z"}),
-    React.createElement(MPath,{id:"quad-vl-l",suffix:"F",d:"M118,402 C104,438 100,500 106,560 C110,590 124,604 138,598 C134,562 132,500 134,450 C135,420 124,398 118,402 Z",opacity:0.85}),
-    React.createElement(MPath,{id:"quad-vl-r",suffix:"F",d:"M242,402 C256,438 260,500 254,560 C250,590 236,604 222,598 C226,562 228,500 226,450 C225,420 236,398 242,402 Z",opacity:0.85}),
-    React.createElement(MPath,{id:"adductor-l",suffix:"F",d:"M154,400 C146,430 144,480 148,530 C152,558 162,568 170,560 C172,530 170,476 166,436 Z",opacity:0.6}),
-    React.createElement(MPath,{id:"adductor-r",suffix:"F",d:"M206,400 C214,430 216,480 212,530 C208,558 198,568 190,560 C188,530 190,476 194,436 Z",opacity:0.6}),
-    React.createElement(MPath,{id:"calf-l",suffix:"F",d:"M126,664 C116,692 114,730 120,758 C124,768 136,770 142,760 C144,732 140,698 136,668 Z",opacity:0.82}),
-    React.createElement(MPath,{id:"calf-r",suffix:"F",d:"M234,664 C244,692 246,730 240,758 C236,768 224,770 218,760 C216,732 220,698 224,668 Z",opacity:0.82}),
-    React.createElement(MPath,{id:"hip-flex-l",suffix:"F",d:"M148,366 C138,382 136,402 140,420 C148,428 158,424 162,412 C162,396 158,376 148,366 Z",opacity:0.7}),
-    React.createElement(MPath,{id:"hip-flex-r",suffix:"F",d:"M212,366 C222,382 224,402 220,420 C212,428 202,424 198,412 C198,396 202,376 212,366 Z",opacity:0.7})
-  );
+  // ---- BODY SHELL (bodybuilder V-taper proportions, viewBox 0 0 200 500) ----
+  // Wide shoulders (~160px), waist narrow (~88px), moderate hips (~110px), thick legs
 
-  const mkBack=()=>React.createElement("svg",{viewBox:"0 0 360 760",style:{width:"100%",display:"block"}},
-    React.createElement(Defs,{suffix:"B"}),
-    React.createElement("ellipse",{cx:180,cy:72,rx:34,ry:44,fill:"url(#bGB)",stroke:BODY_LINE,strokeWidth:1.2}),
-    React.createElement("path",{d:HEAD,fill:"url(#bGB)",stroke:BODY_LINE,strokeWidth:1.2}),
-    React.createElement("path",{d:TORSO,fill:"url(#bGB)",stroke:BODY_LINE,strokeWidth:1.2}),
-    React.createElement("path",{d:ARM_L,fill:"url(#bGB)",stroke:BODY_LINE}),
-    React.createElement("path",{d:ARM_R,fill:"url(#bGB)",stroke:BODY_LINE}),
-    React.createElement("path",{d:LEG_L_U,fill:"url(#bGB)",stroke:BODY_LINE}),
-    React.createElement("path",{d:LEG_R_U,fill:"url(#bGB)",stroke:BODY_LINE}),
-    React.createElement("path",{d:LEG_L_D,fill:"url(#bGB)",stroke:BODY_LINE}),
-    React.createElement("path",{d:LEG_R_D,fill:"url(#bGB)",stroke:BODY_LINE}),
-    React.createElement("g",{fill:"none",stroke:"rgba(255,255,255,0.065)",strokeWidth:1.1},
-      React.createElement("path",{d:"M180 138 L180 390"}),
-      React.createElement("path",{d:"M132 164 C150 174,164 178,180 178 C196 178,210 174,228 164"}),
-      React.createElement("path",{d:"M142 252 C156 260,166 264,180 264 C194 264,204 260,218 252"})
-    ),
-    // Back muscles
-    React.createElement(MPath,{id:"trap-l",suffix:"B",d:"M180,138 C160,144 138,158 126,178 C120,190 122,208 132,218 C148,226 164,220 174,206 C180,192 180,164 180,138 Z"}),
-    React.createElement(MPath,{id:"trap-r",suffix:"B",d:"M180,138 C200,144 222,158 234,178 C240,190 238,208 228,218 C212,226 196,220 186,206 C180,192 180,164 180,138 Z"}),
-    React.createElement(MPath,{id:"rear-delt-l",suffix:"B",d:"M110,164 C92,170 84,184 88,202 C94,214 106,220 118,214 C124,200 122,180 110,164 Z"}),
-    React.createElement(MPath,{id:"rear-delt-r",suffix:"B",d:"M250,164 C268,170 276,184 272,202 C266,214 254,220 242,214 C236,200 238,180 250,164 Z"}),
-    React.createElement(MPath,{id:"lat-l",suffix:"B",d:"M120,196 C102,220 96,264 100,310 C104,340 116,356 130,350 C138,328 136,280 132,240 C130,216 124,194 120,196 Z"}),
-    React.createElement(MPath,{id:"lat-r",suffix:"B",d:"M240,196 C258,220 264,264 260,310 C256,340 244,356 230,350 C222,328 224,280 228,240 C230,216 236,194 240,196 Z"}),
-    React.createElement(MPath,{id:"rhomboid-l",suffix:"B",d:"M180,162 C166,168 154,180 154,196 C154,208 162,216 174,214 C178,196 180,178 180,162 Z",opacity:0.8}),
-    React.createElement(MPath,{id:"rhomboid-r",suffix:"B",d:"M180,162 C194,168 206,180 206,196 C206,208 198,216 186,214 C182,196 180,178 180,162 Z",opacity:0.8}),
-    React.createElement(MPath,{id:"teres-l",suffix:"B",d:"M118,198 C106,212 104,234 110,252 C118,262 130,262 136,252 C136,232 130,212 118,198 Z",opacity:0.75}),
-    React.createElement(MPath,{id:"teres-r",suffix:"B",d:"M242,198 C254,212 256,234 250,252 C242,262 230,262 224,252 C224,232 230,212 242,198 Z",opacity:0.75}),
-    React.createElement(MPath,{id:"erector-l",suffix:"B",d:"M166,220 C160,248 158,300 162,354 C164,378 172,390 180,388 C180,360 180,300 178,248 C177,226 170,218 166,220 Z",opacity:0.78}),
-    React.createElement(MPath,{id:"erector-r",suffix:"B",d:"M194,220 C200,248 202,300 198,354 C196,378 188,390 180,388 C180,360 180,300 182,248 C183,226 190,218 194,220 Z",opacity:0.78}),
-    React.createElement(MPath,{id:"tricep-l",suffix:"B",d:"M86,254 C76,280 76,320 84,356 C92,372 102,378 110,370 C112,332 108,290 100,254 Z",opacity:0.6}),
-    React.createElement(MPath,{id:"tricep-r",suffix:"B",d:"M274,254 C284,280 284,320 276,356 C268,372 258,378 250,370 C248,332 252,290 260,254 Z",opacity:0.6}),
-    React.createElement(MPath,{id:"glute-l",suffix:"B",d:"M116,370 C100,396 96,432 102,466 C108,490 124,502 140,496 C152,470 150,426 144,390 C138,366 122,362 116,370 Z"}),
-    React.createElement(MPath,{id:"glute-r",suffix:"B",d:"M244,370 C260,396 264,432 258,466 C252,490 236,502 220,496 C208,470 210,426 216,390 C222,366 238,362 244,370 Z"}),
-    React.createElement(MPath,{id:"ham-l",suffix:"B",d:"M128,502 C114,534 110,578 116,618 C122,642 138,652 152,644 C158,614 154,566 148,530 C142,504 132,498 128,502 Z"}),
-    React.createElement(MPath,{id:"ham-r",suffix:"B",d:"M232,502 C246,534 250,578 244,618 C238,642 222,652 208,644 C202,614 206,566 212,530 C218,504 228,498 232,502 Z"}),
-    React.createElement(MPath,{id:"calf-l",suffix:"B",d:"M126,664 C114,692 112,730 118,758 C122,768 134,770 140,760 C142,732 138,698 134,668 Z",opacity:0.82}),
-    React.createElement(MPath,{id:"calf-r",suffix:"B",d:"M234,664 C246,692 248,730 242,758 C238,768 226,770 220,760 C218,732 222,698 226,668 Z",opacity:0.82}),
-    React.createElement(MPath,{id:"forearm-l",suffix:"B",d:"M88,296 C76,316 74,354 80,390 C84,408 94,414 104,406 C106,370 104,330 98,298 Z",opacity:0.68}),
-    React.createElement(MPath,{id:"forearm-r",suffix:"B",d:"M272,296 C284,316 286,354 280,390 C276,408 266,414 256,406 C254,370 256,330 262,298 Z",opacity:0.68})
-  );
+  const BODY_SHELL_FRONT="M100,4 C88,4 80,10 78,18 C76,25 77,33 80,39 L78,44 C70,41 58,42 48,48 C36,44 20,47 12,58 C4,68 4,84 8,96 C12,106 20,112 28,112 L26,150 C25,164 26,178 30,190 L34,238 C34,252 35,264 36,270 L38,306 L44,306 L46,292 L50,278 L52,290 L54,308 L62,308 L64,306 L66,294 L70,282 L74,296 L76,310 C78,316 82,320 86,318 L88,308 C90,302 91,286 92,274 L94,258 L100,258 L106,258 L108,274 C109,286 110,302 112,308 L114,318 C118,320 122,316 124,310 L126,296 L130,282 L134,294 L136,306 L138,308 L146,308 L148,290 L150,278 L154,292 L156,306 L162,306 L164,270 C165,264 166,252 166,238 L170,190 C174,178 175,164 174,150 L172,112 C180,112 188,106 192,96 C196,84 196,68 188,58 C180,47 164,44 152,48 C142,42 130,41 122,44 L120,39 C123,33 124,25 122,18 C120,10 112,4 100,4Z";
+  const BODY_SHELL_BACK="M100,4 C88,4 80,10 78,18 C76,25 77,33 80,39 L78,44 C70,41 58,42 48,48 C36,44 20,47 12,58 C4,68 4,84 8,96 C12,106 20,112 28,112 L26,148 C25,162 26,176 30,188 L34,236 C34,250 35,262 36,268 L38,304 L44,304 L46,290 L50,276 L52,288 L54,306 L62,306 L64,304 L66,292 L70,280 L74,294 L76,308 C78,314 82,318 86,316 L88,306 L92,272 L96,256 L100,256 L104,256 L108,272 L112,306 L114,316 C118,318 122,314 124,308 L126,294 L130,280 L134,292 L136,304 L138,306 L146,306 L148,288 L150,276 L154,290 L156,304 L162,304 L164,268 C165,262 166,250 166,236 L170,188 C174,176 175,162 174,148 L172,112 C180,112 188,106 192,96 C196,84 196,68 188,58 C180,47 164,44 152,48 C142,42 130,41 122,44 L120,39 C123,33 124,25 122,18 C120,10 112,4 100,4Z";
 
-  const activeCount=primaryIds.length+secondaryIds.length+stabIds.length;
-  const hovName=hov?hov.replace(/-[lr]$/,"").replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase()):null;
+  // Contour / separation lines (front)
+  const CONTOURS_FRONT=[
+    "M100,44 L100,192",             // center line sternum/abs
+    "M80,96 C86,98 93,99 100,99 C107,99 114,98 120,96", // lower chest arch
+    "M82,112 C88,114 94,115 100,115 C106,115 112,114 118,112", // ab row 1
+    "M84,128 C90,130 95,131 100,131 C105,131 110,130 116,128", // ab row 2
+    "M85,144 C91,146 96,147 100,147 C104,147 109,146 115,144", // ab row 3
+    "M88,160 C93,162 97,163 100,163 C103,163 107,162 112,160", // ab row 4
+    "M78,50 C72,56 68,66 68,78",    // pec/delt sep L
+    "M122,50 C128,56 132,66 132,78",// pec/delt sep R
+    "M28,100 C26,106 26,116 28,124",// lat/arm L
+    "M172,100 C174,106 174,116 172,124",// lat/arm R
+    "M80,192 C86,194 93,195 100,195",// lower abs / hip
+    "M120,192 C114,194 107,195 100,195",
+    "M60,240 C66,236 74,234 82,234",  // quad sep L
+    "M140,240 C134,236 126,234 118,234", // quad sep R
+  ];
 
-  return React.createElement("div",{
-    style:{background:"rgba(13,16,24,0.98)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:16,padding:"10px 10px 8px",marginBottom:12,cursor:onExpand?"pointer":"default"},
-    onClick:onExpand?onExpand:undefined
-  },
-    // Header
-    React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}},
-      React.createElement("div",{style:{fontSize:9,color:"rgba(255,255,255,0.4)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}},
-        "MUSCLE ACTIVATION"+(activeCount>0?`  -  ${activeCount} active`:"")
-      ),
-      hovName&&React.createElement("div",{style:{fontSize:9,color:"rgba(255,255,255,0.55)",fontFamily:"'Space Mono',monospace",background:"rgba(255,255,255,0.06)",padding:"2px 8px",borderRadius:4}},hovName)
-    ),
-    // Figures side by side
-    React.createElement("div",{style:{display:"flex",gap:0,alignItems:"stretch"}},
-      React.createElement("div",{style:{flex:1,display:"flex",flexDirection:"column"}},
-        React.createElement("div",{style:{fontSize:7,color:"rgba(255,255,255,0.25)",fontFamily:"monospace",letterSpacing:".12em",textAlign:"center",marginBottom:3,paddingTop:2}},"ANTERIOR"),
-        React.createElement("div",{style:{flex:1}},mkFront())
-      ),
-      React.createElement("div",{style:{width:1,background:"rgba(255,255,255,0.07)",margin:"20px 4px"}}),
-      React.createElement("div",{style:{flex:1,display:"flex",flexDirection:"column"}},
-        React.createElement("div",{style:{fontSize:7,color:"rgba(255,255,255,0.25)",fontFamily:"monospace",letterSpacing:".12em",textAlign:"center",marginBottom:3,paddingTop:2}},"POSTERIOR"),
-        React.createElement("div",{style:{flex:1}},mkBack())
+  // Contour lines (back)
+  const CONTOURS_BACK=[
+    "M100,44 L100,190",
+    "M84,70 C90,72 95,73 100,73 C105,73 110,72 116,70",
+    "M82,86 C88,88 94,89 100,89 C106,89 112,88 118,86",
+    "M28,98 C26,110 26,126 30,136",
+    "M172,98 C174,110 174,126 170,136",
+    "M86,188 C92,190 96,191 100,191 C104,191 108,190 114,188",
+    "M72,234 C78,230 86,228 94,228",
+    "M128,234 C122,230 114,228 106,228",
+    "M86,140 C90,138 95,137 100,137 C105,137 110,138 114,140",
+  ];
+
+  const mkFront=()=>React.createElement("svg",{viewBox:"0 0 200 320",style:{width:"100%",display:"block"},fill:"none"},
+    React.createElement("defs",null,
+      React.createElement("linearGradient",{id:"bgf",x1:"0%",y1:"0%",x2:"0%",y2:"100%"},
+        React.createElement("stop",{offset:"0%",stopColor:"#1E2535"}),
+        React.createElement("stop",{offset:"50%",stopColor:"#111620"}),
+        React.createElement("stop",{offset:"100%",stopColor:"#080B12"})
       )
     ),
-    // Legend
-    activeCount>0&&React.createElement("div",{style:{display:"flex",gap:12,marginTop:6,paddingTop:6,borderTop:"1px solid rgba(255,255,255,0.06)",flexWrap:"wrap"}},
-      primaryIds.length>0&&React.createElement("div",{style:{display:"flex",alignItems:"center",gap:5}},
-        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:primaryCol,boxShadow:`0 0 5px ${primaryCol}70`}}),
-        React.createElement("span",{style:{fontSize:9,color:"rgba(255,255,255,0.45)",fontFamily:"'Space Mono',monospace"}}),"Primary"
+    // Body shell
+    React.createElement("path",{d:BODY_SHELL_FRONT,fill:"url(#bgf)",stroke:"rgba(255,255,255,0.13)",strokeWidth:1.2}),
+    // Head
+    React.createElement("ellipse",{cx:100,cy:16,rx:16,ry:18,fill:"#1A1F2E",stroke:"rgba(255,255,255,0.10)",strokeWidth:0.8}),
+    React.createElement("path",{d:"M90,32 L88,44 L112,44 L110,32Z",fill:"#151A28",stroke:"rgba(255,255,255,0.08)",strokeWidth:0.6}),
+
+    // === FRONT MUSCLES ===
+    // PECS - large, proper chest shape
+    React.createElement(M,{id:"pec-l",d:"M100,50 C96,46 88,44 78,48 C66,53 56,66 54,80 C52,92 56,102 64,106 C72,109 82,105 90,98 C96,92 100,82 100,70Z"}),
+    React.createElement(M,{id:"pec-r",d:"M100,50 C104,46 112,44 122,48 C134,53 144,66 146,80 C148,92 144,102 136,106 C128,109 118,105 110,98 C104,92 100,82 100,70Z"}),
+
+    // ANTERIOR DELTS - proper teardrop hanging off shoulder
+    React.createElement(M,{id:"delt-ant-l",d:"M52,50 C42,50 30,58 26,72 C22,84 26,96 36,102 C44,106 54,102 58,92 C62,82 60,64 52,50Z"}),
+    React.createElement(M,{id:"delt-ant-r",d:"M148,50 C158,50 170,58 174,72 C178,84 174,96 164,102 C156,106 146,102 142,92 C138,82 140,64 148,50Z"}),
+
+    // LATERAL DELTS - visible side bulk
+    React.createElement(M,{id:"delt-lat-l",d:"M20,60 C10,66 6,80 8,94 C10,106 18,113 28,110 C34,106 36,96 34,84 C32,72 24,58 20,60Z",o:0.85}),
+    React.createElement(M,{id:"delt-lat-r",d:"M180,60 C190,66 194,80 192,94 C190,106 182,113 172,110 C166,106 164,96 166,84 C168,72 176,58 180,60Z",o:0.85}),
+
+    // BICEPS - distinct peak
+    React.createElement(M,{id:"bicep-l",d:"M18,108 C10,112 6,126 8,142 C10,154 18,161 26,158 C32,154 34,142 32,130 C30,116 23,106 18,108Z"}),
+    React.createElement(M,{id:"bicep-r",d:"M182,108 C190,112 194,126 192,142 C190,154 182,161 174,158 C168,154 166,142 168,130 C170,116 177,106 182,108Z"}),
+
+    // TRICEPS
+    React.createElement(M,{id:"tri-l",d:"M10,104 C4,112 4,132 8,148 C12,160 20,165 28,162 C30,148 28,128 24,112 C21,102 13,100 10,104Z",o:0.75}),
+    React.createElement(M,{id:"tri-r",d:"M190,104 C196,112 196,132 192,148 C188,160 180,165 172,162 C170,148 172,128 176,112 C179,102 187,100 190,104Z",o:0.75}),
+
+    // FOREARMS
+    React.createElement(M,{id:"fore-l",d:"M10,162 C4,168 2,186 6,200 C9,210 17,214 24,210 C28,202 26,184 22,170 C19,160 12,158 10,162Z",o:0.7}),
+    React.createElement(M,{id:"fore-r",d:"M190,162 C196,168 198,186 194,200 C191,210 183,214 176,210 C172,202 174,184 178,170 C181,160 188,158 190,162Z",o:0.7}),
+
+    // LATS - sweeping from armpit to waist
+    React.createElement(M,{id:"lat-l",d:"M42,96 C34,106 30,124 32,144 C34,158 40,166 50,164 C56,156 54,134 52,116 C50,100 46,92 42,96Z"}),
+    React.createElement(M,{id:"lat-r",d:"M158,96 C166,106 170,124 168,144 C166,158 160,166 150,164 C144,156 146,134 148,116 C150,100 154,92 158,96Z"}),
+
+    // SERRATUS - finger-like projections on ribcage
+    React.createElement(M,{id:"ser-l",d:"M56,108 C50,116 48,128 52,140 C56,146 64,147 68,141 C66,129 62,116 56,108Z",o:0.7}),
+    React.createElement(M,{id:"ser-r",d:"M144,108 C150,116 152,128 148,140 C144,146 136,147 132,141 C134,129 138,116 144,108Z",o:0.7}),
+
+    // ABS - 4-pack visible separation
+    React.createElement(M,{id:"abs",d:"M86,102 C82,106 80,120 82,134 C84,148 88,166 92,178 C95,186 100,188 108,178 C112,166 116,148 118,134 C120,120 118,106 114,102 C110,99 90,99 86,102Z"}),
+
+    // OBLIQUES - sweeping from ribs to hip
+    React.createElement(M,{id:"obl-l",d:"M60,110 C54,122 52,142 54,162 C56,174 64,180 72,176 C74,160 72,136 68,118Z",o:0.75}),
+    React.createElement(M,{id:"obl-r",d:"M140,110 C146,122 148,142 146,162 C144,174 136,180 128,176 C126,160 128,136 132,118Z",o:0.75}),
+
+    // HIP FLEXORS
+    React.createElement(M,{id:"hipflex-l",d:"M76,182 C70,190 70,204 74,214 C78,220 86,221 90,215 C92,206 90,194 84,184Z",o:0.72}),
+    React.createElement(M,{id:"hipflex-r",d:"M124,182 C130,190 130,204 126,214 C122,220 114,221 110,215 C108,206 110,194 116,184Z",o:0.72}),
+
+    // QUADS - thick with VMO visible
+    React.createElement(M,{id:"quad-l",d:"M72,222 C62,234 58,260 60,284 C62,298 70,306 80,303 C87,296 88,272 86,250 C84,232 78,218 72,222Z"}),
+    React.createElement(M,{id:"quad-r",d:"M128,222 C138,234 142,260 140,284 C138,298 130,306 120,303 C113,296 112,272 114,250 C116,232 122,218 128,222Z"}),
+
+    // ADDUCTORS - inner thigh
+    React.createElement(M,{id:"add-l",d:"M92,220 C87,232 86,256 88,278 C90,292 96,299 102,296 C104,280 102,254 99,232Z",o:0.65}),
+    React.createElement(M,{id:"add-r",d:"M108,220 C113,232 114,256 112,278 C110,292 104,299 98,296 C96,280 98,254 101,232Z",o:0.65}),
+
+    // CALVES - outer head prominent
+    React.createElement(M,{id:"calf-l",d:"M64,298 C56,308 54,322 58,334 C61,341 70,343 76,337 C79,328 78,314 74,300Z",o:0.88}),
+    React.createElement(M,{id:"calf-r",d:"M136,298 C144,308 146,322 142,334 C139,341 130,343 124,337 C121,328 122,314 126,300Z",o:0.88}),
+
+    // CONTOUR LINES - muscle separation
+    React.createElement("g",{stroke:"rgba(0,0,0,0.45)",strokeWidth:0.9,fill:"none",strokeLinecap:"round"},
+      CONTOURS_FRONT.map((d,i)=>React.createElement("path",{key:i,d}))
+    ),
+    React.createElement("g",{stroke:"rgba(255,255,255,0.055)",strokeWidth:0.6,fill:"none",strokeLinecap:"round"},
+      CONTOURS_FRONT.map((d,i)=>React.createElement("path",{key:i,d}))
+    ),
+    // Kneecaps
+    React.createElement("ellipse",{cx:74,cy:302,rx:8,ry:6,fill:"#0F1420",stroke:"rgba(255,255,255,0.08)",strokeWidth:0.6}),
+    React.createElement("ellipse",{cx:126,cy:302,rx:8,ry:6,fill:"#0F1420",stroke:"rgba(255,255,255,0.08)",strokeWidth:0.6}),
+  );
+
+  const mkBack=()=>React.createElement("svg",{viewBox:"0 0 200 320",style:{width:"100%",display:"block"},fill:"none"},
+    React.createElement("defs",null,
+      React.createElement("linearGradient",{id:"bgb",x1:"0%",y1:"0%",x2:"0%",y2:"100%"},
+        React.createElement("stop",{offset:"0%",stopColor:"#1E2535"}),
+        React.createElement("stop",{offset:"50%",stopColor:"#111620"}),
+        React.createElement("stop",{offset:"100%",stopColor:"#080B12"})
+      )
+    ),
+    React.createElement("path",{d:BODY_SHELL_BACK,fill:"url(#bgb)",stroke:"rgba(255,255,255,0.13)",strokeWidth:1.2}),
+    React.createElement("ellipse",{cx:100,cy:16,rx:16,ry:18,fill:"#1A1F2E",stroke:"rgba(255,255,255,0.10)",strokeWidth:0.8}),
+    React.createElement("path",{d:"M90,32 L88,44 L112,44 L110,32Z",fill:"#151A28",stroke:"rgba(255,255,255,0.08)",strokeWidth:0.6}),
+
+    // TRAPS - diamond shape upper back
+    React.createElement(M,{id:"trap-l",d:"M100,44 C90,44 76,52 68,64 C62,74 62,86 70,94 C78,100 88,98 96,90 C100,84 100,62 100,44Z"}),
+    React.createElement(M,{id:"trap-r",d:"M100,44 C110,44 124,52 132,64 C138,74 138,86 130,94 C122,100 112,98 104,90 C100,84 100,62 100,44Z"}),
+
+    // REAR DELTS
+    React.createElement(M,{id:"rdelt-l",d:"M52,52 C40,56 28,68 28,82 C28,94 36,102 46,100 C54,98 60,88 58,76 C56,64 54,52 52,52Z"}),
+    React.createElement(M,{id:"rdelt-r",d:"M148,52 C160,56 172,68 172,82 C172,94 164,102 154,100 C146,98 140,88 142,76 C144,64 146,52 148,52Z"}),
+
+    // LATS - the wings
+    React.createElement(M,{id:"lat-l",d:"M44,92 C34,104 28,128 30,154 C32,170 40,180 52,178 C60,168 58,140 56,116 C54,98 48,88 44,92Z"}),
+    React.createElement(M,{id:"lat-r",d:"M156,92 C166,104 172,128 170,154 C168,170 160,180 148,178 C140,168 142,140 144,116 C146,98 152,88 156,92Z"}),
+
+    // RHOMBOIDS - between shoulder blades
+    React.createElement(M,{id:"rhomb-l",d:"M100,64 C92,66 82,74 80,84 C78,93 82,100 90,100 C96,96 100,84 100,64Z",o:0.9}),
+    React.createElement(M,{id:"rhomb-r",d:"M100,64 C108,66 118,74 120,84 C122,93 118,100 110,100 C104,96 100,84 100,64Z",o:0.9}),
+
+    // TERES MAJOR
+    React.createElement(M,{id:"teres-l",d:"M54,90 C46,98 44,112 48,124 C52,132 60,135 66,130 C66,116 64,100 58,90Z",o:0.8}),
+    React.createElement(M,{id:"teres-r",d:"M146,90 C154,98 156,112 152,124 C148,132 140,135 134,130 C134,116 136,100 142,90Z",o:0.8}),
+
+    // ERECTOR SPINAE - twin pillars down spine
+    React.createElement(M,{id:"erect-l",d:"M90,96 C86,108 84,136 86,164 C88,180 93,190 98,188 C100,174 100,144 100,116 C100,98 94,92 90,96Z",o:0.85}),
+    React.createElement(M,{id:"erect-r",d:"M110,96 C114,108 116,136 114,164 C112,180 107,190 102,188 C100,174 100,144 100,116 C100,98 106,92 110,96Z",o:0.85}),
+
+    // TRICEPS - back view dominates
+    React.createElement(M,{id:"tri-l",d:"M14,102 C6,114 6,138 10,158 C14,172 22,178 30,174 C32,156 30,128 26,110 C22,98 16,98 14,102Z"}),
+    React.createElement(M,{id:"tri-r",d:"M186,102 C194,114 194,138 190,158 C186,172 178,178 170,174 C168,156 170,128 174,110 C178,98 184,98 186,102Z"}),
+
+    // FOREARMS back
+    React.createElement(M,{id:"fore-l",d:"M10,174 C4,182 2,200 6,214 C9,224 17,228 24,224 C28,214 26,196 22,180Z",o:0.7}),
+    React.createElement(M,{id:"fore-r",d:"M190,174 C196,182 198,200 194,214 C191,224 183,228 176,224 C172,214 174,196 178,180Z",o:0.7}),
+
+    // GLUTES - full, round
+    React.createElement(M,{id:"glute-l",d:"M56,190 C44,200 38,220 42,242 C46,258 58,268 72,264 C82,256 84,234 80,212 C76,192 64,184 56,190Z"}),
+    React.createElement(M,{id:"glute-r",d:"M144,190 C156,200 162,220 158,242 C154,258 142,268 128,264 C118,256 116,234 120,212 C124,192 136,184 144,190Z"}),
+
+    // HAMSTRINGS - biceps femoris + semitendinosus
+    React.createElement(M,{id:"ham-l",d:"M60,262 C50,276 48,302 52,322 C56,336 66,342 76,338 C82,326 80,300 76,278 C72,260 63,256 60,262Z"}),
+    React.createElement(M,{id:"ham-r",d:"M140,262 C150,276 152,302 148,322 C144,336 134,342 124,338 C118,326 120,300 124,278 C128,260 137,256 140,262Z"}),
+
+    // CALVES - back
+    React.createElement(M,{id:"calf-l",d:"M58,328 C50,340 48,356 54,368 C58,376 68,378 74,370 C77,360 75,344 70,330Z",o:0.88}),
+    React.createElement(M,{id:"calf-r",d:"M142,328 C150,340 152,356 146,368 C142,376 132,378 126,370 C123,360 125,344 130,330Z",o:0.88}),
+
+    // CONTOUR LINES
+    React.createElement("g",{stroke:"rgba(0,0,0,0.45)",strokeWidth:0.9,fill:"none",strokeLinecap:"round"},
+      CONTOURS_BACK.map((d,i)=>React.createElement("path",{key:i,d}))
+    ),
+    React.createElement("g",{stroke:"rgba(255,255,255,0.055)",strokeWidth:0.6,fill:"none",strokeLinecap:"round"},
+      CONTOURS_BACK.map((d,i)=>React.createElement("path",{key:i,d}))
+    ),
+    React.createElement("ellipse",{cx:74,cy:338,rx:8,ry:6,fill:"#0F1420",stroke:"rgba(255,255,255,0.08)",strokeWidth:0.6}),
+    React.createElement("ellipse",{cx:126,cy:338,rx:8,ry:6,fill:"#0F1420",stroke:"rgba(255,255,255,0.08)",strokeWidth:0.6}),
+  );
+
+  const activeCount=primIds.length+secIds.length+stabIds.length;
+  const hovName=hov?hov.replace(/-(l|r)$/,"").replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase()):null;
+
+  return React.createElement("div",{
+    style:{background:"#06080F",border:"1px solid rgba(255,255,255,0.09)",borderRadius:16,padding:"10px",marginBottom:12,cursor:onExpand?"pointer":"default"},
+    onClick:onExpand?onExpand:undefined
+  },
+    React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}},
+      React.createElement("div",{style:{fontSize:9,color:"rgba(255,255,255,0.35)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}},"MUSCLE ACTIVATION"+(activeCount>0?` - ${activeCount} active`:"")),
+      hovName&&React.createElement("div",{style:{fontSize:9,color:"rgba(255,255,255,0.5)",fontFamily:"'Space Mono',monospace",background:"rgba(255,255,255,0.06)",padding:"2px 8px",borderRadius:4}},hovName)
+    ),
+    React.createElement("div",{style:{display:"flex",gap:2,alignItems:"stretch"}},
+      React.createElement("div",{style:{flex:1}},
+        React.createElement("div",{style:{fontSize:7,color:"rgba(255,255,255,0.22)",fontFamily:"monospace",letterSpacing:".12em",textAlign:"center",marginBottom:3}},"ANTERIOR"),
+        mkFront()
       ),
-      secondaryIds.length>0&&React.createElement("div",{style:{display:"flex",alignItems:"center",gap:5}},
+      React.createElement("div",{style:{width:1,background:"rgba(255,255,255,0.06)",margin:"16px 6px"}}),
+      React.createElement("div",{style:{flex:1}},
+        React.createElement("div",{style:{fontSize:7,color:"rgba(255,255,255,0.22)",fontFamily:"monospace",letterSpacing:".12em",textAlign:"center",marginBottom:3}},"POSTERIOR"),
+        mkBack()
+      )
+    ),
+    activeCount>0&&React.createElement("div",{style:{display:"flex",gap:14,marginTop:8,paddingTop:6,borderTop:"1px solid rgba(255,255,255,0.05)"}},
+      primIds.length>0&&React.createElement("div",{style:{display:"flex",alignItems:"center",gap:5}},
+        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:primaryCol,boxShadow:`0 0 6px ${primaryCol}88`}}),
+        React.createElement("span",{style:{fontSize:9,color:"rgba(255,255,255,0.4)",fontFamily:"'Space Mono',monospace"}},"Primary")
+      ),
+      secIds.length>0&&React.createElement("div",{style:{display:"flex",alignItems:"center",gap:5}},
         React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:"#FF9F1A"}}),
-        React.createElement("span",{style:{fontSize:9,color:"rgba(255,255,255,0.45)",fontFamily:"'Space Mono',monospace"}}),"Secondary"
+        React.createElement("span",{style:{fontSize:9,color:"rgba(255,255,255,0.4)",fontFamily:"'Space Mono',monospace"}},"Secondary")
       ),
       stabIds.length>0&&React.createElement("div",{style:{display:"flex",alignItems:"center",gap:5}},
-        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:"#1D7BFF"}}),
-        React.createElement("span",{style:{fontSize:9,color:"rgba(255,255,255,0.45)",fontFamily:"'Space Mono',monospace"}}),"Stabiliser"
+        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:"#4499FF"}}),
+        React.createElement("span",{style:{fontSize:9,color:"rgba(255,255,255,0.4)",fontFamily:"'Space Mono',monospace"}},"Stabiliser")
       )
     )
   );
 };
-
-
-
 
 const ExerciseDetailModal=({ex,onClose,onAskGary})=>{
   const [diagramExpanded,setDiagramExpanded]=React.useState(false);
@@ -2508,6 +2573,7 @@ const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
   const[detailEx,setDetailEx]=useState(null);
   const[tempoEx,setTempoEx]=useState(null);
   const[activeTimer,setActiveTimer]=useState(null); // {exIdx, remaining, total}
+  const[tempoActive,setTempoActive]=useState(null); // {exIdx, setNum}
   // Weight/rep log: {exIdx_setIdx: {weight, reps}}
   const[setLog,setSetLog]=useState(()=>{
     try{const k="gmt_setlog_"+session.id;return JSON.parse(localStorage.getItem(k)||"{}");}catch{return{};}
