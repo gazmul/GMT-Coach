@@ -32,7 +32,7 @@ const C = {
   hyperG:"rgba(0,102,255,0.12)",
   recovery:"#00E6B5",    // Complementary Teal - Mobility & Recovery
   recoveryG:"rgba(0,230,181,0.12)",
-  red:"#FF4444",ora:"#FF8C42",pur:"#9B7FFF",
+  red:"#FF4444",ora:"#FF8C42",pur:"#9B7FFF",blu:"#2196F3",bluG:"rgba(33,150,243,0.12)",
 };
 const fonts=`@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');`;
 const gStyles=`
@@ -1795,106 +1795,171 @@ const BODY_PATHS = {
 
 const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
   const [view,setView]=React.useState("front");
-  // useEffect MUST be before any conditional return (Rules of Hooks)
-  const exDiagForEffect = exercise?.name ? (EXERCISE_DIAGRAMS[exercise.name]||null) : null;
-  React.useEffect(()=>{
-    if(exDiagForEffect?.view) setView(exDiagForEffect.view);
-  },[exercise?.name]);
+  const exDiagForEffect=exercise?.name?(EXERCISE_DIAGRAMS[exercise.name]||null):null;
+  React.useEffect(()=>{if(exDiagForEffect?.view)setView(exDiagForEffect.view);},[exercise?.name]);
   if(!exercise||!exercise.muscle)return null;
-  
-  // Determine which regions to highlight using EXERCISE_DIAGRAMS lookup first
-  // then fall back to legacy MUSCLE_MAP
-  const exDiag = EXERCISE_DIAGRAMS[exercise.name] || null;
-  const tag = String(exercise.tag||exercise.type||"").toLowerCase();
-  
-  // Primary colour based on context
-  const primaryCol = tag.includes("hyper")?"#0066FF":tag.includes("strength")?"#FF1744":tag.includes("recovery")||tag.includes("stretch")?"#00C9B1":"#FF1744";
-  const secondaryCol = "#FF8C00";
-  const stabilizerCol = "rgba(33,150,243,0.5)";
-  
-  // Get regions from EXERCISE_DIAGRAMS or fall back to legacy
-  const primaryRegionIds = exDiag ? (exDiag.primary||[]) : (()=>{
-    const p = String(exercise.muscle||"").toLowerCase().trim();
-    return MUSCLE_MAP[p]?.[view]||[];
+  const exDiag=EXERCISE_DIAGRAMS[exercise.name]||null;
+  const tag=String(exercise.tag||exercise.type||"").toLowerCase();
+  const primaryCol=tag.includes("hyper")?"#0066FF":tag.includes("strength")?"#FF0066":tag.includes("recovery")||tag.includes("stretch")?"#00E6B5":"#FF0066";
+  const secondaryCol="#FF8C42";
+  const stabCol="rgba(33,150,243,0.5)";
+  const inactiveCol="rgba(255,255,255,0.06)";
+  const primaryIds=exDiag?(exDiag.primary||[]):(()=>{
+    const p=String(exercise.muscle||"").toLowerCase();
+    if(p.includes("chest"))return["pec-major-l","pec-major-r"];
+    if(p.includes("back")||p.includes("lat"))return["lat-l","lat-r"];
+    if(p.includes("shoulder")||p.includes("delt"))return["delt-ant-l","delt-ant-r","delt-lat-l","delt-lat-r"];
+    if(p.includes("quad"))return["quad-rf-l","quad-rf-r","quad-vl-l","quad-vl-r"];
+    if(p.includes("hamstring"))return["ham-bf-l","ham-bf-r","ham-st-l","ham-st-r"];
+    if(p.includes("glute"))return["glute-max-l","glute-max-r"];
+    if(p.includes("bicep"))return["bicep-l","bicep-r"];
+    if(p.includes("tricep"))return["tricep-l","tricep-r"];
+    if(p.includes("calf"))return["calf-l","calf-r"];
+    if(p.includes("core")||p.includes("ab"))return["ra-upper","ra-mid","ra-lower","oblique-l","oblique-r"];
+    return[];
   })();
-  const secondaryRegionIds = exDiag ? (exDiag.secondary||[]) : (()=>{
-    const s = String(exercise.secondary||"").toLowerCase().split(",")[0].trim();
-    return MUSCLE_MAP[s]?.[view]||[];
-  })();
-  const stabilizerRegionIds = exDiag ? (exDiag.stabilizer||[]) : [];
-  
-  // Map region IDs to BODY_PATHS keys (GMT region IDs already match BODY_PATHS keys with _ -> -)
-  const toPathKey = id => id.replace(/_/g,"-");
-  const primaryRegions = primaryRegionIds.map(toPathKey);
-  const secondaryRegions = secondaryRegionIds.map(toPathKey);
-  const stabilizerRegions = stabilizerRegionIds.map(toPathKey);
-  
-  const FRONT_REGIONS = new Set(["head","neck","chest","front-delt","biceps","forearms","abs","obliques","hip-flexors","quads","adductors","tibialis"]);
-  const allPaths = Object.keys(BODY_PATHS).filter(k => view==="front"?FRONT_REGIONS.has(k):!FRONT_REGIONS.has(k));
-  
-  const diagram = (
-    <svg viewBox="0 0 220 410" style={{width:"100%",maxWidth:180,display:"block",margin:"0 auto"}}>
-      {/* Dark background */}
-      <rect width="220" height="410" fill="#0A0A0A" rx="12"/>
-      {/* Body outline fill (base) */}
-      {allPaths.map(region=>{
-        const isPrimary = primaryRegions.includes(region);
-        const isSecondary = secondaryRegions.includes(region);
-        const isStabilizer = stabilizerRegions.includes(region);
-        return(
-          <path key={region} d={BODY_PATHS[region]}
-            fill={isPrimary?primaryCol:isSecondary?secondaryCol:isStabilizer?stabilizerCol:"#1E1E2E"}
-            stroke={isPrimary?primaryCol:isSecondary?secondaryCol:isStabilizer?"#2196F3":"#333350"}
-            strokeWidth={isPrimary||isSecondary?1.5:isStabilizer?1:0.8}
-            opacity={isPrimary?0.85:isSecondary?0.6:isStabilizer?0.4:0.5}
-          />
-        );
-      })}
-      {/* Legend */}
-      {primaryRegions.length>0&&(
-        <g transform="translate(8,388)">
-          <rect width="8" height="8" rx="2" fill={primaryCol}/>
-          <text x="12" y="8" fill="#aaa" fontSize="7" fontFamily="Space Mono,monospace">Primary</text>
-        </g>
-      )}
-      {secondaryRegions.length>0&&(
-        <g transform="translate(70,388)">
-          <rect width="8" height="8" rx="2" fill={secondaryCol}/>
-          <text x="12" y="8" fill="#aaa" fontSize="7" fontFamily="Space Mono,monospace">Secondary</text>
-        </g>
-      )}
-    </svg>
+  const secondaryIds=exDiag?(exDiag.secondary||[]):[];
+  const stabIds=exDiag?(exDiag.stabilizer||[]):[];
+  const getCol=(id)=>primaryIds.includes(id)?primaryCol:secondaryIds.includes(id)?secondaryCol:stabIds.includes(id)?stabCol:inactiveCol;
+  const isActive=(id)=>primaryIds.includes(id)||secondaryIds.includes(id)||stabIds.includes(id);
+  // Muscle path renderer
+  const M=({id,d})=>{
+    const col=getCol(id);
+    const active=isActive(id);
+    return React.createElement("path",{
+      d,fill:col,
+      stroke:active?"rgba(255,255,255,0.15)":"rgba(255,255,255,0.03)",
+      strokeWidth:active?0.8:0.4,
+      style:{filter:active?("drop-shadow(0 0 3px "+col+"90)"):undefined,transition:"fill 0.3s,filter 0.3s"}
+    });
+  };
+  const BASE_FILL="rgba(35,35,46,0.95)";
+  const BASE_STROKE="rgba(255,255,255,0.07)";
+  const FrontSVG=()=>React.createElement("svg",{viewBox:"0 0 160 340",style:{width:"100%",maxWidth:expanded?300:150,display:"block",margin:"0 auto"}},
+    // Body base
+    React.createElement("path",{d:"M80 8 C64 8 52 18 48 30 C44 40 43 52 43 60 L36 64 C30 68 26 78 26 88 C26 96 30 102 35 104 L33 140 C33 154 37 166 43 174 L45 210 C45 224 47 238 49 252 L51 298 C51 308 55 318 57 326 L61 336 L70 336 L73 320 L77 296 L80 280 L83 296 L87 320 L90 336 L99 336 L103 326 C105 318 109 308 109 298 L111 252 C113 238 115 224 115 210 L117 174 C123 166 127 154 127 140 L125 104 C130 102 134 96 134 88 C134 78 130 68 124 64 L117 60 C117 52 116 40 112 30 C108 18 96 8 80 8Z",
+      fill:BASE_FILL,stroke:BASE_STROKE,strokeWidth:1}),
+    React.createElement("ellipse",{cx:80,cy:13,rx:13,ry:11,fill:"rgba(55,55,68,0.95)",stroke:BASE_STROKE,strokeWidth:0.6}),
+    // CHEST
+    React.createElement(M,{id:"pec-major-l",d:"M80 58 C71 56 60 57 54 62 C49 67 49 76 52 83 C55 89 62 92 70 91 C76 90 79 85 80 79Z"}),
+    React.createElement(M,{id:"pec-major-r",d:"M80 58 C89 56 100 57 106 62 C111 67 111 76 108 83 C105 89 98 92 90 91 C84 90 81 85 80 79Z"}),
+    // SHOULDERS
+    React.createElement(M,{id:"delt-ant-l",d:"M48 58 C41 56 34 62 33 70 C32 79 37 86 44 87 C51 88 56 82 55 74 C54 66 52 58 48 58Z"}),
+    React.createElement(M,{id:"delt-ant-r",d:"M112 58 C119 56 126 62 127 70 C128 79 123 86 116 87 C109 88 104 82 105 74 C106 66 108 58 112 58Z"}),
+    React.createElement(M,{id:"delt-lat-l",d:"M34 66 C27 66 24 74 25 83 C26 91 32 95 38 93 C44 91 46 84 44 76 C42 68 37 64 34 66Z"}),
+    React.createElement(M,{id:"delt-lat-r",d:"M126 66 C133 66 136 74 135 83 C134 91 128 95 122 93 C116 91 114 84 116 76 C118 68 123 64 126 66Z"}),
+    // BICEPS
+    React.createElement(M,{id:"bicep-l",d:"M35 96 C28 97 25 106 26 117 C27 126 33 131 39 129 C45 127 47 119 45 109 C43 100 39 95 35 96Z"}),
+    React.createElement(M,{id:"bicep-r",d:"M125 96 C132 97 135 106 134 117 C133 126 127 131 121 129 C115 127 113 119 115 109 C117 100 121 95 125 96Z"}),
+    // TRICEPS (partial front)
+    React.createElement(M,{id:"tricep-l",d:"M33 92 C26 96 25 110 27 122 C29 128 35 130 39 127 C41 120 40 106 37 96 C35 90 34 90 33 92Z"}),
+    React.createElement(M,{id:"tricep-r",d:"M127 92 C134 96 135 110 133 122 C131 128 125 130 121 127 C119 120 120 106 123 96 C125 90 126 90 127 92Z"}),
+    // FOREARMS
+    React.createElement(M,{id:"forearm-l",d:"M33 132 C26 136 24 150 26 162 C28 170 35 173 40 170 C44 164 42 149 39 138 C37 130 35 130 33 132Z"}),
+    React.createElement(M,{id:"forearm-r",d:"M127 132 C134 136 136 150 134 162 C132 170 125 173 120 170 C116 164 118 149 121 138 C123 130 125 130 127 132Z"}),
+    // LATS (visible front)
+    React.createElement(M,{id:"lat-l",d:"M50 92 C43 96 42 112 44 128 C46 140 52 148 59 146 C63 140 62 124 60 110 C58 96 54 90 50 92Z"}),
+    React.createElement(M,{id:"lat-r",d:"M110 92 C117 96 118 112 116 128 C114 140 108 148 101 146 C97 140 98 124 100 110 C102 96 106 90 110 92Z"}),
+    // ABS
+    React.createElement(M,{id:"ra-upper",d:"M68 93 C66 96 66 106 68 109 C72 111 88 111 92 109 C94 106 94 96 92 93 C88 91 72 91 68 93Z"}),
+    React.createElement(M,{id:"ra-mid",d:"M68 113 C66 116 66 126 68 129 C72 131 88 131 92 129 C94 126 94 116 92 113 C88 111 72 111 68 113Z"}),
+    React.createElement(M,{id:"ra-lower",d:"M70 133 C68 136 68 146 70 149 C74 151 86 151 90 149 C92 146 92 136 90 133 C86 131 74 131 70 133Z"}),
+    React.createElement(M,{id:"oblique-l",d:"M57 96 C51 102 50 118 52 132 C54 142 61 147 67 145 C68 136 67 118 64 106 C62 96 59 93 57 96Z"}),
+    React.createElement(M,{id:"oblique-r",d:"M103 96 C109 102 110 118 108 132 C106 142 99 147 93 145 C92 136 93 118 96 106 C98 96 101 93 103 96Z"}),
+    React.createElement(M,{id:"lower-abs",d:"M73 153 C70 158 70 168 74 172 C77 174 83 174 86 172 C90 168 90 158 87 153 C83 151 77 151 73 153Z"}),
+    // HIP FLEXORS
+    React.createElement(M,{id:"hip-flex-l",d:"M57 170 C51 174 50 184 53 193 C55 200 62 203 67 200 C70 194 69 182 66 174 C63 168 59 168 57 170Z"}),
+    React.createElement(M,{id:"hip-flex-r",d:"M103 170 C109 174 110 184 107 193 C105 200 98 203 93 200 C90 194 91 182 94 174 C97 168 101 168 103 170Z"}),
+    // QUADS
+    React.createElement(M,{id:"quad-rf-l",d:"M60 198 C55 204 54 222 56 240 C58 254 64 262 69 260 C73 254 72 236 70 218 C68 202 63 196 60 198Z"}),
+    React.createElement(M,{id:"quad-rf-r",d:"M100 198 C105 204 106 222 104 240 C102 254 96 262 91 260 C87 254 88 236 90 218 C92 202 97 196 100 198Z"}),
+    React.createElement(M,{id:"quad-vl-l",d:"M52 200 C45 208 44 228 46 248 C48 260 55 266 61 264 C63 254 61 232 59 214 C57 200 54 198 52 200Z"}),
+    React.createElement(M,{id:"quad-vl-r",d:"M108 200 C115 208 116 228 114 248 C112 260 105 266 99 264 C97 254 99 232 101 214 C103 200 106 198 108 200Z"}),
+    React.createElement(M,{id:"quad-vm-l",d:"M68 228 C64 236 63 250 66 260 C68 266 74 268 78 264 C80 256 78 242 76 230 C74 222 70 224 68 228Z"}),
+    React.createElement(M,{id:"quad-vm-r",d:"M92 228 C96 236 97 250 94 260 C92 266 86 268 82 264 C80 256 82 242 84 230 C86 222 90 224 92 228Z"}),
+    React.createElement(M,{id:"adductor-l",d:"M68 202 C64 210 63 232 65 250 C67 260 73 264 77 260 C78 250 76 228 74 212 C72 202 70 200 68 202Z"}),
+    React.createElement(M,{id:"adductor-r",d:"M92 202 C96 210 97 232 95 250 C93 260 87 264 83 260 C82 250 84 228 86 212 C88 202 90 200 92 202Z"}),
+    // KNEES
+    React.createElement("ellipse",{cx:63,cy:268,rx:10,ry:8,fill:"rgba(45,45,58,0.9)",stroke:"rgba(255,255,255,0.04)",strokeWidth:0.5}),
+    React.createElement("ellipse",{cx:97,cy:268,rx:10,ry:8,fill:"rgba(45,45,58,0.9)",stroke:"rgba(255,255,255,0.04)",strokeWidth:0.5}),
+    // TIBIALIS / shins
+    React.createElement(M,{id:"tibialis-l",d:"M56 278 C51 284 50 304 53 320 C55 328 62 331 66 327 C68 316 66 294 64 280 C61 272 58 274 56 278Z"}),
+    React.createElement(M,{id:"tibialis-r",d:"M104 278 C109 284 110 304 107 320 C105 328 98 331 94 327 C92 316 94 294 96 280 C99 272 102 274 104 278Z"}),
+    // CALVES (front)
+    React.createElement(M,{id:"calf-l",d:"M64 278 C60 286 60 308 62 324 C64 332 70 334 73 328 C74 316 72 292 69 278 C67 272 65 274 64 278Z"}),
+    React.createElement(M,{id:"calf-r",d:"M96 278 C100 286 100 308 98 324 C96 332 90 334 87 328 C86 316 88 292 91 278 C93 272 95 274 96 278Z"})
   );
-  
+  const BackSVG=()=>React.createElement("svg",{viewBox:"0 0 160 340",style:{width:"100%",maxWidth:expanded?300:150,display:"block",margin:"0 auto"}},
+    React.createElement("path",{d:"M80 8 C64 8 52 18 48 30 C44 40 43 52 43 60 L36 64 C30 68 26 78 26 88 C26 96 30 102 35 104 L33 140 C33 154 37 166 43 174 L45 210 C45 224 47 238 49 252 L51 298 C51 308 55 318 57 326 L61 336 L70 336 L73 320 L77 296 L80 280 L83 296 L87 320 L90 336 L99 336 L103 326 C105 318 109 308 109 298 L111 252 C113 238 115 224 115 210 L117 174 C123 166 127 154 127 140 L125 104 C130 102 134 96 134 88 C134 78 130 68 124 64 L117 60 C117 52 116 40 112 30 C108 18 96 8 80 8Z",
+      fill:BASE_FILL,stroke:BASE_STROKE,strokeWidth:1}),
+    React.createElement("ellipse",{cx:80,cy:13,rx:13,ry:11,fill:"rgba(55,55,68,0.95)",stroke:BASE_STROKE,strokeWidth:0.6}),
+    // TRAPS
+    React.createElement(M,{id:"trap-upper-l",d:"M80 30 C71 30 62 37 59 47 C57 55 59 63 65 65 C71 67 77 61 79 52 C80 44 80 34 80 30Z"}),
+    React.createElement(M,{id:"trap-upper-r",d:"M80 30 C89 30 98 37 101 47 C103 55 101 63 95 65 C89 67 83 61 81 52 C80 44 80 34 80 30Z"}),
+    React.createElement(M,{id:"trap-mid-l",d:"M65 65 C58 68 54 78 56 90 C58 100 65 104 71 102 C75 97 74 86 72 76 C70 66 67 62 65 65Z"}),
+    React.createElement(M,{id:"trap-mid-r",d:"M95 65 C102 68 106 78 104 90 C102 100 95 104 89 102 C85 97 86 86 88 76 C90 66 93 62 95 65Z"}),
+    // POSTERIOR DELTS
+    React.createElement(M,{id:"delt-post-l",d:"M42 60 C35 62 30 70 31 80 C32 90 38 95 45 93 C51 91 54 83 52 74 C50 64 45 58 42 60Z"}),
+    React.createElement(M,{id:"delt-post-r",d:"M118 60 C125 62 130 70 129 80 C128 90 122 95 115 93 C109 91 106 83 108 74 C110 64 115 58 118 60Z"}),
+    // TRICEPS (back - main view)
+    React.createElement(M,{id:"tricep-l",d:"M33 92 C26 98 25 114 28 126 C30 134 37 136 43 132 C47 125 46 108 42 98 C39 90 35 88 33 92Z"}),
+    React.createElement(M,{id:"tricep-r",d:"M127 92 C134 98 135 114 132 126 C130 134 123 136 117 132 C113 125 114 108 118 98 C121 90 125 88 127 92Z"}),
+    // FOREARMS
+    React.createElement(M,{id:"forearm-l",d:"M31 134 C24 140 23 156 26 168 C28 176 35 179 41 175 C44 168 42 152 39 140 C37 132 33 130 31 134Z"}),
+    React.createElement(M,{id:"forearm-r",d:"M129 134 C136 140 137 156 134 168 C132 176 125 179 119 175 C116 168 118 152 121 140 C123 132 127 130 129 134Z"}),
+    // LATS (back - primary)
+    React.createElement(M,{id:"lat-l",d:"M49 72 C42 78 41 96 43 116 C45 130 52 140 60 138 C65 132 64 114 62 98 C59 82 54 68 49 72Z"}),
+    React.createElement(M,{id:"lat-r",d:"M111 72 C118 78 119 96 117 116 C115 130 108 140 100 138 C95 132 96 114 98 98 C101 82 106 68 111 72Z"}),
+    // RHOMBOIDS
+    React.createElement(M,{id:"rhomboid-l",d:"M80 64 C73 65 67 72 68 81 C69 89 75 93 80 92Z"}),
+    React.createElement(M,{id:"rhomboid-r",d:"M80 64 C87 65 93 72 92 81 C91 89 85 93 80 92Z"}),
+    // TERES MAJOR
+    React.createElement(M,{id:"teres-l",d:"M54 84 C49 89 49 100 52 108 C55 114 62 116 67 112 C67 102 65 90 61 83 C58 79 56 80 54 84Z"}),
+    React.createElement(M,{id:"teres-r",d:"M106 84 C111 89 111 100 108 108 C105 114 98 116 93 112 C93 102 95 90 99 83 C102 79 104 80 106 84Z"}),
+    // ERECTOR SPINAE
+    React.createElement(M,{id:"erector-l",d:"M71 96 C69 102 69 124 71 146 C73 160 76 168 78 166 C80 158 80 136 80 114 C80 94 78 90 76 90 C73 90 72 94 71 96Z"}),
+    React.createElement(M,{id:"erector-r",d:"M89 96 C91 102 91 124 89 146 C87 160 84 168 82 166 C80 158 80 136 80 114 C80 94 82 90 84 90 C87 90 88 94 89 96Z"}),
+    // GLUTES
+    React.createElement(M,{id:"glute-max-l",d:"M50 162 C42 168 41 186 44 204 C46 218 55 226 63 224 C70 219 72 203 70 185 C67 167 57 158 50 162Z"}),
+    React.createElement(M,{id:"glute-max-r",d:"M110 162 C118 168 119 186 116 204 C114 218 105 226 97 224 C90 219 88 203 90 185 C93 167 103 158 110 162Z"}),
+    // HAMSTRINGS
+    React.createElement(M,{id:"ham-bf-l",d:"M50 226 C43 234 43 258 45 278 C48 290 55 296 61 292 C64 280 62 256 60 238 C57 224 52 222 50 226Z"}),
+    React.createElement(M,{id:"ham-bf-r",d:"M110 226 C117 234 117 258 115 278 C112 290 105 296 99 292 C96 280 98 256 100 238 C103 224 108 222 110 226Z"}),
+    React.createElement(M,{id:"ham-st-l",d:"M64 228 C60 238 60 262 62 280 C64 290 70 294 74 290 C75 278 73 254 71 236 C69 226 66 224 64 228Z"}),
+    React.createElement(M,{id:"ham-st-r",d:"M96 228 C100 238 100 262 98 280 C96 290 90 294 86 290 C85 278 87 254 89 236 C91 226 94 224 96 228Z"}),
+    // KNEES back
+    React.createElement("ellipse",{cx:63,cy:296,rx:10,ry:8,fill:"rgba(45,45,58,0.9)",stroke:"rgba(255,255,255,0.04)",strokeWidth:0.5}),
+    React.createElement("ellipse",{cx:97,cy:296,rx:10,ry:8,fill:"rgba(45,45,58,0.9)",stroke:"rgba(255,255,255,0.04)",strokeWidth:0.5}),
+    // CALVES - gastrocnemius (back)
+    React.createElement(M,{id:"calf-l",d:"M54 302 C48 312 48 328 52 338 C54 340 64 338 67 332 C68 320 66 306 62 300 C58 296 55 298 54 302Z"}),
+    React.createElement(M,{id:"calf-r",d:"M106 302 C112 312 112 328 108 338 C106 340 96 338 93 332 C92 320 94 306 98 300 C102 296 105 298 106 302Z"})
+  );
+  const activeCount=primaryIds.length+secondaryIds.length+stabIds.length;
   return(
-    <div style={{background:"#0A0A0A",border:`1px solid ${C.bdr}`,borderRadius:12,padding:16,marginBottom:14}}>
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
-        <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em"}}>MUSCLES WORKED</div>
-        <div style={{display:"flex",gap:6}}>
+    <div style={{background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:12,padding:"12px",marginBottom:12,cursor:onExpand?"pointer":"default"}} onClick={onExpand?onExpand:undefined}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+        <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em"}}>MUSCLE MAP{activeCount>0?` \u2014 ${activeCount} active`:""}</div>
+        <div style={{display:"flex",gap:4}}>
           {["front","back"].map(v=>(
-            <button key={v} onClick={()=>setView(v)} style={{background:view===v?C.hyperG:"transparent",border:`1px solid ${view===v?C.hyper:C.bdr}`,borderRadius:6,padding:"4px 10px",cursor:"pointer",fontSize:10,color:view===v?C.hyper:C.dim,fontFamily:"'Space Mono',monospace",letterSpacing:"0.05em"}}>
-              {v.toUpperCase()}
-            </button>
+            <button key={v} onClick={e=>{e.stopPropagation();setView(v);}} style={{fontSize:9,fontFamily:"'Space Mono',monospace",padding:"3px 8px",borderRadius:4,border:`1px solid ${view===v?C.hyper:C.bdr}`,background:view===v?C.hyperG:"transparent",color:view===v?C.hyper:C.dim,cursor:"pointer",letterSpacing:"0.06em",textTransform:"uppercase"}}>{v}</button>
           ))}
-          <button onClick={onExpand} style={{background:"transparent",border:`1px solid ${C.bdr}`,borderRadius:6,padding:"4px 10px",cursor:"pointer",fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace"}}>
-            {expanded?"-":"-"}
-          </button>
         </div>
       </div>
-      {diagram}
-      <div style={{display:"flex",gap:8,marginTop:10,flexWrap:"wrap"}}>
-        {[{col:"#FF1744",label:"Primary"},{col:"#FF8C00",label:"Secondary"},{col:"#00C9B1",label:"Stretch"},{col:"#0066FF",label:"Hypertrophy"}].map(l=>(
-          <div key={l.label} style={{display:"flex",alignItems:"center",gap:4}}>
-            <div style={{width:8,height:8,borderRadius:2,background:l.col}}/>
-            <span style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace"}}>{l.label}</span>
-          </div>
-        ))}
+      <div style={{position:"relative"}}>
+        {view==="front"?<FrontSVG/>:<BackSVG/>}
       </div>
+      {activeCount>0&&(
+        <div style={{display:"flex",gap:12,marginTop:8,flexWrap:"wrap"}}>
+          {primaryIds.length>0&&<div style={{display:"flex",alignItems:"center",gap:4}}><div style={{width:8,height:8,borderRadius:2,background:primaryCol}}/><span style={{fontSize:9,color:C.mid,fontFamily:"'Space Mono',monospace"}}>Primary</span></div>}
+          {secondaryIds.length>0&&<div style={{display:"flex",alignItems:"center",gap:4}}><div style={{width:8,height:8,borderRadius:2,background:secondaryCol}}/><span style={{fontSize:9,color:C.mid,fontFamily:"'Space Mono',monospace"}}>Secondary</span></div>}
+          {stabIds.length>0&&<div style={{display:"flex",alignItems:"center",gap:4}}><div style={{width:8,height:8,borderRadius:2,background:stabCol}}/><span style={{fontSize:9,color:C.mid,fontFamily:"'Space Mono',monospace"}}>Stabiliser</span></div>}
+        </div>
+      )}
     </div>
   );
 };
 
-// --- EXERCISE DETAIL MODAL ----------------------------------------
+
 const ExerciseDetailModal=({ex,onClose,onAskGary})=>{
   const [diagramExpanded,setDiagramExpanded]=React.useState(false);
   if(!ex)return null;
@@ -3999,9 +4064,9 @@ Respond ONLY in this exact JSON format (no markdown, no preamble):
         {error&&<div style={{background:"rgba(255,23,68,0.1)",border:"1px solid rgba(255,23,68,0.3)",borderRadius:8,padding:"12px 14px",marginTop:16,fontSize:13,color:"#FF1744"}}>{error}</div>}
       </div>
       <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,padding:"16px 20px 32px",background:`${C.bg}F0`,backdropFilter:"blur(16px)",borderTop:`1px solid ${C.bdr}`,display:"flex",gap:10}}>
-        {typeof step==="number"&&step>0&&<button onClick={()=>setStep(s=>s-1)} style={{flex:1,background:"rgba(255,255,255,0.04)",border:`1px solid ${C.bdr}`,borderRadius:12,padding:"14px",cursor:"pointer",fontSize:14,color:C.mid,fontFamily:"'DM Sans',sans-serif"}}>? Back</button>}
-        {typeof step==="number"&&step<questions.length-1&&<Btn onClick={()=>setStep(s=>s+1)} disabled={!canNext} style={{flex:3}}>Continue ?</Btn>}
-        {typeof step==="number"&&step===questions.length-1&&<Btn onClick={generateWorkout} style={{flex:3}}>Build My Session ?</Btn>}
+        {typeof step==="number"&&step>0&&<button onClick={()=>setStep(s=>s-1)} style={{flex:1,background:"rgba(255,255,255,0.04)",border:`1px solid ${C.bdr}`,borderRadius:12,padding:"14px",cursor:"pointer",fontSize:14,color:C.mid,fontFamily:"'DM Sans',sans-serif"}}>Back</button>}
+        {typeof step==="number"&&step<questions.length-1&&<Btn onClick={()=>setStep(s=>s+1)} disabled={!canNext} style={{flex:3}}>Continue</Btn>}
+        {typeof step==="number"&&step===questions.length-1&&<Btn onClick={generateWorkout} style={{flex:3}}>Build My Session</Btn>}
       </div>
     </div>
   );
