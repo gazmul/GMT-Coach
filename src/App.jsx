@@ -2338,7 +2338,7 @@ const parseSeconds=(reps)=>{
 const WorkoutView=({session,day,onBack,profile,onWarmup})=>{
   // All hooks must come before any conditional returns (Rules of Hooks)
   const isWarmup=session?.id==="warmup";
-  const exercises=session.exercises||[];
+  const exercises=(session?.exercises)||[];
   const[completedSets,setCompletedSets]=useState({});
   const[currentEx,setCurrentEx]=useState(0);
   const[timer,setTimer]=useState(0);
@@ -2669,6 +2669,7 @@ const ExerciseLibrary=({favourites,onToggleFav,onAskCoach,onBack})=>{
   const[filter,setFilter]=useState("All");
   const[libTab,setLibTab]=useState("all");
   const[selected,setSelected]=useState(null);
+  const[diagramExpanded,setDiagramExpanded]=useState(false);
   const muscles=["All","Chest","Back","Shoulders","Legs","Biceps","Triceps"];
   const filtered=EXERCISES.filter(e=>{
     const matchM=filter==="All"||e.muscle===filter;
@@ -2704,11 +2705,11 @@ const ExerciseLibrary=({favourites,onToggleFav,onAskCoach,onBack})=>{
             </div>
 
             {/* Muscle Diagram */}
-            {!diagramExpanded&&<MuscleDiagram exercise={libEx||ex} expanded={false} onExpand={()=>setDiagramExpanded(true)}/>}
+            {!diagramExpanded&&<MuscleDiagram exercise={ex} expanded={false} onExpand={()=>setDiagramExpanded(true)}/>}
             {diagramExpanded&&(
               <div onClick={()=>setDiagramExpanded(false)} style={{position:"fixed",inset:0,zIndex:200,background:"rgba(0,0,0,0.95)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
                 <div style={{width:"100%",maxWidth:340}} onClick={e=>e.stopPropagation()}>
-                  <MuscleDiagram exercise={libEx||ex} expanded={true} onExpand={()=>setDiagramExpanded(false)}/>
+                  <MuscleDiagram exercise={ex} expanded={true} onExpand={()=>setDiagramExpanded(false)}/>
                   <div style={{textAlign:"center",marginTop:8,fontSize:11,color:C.dim,fontFamily:"'Space Mono',monospace"}}>Tap anywhere to close</div>
                 </div>
               </div>
@@ -3121,6 +3122,7 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
   };
   const fmtS=s=>{const m=Math.floor(s/60);const sc=s%60;return m>0?`${m}m ${sc}s`:`${sc}s`;};
   const[recoveryVals,setRecoveryVals]=useState(()=>{try{return JSON.parse(localStorage.getItem("gmt_recovery")||"{}");}catch{return{};}});
+  const[expandedCard,setExpandedCard]=useState(null);
   const saveRecovery=(k,v)=>{const n={...recoveryVals,[k]:v};setRecoveryVals(n);try{localStorage.setItem("gmt_recovery",JSON.stringify(n));}catch{}};
   return(
     <div style={{paddingBottom:100}}>
@@ -3159,7 +3161,7 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
 
         {/* Custom workout card */}
         <div style={{flex:1,background:"rgba(0,102,255,0.05)",border:"1px solid rgba(0,102,255,0.15)",borderRadius:12,padding:"14px 16px",cursor:"pointer",transition:"all 0.2s"}} onClick={onCustomWorkout}>
-          <div style={{fontSize:10,color:"rgba(0,102,255,0.7)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:6}}>? ASK GARY</div>
+          <div style={{fontSize:10,color:"rgba(0,102,255,0.7)",fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em",marginBottom:6}}>ASK GARY</div>
           <div style={{fontSize:14,fontWeight:700,color:C.txt,marginBottom:4,lineHeight:1.3}}>Build My Workout</div>
           <div style={{fontSize:11,color:C.mid,lineHeight:1.5,marginBottom:10}}>Custom session for today</div>
           <div style={{background:"rgba(0,102,255,0.15)",border:"1px solid rgba(0,102,255,0.3)",borderRadius:8,padding:"7px 12px",fontSize:11,color:"#0066FF",fontFamily:"'Space Mono',monospace",letterSpacing:"0.06em",textAlign:"center"}}>
@@ -3247,21 +3249,82 @@ const Dashboard=({onStartWorkout,profile,weekSchedule={},sessionCount=0,onNutrit
           ].map(r=>{
             const saved=recoveryVals[r.key];
             const val=parseFloat(saved)||null;
+            const isExpanded=expandedCard===r.key;
+            const canExpand=r.key==="calories"||r.key==="water";
+            const bw=parseFloat(profile?.bodyStats?.weight)||70;
+            const kg=String(profile?.unit||"").includes("Imperial")?bw*0.453592:bw;
+            const hasStr=(profile?.goals||[]).some(g=>/strength|hyper/i.test(g));
+            const hasRun=(profile?.goals||[]).some(g=>/run/i.test(g));
+            const usesCr=(String(recoveryVals.supplements||"").toLowerCase().includes("creatine"));
+            // Calories breakdown
+            const tdee=Math.round(kg*24*(hasStr?1.55:hasRun?1.65:1.5));
+            const prot=Math.round(kg*2.2);
+            const fat=Math.round(tdee*0.28/9);
+            const carb=Math.round((tdee-prot*4-fat*9)/4);
+            // Water breakdown
+            const baseWater=Math.round((kg*0.035+(hasRun?0.5:0.2))*10)/10;
+            const crWater=usesCr?0.5:0;
+            const totalWater=(baseWater+crWater).toFixed(1);
             return(
-              <div key={r.key} style={{background:C.sur,border:`1px solid ${C.bdr}`,borderRadius:10,padding:"12px 16px"}}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                  <div style={{display:"flex",alignItems:"center",gap:8}}>
-                    <span style={{fontSize:18}}>{r.icon}</span>
-                    <span style={{fontSize:13,color:C.mid}}>{r.label}</span>
+              <div key={r.key} style={{background:C.sur,border:`1px solid ${isExpanded?r.color+"60":C.bdr}`,borderRadius:10,overflow:"hidden",transition:"all 0.2s"}}>
+                <div onClick={()=>canExpand&&setExpandedCard(isExpanded?null:r.key)}
+                  style={{padding:"12px 16px",cursor:canExpand?"pointer":"default"}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                    <div style={{display:"flex",alignItems:"center",gap:8}}>
+                      <span style={{fontSize:13,color:C.mid,fontWeight:600}}>{r.label}</span>
+                      {canExpand&&<span style={{fontSize:9,color:r.color,fontFamily:"'Space Mono',monospace",letterSpacing:"0.08em"}}>{isExpanded?"HIDE":"EXPAND"}</span>}
+                    </div>
+                    <div style={{display:"flex",alignItems:"center",gap:6}}>
+                      <input type="number" inputMode="decimal" placeholder={r.placeholder} defaultValue={saved||""} key={saved}
+                        onBlur={e=>saveRecovery(r.key,e.target.value)}
+                        onClick={e=>e.stopPropagation()}
+                        style={{width:64,background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"5px 8px",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
+                      <span style={{fontSize:11,color:C.dim}}>{r.unit}</span>
+                    </div>
                   </div>
-                  <div style={{display:"flex",alignItems:"center",gap:6}}>
-                    <input type="number" inputMode="decimal" placeholder={r.placeholder} defaultValue={saved||""} key={saved}
-                      onBlur={e=>saveRecovery(r.key,e.target.value)}
-                      style={{width:64,background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"5px 8px",color:C.txt,fontSize:14,fontFamily:"'DM Sans',sans-serif",outline:"none",textAlign:"center"}}/>
-                    <span style={{fontSize:11,color:C.dim}}>{r.unit}</span>
-                  </div>
+                  {val&&<div style={{marginTop:8}}><PBar value={val} max={r.max} color={r.color} h={4}/><div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginTop:3,letterSpacing:"0.05em"}}>Target: {r.rec}</div></div>}
                 </div>
-                {val&&<div style={{marginTop:8}}><PBar value={val} max={r.max} color={r.color} h={4}/><div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginTop:3,letterSpacing:"0.05em"}}>Target: {r.rec}</div></div>}
+                {isExpanded&&r.key==="calories"&&(
+                  <div style={{padding:"0 16px 14px",borderTop:`1px solid ${C.bdr}`}}>
+                    <div style={{fontSize:10,color:C.ora,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:10,marginTop:12}}>MACRO BREAKDOWN</div>
+                    <div style={{display:"flex",gap:8,marginBottom:12}}>
+                      {[{label:"Protein",val:prot,unit:"g",color:"#FF1744",note:"~2.2g/kg"},{label:"Carbs",val:carb,unit:"g",color:C.hyper,note:"Energy"},{label:"Fat",val:fat,unit:"g",color:C.ora,note:"~28%"}].map(m=>(
+                        <div key={m.label} style={{flex:1,background:C.surUp,borderRadius:8,padding:"10px 8px",textAlign:"center",border:`1px solid ${m.color}30`}}>
+                          <div style={{fontSize:18,fontWeight:700,color:m.color,fontFamily:"'Space Mono',monospace"}}>{m.val}</div>
+                          <div style={{fontSize:9,color:C.mid,fontFamily:"'Space Mono',monospace",marginTop:2}}>{m.unit} {m.label}</div>
+                          <div style={{fontSize:8,color:C.dim,marginTop:2}}>{m.note}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{fontSize:11,color:C.dim,lineHeight:1.6,marginBottom:10}}>
+                      Huberman protocol: front-load protein at breakfast. Avoid large carb meals before training. Eat for performance, not hunger signals alone.
+                    </div>
+                    <button onClick={()=>{window.dispatchEvent(new CustomEvent("gmt_coach_msg",{detail:`My TDEE is ~${tdee} kcal. Target macros: ${prot}g protein, ${carb}g carbs, ${fat}g fat. Can you help me optimise my nutrition for my goals?`}));window.dispatchEvent(new CustomEvent("gmt_nav",{detail:"coach"}));}} style={{width:"100%",background:"rgba(0,102,255,0.08)",border:"1px solid rgba(0,102,255,0.25)",borderRadius:8,padding:"10px",color:C.hyper,fontSize:12,fontFamily:"'Space Mono',monospace",cursor:"pointer",letterSpacing:"0.06em"}}>ASK GARY TO REFINE THIS</button>
+                  </div>
+                )}
+                {isExpanded&&r.key==="water"&&(
+                  <div style={{padding:"0 16px 14px",borderTop:`1px solid ${C.bdr}`}}>
+                    <div style={{fontSize:10,color:C.blu,fontFamily:"'Space Mono',monospace",letterSpacing:"0.1em",marginBottom:10,marginTop:12}}>HYDRATION BREAKDOWN</div>
+                    <div style={{display:"flex",gap:8,marginBottom:12}}>
+                      {[{label:"Base",val:baseWater+"L",color:C.blu},{label:"Activity",val:hasRun?"+ 0.5L":"+ 0.2L",color:C.hyper},{label:"Creatine",val:usesCr?"+ 0.5L":"0L",color:usesCr?"#00C9B1":C.dim}].map(m=>(
+                        <div key={m.label} style={{flex:1,background:C.surUp,borderRadius:8,padding:"10px 8px",textAlign:"center",border:`1px solid ${m.color}30`}}>
+                          <div style={{fontSize:15,fontWeight:700,color:m.color,fontFamily:"'Space Mono',monospace"}}>{m.val}</div>
+                          <div style={{fontSize:9,color:C.dim,fontFamily:"'Space Mono',monospace",marginTop:2}}>{m.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{background:`${C.blu}10`,border:`1px solid ${C.blu}30`,borderRadius:8,padding:"10px 12px",marginBottom:10}}>
+                      <div style={{fontSize:13,color:C.txt,fontWeight:600}}>Daily target: {totalWater}L</div>
+                      {usesCr&&<div style={{fontSize:11,color:C.recovery,marginTop:4}}>+500ml for creatine - supports uptake and prevents cramping</div>}
+                      {!usesCr&&<div style={{fontSize:11,color:C.dim,marginTop:4}}>Add "creatine" to supplements below to see adjusted target</div>}
+                    </div>
+                    <div style={{marginBottom:10}}>
+                      <div style={{fontSize:10,color:C.dim,fontFamily:"'Space Mono',monospace",marginBottom:6}}>SUPPLEMENTS (affects water target)</div>
+                      <input placeholder="e.g. creatine, caffeine, magnesium" defaultValue={recoveryVals.supplements||""} onBlur={e=>saveRecovery("supplements",e.target.value)} style={{width:"100%",background:C.surUp,border:`1px solid ${C.bdrL}`,borderRadius:6,padding:"8px 10px",color:C.txt,fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:"none",boxSizing:"border-box"}}/>
+                    </div>
+                    <button onClick={()=>{window.dispatchEvent(new CustomEvent("gmt_coach_msg",{detail:`My daily water target is ${totalWater}L (${usesCr?"using creatine":"no creatine"}). I weigh ${Math.round(kg)}kg. Can you advise on optimal hydration timing around training?`}));window.dispatchEvent(new CustomEvent("gmt_nav",{detail:"coach"}));}} style={{width:"100%",background:"rgba(33,150,243,0.08)",border:"1px solid rgba(33,150,243,0.25)",borderRadius:8,padding:"10px",color:C.blu,fontSize:12,fontFamily:"'Space Mono',monospace",cursor:"pointer",letterSpacing:"0.06em"}}>ASK GARY ABOUT HYDRATION</button>
+                  </div>
+                )}
               </div>
             );
           })}
