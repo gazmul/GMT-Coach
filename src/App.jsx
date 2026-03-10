@@ -1794,19 +1794,27 @@ const BODY_PATHS = {
 };
 
 const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
-  const[hov,setHov]=React.useState(null);
   if(!exercise||!exercise.muscle)return null;
+  const[hov,setHov]=React.useState(null);
   const exDiag=EXERCISE_DIAGRAMS[exercise.name]||null;
   const tag=String(exercise.tag||exercise.type||"").toLowerCase();
-  const pCol=tag.includes("hyper")?"#2080F0":tag.includes("recovery")||tag.includes("stretch")?"#12D7C8":"#E8193A";
-  const pHi =tag.includes("hyper")?"#80C8FF":tag.includes("recovery")?"#80FFF4":"#F04060";
-  const pDk =tag.includes("hyper")?"#0A3A88":tag.includes("recovery")?"#006660":"#8B0A20";
+  const isHyp=tag.includes("hyper");
+  const isRec=tag.includes("recovery")||tag.includes("stretch");
+  const pC  =isHyp?"#2080F0":isRec?"#12D7C8":"#E8193A";
+  const pCHi=isHyp?"#80C8FF":isRec?"#88FFF0":"#F04060";
+  const pCDk=isHyp?"#0A3A88":isRec?"#006660":"#8B0A20";
+  const pCGl=isHyp?"rgba(32,128,240,0.35)":isRec?"rgba(18,215,200,0.35)":"rgba(204,16,48,0.35)";
+  const sC  ="#E87820";
+  const sCHi="#F09030";
+  const sCDk="#7A3A08";
+  const sCGl="rgba(208,96,16,0.35)";
+  const stC ="#2080F0";
 
   const GM={
-    chest:["pec-l","pec-r"],quads:["qrf-l","qrf-r","qvl-l","qvl-r","qvm-l","qvm-r"],
+    chest:["pec-l","pec-r"],quads:["qvl-l","qvl-r","qrf-l","qrf-r","qvm-l","qvm-r"],
     glutes:["glu-l","glu-r"],hamstrings:["hbf-l","hbf-r","hst-l","hst-r"],
     lats:["lat-l","lat-r"],traps:["trap-l","trap-r"],biceps:["bic-l","bic-r"],
-    triceps:["tri-l","tri-r"],abs:["rab"],obliques:["obl-l","obl-r"],
+    triceps:["tri-l","tri-r"],abs:["abs-t","abs-m","abs-b"],obliques:["obl-l","obl-r"],
     erectors:["erc-l","erc-r"],anterior_deltoid:["dan-l","dan-r"],
     lateral_deltoid:["dlat-l","dlat-r"],rear_delts:["rdel-l","rdel-r"],
     shoulders:["dan-l","dan-r","dlat-l","dlat-r"],adductors:["add-l","add-r"],
@@ -1827,481 +1835,481 @@ const MuscleDiagram=({exercise,expanded=false,onExpand})=>{
   const stIds=rIds(exDiag?.stabilizer||[]);
   const stOf=(id)=>pIds.includes(id)?"p":sIds.includes(id)?"s":stIds.includes(id)?"st":"off";
 
-  // Muscle renderer -- returns array of path + optional specular ellipse
-  // Defined as plain function (NOT React component) to avoid remount issues
-  const Mu=(id,sfx,d,sp,o)=>{
-    o=o===undefined?1:o;
-    const st=stOf(id);const isH=hov===id;
-    let fill,filt,sk,sw;
-    const gn={"p":"gP","s":"gS","st":"gSt"}[st];
-    if(st==="p"){fill="url(#mP"+sfx+")";filt="url(#"+gn+sfx+")";sk=pCol+"55";sw=0.85;}
-    else if(st==="s"){fill="url(#mS"+sfx+")";filt="url(#"+gn+sfx+")";sk="#E8782055";sw=0.75;}
-    else if(st==="st"){fill="url(#mSt"+sfx+")";filt="url(#"+gn+sfx+")";sk="#2080F055";sw=0.7;}
-    else{fill="url(#mR"+sfx+")";filt=undefined;sk=isH?"rgba(190,198,220,0.28)":"rgba(255,255,255,0.05)";sw=isH?0.6:0.35;}
-    const specF=st==="p"?"rgba(245,150,135,0.32)":st==="s"?"rgba(245,205,110,0.28)":st==="st"?"rgba(110,195,255,0.25)":"url(#spc"+sfx+")";
-    const els=[React.createElement("path",{key:id,d,fill,stroke:sk,strokeWidth:sw,opacity:o,
-      style:{filter:filt,cursor:"crosshair",transition:"fill 0.3s,filter 0.3s"},
-      onMouseEnter:()=>setHov(id),onMouseLeave:()=>setHov(null)})];
-    if(sp)els.push(React.createElement("ellipse",{key:id+"-s",cx:sp[0],cy:sp[1],rx:sp[2],ry:sp[3],
-      fill:specF,opacity:st!=="off"?0.65:0.58,style:{pointerEvents:"none",transition:"fill 0.3s"}}));
+  // OVERLAY POSITIONS: [left%, top%, width%, height%, borderRadius]
+  // Percentages of the SVG container dimensions (viewBox 0 0 260 640)
+  // Carefully mapped to each muscle region on the figure
+  const OVERLAYS_F={
+    "pec-l":     [22,14,27,15,"55% 40% 60% 50%"],
+    "pec-r":     [51,14,27,15,"40% 55% 50% 60%"],
+    "dan-l":     [10,14,16,12,"50%"],
+    "dan-r":     [74,14,16,12,"50%"],
+    "dlat-l":    [ 3,16,12,11,"50%"],
+    "dlat-r":    [85,16,12,11,"50%"],
+    "bic-l":     [ 4,27,12,14,"50%"],
+    "bic-r":     [84,27,12,14,"50%"],
+    "tri-l":     [ 0,24,11,15,"50%"],
+    "tri-r":     [89,24,11,15,"50%"],
+    "foa-l":     [ 2,42,10,13,"50%"],
+    "foa-r":     [88,42,10,13,"50%"],
+    "lat-l":     [14,26,14,18,"40% 50% 60% 40%"],
+    "lat-r":     [72,26,14,18,"50% 40% 40% 60%"],
+    "ser-l":     [18,28,11,12,"50%"],
+    "ser-r":     [71,28,11,12,"50%"],
+    "abs-t":     [40,30,20,8,"50%"],
+    "abs-m":     [40,39,20,9,"50%"],
+    "abs-b":     [40,48,20,9,"50%"],
+    "obl-l":     [20,35,15,16,"50%"],
+    "obl-r":     [65,35,15,16,"50%"],
+    "hfx-l":     [32,49,15,10,"50%"],
+    "hfx-r":     [53,49,15,10,"50%"],
+    "qvl-l":     [15,58,18,20,"50%"],
+    "qrf-l":     [27,57,14,19,"50%"],
+    "qvm-l":     [30,71,12,10,"50%"],
+    "qvl-r":     [67,58,18,20,"50%"],
+    "qrf-r":     [59,57,14,19,"50%"],
+    "qvm-r":     [58,71,12,10,"50%"],
+    "add-l":     [35,57,12,17,"50%"],
+    "add-r":     [53,57,12,17,"50%"],
+    "clf-l":     [17,80,14,12,"50%"],
+    "clf-r":     [69,80,14,12,"50%"],
+  };
+  const OVERLAYS_B={
+    "trap-l":    [24,12,26,12,"50% 40% 50% 60%"],
+    "trap-r":    [50,12,26,12,"40% 50% 60% 50%"],
+    "rdel-l":    [ 9,14,17,13,"50%"],
+    "rdel-r":    [74,14,17,13,"50%"],
+    "lat-l":     [ 6,22,20,24,"40% 60% 60% 40%"],
+    "lat-r":     [74,22,20,24,"60% 40% 40% 60%"],
+    "rhm-l":     [27,17,23,11,"50%"],
+    "rhm-r":     [50,17,23,11,"50%"],
+    "ter-l":     [16,22,14,10,"50%"],
+    "ter-r":     [70,22,14,10,"50%"],
+    "erc-l":     [37,26,12,22,"50%"],
+    "erc-r":     [51,26,12,22,"50%"],
+    "tri-l":     [ 1,22,13,17,"50%"],
+    "tri-r":     [86,22,13,17,"50%"],
+    "foa-l":     [ 0,40,11,15,"50%"],
+    "foa-r":     [89,40,11,15,"50%"],
+    "glu-l":     [12,48,28,20,"50%"],
+    "glu-r":     [60,48,28,20,"50%"],
+    "hbf-l":     [ 9,68,18,19,"50%"],
+    "hst-l":     [22,68,17,19,"50%"],
+    "hbf-r":     [73,68,18,19,"50%"],
+    "hst-r":     [61,68,17,19,"50%"],
+    "clf-l":     [12,88,16,10,"50%"],
+    "clf-r":     [72,88,16,10,"50%"],
+  };
+
+  // Build overlay div for a muscle id
+  const mkOverlay=(id,pos,cont)=>{
+    const st=stOf(id);
+    if(st==="off")return null;
+    const[L,T,W,H,BR]=pos;
+    const hi=st==="p"?pCHi:st==="s"?sCHi:"#88C8FF";
+    const mid=st==="p"?pC:st==="s"?sC:stC;
+    const dk=st==="p"?pCDk:st==="s"?sCDk:"#0A3A88";
+    const gl=st==="p"?pCGl:st==="s"?sCGl:"rgba(32,128,240,0.30)";
+    const grad=`radial-gradient(ellipse at 44% 28%, ${hi} 0%, ${mid} 32%, ${dk} 72%, transparent 100%)`;
+    const base=React.createElement("div",{key:id,
+      style:{position:"absolute",left:L+"%",top:T+"%",width:W+"%",height:H+"%",
+        borderRadius:BR,background:grad,mixBlendMode:"screen",pointerEvents:"none",
+        transition:"opacity 0.3s",opacity:0.90}});
+    const glow=React.createElement("div",{key:id+"-g",
+      style:{position:"absolute",left:(L-W*0.3)+"%",top:(T-H*0.3)+"%",width:(W*1.6)+"%",height:(H*1.6)+"%",
+        borderRadius:"50%",background:`radial-gradient(ellipse, ${gl} 0%, transparent 70%)`,
+        mixBlendMode:"screen",pointerEvents:"none",filter:"blur(6px)",opacity:0.75}});
+    return[glow,base];
+  };
+
+  const buildOverlays=(map)=>{
+    const els=[];
+    Object.entries(map).forEach(([id,pos])=>{
+      const st=stOf(id);
+      if(st!=="off"){
+        const o=mkOverlay(id,pos);
+        if(o)els.push(...o);
+      }
+    });
     return els;
   };
 
-  const Defs=({sfx})=>React.createElement("defs",null,
-    // Body shell gradient -- cold charcoal, lit from overhead
-    React.createElement("linearGradient",{id:"bg"+sfx,x1:"50%",y1:"0%",x2:"50%",y2:"100%"},
-      React.createElement("stop",{offset:"0%",stopColor:"#202232"}),
-      React.createElement("stop",{offset:"25%",stopColor:"#14151E"}),
-      React.createElement("stop",{offset:"60%",stopColor:"#0C0D15"}),
-      React.createElement("stop",{offset:"100%",stopColor:"#07080E"})
+  // ================================================================
+  // BASE FIGURE SVG -- static anatomical base
+  // viewBox 0 0 260 640, center x=130
+  // This renders as the "3D base" -- directional gradients, specular,
+  // groove shadows, rim light. Muscles are shaped anatomically but
+  // coloring is done by the overlay system above.
+  // ================================================================
+
+  const C_LIT="#323240";    // lit muscle face -- per spec
+  const C_MID="#22222E";    // mid-tone
+  const C_SHD="#0D0D14";    // deep shadow / groove
+  const C_RIM="rgba(58,64,82,0.70)"; // rim light edge
+  const C_SPEC="rgba(144,152,176,0.68)"; // specular highlight -- #9098B0
+
+  const BaseDefs=({sfx})=>React.createElement("defs",null,
+    // Directional body gradient (overhead key light)
+    React.createElement("linearGradient",{id:"bG"+sfx,x1:"44%",y1:"0%",x2:"56%",y2:"100%"},
+      React.createElement("stop",{offset:"0%",stopColor:"#252532"}),
+      React.createElement("stop",{offset:"22%",stopColor:"#1A1A26"}),
+      React.createElement("stop",{offset:"55%",stopColor:"#111118"}),
+      React.createElement("stop",{offset:"100%",stopColor:"#08080E"})
     ),
-    // Resting muscle -- 3D form, overhead light, cold steel
-    // Peak #45454E (lit face), shadow #0D0D12 (deep recess)
-    React.createElement("radialGradient",{id:"mR"+sfx,cx:"44%",cy:"26%",r:"70%",fx:"44%",fy:"16%"},
-      React.createElement("stop",{offset:"0%",stopColor:"#46464F"}),
-      React.createElement("stop",{offset:"30%",stopColor:"#2E2E38"}),
-      React.createElement("stop",{offset:"65%",stopColor:"#1A1A22"}),
-      React.createElement("stop",{offset:"100%",stopColor:"#0D0D12"})
+    // Muscle fill -- per-muscle overhead radial (lit from top-center)
+    React.createElement("radialGradient",{id:"mG"+sfx,cx:"44%",cy:"18%",r:"68%"},
+      React.createElement("stop",{offset:"0%",stopColor:C_LIT}),
+      React.createElement("stop",{offset:"34%",stopColor:C_MID}),
+      React.createElement("stop",{offset:"72%",stopColor:"#161620"}),
+      React.createElement("stop",{offset:"100%",stopColor:C_SHD})
     ),
-    // Primary activation -- vivid crimson radial
-    React.createElement("radialGradient",{id:"mP"+sfx,cx:"44%",cy:"22%",r:"72%",fx:"44%",fy:"14%"},
-      React.createElement("stop",{offset:"0%",stopColor:pHi}),
-      React.createElement("stop",{offset:"26%",stopColor:pCol}),
-      React.createElement("stop",{offset:"60%",stopColor:pDk,stopOpacity:"0.88"}),
-      React.createElement("stop",{offset:"100%",stopColor:pDk,stopOpacity:"0.30"})
-    ),
-    // Secondary -- amber
-    React.createElement("radialGradient",{id:"mS"+sfx,cx:"44%",cy:"22%",r:"72%",fx:"44%",fy:"14%"},
-      React.createElement("stop",{offset:"0%",stopColor:"#F09030"}),
-      React.createElement("stop",{offset:"26%",stopColor:"#E87820"}),
-      React.createElement("stop",{offset:"60%",stopColor:"#7A3A08",stopOpacity:"0.88"}),
-      React.createElement("stop",{offset:"100%",stopColor:"#7A3A08",stopOpacity:"0.30"})
-    ),
-    // Stabilizer -- blue
-    React.createElement("radialGradient",{id:"mSt"+sfx,cx:"44%",cy:"22%",r:"72%",fx:"44%",fy:"14%"},
-      React.createElement("stop",{offset:"0%",stopColor:"#7ACAFF"}),
-      React.createElement("stop",{offset:"26%",stopColor:"#2080F0"}),
-      React.createElement("stop",{offset:"60%",stopColor:"#0A3A88",stopOpacity:"0.88"}),
-      React.createElement("stop",{offset:"100%",stopColor:"#0A3A88",stopOpacity:"0.30"})
-    ),
-    // Specular -- cool blue-gray highlight, per spec #8890A8 to #AAB0C0
-    React.createElement("radialGradient",{id:"spc"+sfx,cx:"50%",cy:"50%",r:"50%"},
-      React.createElement("stop",{offset:"0%",stopColor:"#AAB0C0",stopOpacity:"0.76"}),
-      React.createElement("stop",{offset:"55%",stopColor:"#8890A8",stopOpacity:"0.32"}),
-      React.createElement("stop",{offset:"100%",stopColor:"#8890A8",stopOpacity:"0"})
-    ),
-    // Glow filter primary -- 10px blur per spec "4-8px soft outer glow"
-    React.createElement("filter",{id:"gP"+sfx,x:"-55%",y:"-55%",width:"210%",height:"210%"},
-      React.createElement("feGaussianBlur",{in:"SourceGraphic",stdDeviation:"10",result:"bl"}),
-      React.createElement("feComponentTransfer",{in:"bl",result:"bl2"},React.createElement("feFuncA",{type:"linear",slope:"1.6"})),
-      React.createElement("feMerge",null,React.createElement("feMergeNode",{in:"bl2"}),React.createElement("feMergeNode",{in:"SourceGraphic"}))
-    ),
-    // Glow filter secondary
-    React.createElement("filter",{id:"gS"+sfx,x:"-48%",y:"-48%",width:"196%",height:"196%"},
-      React.createElement("feGaussianBlur",{in:"SourceGraphic",stdDeviation:"8",result:"bl"}),
-      React.createElement("feMerge",null,React.createElement("feMergeNode",{in:"bl"}),React.createElement("feMergeNode",{in:"SourceGraphic"}))
-    ),
-    // Glow filter stabilizer
-    React.createElement("filter",{id:"gSt"+sfx,x:"-42%",y:"-42%",width:"184%",height:"184%"},
-      React.createElement("feGaussianBlur",{in:"SourceGraphic",stdDeviation:"6",result:"bl"}),
-      React.createElement("feMerge",null,React.createElement("feMergeNode",{in:"bl"}),React.createElement("feMergeNode",{in:"SourceGraphic"}))
-    ),
-    // Ground glow filter -- teal
-    React.createElement("filter",{id:"gg"+sfx,x:"-15%",y:"-600%",width:"130%",height:"1300%"},
-      React.createElement("feGaussianBlur",{in:"SourceGraphic",stdDeviation:"4"})
+    // Groove -- dark shadow channels between muscles
+    React.createElement("linearGradient",{id:"grv"+sfx,x1:"0%",y1:"0%",x2:"0%",y2:"100%"},
+      React.createElement("stop",{offset:"0%",stopColor:"#07070F"}),
+      React.createElement("stop",{offset:"100%",stopColor:"#050509"})
     )
   );
 
-  // Shadow groove renderer -- creates dark shadow channel between muscles (NOT a stroke)
-  const Groove=(d,op)=>React.createElement("path",{d,fill:"none",stroke:"rgba(0,0,0,"+(op||0.52)+")",strokeWidth:2.2,strokeLinecap:"round"});
-  const GrooveHi=(d)=>React.createElement("path",{d,fill:"none",stroke:"rgba(255,255,255,0.038)",strokeWidth:0.8,strokeLinecap:"round"});
+  // Muscle path -- anatomically shaped, shaded base (color comes from overlay)
+  const MP=({d,sfx,sp,o=1})=>{
+    const els=[React.createElement("path",{key:"b",d,
+      fill:"url(#mG"+sfx+")",stroke:"rgba(0,0,0,0.55)",strokeWidth:0.55,opacity:o})];
+    if(sp)els.push(React.createElement("ellipse",{key:"s",
+      cx:sp[0],cy:sp[1],rx:sp[2],ry:sp[3],
+      fill:C_SPEC,opacity:0.52,style:{pointerEvents:"none"}}));
+    return React.createElement(React.Fragment,null,...els);
+  };
+  // Groove path -- dark shadow channel (NOT anatomy line)
+  const GV=(d,op=0.60)=>React.createElement("path",{d,fill:"none",
+    stroke:"rgba(5,5,12,"+(op)+")",strokeWidth:2.0,strokeLinecap:"round"});
+  // Rim / edge hi-light on groove (thin bright counterpart)
+  const GH=(d)=>React.createElement("path",{d,fill:"none",
+    stroke:"rgba(255,255,255,0.032)",strokeWidth:0.7,strokeLinecap:"round"});
 
-  // ================================================================
-  // FRONT FIGURE  viewBox 0 0 260 640
-  // Proportions: shoulder span ~150px (x54-x206), waist ~62px (x99-x161)
-  // 4:1 ratio: figure height 600px, shoulder width ~150px, ratio=4.0 ok
-  // Overhead light source: shadows below/inside muscle bellies
-  // ================================================================
-  const mkFront=()=>{
+  const FrontBase=()=>{
     const sfx="F";
-    const bg="url(#bg"+sfx+")";
-    const rim="rgba(58,63,82,0.72)";
-    return React.createElement("svg",{viewBox:"0 0 260 640",style:{width:"100%",display:"block"},fill:"none"},
-      React.createElement(Defs,{sfx}),
+    return React.createElement("svg",{viewBox:"0 0 260 640",style:{display:"block",width:"100%"},fill:"none"},
+      React.createElement(BaseDefs,{sfx}),
+      // BODY SHELL -- V-taper: shoulder ~148px, waist ~60px, per spec 2.2x ratio
+      React.createElement("path",{fill:"url(#bG"+sfx+")",stroke:C_RIM,strokeWidth:1.4,
+        d:"M130,14 C118,14 108,22 106,34 C104,44 107,56 113,67 L111,78 C98,82 78,90 56,104 C42,96 20,100 8,116 C-4,132 -2,156 10,170 C18,182 34,188 50,186 L48,234 C46,256 46,280 50,302 L60,380 L88,384 L92,354 L98,338 L104,356 L106,384 L118,384 C121,390 129,394 130,394 C131,394 139,390 142,384 L154,384 L156,356 L162,338 L168,354 L172,384 L200,380 L210,302 C214,280 214,256 212,234 L210,186 C226,188 242,182 250,170 C262,156 264,132 252,116 C240,100 218,96 204,104 C182,90 162,82 149,78 L147,67 C153,56 156,44 154,34 C152,22 142,14 130,14 Z"}),
+      // HEAD
+      React.createElement("ellipse",{cx:130,cy:42,rx:23,ry:29,fill:"url(#bG"+sfx+")",stroke:"rgba(255,255,255,0.09)",strokeWidth:0.9}),
+      // NECK -- sternocleidomastoid implied by narrow neck + head shape
+      React.createElement("path",{d:"M117,67 C113,70 111,76 111,82 L149,82 C149,76 147,70 143,67 Z",fill:"url(#bG"+sfx+")",stroke:"rgba(0,0,0,0.35)",strokeWidth:0.6}),
+      // Clavicles
+      React.createElement("path",{d:"M111,90 C96,94 78,100 60,108",fill:"none",stroke:"rgba(255,255,255,0.065)",strokeWidth:0.9}),
+      React.createElement("path",{d:"M149,90 C164,94 182,100 200,108",fill:"none",stroke:"rgba(255,255,255,0.065)",strokeWidth:0.9}),
 
-      // === BODY SHELL -- single dark base ===
-      // V-taper silhouette: wide shoulders, cinched waist, hip flare, thick legs
-      React.createElement("path",{fill:bg,stroke:rim,strokeWidth:1.3,
-        d:"M130,16 C119,16 109,24 107,34 C105,43 108,55 114,65 L112,75 C108,81 106,89 108,96 C96,99 79,106 58,118 C42,110 22,114 10,128 C-2,142 -2,164 8,178 C15,190 29,196 43,196 L41,240 C39,262 39,284 43,304 L54,376 L80,380 L84,350 L90,336 L96,352 L98,380 L108,380 C110,387 118,391 124,388 L127,372 L129,350 L130,332 L131,350 L133,372 L136,388 C142,391 150,387 152,380 L162,380 L164,352 L170,336 L176,350 L180,380 L206,376 L217,304 C221,284 221,262 219,240 L217,196 C231,196 245,190 252,178 C262,164 262,142 250,128 C238,114 218,110 202,118 C181,106 164,99 152,96 C154,89 152,81 148,75 L146,65 C152,55 155,43 153,34 C151,24 141,16 130,16 Z"}),
+      // PECTORALIS MAJOR -- fan shape, sternum to shoulder insertion
+      React.createElement(MP,{sfx,sp:[85,148,14,9],
+        d:"M130,110 C115,104 94,100 72,110 C48,120 36,144 40,168 C43,186 60,198 80,200 C100,202 118,188 127,168 C130,156 130,130 130,110 Z"}),
+      React.createElement(MP,{sfx,sp:[175,148,14,9],
+        d:"M130,110 C145,104 166,100 188,110 C212,120 224,144 220,168 C217,186 200,198 180,200 C160,202 142,188 133,168 C130,156 130,130 130,110 Z"}),
 
-      // === PECTORALIS MAJOR -- fan/teardrop per spec ===
-      // Left: from sternum sweeping to anterior delt insertion
-      ...Mu("pec-l",sfx,
-        "M130,114 C116,106 94,104 72,112 C50,120 38,142 40,166 C42,186 58,198 76,200 C94,202 114,190 124,172 C130,158 130,134 130,114 Z",
-        [88,148,17,11]),
-      // Right: mirror
-      ...Mu("pec-r",sfx,
-        "M130,114 C144,106 166,104 188,112 C210,120 222,142 220,166 C218,186 202,198 184,200 C166,202 146,190 136,172 C130,158 130,134 130,114 Z",
-        [172,148,17,11]),
+      // ANTERIOR DELTOID -- round teardrop
+      React.createElement(MP,{sfx,sp:[46,156,10,8],
+        d:"M58,108 C38,116 20,136 18,158 C16,174 27,190 46,192 C62,193 78,180 80,162 C83,142 74,114 58,108 Z"}),
+      React.createElement(MP,{sfx,sp:[214,156,10,8],
+        d:"M202,108 C222,116 240,136 242,158 C244,174 233,190 214,192 C198,193 182,180 180,162 C177,142 186,114 202,108 Z"}),
 
-      // === ANTERIOR DELTOIDS -- round teardrop cap ===
-      ...Mu("dan-l",sfx,
-        "M64,118 C46,126 28,144 26,164 C24,180 34,194 50,196 C64,198 78,186 82,168 C86,150 78,124 64,118 Z",
-        [50,156,11,9]),
-      ...Mu("dan-r",sfx,
-        "M196,118 C214,126 232,144 234,164 C236,180 226,194 210,196 C196,198 182,186 178,168 C174,150 182,124 196,118 Z",
-        [210,156,11,9]),
+      // LATERAL DELTOID -- outer shoulder cap
+      React.createElement(MP,{sfx,
+        d:"M18,120 C4,134 0,160 4,180 C8,194 24,200 40,194 C52,184 56,162 50,140 Z",o:0.92}),
+      React.createElement(MP,{sfx,
+        d:"M242,120 C256,134 260,160 256,180 C252,194 236,200 220,194 C208,184 204,162 210,140 Z",o:0.92}),
 
-      // === LATERAL DELTOIDS -- outer shoulder cap ===
-      ...Mu("dlat-l",sfx,
-        "M26,130 C10,142 4,164 8,184 C12,198 28,204 44,196 C56,188 60,168 56,148 Z",
-        null,0.92),
-      ...Mu("dlat-r",sfx,
-        "M234,130 C250,142 256,164 252,184 C248,198 232,204 216,196 C204,188 200,168 204,148 Z",
-        null,0.92),
+      // BICEPS -- oval/egg with central peak
+      React.createElement(MP,{sfx,sp:[26,236,9,11],
+        d:"M30,186 C14,204 8,236 14,263 C18,282 36,292 54,284 C64,272 65,246 59,218 C55,196 38,182 30,186 Z"}),
+      React.createElement(MP,{sfx,sp:[230,236,9,11],
+        d:"M230,186 C246,204 252,236 246,263 C242,282 224,292 206,284 C196,272 195,246 201,218 C205,196 222,182 230,186 Z"}),
 
-      // === BICEPS -- classic oval/egg peak ===
-      ...Mu("bic-l",sfx,
-        "M36,190 C20,206 14,236 18,262 C22,280 38,290 54,282 C64,272 65,248 60,222 C56,200 43,186 36,190 Z",
-        [36,234,11,9]),
-      ...Mu("bic-r",sfx,
-        "M224,190 C240,206 246,236 242,262 C238,280 222,290 206,282 C196,272 195,248 200,222 C204,200 217,186 224,190 Z",
-        [224,234,11,9]),
+      // TRICEPS lateral head (partial front view)
+      React.createElement(MP,{sfx,
+        d:"M6,154 C-4,174 -6,212 0,244 C4,264 22,274 42,264 C42,236 38,196 26,166 Z",o:0.75}),
+      React.createElement(MP,{sfx,
+        d:"M254,154 C264,174 266,212 260,244 C256,264 238,274 218,264 C218,236 222,196 234,166 Z",o:0.75}),
 
-      // === TRICEPS (lateral head -- partial front view) ===
-      ...Mu("tri-l",sfx,
-        "M12,156 C0,174 -2,210 4,240 C8,260 24,270 40,262 C40,234 36,196 26,168 Z",
-        null,0.74),
-      ...Mu("tri-r",sfx,
-        "M248,156 C260,174 262,210 256,240 C252,260 236,270 220,262 C220,234 224,196 234,168 Z",
-        null,0.74),
+      // FOREARMS
+      React.createElement(MP,{sfx,
+        d:"M2,268 C-8,290 -10,330 -4,360 C0,378 18,384 34,374 C38,346 36,304 26,276 Z",o:0.80}),
+      React.createElement(MP,{sfx,
+        d:"M258,268 C268,290 270,330 264,360 C260,378 242,384 226,374 C222,346 224,304 234,276 Z",o:0.80}),
 
-      // === FOREARMS ===
-      ...Mu("foa-l",sfx,
-        "M8,264 C-2,284 -4,322 2,350 C6,368 22,374 36,364 C40,338 38,298 30,272 Z",
-        null,0.80),
-      ...Mu("foa-r",sfx,
-        "M252,264 C262,284 264,322 258,350 C254,368 238,374 224,364 C220,338 222,298 230,272 Z",
-        null,0.80),
+      // LATS -- sweeping fan from armpit to waist
+      React.createElement(MP,{sfx,sp:[44,234,10,20],
+        d:"M52,160 C32,196 24,244 28,282 C32,304 52,316 74,308 C80,282 76,234 70,196 Z"}),
+      React.createElement(MP,{sfx,sp:[216,234,10,20],
+        d:"M208,160 C228,196 236,244 232,282 C228,304 208,316 186,308 C180,282 184,234 190,196 Z"}),
 
-      // === LATS (visible at waist from front) ===
-      ...Mu("lat-l",sfx,
-        "M50,166 C34,196 28,236 32,270 C36,290 52,302 70,296 C76,274 72,228 68,194 Z"),
-      ...Mu("lat-r",sfx,
-        "M210,166 C226,196 232,236 228,270 C224,290 208,302 190,296 C184,274 188,228 192,194 Z"),
+      // SERRATUS ANTERIOR -- finger projections
+      React.createElement(MP,{sfx,
+        d:"M74,200 C60,222 56,256 60,282 C64,298 80,304 92,296 C90,268 86,232 74,200 Z",o:0.76}),
+      React.createElement(MP,{sfx,
+        d:"M186,200 C200,222 204,256 200,282 C196,298 180,304 168,296 C170,268 174,232 186,200 Z",o:0.76}),
 
-      // === SERRATUS ANTERIOR ===
-      ...Mu("ser-l",sfx,
-        "M68,192 C56,214 52,244 56,268 C60,284 74,288 84,280 C82,254 78,220 68,192 Z",
-        null,0.76),
-      ...Mu("ser-r",sfx,
-        "M192,192 C204,214 208,244 204,268 C200,284 186,288 176,280 C178,254 182,220 192,192 Z",
-        null,0.76),
+      // RECTUS ABDOMINIS -- 3 block rows with linea alba
+      // Upper block
+      React.createElement(MP,{sfx,sp:[130,234,7,6],
+        d:"M112,210 C108,222 106,240 108,254 C110,264 118,268 130,268 C142,268 150,264 152,254 C154,240 152,222 148,210 C144,202 116,202 112,210 Z"}),
+      // Mid block
+      React.createElement(MP,{sfx,sp:[130,278,7,6],
+        d:"M111,272 C107,284 106,302 108,316 C110,326 118,330 130,330 C142,330 150,326 152,316 C154,302 153,284 149,272 C145,264 115,264 111,272 Z"}),
+      // Lower block
+      React.createElement(MP,{sfx,sp:[130,342,7,5],
+        d:"M112,334 C108,344 107,360 110,372 C113,381 120,384 130,384 C140,384 147,381 150,372 C153,360 152,344 148,334 C144,326 116,326 112,334 Z"}),
 
-      // === RECTUS ABDOMINIS -- vertical column, 3 visible rows ===
-      ...Mu("rab",sfx,
-        "M113,204 C106,226 103,264 106,298 C109,326 118,348 124,360 C127,366 130,366 130,366 C130,366 133,366 136,360 C142,348 151,326 154,298 C157,264 154,226 147,204 C143,194 117,194 113,204 Z",
-        [130,258,9,26]),
+      // OBLIQUES -- diagonal sweep
+      React.createElement(MP,{sfx,
+        d:"M76,234 C62,266 58,308 62,340 C65,360 80,370 96,364 C100,338 97,294 90,258 Z",o:0.80}),
+      React.createElement(MP,{sfx,
+        d:"M184,234 C198,266 202,308 198,340 C195,360 180,370 164,364 C160,338 163,294 170,258 Z",o:0.80}),
 
-      // === OBLIQUES ===
-      ...Mu("obl-l",sfx,
-        "M72,238 C60,266 56,300 58,328 C60,348 74,358 90,352 C94,328 92,286 86,256 Z",
-        null,0.80),
-      ...Mu("obl-r",sfx,
-        "M188,238 C200,266 204,300 202,328 C200,348 186,358 170,352 C166,328 168,286 174,256 Z",
-        null,0.80),
+      // HIP FLEXORS
+      React.createElement(MP,{sfx,
+        d:"M98,314 C86,338 82,372 88,396 C93,414 109,420 122,410 C125,388 122,352 114,328 Z",o:0.74}),
+      React.createElement(MP,{sfx,
+        d:"M162,314 C174,338 178,372 172,396 C167,414 151,420 138,410 C135,388 138,352 146,328 Z",o:0.74}),
 
-      // === HIP FLEXORS ===
-      ...Mu("hfx-l",sfx,
-        "M100,306 C88,326 84,356 88,378 C92,394 107,398 118,388 C120,368 118,336 110,314 Z",
-        null,0.74),
-      ...Mu("hfx-r",sfx,
-        "M160,306 C172,326 176,356 172,378 C168,394 153,398 142,388 C140,368 142,336 150,314 Z",
-        null,0.74),
+      // QUADRICEPS -- 3 heads visible
+      // Vastus lateralis -- outer, largest
+      React.createElement(MP,{sfx,sp:[66,456,10,20],
+        d:"M64,390 C44,420 36,472 42,514 C46,540 68,554 92,544 C102,516 97,460 90,418 Z"}),
+      // Rectus femoris -- center elongated oval
+      React.createElement(MP,{sfx,sp:[90,440,7,18],
+        d:"M90,384 C76,416 70,468 76,508 C80,530 98,540 114,530 C120,502 117,448 112,408 Z"}),
+      // Vastus medialis -- teardrop inner knee
+      React.createElement(MP,{sfx,sp:[104,492,9,8],
+        d:"M102,474 C92,496 90,520 98,534 C104,544 120,546 130,536 C134,520 130,492 122,476 Z",o:0.90}),
+      // Right side
+      React.createElement(MP,{sfx,sp:[194,456,10,20],
+        d:"M196,390 C216,420 224,472 218,514 C214,540 192,554 168,544 C158,516 163,460 170,418 Z"}),
+      React.createElement(MP,{sfx,sp:[170,440,7,18],
+        d:"M170,384 C184,416 190,468 184,508 C180,530 162,540 146,530 C140,502 143,448 148,408 Z"}),
+      React.createElement(MP,{sfx,sp:[156,492,9,8],
+        d:"M158,474 C168,496 170,520 162,534 C156,544 140,546 130,536 C126,520 130,492 138,476 Z",o:0.90}),
 
-      // === QUADRICEPS -- Vastus lateralis (outer), rectus femoris (center), VMO (teardrop) ===
-      // Left VL -- outer sweep, largest
-      ...Mu("qvl-l",sfx,
-        "M72,370 C54,400 46,448 50,492 C54,518 72,530 92,522 C100,496 96,444 90,406 Z",
-        [68,444,11,20]),
-      // Left RF -- elongated central oval with streak specular
-      ...Mu("qrf-l",sfx,
-        "M94,366 C80,396 74,444 78,486 C81,508 96,518 110,510 C116,484 114,434 110,396 Z",
-        [92,432,9,18]),
-      // Left VMO -- teardrop inner above knee
-      ...Mu("qvm-l",sfx,
-        "M106,462 C98,482 96,504 102,518 C107,528 120,530 128,521 C132,507 129,482 122,464 Z",
-        null,0.90),
-      // Right VL
-      ...Mu("qvl-r",sfx,
-        "M188,370 C206,400 214,448 210,492 C206,518 188,530 168,522 C160,496 164,444 170,406 Z",
-        [192,444,11,20]),
-      // Right RF
-      ...Mu("qrf-r",sfx,
-        "M166,366 C180,396 186,444 182,486 C179,508 164,518 150,510 C144,484 146,434 150,396 Z",
-        [168,432,9,18]),
-      // Right VMO
-      ...Mu("qvm-r",sfx,
-        "M154,462 C162,482 164,504 158,518 C153,528 140,530 132,521 C128,507 131,482 138,464 Z",
-        null,0.90),
+      // ADDUCTORS inner thigh
+      React.createElement(MP,{sfx,
+        d:"M106,386 C96,414 93,456 96,492 C99,514 114,524 128,518 C130,492 128,448 122,412 Z",o:0.68}),
+      React.createElement(MP,{sfx,
+        d:"M154,386 C164,414 167,456 164,492 C161,514 146,524 132,518 C130,492 132,448 138,412 Z",o:0.68}),
 
-      // === ADDUCTORS -- inner thigh ===
-      ...Mu("add-l",sfx,
-        "M108,368 C100,394 97,432 100,466 C102,490 115,500 127,494 C128,468 126,428 120,394 Z",
-        null,0.66),
-      ...Mu("add-r",sfx,
-        "M152,368 C160,394 163,432 160,466 C158,490 145,500 133,494 C132,468 134,428 140,394 Z",
-        null,0.66),
+      // TIBIALIS ANTERIOR -- shin ridge
+      React.createElement(MP,{sfx,
+        d:"M52,514 C40,540 36,578 42,604 C46,616 60,618 70,608 C72,582 70,546 60,520 Z",o:0.82}),
+      React.createElement(MP,{sfx,
+        d:"M208,514 C220,540 224,578 218,604 C214,616 200,618 190,608 C188,582 190,546 200,520 Z",o:0.82}),
 
-      // === CALVES (tibialis anterior + gastroc medial from front) ===
-      ...Mu("clf-l",sfx,
-        "M72,520 C54,548 50,592 56,624 C60,642 78,648 90,636 C94,612 91,568 82,540 Z",
-        [68,574,9,14],0.88),
-      ...Mu("clf-r",sfx,
-        "M188,520 C206,548 210,592 204,624 C200,642 182,648 170,636 C166,612 169,568 178,540 Z",
-        [192,574,9,14],0.88),
+      // CALVES -- gastroc medial visible from front
+      React.createElement(MP,{sfx,sp:[66,568,8,12],
+        d:"M62,514 C44,544 40,590 48,622 C53,638 72,644 86,632 C90,608 87,564 78,536 Z",o:0.88}),
+      React.createElement(MP,{sfx,sp:[194,568,8,12],
+        d:"M198,514 C216,544 220,590 212,622 C207,638 188,644 174,632 C170,608 173,564 182,536 Z",o:0.88}),
 
-      // === HEAD + NECK (painted last, covers any muscle overflow) ===
-      React.createElement("ellipse",{cx:130,cy:44,rx:24,ry:30,fill:bg,stroke:"rgba(255,255,255,0.10)",strokeWidth:0.9}),
-      React.createElement("path",{d:"M116,70 L114,96 L146,96 L144,70 Z",fill:bg,stroke:"rgba(255,255,255,0.08)",strokeWidth:0.7}),
-      // Clavicle lines
-      React.createElement("path",{d:"M114,96 C99,99 80,106 62,118",fill:"none",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
-      React.createElement("path",{d:"M146,96 C161,99 180,106 198,118",fill:"none",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
-
-      // === SHADOW GROOVES (NOT stroked anatomy lines -- rendered as shadow channels) ===
-      // Sternal center line
-      Groove("M130,114 L130,366",0.60),
-      GrooveHi("M130,114 L130,366"),
-      // Ab center line
-      Groove("M130,202 L130,360",0.44),
+      // === GROOVE SHADOW CHANNELS (NOT anatomy lines) ===
+      // Sternal / linea alba
+      GV("M130,110 L130,384",0.62), GH("M130,110 L130,384"),
       // Inframammary fold
-      Groove("M72,200 C94,208 113,211 130,211 C147,211 166,208 188,200",0.54),
-      GrooveHi("M72,200 C94,208 113,211 130,211 C147,211 166,208 188,200"),
-      // Deltopectoral grooves
-      Groove("M82,118 C72,134 68,156 72,178",0.48),
-      Groove("M178,118 C188,134 192,156 188,178",0.48),
-      // Lat/torso boundary
-      Groove("M70,196 C58,220 54,252 58,280",0.40),
-      Groove("M190,196 C202,220 206,252 202,280",0.40),
-      // Ab horizontal inscriptions (3 rows)
-      Groove("M116,246 C122,249 127,250 130,250 C133,250 138,249 144,246",0.42),
-      Groove("M115,284 C121,287 126,288 130,288 C134,288 139,287 145,284",0.38),
-      Groove("M116,322 C121,325 126,326 130,326 C134,326 139,325 144,322",0.34),
+      GV("M68,200 C93,210 113,213 130,213 C147,213 167,210 192,200",0.56),
+      GH("M68,200 C93,210 113,213 130,213 C147,213 167,210 192,200"),
+      // Deltopectoral groove L+R
+      GV("M76,112 C64,130 60,154 66,178",0.50),
+      GV("M184,112 C196,130 200,154 194,178",0.50),
+      // Lat/torso
+      GV("M68,202 C56,230 52,270 56,302",0.38),
+      GV("M192,202 C204,230 208,270 204,302",0.38),
+      // Ab horizontal inscriptions
+      GV("M114,268 C121,271 126,272 130,272 C134,272 139,271 146,268",0.44),
+      GH("M114,268 C121,271 126,272 130,272 C134,272 139,271 146,268"),
+      GV("M113,330 C120,333 126,334 130,334 C134,334 140,333 147,330",0.40),
+      GH("M113,330 C120,333 126,334 130,334 C134,334 140,333 147,330"),
       // Hip crease
-      Groove("M98,308 C110,312 120,314 130,314 C140,314 150,312 162,308",0.42),
-      // Quad inner groove L
-      Groove("M94,408 C94,450 92,490 94,520",0.36),
-      // Quad inner groove R
-      Groove("M166,408 C166,450 168,490 166,520",0.36),
-      // Knee caps
-      React.createElement("ellipse",{cx:78,cy:520,rx:15,ry:11,fill:"#060810",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
-      React.createElement("ellipse",{cx:182,cy:520,rx:15,ry:11,fill:"#060810",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
-      // Ankle joints
-      React.createElement("ellipse",{cx:74,cy:620,rx:11,ry:8,fill:"#060810",stroke:"rgba(255,255,255,0.06)",strokeWidth:0.6}),
-      React.createElement("ellipse",{cx:186,cy:620,rx:11,ry:8,fill:"#060810",stroke:"rgba(255,255,255,0.06)",strokeWidth:0.6}),
-      // === GROUND TEAL GLOW -- distinctive design signature ===
-      React.createElement("rect",{x:22,y:633,width:216,height:4,fill:"#00C8D8",opacity:0.18,style:{filter:"url(#gg"+sfx+")"}}),
-      React.createElement("rect",{x:42,y:634,width:176,height:1.8,fill:"#00E8F0",opacity:0.30})
+      GV("M96,316 C110,322 120,324 130,324 C140,324 150,322 164,316",0.44),
+      // Bicep groove
+      GV("M54,184 C56,196 57,210 56,224",0.44),
+      GV("M206,184 C204,196 203,210 204,224",0.44),
+      // Quad medial groove L+R
+      GV("M92,424 C92,468 90,506 94,534",0.36),
+      GV("M168,424 C168,468 170,506 166,534",0.36),
+      // Knee
+      React.createElement("ellipse",{cx:72,cy:514,rx:16,ry:11,fill:"#060810",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
+      React.createElement("ellipse",{cx:188,cy:514,rx:16,ry:11,fill:"#060810",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
+      // Ankle
+      React.createElement("ellipse",{cx:68,cy:620,rx:12,ry:8,fill:"#060810",stroke:"rgba(255,255,255,0.06)",strokeWidth:0.6}),
+      React.createElement("ellipse",{cx:192,cy:620,rx:12,ry:8,fill:"#060810",stroke:"rgba(255,255,255,0.06)",strokeWidth:0.6}),
+      // GROUND TEAL GLOW -- distinctive design signature
+      React.createElement("rect",{x:20,y:633,width:220,height:3,rx:1,fill:"#00C8D8",opacity:0.22,
+        style:{filter:"blur(4px)"}}),
+      React.createElement("rect",{x:38,y:634,width:184,height:1.5,rx:0.5,fill:"#20F0FF",opacity:0.35})
     );
   };
 
-  // ================================================================
-  // BACK FIGURE  viewBox 0 0 260 640
-  // Same shell. Different muscle set.
-  // ================================================================
-  const mkBack=()=>{
+  const BackBase=()=>{
     const sfx="B";
-    const bg="url(#bg"+sfx+")";
-    const rim="rgba(58,63,82,0.72)";
-    return React.createElement("svg",{viewBox:"0 0 260 640",style:{width:"100%",display:"block"},fill:"none"},
-      React.createElement(Defs,{sfx}),
+    return React.createElement("svg",{viewBox:"0 0 260 640",style:{display:"block",width:"100%"},fill:"none"},
+      React.createElement(BaseDefs,{sfx}),
+      // Same body shell
+      React.createElement("path",{fill:"url(#bG"+sfx+")",stroke:C_RIM,strokeWidth:1.4,
+        d:"M130,14 C118,14 108,22 106,34 C104,44 107,56 113,67 L111,78 C98,82 78,90 56,104 C42,96 20,100 8,116 C-4,132 -2,156 10,170 C18,182 34,188 50,186 L48,234 C46,256 46,280 50,302 L60,380 L88,384 L92,354 L98,338 L104,356 L106,384 L118,384 C121,390 129,394 130,394 C131,394 139,390 142,384 L154,384 L156,356 L162,338 L168,354 L172,384 L200,380 L210,302 C214,280 214,256 212,234 L210,186 C226,188 242,182 250,170 C262,156 264,132 252,116 C240,100 218,96 204,104 C182,90 162,82 149,78 L147,67 C153,56 156,44 154,34 C152,22 142,14 130,14 Z"}),
+      React.createElement("ellipse",{cx:130,cy:42,rx:23,ry:29,fill:"url(#bG"+sfx+")",stroke:"rgba(255,255,255,0.09)",strokeWidth:0.9}),
+      React.createElement("path",{d:"M117,67 C113,70 111,76 111,82 L149,82 C149,76 147,70 143,67 Z",fill:"url(#bG"+sfx+")",stroke:"rgba(0,0,0,0.35)",strokeWidth:0.6}),
 
-      // Body shell (same silhouette)
-      React.createElement("path",{fill:bg,stroke:rim,strokeWidth:1.3,
-        d:"M130,16 C119,16 109,24 107,34 C105,43 108,55 114,65 L112,75 C108,81 106,89 108,96 C96,99 79,106 58,118 C42,110 22,114 10,128 C-2,142 -2,164 8,178 C15,190 29,196 43,196 L41,240 C39,262 39,284 43,304 L54,376 L80,380 L84,350 L90,336 L96,352 L98,380 L108,380 C110,387 118,391 124,388 L127,372 L129,350 L130,332 L131,350 L133,372 L136,388 C142,391 150,387 152,380 L162,380 L164,352 L170,336 L176,350 L180,380 L206,376 L217,304 C221,284 221,262 219,240 L217,196 C231,196 245,190 252,178 C262,164 262,142 250,128 C238,114 218,110 202,118 C181,106 164,99 152,96 C154,89 152,81 148,75 L146,65 C152,55 155,43 153,34 C151,24 141,16 130,16 Z"}),
+      // TRAPEZIUS -- large diamond/kite from neck to mid-spine
+      React.createElement(MP,{sfx,sp:[97,150,12,9],
+        d:"M130,106 C112,110 90,124 74,140 C58,156 52,178 64,192 C76,204 100,204 116,190 C126,180 130,156 130,128 Z"}),
+      React.createElement(MP,{sfx,sp:[163,150,12,9],
+        d:"M130,106 C148,110 170,124 186,140 C202,156 208,178 196,192 C184,204 160,204 144,190 C134,180 130,156 130,128 Z"}),
 
-      // === TRAPEZIUS -- large diamond, upper then mid ===
-      ...Mu("trap-l",sfx,
-        "M130,112 C113,116 93,128 76,142 C60,156 54,176 64,190 C74,202 96,202 112,190 C124,180 130,158 130,132 Z",
-        [96,156,14,10]),
-      ...Mu("trap-r",sfx,
-        "M130,112 C147,116 167,128 184,142 C200,156 206,176 196,190 C186,202 164,202 148,190 C136,180 130,158 130,132 Z",
-        [164,156,14,10]),
+      // REAR DELTOID -- smaller than front delt per spec
+      React.createElement(MP,{sfx,sp:[42,162,9,8],
+        d:"M56,112 C36,122 16,144 16,168 C16,184 29,198 48,200 C66,202 82,188 84,170 C86,150 74,120 56,112 Z"}),
+      React.createElement(MP,{sfx,sp:[218,162,9,8],
+        d:"M204,112 C224,122 244,144 244,168 C244,184 231,198 212,200 C194,202 178,188 176,170 C174,150 186,120 204,112 Z"}),
 
-      // === REAR DELTOIDS -- smaller rounded cap ===
-      ...Mu("rdel-l",sfx,
-        "M60,120 C42,130 24,148 22,170 C20,186 32,200 50,202 C66,204 82,190 84,172 C86,154 76,124 60,120 Z",
-        [44,162,11,9]),
-      ...Mu("rdel-r",sfx,
-        "M200,120 C218,130 236,148 238,170 C240,186 228,200 210,202 C194,204 178,190 176,172 C174,154 184,124 200,120 Z",
-        [216,162,11,9]),
+      // LATS -- dominant wings, classic fan V-taper
+      React.createElement(MP,{sfx,sp:[34,234,12,24],
+        d:"M38,156 C16,192 6,248 10,292 C14,318 36,334 64,326 C76,298 70,242 64,200 Z"}),
+      React.createElement(MP,{sfx,sp:[226,234,12,24],
+        d:"M222,156 C244,192 254,248 250,292 C246,318 224,334 196,326 C184,298 190,242 196,200 Z"}),
 
-      // === LATS -- dominant wings, wide fan shape ===
-      ...Mu("lat-l",sfx,
-        "M46,162 C26,194 16,240 18,280 C20,306 38,322 62,316 C74,294 70,242 64,204 Z",
-        [38,234,13,22]),
-      ...Mu("lat-r",sfx,
-        "M214,162 C234,194 244,240 242,280 C240,306 222,322 198,316 C186,294 190,242 196,204 Z",
-        [222,234,13,22]),
+      // RHOMBOIDS -- between spine of scapula and medial border
+      React.createElement(MP,{sfx,
+        d:"M130,128 C110,136 92,152 88,170 C86,184 93,196 108,198 C120,200 130,190 130,170 Z",o:0.88}),
+      React.createElement(MP,{sfx,
+        d:"M130,128 C150,136 168,152 172,170 C174,184 167,196 152,198 C140,200 130,190 130,170 Z",o:0.88}),
 
-      // === RHOMBOIDS -- between spine and medial scapula ===
-      ...Mu("rhm-l",sfx,
-        "M130,136 C112,142 96,156 92,172 C90,184 96,194 110,196 C122,198 130,188 130,170 Z",
-        null,0.88),
-      ...Mu("rhm-r",sfx,
-        "M130,136 C148,142 164,156 168,172 C170,184 164,194 150,196 C138,198 130,188 130,170 Z",
-        null,0.88),
+      // TERES MAJOR
+      React.createElement(MP,{sfx,
+        d:"M42,160 C26,178 22,204 30,222 C37,238 56,244 72,234 C72,210 68,182 56,164 Z",o:0.84}),
+      React.createElement(MP,{sfx,
+        d:"M218,160 C234,178 238,204 230,222 C223,238 204,244 188,234 C188,210 192,182 204,164 Z",o:0.84}),
 
-      // === TERES MAJOR ===
-      ...Mu("ter-l",sfx,
-        "M50,164 C36,180 32,204 38,222 C44,236 60,240 74,230 C74,208 70,182 58,166 Z",
-        null,0.84),
-      ...Mu("ter-r",sfx,
-        "M210,164 C224,180 228,204 222,222 C216,236 200,240 186,230 C186,208 190,182 202,166 Z",
-        null,0.84),
+      // ERECTOR SPINAE -- twin columns flanking spine
+      React.createElement(MP,{sfx,sp:[107,256,6,22],
+        d:"M104,178 C96,212 92,264 96,308 C99,334 113,346 128,342 C130,314 130,258 127,218 C125,186 106,174 104,178 Z",o:0.88}),
+      React.createElement(MP,{sfx,sp:[153,256,6,22],
+        d:"M156,178 C164,212 168,264 164,308 C161,334 147,346 132,342 C130,314 130,258 133,218 C135,186 154,174 156,178 Z",o:0.88}),
 
-      // === ERECTOR SPINAE -- twin parallel columns ===
-      ...Mu("erc-l",sfx,
-        "M112,180 C104,212 100,258 102,300 C104,326 116,338 128,336 C130,310 130,260 128,224 C126,190 114,176 112,180 Z",
-        [114,254,7,22],0.88),
-      ...Mu("erc-r",sfx,
-        "M148,180 C156,212 160,258 158,300 C156,326 144,338 132,336 C130,310 130,260 132,224 C134,190 146,176 148,180 Z",
-        [146,254,7,22],0.88),
+      // INFRASPINATUS / TERES -- two lobes
+      React.createElement(MP,{sfx,
+        d:"M86,166 C74,182 70,202 76,218 C82,230 98,234 110,226 C110,204 104,180 92,166 Z",o:0.84}),
+      React.createElement(MP,{sfx,
+        d:"M174,166 C186,182 190,202 184,218 C178,230 162,234 150,226 C150,204 156,180 168,166 Z",o:0.84}),
 
-      // === TRICEPS -- long head DOMINANT from rear ===
-      ...Mu("tri-l",sfx,
-        "M14,158 C0,178 -4,218 2,252 C6,276 24,288 44,280 C44,250 40,204 30,172 Z",
-        [14,218,11,20]),
-      ...Mu("tri-r",sfx,
-        "M246,158 C260,178 264,218 258,252 C254,276 236,288 216,280 C216,250 220,204 230,172 Z",
-        [246,218,11,20]),
+      // TRICEPS -- LONG HEAD DOMINANT from rear
+      React.createElement(MP,{sfx,sp:[10,218,9,18],
+        d:"M6,156 C-8,178 -12,222 -6,260 C-2,282 18,294 42,284 C42,254 38,204 26,170 Z"}),
+      React.createElement(MP,{sfx,sp:[250,218,9,18],
+        d:"M254,156 C268,178 272,222 266,260 C262,282 242,294 218,284 C218,254 222,204 234,170 Z"}),
 
-      // === FOREARMS (back) ===
-      ...Mu("foa-l",sfx,
-        "M6,282 C-4,302 -6,342 0,370 C4,388 20,394 36,383 C40,354 38,312 28,286 Z",
-        null,0.80),
-      ...Mu("foa-r",sfx,
-        "M254,282 C264,302 266,342 260,370 C256,388 240,394 224,383 C220,354 222,312 232,286 Z",
-        null,0.80),
+      // FOREARMS (back)
+      React.createElement(MP,{sfx,
+        d:"M-2,286 C-12,308 -14,350 -8,380 C-4,398 14,404 30,394 C34,364 32,320 22,292 Z",o:0.80}),
+      React.createElement(MP,{sfx,
+        d:"M262,286 C272,308 274,350 268,380 C264,398 246,404 230,394 C226,364 228,320 238,292 Z",o:0.80}),
 
-      // === GLUTEUS MAXIMUS -- large rounded pillow shape ===
-      ...Mu("glu-l",sfx,
-        "M50,318 C30,342 22,384 26,420 C30,448 52,462 78,456 C96,440 98,400 90,360 C82,322 62,306 50,318 Z",
-        [52,374,15,20]),
-      ...Mu("glu-r",sfx,
-        "M210,318 C230,342 238,384 234,420 C230,448 208,462 182,456 C164,440 162,400 170,360 C178,322 198,306 210,318 Z",
-        [208,374,15,20]),
+      // GLUTEUS MAXIMUS -- large rounded square per spec
+      React.createElement(MP,{sfx,sp:[46,368,13,18],
+        d:"M40,312 C18,340 12,390 18,428 C23,456 50,470 80,462 C98,444 100,400 91,358 C82,318 58,298 40,312 Z"}),
+      React.createElement(MP,{sfx,sp:[214,368,13,18],
+        d:"M220,312 C242,340 248,390 242,428 C237,456 210,470 180,462 C162,444 160,400 169,358 C178,318 202,298 220,312 Z"}),
 
-      // === HAMSTRINGS -- biceps femoris (outer) + semitendinosus (inner) ===
-      // Left BF (outer)
-      ...Mu("hbf-l",sfx,
-        "M46,454 C28,484 22,534 26,574 C30,600 50,612 72,604 C80,576 76,520 68,478 Z",
-        [40,508,11,18]),
-      // Left ST (inner, softer per spec)
-      ...Mu("hst-l",sfx,
-        "M72,456 C58,488 54,538 58,578 C62,604 82,614 102,606 C106,576 102,522 94,478 Z",
-        null,0.78),
-      // Right BF
-      ...Mu("hbf-r",sfx,
-        "M214,454 C232,484 238,534 234,574 C230,600 210,612 188,604 C180,576 184,520 192,478 Z",
-        [220,508,11,18]),
-      // Right ST
-      ...Mu("hst-r",sfx,
-        "M188,456 C202,488 206,538 202,578 C198,604 178,614 158,606 C154,576 158,522 166,478 Z",
-        null,0.78),
+      // HAMSTRINGS -- biceps femoris (outer) + semi* (inner)
+      React.createElement(MP,{sfx,sp:[34,498,10,18],
+        d:"M30,458 C10,492 4,548 10,590 C15,616 38,628 66,618 C76,590 71,530 63,484 Z"}),
+      React.createElement(MP,{sfx,
+        d:"M64,460 C48,496 42,552 48,594 C53,620 76,630 102,620 C108,590 104,530 96,484 Z",o:0.78}),
+      React.createElement(MP,{sfx,sp:[226,498,10,18],
+        d:"M230,458 C250,492 256,548 250,590 C245,616 222,628 194,618 C184,590 189,530 197,484 Z"}),
+      React.createElement(MP,{sfx,
+        d:"M196,460 C212,496 218,552 212,594 C207,620 184,630 158,620 C152,590 156,530 164,484 Z",o:0.78}),
 
-      // === GASTROCNEMIUS -- heart/diamond shape, two heads ===
-      // Left medial + lateral heads
-      ...Mu("clf-l",sfx,
-        "M50,602 C34,626 30,668 38,698 C42,716 60,722 74,710 C78,688 74,650 66,622 Z",
-        [50,652,10,14]),
-      React.createElement("path",{
-        d:"M74,602 C82,626 84,662 78,690 C74,706 64,710 58,702 C56,682 60,650 66,622 Z",
-        fill:"url(#mR"+sfx+")",stroke:"rgba(255,255,255,0.05)",strokeWidth:0.4,opacity:0.75}),
-      // Right medial + lateral heads
-      ...Mu("clf-r",sfx,
-        "M210,602 C226,626 230,668 222,698 C218,716 200,722 186,710 C182,688 186,650 194,622 Z",
-        [210,652,10,14]),
-      React.createElement("path",{
-        d:"M186,602 C178,626 176,662 182,690 C186,706 196,710 202,702 C204,682 200,650 194,622 Z",
-        fill:"url(#mR"+sfx+")",stroke:"rgba(255,255,255,0.05)",strokeWidth:0.4,opacity:0.75}),
+      // GASTROCNEMIUS -- heart/diamond, two heads per spec
+      React.createElement(MP,{sfx,sp:[38,620,9,14],
+        d:"M28,590 C10,618 6,658 14,688 C19,704 38,710 54,698 C58,674 54,636 46,608 Z"}),
+      React.createElement(MP,{sfx,
+        d:"M52,590 C62,616 66,650 60,678 C56,692 46,696 40,688 C36,666 40,634 46,608 Z",o:0.75}),
+      React.createElement(MP,{sfx,sp:[222,620,9,14],
+        d:"M232,590 C250,618 254,658 246,688 C241,704 222,710 206,698 C202,674 206,636 214,608 Z"}),
+      React.createElement(MP,{sfx,
+        d:"M208,590 C198,616 194,650 200,678 C204,692 214,696 220,688 C224,666 220,634 214,608 Z",o:0.75}),
 
-      // === HEAD + NECK ===
-      React.createElement("ellipse",{cx:130,cy:44,rx:24,ry:30,fill:bg,stroke:"rgba(255,255,255,0.10)",strokeWidth:0.9}),
-      React.createElement("path",{d:"M116,70 L114,96 L146,96 L144,70 Z",fill:bg,stroke:"rgba(255,255,255,0.08)",strokeWidth:0.7}),
-
-      // === SHADOW GROOVES (back) ===
-      // Spine groove
-      Groove("M130,98 L130,460",0.62),
-      GrooveHi("M130,98 L130,460"),
-      // Upper trap boundary
-      Groove("M76,188 C96,196 114,200 130,200 C146,200 164,196 184,188",0.48),
-      GrooveHi("M76,188 C96,196 114,200 130,200 C146,200 164,196 184,188"),
-      // Mid trap / lower boundary
-      Groove("M82,220 C100,228 116,232 130,232 C144,232 160,228 178,220",0.42),
-      // Lat outer edges
-      Groove("M20,168 C12,194 8,234 12,268",0.36),
-      Groove("M240,168 C248,194 252,234 248,268",0.36),
+      // === GROOVE SHADOWS (back) ===
+      GV("M130,106 L130,468",0.65), GH("M130,106 L130,468"),
+      GV("M72,186 C96,196 114,200 130,200 C146,200 164,196 188,186",0.50),
+      GH("M72,186 C96,196 114,200 130,200 C146,200 164,196 188,186"),
+      GV("M78,218 C98,228 114,232 130,232 C146,232 162,228 182,218",0.44),
+      GV("M10,162 C2,192 -2,236 2,268",0.36),
+      GV("M250,162 C258,192 262,236 258,268",0.36),
       // Erector boundaries
-      Groove("M108,188 C102,218 100,262 104,298",0.34),
-      Groove("M152,188 C158,218 160,262 156,298",0.34),
-      // Rear delt / trap junction L+R
-      Groove("M70,188 C80,196 96,202 108,200",0.36),
-      Groove("M190,188 C180,196 164,202 152,200",0.36),
-      // Glute divide
-      Groove("M130,318 L130,462",0.58),
-      GrooveHi("M130,318 L130,462"),
-      // Glute crease
-      Groove("M22,454 C56,464 94,468 130,468 C166,468 204,464 238,454",0.50),
-      GrooveHi("M22,454 C56,464 94,468 130,468 C166,468 204,464 238,454"),
-      // Hamstring separation L+R
-      Groove("M68,476 C68,518 66,558 68,602",0.34),
-      Groove("M192,476 C192,518 194,558 192,602",0.34),
-      // Knees
-      React.createElement("ellipse",{cx:68,cy:602,rx:15,ry:11,fill:"#060810",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
-      React.createElement("ellipse",{cx:192,cy:602,rx:15,ry:11,fill:"#060810",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
-      // Ankles
-      React.createElement("ellipse",{cx:64,cy:700,rx:12,ry:8,fill:"#060810",stroke:"rgba(255,255,255,0.06)",strokeWidth:0.6}),
-      React.createElement("ellipse",{cx:196,cy:700,rx:12,ry:8,fill:"#060810",stroke:"rgba(255,255,255,0.06)",strokeWidth:0.6}),
-      // === GROUND TEAL GLOW ===
-      React.createElement("rect",{x:14,y:713,width:232,height:4,fill:"#00C8D8",opacity:0.18,style:{filter:"url(#gg"+sfx+")"}}),
-      React.createElement("rect",{x:34,y:714,width:192,height:1.8,fill:"#00E8F0",opacity:0.30})
+      GV("M100,186 C94,220 92,268 96,306",0.36),
+      GV("M160,186 C166,220 168,268 164,306",0.36),
+      // Rear delt / trap
+      GV("M66,186 C78,196 96,202 110,200",0.38),
+      GV("M194,186 C182,196 164,202 150,200",0.38),
+      // Glute divide + crease
+      GV("M130,312 L130,468",0.58), GH("M130,312 L130,468"),
+      GV("M16,460 C52,470 92,474 130,474 C168,474 208,470 244,460",0.52),
+      GH("M16,460 C52,470 92,474 130,474 C168,470 208,460 244,460"),
+      // Ham separation
+      GV("M58,482 C58,530 56,572 60,610",0.34),
+      GV("M202,482 C202,530 204,572 200,610",0.34),
+      // Knee
+      React.createElement("ellipse",{cx:52,cy:590,rx:16,ry:11,fill:"#060810",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
+      React.createElement("ellipse",{cx:208,cy:590,rx:16,ry:11,fill:"#060810",stroke:"rgba(255,255,255,0.07)",strokeWidth:0.7}),
+      // Ankle
+      React.createElement("ellipse",{cx:48,cy:690,rx:13,ry:8,fill:"#060810",stroke:"rgba(255,255,255,0.06)",strokeWidth:0.6}),
+      React.createElement("ellipse",{cx:212,cy:690,rx:13,ry:8,fill:"#060810",stroke:"rgba(255,255,255,0.06)",strokeWidth:0.6}),
+      // GROUND TEAL GLOW
+      React.createElement("rect",{x:10,y:703,width:240,height:3,rx:1,fill:"#00C8D8",opacity:0.22,
+        style:{filter:"blur(4px)"}}),
+      React.createElement("rect",{x:28,y:704,width:204,height:1.5,rx:0.5,fill:"#20F0FF",opacity:0.35})
     );
   };
 
   const aC=pIds.length+sIds.length+stIds.length;
-  const hovName=hov?hov.replace(/-(l|r)$/i,"").replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase()):null;
+  const hovId=hov;
+  const hovName=hovId?hovId.replace(/-(l|r)$/i,"").replace(/-(t|m|b)$/,"").replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase()):null;
+
+  // Figure panel: relative-positioned container, SVG base, absolutely-positioned overlays on top
+  const Panel=({label,Base,overlayMap})=>{
+    return React.createElement("div",{style:{flex:1,minWidth:0,display:"flex",flexDirection:"column"}},
+      React.createElement("div",{style:{fontSize:7,color:"rgba(255,255,255,0.17)",fontFamily:"monospace",letterSpacing:".16em",textAlign:"center",marginBottom:2}},label),
+      React.createElement("div",{style:{position:"relative",width:"100%"}},
+        React.createElement(Base),
+        // Overlay container -- same dimensions as SVG
+        React.createElement("div",{style:{position:"absolute",inset:0,pointerEvents:"none"}},
+          ...buildOverlays(overlayMap)
+        )
+      )
+    );
+  };
 
   return React.createElement("div",{
     style:{background:"#030508",border:"1px solid rgba(255,255,255,0.07)",borderRadius:18,padding:"11px 9px 9px",marginBottom:12,cursor:onExpand?"pointer":"default"},
     onClick:onExpand?onExpand:undefined
   },
     React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}},
-      React.createElement("span",{style:{fontSize:9,fontFamily:"'Space Mono',monospace",letterSpacing:"0.15em",color:"rgba(255,255,255,0.25)",textTransform:"uppercase"}},"Muscle Activation"+(aC>0?" - "+aC+" active":"")),
+      React.createElement("span",{style:{fontSize:9,fontFamily:"'Space Mono',monospace",letterSpacing:"0.15em",color:"rgba(255,255,255,0.24)",textTransform:"uppercase"}},"Muscle Activation"+(aC>0?" -- "+aC+" active":"")),
       hovName&&React.createElement("span",{style:{fontSize:9,fontFamily:"'Space Mono',monospace",color:"rgba(255,255,255,0.56)",background:"rgba(255,255,255,0.07)",padding:"2px 10px",borderRadius:5}},hovName)
     ),
     React.createElement("div",{style:{display:"flex",gap:0,alignItems:"flex-start"}},
-      React.createElement("div",{style:{flex:1,minWidth:0}},
-        React.createElement("div",{style:{fontSize:7,color:"rgba(255,255,255,0.17)",fontFamily:"monospace",letterSpacing:".16em",textAlign:"center",marginBottom:2}},"ANTERIOR"),
-        mkFront()
-      ),
+      React.createElement(Panel,{label:"ANTERIOR",Base:FrontBase,overlayMap:OVERLAYS_F}),
       React.createElement("div",{style:{width:1,background:"rgba(255,255,255,0.04)",alignSelf:"stretch",margin:"10px 4px"}}),
-      React.createElement("div",{style:{flex:1,minWidth:0}},
-        React.createElement("div",{style:{fontSize:7,color:"rgba(255,255,255,0.17)",fontFamily:"monospace",letterSpacing:".16em",textAlign:"center",marginBottom:2}},"POSTERIOR"),
-        mkBack()
-      )
+      React.createElement(Panel,{label:"POSTERIOR",Base:BackBase,overlayMap:OVERLAYS_B})
     ),
     aC>0&&React.createElement("div",{style:{display:"flex",flexWrap:"wrap",gap:14,marginTop:8,paddingTop:6,borderTop:"1px solid rgba(255,255,255,0.05)"}},
       pIds.length>0&&React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
-        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:pCol,boxShadow:"0 0 8px "+pCol+"AA"}}),
+        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:pC,boxShadow:"0 0 8px "+pC+"AA"}}),
         React.createElement("span",{style:{fontSize:9,fontFamily:"'Space Mono',monospace",color:"rgba(255,255,255,0.35)",letterSpacing:".06em"}},"Primary")
       ),
       sIds.length>0&&React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
-        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:"#E87820",boxShadow:"0 0 6px rgba(232,120,32,0.65)"}}),
+        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:sC,boxShadow:"0 0 6px rgba(232,120,32,0.65)"}}),
         React.createElement("span",{style:{fontSize:9,fontFamily:"'Space Mono',monospace",color:"rgba(255,255,255,0.35)",letterSpacing:".06em"}},"Secondary")
       ),
       stIds.length>0&&React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
-        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:"#2080F0",boxShadow:"0 0 6px rgba(32,128,240,0.55)"}}),
+        React.createElement("div",{style:{width:8,height:8,borderRadius:2,background:stC,boxShadow:"0 0 6px rgba(32,128,240,0.55)"}}),
         React.createElement("span",{style:{fontSize:9,fontFamily:"'Space Mono',monospace",color:"rgba(255,255,255,0.35)",letterSpacing:".06em"}},"Stabiliser")
       )
     )
